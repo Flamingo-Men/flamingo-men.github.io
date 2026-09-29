@@ -3,6 +3,8 @@ import json,os
 here=os.path.dirname(os.path.abspath(__file__)); root=os.path.dirname(here)
 t=open(os.path.join(here,'template.html')).read()
 league=json.load(open(os.path.join(root,'data','league.json')))
+# Kyle, 2026-09-29: Charles's 2016 regular season (12-1) is the only 2016 record saved
+league['stats']['charles']['seasons'].setdefault('2016',dict(w=12,l=1,pts=None))
 
 # Team name -> owner, from Kyle (2026-09-28) or by elimination against the stats sheet
 TEAM_OWNER={

@@ -395,6 +395,7 @@ footer small{color:#99a1b8}
   <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
   <p>Regular season records and points from the league stats sheet, 2016 to 2025, plus completed trades from the 2016, 2017 and 2019 to 2025 emails. Click a column to sort.</p></div>
   <div class="tablebox"><table id="allTime"></table></div>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Played in 2016 or 2017, but that season's record wasn't saved, so it counts as a season and nothing else. The only 2016 and 2017 records on file are Charles's 2016 (12-1), and Kyle's and Jack's 2017.</p>
   <div class="block">
     <div class="block-head"><h2>Season standings</h2>
       <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
@@ -648,10 +649,12 @@ function cutout(o){return CUT[o]?`<svg class="bgflam" aria-hidden="true"><use hr
 function sackoMark(){return IMG.sacko?`<img class="sk-ic" src="${IMG.sacko}" alt="">`:""}
 function tradeCount(o){return TR.filter(t=>t.st==="completed"&&(t.a.o===o||t.b.o===o)).length}
 function short(o){if(!o)return "Unconfirmed";const x=OWNERS[o];return x.short||(x.nick?x.nick.split(" / ")[0]:x.name.split(" ")[0])}
-function totals(o){const s=S[o];if(!s)return null;let w=0,l=0,p=0,n=0,best=null;
+// 2016 and 2017: owners on the draft boards whose records weren't saved
+const NOREC={};[2016,2017].forEach(y=>(DRAFTS[y]?.teams||[]).forEach(([,o])=>{if(o&&!S[o]?.seasons?.[y])(NOREC[o]??=[]).push(y)}));
+function totals(o){const s=S[o]||(NOREC[o]?{seasons:{},titles:0,sackos:0}:null);if(!s)return null;let w=0,l=0,p=0,n=0,best=null;
   for(const y in s.seasons){const r=s.seasons[y];if(r.live)continue;w+=r.w;l+=r.l;if(r.pts!=null){p+=r.pts;n++}
     if(!best||r.w/(r.w+r.l)>best.w/(best.w+best.l))best={...r,y}}
-  return {w,l,pct:w+l?w/(w+l):0,pts:p,avg:n?p/n:null,seasons:Object.values(s.seasons).filter(r=>!r.live).length,titles:s.titles,sackos:s.sackos,best}}
+  return {w,l,pct:w+l?w/(w+l):0,pts:p,avg:n?p/n:null,seasons:Object.values(s.seasons).filter(r=>!r.live).length+(NOREC[o]?.length||0),norec:NOREC[o]||[],titles:s.titles,sackos:s.sackos,best}}
 function standings(y){const rows=[];for(const o in S){const r=S[o].seasons[y];if(r)rows.push({o,...r})}
   rows.sort((a,b)=>b.w-a.w||(b.pts||0)-(a.pts||0));return rows}
 function teamNames(o){const m={};if(LIVE[o])(m[2026]??=new Set()).add(LIVE[o].team);TR.forEach(t=>{[t.a,t.b].forEach(s=>{if(s.o===o){(m[t.s]??=new Set()).add(s.team)}})});
@@ -709,11 +712,11 @@ function renderTopRosters(){
 let sortKey="titles",sortDir=-1,seasonSel=2025;
 function renderStats(){
   const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["trades","Trades"]];
-  const rows=Object.keys(S).filter(o=>totals(o).seasons||S[o].titles||S[o].sackos).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o)}));
+  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o)}));
   rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
   $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
    <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span>${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span></div></td>
-     <td class="num">${r.seasons||"–"}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
+     <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
      <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
      <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num">${r.trades||"–"}</td></tr>`).join("")}</tbody>`;
   $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"?1:-1);sortKey=k;renderStats()};
@@ -721,7 +724,7 @@ function renderStats(){
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
   const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
   $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${fmt(r.pts)}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
-  $("#seasonNote").textContent=seasonSel===2026?"2026 standings after week 2, from the ESPN standings page. Divisions: Lex and Bhavi. Moves counts every ESPN transaction, not only trades.":seasonSel===2016?"No 2016 records are in the stats sheet yet.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
+  $("#seasonNote").textContent=seasonSel===2026?"2026 standings after week 2, from the ESPN standings page. Divisions: Lex and Bhavi. Moves counts every ESPN transaction, not only trades.":seasonSel===2016?"Only Charles's 2016 record (12-1) was saved. Points and the other records from 2016 were not.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
 }
 
 /* ---------- DRAFTS ---------- */
