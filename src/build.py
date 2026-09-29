@@ -33,6 +33,8 @@ EARLY=[
  # 2026 trades Kyle reported on 2026-09-29 (pick numbers checked against the 2026 board: Dylan drafted 4th, DiLapi 9th)
  ('2026-08-24',('Sultans of Squirm','dylan',['No. 9 overall pick, 2026 draft|Pick']),('New York Noses','dilapi',['No. 4 overall pick, 2026 draft|Pick'])),
  ('2026-09-25',('THE MONGLERS','kyle',['Hunter Henry|TE','Sam Darnold|QB']),('Galaxy Liberators','jordan',['Romeo Doubs|WR'])),
+ # Kyle, 2026-09-29: before the 2017 draft Charles traded Peanut a secret for his pick (exact date not saved; dated to draft day)
+ ('2017-08-06',('Little Bills','charles',['A secret|Secret']),('Team Peanus','peanut',["Peanut's 2017 draft pick|Pick"])),
 ]
 for d,(ta,oa,ga),(tb,ob,gb) in EARLY:
     league['trades'].append(dict(id=len(league['trades']),d=d,s=int(d[:4]),st='completed',a=dict(team=ta,o=oa,gave=ga),b=dict(team=tb,o=ob,gave=gb)))
