@@ -131,6 +131,19 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .tag.unk{border:1px dashed var(--muted);background:none}
 .top5{display:grid;gap:14px;counter-reset:t}
 .top5 .trade{border-left:4px solid var(--gold)}
+.tboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin-top:8px}
+.tbox{background:var(--marble);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:var(--r);padding:10px 12px;display:grid;gap:8px}
+.tbox.loss{border-left-color:var(--bad)}
+.tbox-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;font-family:var(--f-data);font-size:.7rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.tbox-top .vs{text-transform:none;letter-spacing:0;font-family:var(--f-body);font-size:.85rem}
+.tbox-top .res{font-weight:600;color:var(--good)}.tbox.loss .tbox-top .res{color:var(--bad)}
+.tbox-sides{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:start}
+.tbox-sides ul{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:2px;font-size:.9rem}
+.tbox-sides li{display:flex;justify-content:space-between;gap:6px}
+.tbox-sides li .pts{font-family:var(--f-data);font-size:.72rem;color:var(--muted);white-space:nowrap}
+.tbox-sides .tot{border-top:1px solid var(--line);margin-top:4px;padding-top:3px;font-family:var(--f-data);font-size:.72rem;color:var(--ink);display:flex;justify-content:space-between}
+.tbox .arr{font-family:var(--f-display);color:var(--gold);font-size:1.2rem;padding-top:14px}
+@media (max-width:420px){.tbox-sides{grid-template-columns:1fr}.tbox .arr{padding:0;transform:rotate(90deg);justify-self:start}}
 .top5 .why{margin:0;font-size:.95rem}
 .rank{font-family:var(--f-display);font-size:1.6rem;color:var(--gold);line-height:1}
 .score{font-family:var(--f-data);font-size:.8rem;color:var(--muted);margin:4px 0 0}
@@ -3850,16 +3863,22 @@ const finS=f=>f?`${f[0]}${f[1]}`:"";
 const rdS=r=>`round ${r}`;
 function builtHTML(y,d){const b=MV.champBuilt[y];if(!b)return "";const li=[];
   if(b.draft.length)li.push(`<b>Draft:</b> ${b.draft.map(p=>`${esc(p.n)} (${rdS(p.rd)}, finished ${finS(p.fin)})`).join(", ")}.`);
-  if(b.trades.length)li.push(`<b>Trades:</b> ${b.trades.map(t=>`got ${esc(t.got.join(" and "))} for ${t.gave.length?esc(t.gave.join(", ")):"nothing"} (${fmt(t.par)} points over replacement${t.opp>t.par?`, though the other side got ${fmt(t.opp)}`:""})`).join("; ")}.`);
-  else if(MV.seasons[y]!=="rebuilt"||y>=2018)li.push(`<b>Trades:</b> none that paid off.`);
+  if(!b.trades.length&&(MV.seasons[y]!=="rebuilt"||y>=2018))li.push(`<b>Trades:</b> none that paid off.`);
   if(b.pickups.length)li.push(`<b>Pickups:</b> ${b.pickups.map(p=>`${esc(p.n)} (${p.pos}, week ${p.w}, ${fmt(p.pts)} lineup pts)`).join(", ")}.`);
   else if(y<2018)li.push(`<b>Pickups:</b> no waiver records for ${y}.`);
   const extra=d&&d.moves&&y<2018?d.moves.filter(m=>!/not on file/.test(m)):[];
-  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul></div>`}
+  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>${b.trades.length?`<div class="eyebrow" style="margin-top:10px">Key trades <span class="muted" style="text-transform:none;letter-spacing:0">· rest-of-season points over replacement</span></div><div class="tboxes">${b.trades.map(t=>tradeBox(t.id,CHAMPS[y].o)).join("")}</div>`:""}</div>`}
 function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trades.length))return "";const bits=[];
   if(n.draft.length)bits.push(`Drafted ${n.draft.map(p=>`${esc(p.n)} in ${rdS(p.rd)} (finished ${finS(p.fin)})`).join(" and ")}.`);
-  if(n.trades.length)bits.push(`Traded ${n.trades.map(t=>`${esc(t.gave.join(" and "))} for ${esc(t.got.join(" and ")||"nothing")} (${fmt(t.par)} vs ${fmt(t.opp)} points over replacement)`).join("; ")}.`);
-  return `<p style="margin:0;max-width:65ch;font-size:.95rem"><span class="eyebrow" style="margin-right:6px">What went wrong</span>${bits.join(" ")}</p>`}
+  if(n.trades.length)bits.push(`And ${n.trades.length===1?"a trade that backfired":"trades that backfired"}:`);
+  return `<div><p style="margin:0;max-width:65ch;font-size:.95rem"><span class="eyebrow" style="margin-right:6px">What went wrong</span>${bits.join(" ")}</p>${n.trades.length?`<div class="tboxes">${n.trades.map(t=>tradeBox(t.id,SACKOS[y].o)).join("")}</div>`:""}</div>`}
+
+function tradeBox(id,o){const t=TR.find(t=>t.id===id),x=MV.trades[id];if(!t||!x)return "";
+  const me=t.a.o===o?"a":"b",op=me==="a"?"b":"a",win=x[me].par>=x[op].par;
+  const d=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+  const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${esc(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(got.reduce((s,g)=>s+(g[3]||0),0))}</span></div></div>`;
+  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">with ${esc(t[op].team)} (${esc(short(t[op].o))})</span></span><span class="res">${win?"Won":"Lost"} by ${fmt(Math.abs(x[me].par-x[op].par))}</span></div>
+    <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div></article>`}
 
 /* ---------- SACKOS ---------- */
 function renderSackos(){
