@@ -202,6 +202,34 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .board .cap{padding:12px 14px;display:grid;gap:2px}
 .board.missing{border-style:dashed;place-items:center;min-height:150px;text-align:center;padding:16px;color:var(--muted)}
 .years button.dim{opacity:.55}
+.eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
+.eras button{text-align:left;border:1px solid var(--line);background:var(--slab);border-radius:var(--r);padding:10px 14px;cursor:pointer;display:grid;gap:2px;color:var(--ink);font:inherit}
+.eras button b{font-family:var(--f-display);font-weight:400;font-size:1.05rem;line-height:1.2}
+.eras button span{font-family:var(--f-data);font-size:.72rem;letter-spacing:.06em;color:var(--muted)}
+.eras button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--marble)}
+.eras button[aria-selected="true"] span{color:var(--gold)}
+.yearbio{margin:0;max-width:70ch;font-size:1.05rem}
+.bracket{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:center;gap:0;margin-top:6px}
+.bracket .col{display:grid;gap:14px}
+.bracket .rh{font-family:var(--f-data);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:-6px}
+.bm{border:1px solid var(--line);border-radius:var(--r);background:var(--marble);overflow:hidden}
+.bm .row{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 10px}
+.bm .row+.row{border-top:1px solid var(--line)}
+.bm .sd{font-family:var(--f-data);font-size:.7rem;color:var(--muted);text-align:center}
+.bm .nm{min-width:0}.bm .nm b{display:block;font-weight:600;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bm .nm small{color:var(--muted);font-size:.75rem}
+.bm .sc{font-family:var(--f-data);font-size:.85rem;color:var(--muted)}
+.bm .row.w{background:var(--slab)}.bm .row.w b{color:var(--ink)}.bm .row.w .sc{color:var(--ink);font-weight:700}
+.bm .row.l{opacity:.62}
+.bracket .join{align-self:stretch;position:relative}
+.bracket .join::before{content:"";position:absolute;left:0;right:50%;top:25%;bottom:25%;border:2px solid var(--line);border-left:0;border-radius:0 8px 8px 0}
+.bracket .join::after{content:"";position:absolute;left:50%;right:0;top:50%;border-top:2px solid var(--line)}
+.bracket .join.one::before{display:none}.bracket .join.one::after{left:0}
+.champ-slot{border:1px solid var(--gold);border-radius:var(--r);padding:10px 12px;background:var(--marble);display:grid;gap:2px}
+.champ-slot .eyebrow{color:var(--gold)}
+.champ-slot b{font-family:var(--f-display);font-weight:400;font-size:1.15rem;line-height:1.2}
+.bnote{margin:8px 0 0;font-size:.82rem}
+@media (max-width:720px){.bracket{grid-template-columns:1fr}.bracket .join{height:14px}.bracket .join::before{display:none}.bracket .join::after{left:50%;top:0;bottom:0;border-top:0;border-left:2px solid var(--line)}}
 .dgrid{--dw:min(calc(100vw - 48px),1560px);width:var(--dw);margin-left:calc(50% - var(--dw) / 2)}
 .dgrid table{border-collapse:separate;border-spacing:3px;background:var(--stone);font-size:clamp(.66rem,.78vw,.84rem);width:100%;table-layout:fixed}
 .dgrid th,.dgrid td{border:0}
@@ -398,10 +426,11 @@ footer small{color:#99a1b8}
 <section class="hall" id="hall-history"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">League History</span><h2>The Chronicle of the Flamingo Republic</h2>
   <p>A short first draft. It is built from the trade emails, the stats sheet and the 2016, 2017 and 2023 screenshots, so the political record will grow as more files come in.</p></div>
+  <div class="eras" id="eraTabs" role="tablist" aria-label="Era"></div>
   <div class="chronicle" id="chronicle"></div>
-  <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="years" id="yearPills" role="group" aria-label="Season"></div>
   <div class="yearcard" id="yearCard"></div>
+  <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="block">
     <div class="block-head"><h2>Top 10 rosters of all time</h2></div>
     <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
@@ -512,7 +541,7 @@ const OWNERS = {
   duane:{name:"Duane Bernard",nick:"",desc:"The first champion. His 2016 Emmustangs went 7-6, then beat Charles's 12-1 team 242 to 190 in the two-week final behind Andrew Luck, David Johnson and Travis Kelce. That was his only season. He received his championship pot during a basketball game at Chaminade High School, which was very suspicious."},
   keeves:{name:"Pat McKeever",nick:"Keeves",desc:"Played one season, 2017, as Patrick, and took the Sacko."},
   ghost:{name:"Adam Smith",nick:"Ghost",desc:"A friend the league met playing video games online. Joined for the 2026 expansion as Vick's Vet Clinic."},
-  vicente:{name:"Cristian Vicente",nick:"",desc:"Played one season, 2017, as Quleefie Beefies. Tried to collude twice that year, and both trades were vetoed. Hosted the 2017 draft at his summer house and did not invite Squirm, who once copied his homework and got him detention. Now trying to become a professional MMA fighter."}
+  vicente:{name:"Cristian Vicente",nick:"",short:"Vicente",desc:"Played one season, 2017, as Quleefie Beefies. Tried to collude twice that year, and both trades were vetoed. Hosted the 2017 draft at his summer house and did not invite Squirm, who once copied his homework and got him detention. Now trying to become a professional MMA fighter."}
 };
 const ORDER=["kyle","charles","fluff","squirm","dilapi","quincy","lucas","peanut","rod","jerry","dylan","jordan","skelly","mateus","duane","keeves","ghost","vicente"];
 
@@ -540,6 +569,7 @@ const PICKUPS = {2023:{team:"The Monglers",player:"Kyren Williams"}};
 const CHAMPS = {2016:{o:"duane",team:"Emmustangs"},2017:{o:"kyle",team:"NYC Klugeys / The Monglers"},2018:{o:"fluff",team:"Fluff"},2019:{o:"charles",team:"Sal's 12 Chickens"},2020:{o:"charles",team:"Sal's 34 Chickens"},2021:{o:"squirm",team:"#dicksoutfor Dolan"},2022:{o:"charles",team:"Sal's 12 Chickens"},2023:{o:"kyle",team:"The Monglers"},2024:{o:"dylan",team:"Sultans of Squirm"},2025:{o:"kyle",team:"THE MONGLERS"}};
 const SACKOS = {2016:{o:"fluff",team:"Fluff"},2017:{o:"keeves",team:"Keeves"},2018:{o:"quincy",team:"Quincy"},2019:{o:"dilapi",team:"DiLapi (New York Noses)"},2020:{o:"dilapi",team:"DiLapi (New York Noses)"},2021:{o:"lucas",team:"Lucas"},2022:{o:"jordan",team:"Jordan"},2023:{o:"peanut",team:"Peanut"},2024:{o:"lucas",team:"Lucas"},2025:{o:"quincy",team:"Quincy"}};
 const LIVE = /*LIVE*/;
+const PLAYOFFS = /*PLAYOFFS*/;
 
 const HISTORY = {
   2015:{title:"The Wu-Tang Prequel",unofficial:true,items:["An unofficial season in a league officially called the Wu-Tang, played by a group of friends who called themselves The #Squad.","It was so fraught with cheating and tampering that it does not count. The low point: Quincy's team was put up on a TV at Roosevelt Field Mall and passersby were invited to drop his players.","Charles won it, but the title is not counted in his championships.","The chaos laid the groundwork for a proper league the next year."]},
@@ -700,19 +730,53 @@ function renderHome(){
 }
 
 /* ---------- HISTORY ---------- */
+const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
+const YEAR_BIO={
+  2015:"The unofficial prequel. Charles won a league so full of cheating and tampering that nobody counts it.",
+  2016:"Year one of The LI League. Charles went 12-1 with a super team and still lost the two-week final to Duane's Emmustangs, 242 to 190.",
+  2017:"A separate ESPN league and the only season with Vicente. Kyle's NYC Klugeys went 10-2, beat Charles in the first round and took the crown.",
+  2018:"The first season in today's ESPN league and the last with eight teams. Fluff had the best record and the most points, and finished the job in the final against Charles.",
+  2019:"Charles's Sal's 12 Chickens were in 15 trades and won the first title of the dynasty, beating Squirm 304 to 249 in the final.",
+  2020:"The pandemic season. Charles repeated, surviving a 50-point first week from Peanut to win the final 324 to 287.",
+  2021:"The busiest trade year on record. Squirm's #dicksoutfor Dolan knocked off DiLapi's 11-2 team in the final, 305 to 288.",
+  2022:"Charles's two blockbusters, for Justin Jefferson and Tyreek Hill, paid off with a third title in four years, 232 to 176 over Squirm.",
+  2023:"The breakaway season, played in a separate two-conference league. The Monglers went 11-2 and beat The Encino Men 266 to 246 in the final.",
+  2024:"Back in the main league, with Fluff sitting out. Dylan's Sultans of Squirm beat Squirm 277 to 262 for the title.",
+  2025:"Year 10. Lucas reached the final, lost Patrick Mahomes to injury, and Kyle won his third title 276 to 203.",
+  2026:"The first 12-team season, with double flex and half PPR. Six teams make the playoffs."};
+const BRACKET_MANUAL={
+  2016:{rounds:[[{a:{o:"charles"},b:{o:"peanut"},win:"a"},{a:{o:"duane",team:"Emmustangs"},b:{o:"squirm"},win:"a"}],[{a:{o:"duane",team:"Emmustangs",pts:242},b:{o:"charles",pts:190},win:"a"}]],note:"First-round scores weren't saved. The final ran over two weeks."},
+  2017:{rounds:[[{a:{o:"kyle",team:"NYC Klugeys"},b:{o:"charles"},win:"a"},{a:{o:"vicente",team:"Quleefie Beefies"},b:{o:"squirm"},win:null}],[{a:{o:"kyle",team:"NYC Klugeys"},b:{o:null,team:"Vicente or Squirm"},win:"a"}]],note:"Scores weren't saved, and neither was the winner of Vicente vs. Squirm."}};
+function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
+  if(y===2015)return "";
+  if(!P||!P.rounds||!P.rounds.length)return `<div><div class="eyebrow">Playoff bracket</div><p class="muted" style="margin:4px 0 0">${y===2026?"The playoffs haven't started. Six of the twelve teams get in.":"No bracket on file."}</p></div>`;
+  const row=(s,w)=>{if(!s)return "";const nm=s.team||(s.o?short(s.o):"TBD");return `<div class="row ${w===true?"w":w===false?"l":""}"><span class="sd">${s.seed||""}</span><span class="nm"><b>${esc(nm)}</b>${s.o&&s.team?`<small>${esc(short(s.o))}</small>`:""}</span><span class="sc">${s.pts!=null?fmt(s.pts):""}</span></div>`};
+  const mu=m=>`<div class="bm">${row(m.a,m.win?m.win==="a":null)}${row(m.b,m.win?m.win==="b":null)}</div>`;
+  const [r1,fin]=[P.rounds[0],P.rounds[P.rounds.length-1]],f=fin[0],w=f.win?f[f.win]:null;
+  return `<div><div class="eyebrow" style="margin-bottom:8px">Playoff bracket</div><div class="bracket">
+    <div class="col"><div class="rh">Semifinals</div>${r1.map(mu).join("")}</div><div class="join"></div>
+    <div class="col"><div class="rh">Final</div>${mu(f)}</div><div class="join one"></div>
+    <div class="champ-slot"><span class="eyebrow">♛ Champion</span><b>${w?esc(w.team||short(w.o)):"TBD"}</b>${w&&w.o&&w.team?`<span class="muted" style="font-size:.85rem">${esc(OWNERS[w.o].name)}</span>`:""}</div></div>
+    ${P.note?`<p class="muted bnote">${esc(P.note)}</p>`:y>=2018?`<p class="muted bnote">Each playoff round ran two weeks, and the score is the two-week total. Seeds are from ESPN.</p>`:""}</div>`}
 let histYear=2025;
 function renderHistory(){
   $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
-  $("#chronicle").innerHTML=CHRONICLE.map(([h,p])=>`<div><h3>${esc(h)}</h3><p>${esc(p)}</p>${histTrades(CHRON_TRADES[h])}</div>`).join("");
+  const era=ERAS.find(e=>e[2].includes(histYear));
+  $("#eraTabs").innerHTML=ERAS.map((e,i)=>`<button type="button" role="tab" data-e="${i}" aria-selected="${e===era}"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></button>`).join("");
+  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2].includes(2025)?2025:e[2][e[2].length-1];renderHistory()};
+  const [h0,p0]=CHRONICLE[era[3]];
+  $("#chronicle").innerHTML=`<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
   renderTopRosters();
-  $("#yearPills").innerHTML=[2015,...ALL_YEARS].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
+  $("#yearPills").innerHTML=era[2].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
   $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;renderHistory()};
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
   const nT=TR.filter(t=>t.s===histYear&&t.st==="completed").length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
-  $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
+  $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
+   <p class="yearbio">${esc(YEAR_BIO[histYear]||"")}</p>
+   ${bracketHTML(histYear)}
    <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
-   <ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+   <div><div class="eyebrow">The full story</div><ul style="margin-top:6px">${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>
    ${histTrades((HIST_TRADES[histYear]||[]).filter(id=>id!==HEISTS[histYear]?.id),histYear===2017)}
    ${histYear<2026?`<div class="awards"><div><div class="eyebrow">Trade Rape of the Year${HEISTS[histYear]&&!HEISTS[histYear].official?" · editor's pick":""}</div>${HEISTS[histYear]?`<p style="margin:4px 0 10px">${esc(HEISTS[histYear].why)}</p>${tradeHTML(TR[HEISTS[histYear].id])}`:`<p class="muted" style="margin:4px 0 0">No trade records for ${histYear}.</p>`}</div>
    ${DRAFTS[histYear]?.steals.length?`<div><div class="eyebrow">Steal of the draft</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].steals[0][0])}</b>, round ${DRAFTS[histYear].steals[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].steals[0][2]][0])}). ${esc(DRAFTS[histYear].steals[0][3])}</p></div><div><div class="eyebrow">Worst pick</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].busts[0][0])}</b>, round ${DRAFTS[histYear].busts[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].busts[0][2]][0])}). ${esc(DRAFTS[histYear].busts[0][3])}</p></div>`:""}
