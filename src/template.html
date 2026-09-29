@@ -208,6 +208,40 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .eras button span{font-family:var(--f-data);font-size:.72rem;letter-spacing:.06em;color:var(--muted)}
 .eras button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:var(--marble)}
 .eras button[aria-selected="true"] span{color:var(--gold)}
+details.fold{border:0;padding:0}
+details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);margin-bottom:12px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary h2{margin:0}
+details.fold>summary .chev{width:30px;height:30px;border:1px solid var(--line);border-radius:99px;display:grid;place-items:center;flex:none;background:var(--slab)}
+details.fold>summary .chev::before{content:"";width:8px;height:8px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+details.fold:not([open])>summary .chev::before{transform:translateY(1px) rotate(-135deg)}
+details.fold:not([open])>summary{margin-bottom:0}
+.wkpills{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 12px}
+.wkpills button{min-width:40px;border:1px solid var(--line);background:var(--slab);border-radius:8px;padding:6px 8px;cursor:pointer;font-family:var(--f-data);font-size:.8rem;color:var(--ink)}
+.wkpills button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
+.wkpills button.po{border-color:var(--gold)}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:10px}
+.game{border:1px solid var(--line);border-radius:var(--r);background:var(--slab);overflow:hidden}
+.game>button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:grid;gap:0;padding:4px 0}
+.game>button:focus-visible{outline:2px solid var(--flamingo);outline-offset:-2px}
+.game .gt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 14px}
+.game .gt b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.game .gt small{color:var(--muted);font-size:.75rem}
+.game .gt .sc{font-family:var(--f-data);font-size:1rem;color:var(--muted)}
+.game .gt.w .sc{color:var(--ink);font-weight:700}.game .gt.w b::after{content:" ◂";color:var(--gold);font-size:.8rem}
+.game .gmeta{display:flex;justify-content:space-between;gap:8px;padding:2px 14px 6px;font-family:var(--f-data);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.game.open{grid-column:1/-1}
+.box{border-top:1px solid var(--line);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--marble)}
+.box h4{margin:0 0 6px;font-size:.95rem}
+.box table{width:100%;border-collapse:collapse;font-size:.86rem}
+.box td{padding:3px 4px;border-bottom:1px solid var(--line)}
+.box td.sl{font-family:var(--f-data);font-size:.68rem;color:var(--muted);width:38px}
+.box td.pt{text-align:right;font-family:var(--f-data);white-space:nowrap}
+.box tr.bench td{color:var(--muted)}
+.box tr.tot td{font-weight:700;border-bottom:0;border-top:2px solid var(--line)}
+.box tr.bh td{font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:10px}
+.box .pos{font-size:.66rem;color:var(--muted);margin-left:4px;font-family:var(--f-data)}
+@media (max-width:640px){.box{grid-template-columns:1fr}}
 .yearbio{margin:0;max-width:70ch;font-size:1.05rem}
 .bracket{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:center;gap:0;margin-top:6px}
 .bracket .col{display:grid;gap:14px}
@@ -340,7 +374,7 @@ footer small{color:#99a1b8}
 <header class="site"><div class="wrap">
   <a class="brand" href="#home"><svg style="color:var(--flamingo)"><use href="#flamingo"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
-    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#moves">Moves</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
+    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
   </nav>
 </div></header>
 <div class="meander" aria-hidden="true"></div>
@@ -403,7 +437,7 @@ footer small{color:#99a1b8}
         <a class="tile" href="#champions"><span class="eyebrow">Champions</span><h3>Champions & Sackos</h3><p>Every title roster, every last place, and the moves behind both.</p></a>
         <a class="tile" href="#history"><span class="eyebrow">Chronicle</span><h3>League History</h3><p>Year by year: controversies, rule changes, political fallout.</p></a>
         <a class="tile" href="#drafts"><span class="eyebrow">The Draft</span><h3>Past Drafts</h3><p>The boards, sticker by sticker.</p></a>
-        <a class="tile" href="#moves"><span class="eyebrow">The Agora</span><h3>Moves</h3><p>Every trade and waiver pickup, the top 5 trade rapes and the top 5 pickups.</p></a>
+        <a class="tile" href="#records"><span class="eyebrow">The Agora</span><h3>Records</h3><p>Top trade rapes, pickups and rosters of all time, plus every trade and waiver pickup.</p></a>
         <a class="tile" href="#teams"><span class="eyebrow">Profiles</span><h3>Team Profiles</h3><p>Records, favorite players and every season for each owner.</p></a>
       </div>
     </div>
@@ -412,7 +446,7 @@ footer small{color:#99a1b8}
       <div class="champ-strip" id="champStrip"></div>
     </div>
     <div class="block">
-      <div class="block-head"><h2>Latest from the Agora</h2><a href="#moves">All moves</a></div>
+      <div class="block-head"><h2>Latest from the Agora</h2><a href="#records">All moves</a></div>
       <div class="trades-list" id="latestTrades"></div>
     </div>
     <div class="block">
@@ -431,10 +465,11 @@ footer small{color:#99a1b8}
   <div class="years" id="yearPills" role="group" aria-label="Season"></div>
   <div class="yearcard" id="yearCard"></div>
   <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
-  <div class="block">
-    <div class="block-head"><h2>Top 10 rosters of all time</h2></div>
-    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
-    <div class="top5" id="topRosters"></div>
+  <div class="block" id="weeksBlock">
+    <div class="block-head"><h2>Week by week <span class="muted" id="weeksYear" style="font-family:var(--f-data);font-size:.9rem"></span></h2></div>
+    <div class="wkpills" id="weekPills" role="group" aria-label="Week"></div>
+    <p class="muted" style="margin:-4px 0 10px;font-size:.82rem">Pick a week, then click a matchup for both lineups and every player's points. Weeks outlined in gold are playoff weeks.</p>
+    <div class="games" id="weekGames"></div>
   </div>
 </div></section>
 
@@ -468,17 +503,22 @@ footer small{color:#99a1b8}
 </div></section>
 
 <!-- MOVES -->
-<section class="hall" id="hall-moves"><div class="wrap">
-  <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Moves</h2>
-  <p>Every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
-  <h3 style="margin-bottom:6px">Top 10 trade rapes of all time</h3>
-  <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
-  <div class="top5" id="top5rapes"></div>
-  <div class="block">
-    <div class="block-head"><h2>Top 5 waiver pickups of all time</h2><div class="seg" id="pickPos" role="group" aria-label="Position"></div></div>
-    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
+<section class="hall" id="hall-records"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
+  <p>The all-time lists, plus every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
+  <details class="fold block" open><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
+    <div class="top5" id="top5rapes"></div>
+  </details>
+  <details class="fold block" open><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <div class="seg" id="pickPos" role="group" aria-label="Position" style="margin:0 0 10px"></div>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
     <div class="top5" id="top5pickups"></div>
-  </div>
+  </details>
+  <details class="fold block" open><summary><h2>Top 10 rosters of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
+    <div class="top5" id="topRosters"></div>
+  </details>
   <div class="block">
     <div class="block-head"><h2>All moves</h2><span class="muted num" id="tradeCount"></span></div>
     <div class="controls">
@@ -488,10 +528,9 @@ footer small{color:#99a1b8}
     </div>
     <div id="moveList"></div>
   </div>
-  <div class="block">
-    <div class="block-head"><h2>The five wildest trades</h2></div>
+  <details class="fold block" open><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
     <div class="top5" id="top5"></div>
-  </div>
+  </details>
   <div class="block">
     <div class="block-head"><h2>Vetoed</h2></div>
     <div class="trades-list" id="vetoList"></div>
@@ -514,7 +553,7 @@ footer small{color:#99a1b8}
 
 <div class="meander" aria-hidden="true"></div>
 <footer><div class="wrap">
-  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#moves">Moves</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
   <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
 </div></footer>
 
@@ -763,12 +802,12 @@ function renderHistory(){
   $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
   const era=ERAS.find(e=>e[2].includes(histYear));
   $("#eraTabs").innerHTML=ERAS.map((e,i)=>`<button type="button" role="tab" data-e="${i}" aria-selected="${e===era}"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></button>`).join("");
-  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2].includes(2025)?2025:e[2][e[2].length-1];renderHistory()};
+  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2].includes(2025)?2025:e[2][e[2].length-1];histWeek=null;openGame=null;renderHistory()};
   const [h0,p0]=CHRONICLE[era[3]];
   $("#chronicle").innerHTML=`<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
-  renderTopRosters();
+  renderWeeks();
   $("#yearPills").innerHTML=era[2].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
-  $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;renderHistory()};
+  $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;histWeek=null;openGame=null;renderHistory()};
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
   const nT=TR.filter(t=>t.s===histYear&&t.st==="completed").length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
@@ -786,6 +825,26 @@ function renderHistory(){
 
 function histTrades(ids,manual){const v=manual?MANUAL_VETOES.filter(m=>m.y===2017):[];if(!(ids&&ids.length)&&!v.length)return "";
   return `<div class="hist-trades"><div class="eyebrow">Trades mentioned</div><div class="trades-list">${(ids||[]).map(id=>tradeHTML(TR[id])).join("")}${v.map(m=>`<article class="trade vetoed"><div class="trade-top"><span>2017 season</span><span><span class="tag veto">✕ Vetoed</span></span></div><p style="margin:0">${esc(m.text.replace(/ Vetoed\.$/,""))} Trade details were not saved.</p></article>`).join("")}</div></div>`}
+const WEEKS={};let histWeek=null,openGame=null;
+function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
+  if(y<2018){$("#weekPills").innerHTML="";$("#weekGames").innerHTML=`<p class="muted" style="margin:0">${y===2015?"Nothing from the Wu-Tang season was saved.":`Weekly matchups for ${y} weren't saved. That season ran in an ESPN league that no longer exists.`}</p>`;return}
+  if(!WEEKS[y]){$("#weekGames").innerHTML='<p class="muted" style="margin:0">Loading matchups…</p>';$("#weekPills").innerHTML="";
+    fetch(`data/weeks/${y}.json`).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{WEEKS[y]=d;if(histYear===y)renderWeeks()}).catch(()=>{if(histYear===y)$("#weekGames").innerHTML='<p class="muted" style="margin:0">Matchups could not be loaded.</p>'});return}
+  const D=WEEKS[y],ws=Object.keys(D.weeks).map(Number).sort((a,b)=>a-b);
+  if(!ws.includes(histWeek))histWeek=ws[0];
+  $("#weekPills").innerHTML=ws.map(w=>`<button type="button" data-w="${w}" aria-pressed="${w===histWeek}" class="${D.weeks[w].some(g=>g.tier==="Playoffs")?"po":""}" title="Week ${w}">${w}</button>`).join("");
+  $("#weekPills").onclick=e=>{const b=e.target.closest("[data-w]");if(!b)return;histWeek=+b.dataset.w;openGame=null;renderWeeks()};
+  const tm=id=>D.teams[id]||[null,"Team "+id];
+  const G=D.weeks[histWeek].slice().sort((a,b)=>(a.tier==="Playoffs"?0:a.tier?2:1)-(b.tier==="Playoffs"?0:b.tier?2:1));
+  const side=(s,win)=>{const[o,n]=tm(s.t);return `<div class="gt ${win?"w":""}"><span><b>${esc(n)}</b><small>${esc(o?short(o):"")}</small></span><span class="sc">${s.p!=null?fmt(s.p):"–"}</span></div>`};
+  const lineup=(s)=>{const[o,n]=tm(s.t),st=s.r.filter(r=>r[2]!=="BE"&&r[2]!=="IR"),be=s.r.filter(r=>r[2]==="BE"||r[2]==="IR");
+    const tr=(r,c)=>`<tr class="${c}"><td class="sl">${r[2]}</td><td>${esc(r[0])}${["FLX","BE","IR"].includes(r[2])?`<span class="pos">${esc(r[1])}</span>`:""}</td><td class="pt">${fmt(r[3])}</td></tr>`;
+    return `<div><h4>${esc(n)} <span class="muted" style="font-weight:400">${esc(o?short(o):"")}</span></h4><table><tbody>${st.map(r=>tr(r,"")).join("")}<tr class="tot"><td></td><td>Total</td><td class="pt">${s.p!=null?fmt(s.p):"–"}</td></tr>${be.length?`<tr class="bh"><td colspan="3">Bench</td></tr>${be.map(r=>tr(r,"bench")).join("")}`:""}</tbody></table></div>`};
+  $("#weekGames").innerHTML=G.map((g,i)=>{const k=D.weeks[histWeek].indexOf(g),aw=(g.a.p??0)>(g.b.p??0),bw=(g.b.p??0)>(g.a.p??0),op=openGame===k;
+    const meta=[g.tier?`${g.tier}${g.leg?`, week ${g.leg}`:""}`:"Regular season",g.tot?`Two-week total ${fmt(g.tot[0])} to ${fmt(g.tot[1])}`:""].filter(Boolean);
+    return `<article class="game${op?" open":""}"><button type="button" data-g="${k}" aria-expanded="${op}"><div class="gmeta"><span>${esc(meta[0])}</span><span>${op?"Hide box score":"Box score"}</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button>${op?`<div class="box">${lineup(g.a)}${lineup(g.b)}</div>`:""}</article>`}).join("");
+  $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
+}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
   $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
@@ -994,8 +1053,8 @@ function renderSackos(){
 }
 
 /* ---------- router & lightbox ---------- */
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,moves:renderTrades,champions:renderChamps,sackos:renderSackos};
-function route(){let h=(location.hash||"#home").slice(1);if(h==="trades")h="moves";if(!ROUTES[h])h="home";
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderTrades();renderTopRosters()},champions:renderChamps,sackos:renderSackos};
+function route(){let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="moves")h="records";if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   ROUTES[h]();window.scrollTo(0,0)}
