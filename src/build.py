@@ -59,5 +59,7 @@ imgs={os.path.splitext(f)[0]:'img/'+f for f in os.listdir(os.path.join(root,'img
 # transparent cutouts for the Champions and Sackos cards
 cuts={os.path.splitext(f)[0]:'img/cut/'+f for f in os.listdir(os.path.join(root,'img','cut'))}
 t=t.replace('/*DATA*/',json.dumps(league,ensure_ascii=False,separators=(',',':'))).replace('/*IMGS*/',json.dumps(imgs)).replace('/*FLAGS*/',json.dumps(flags)).replace('/*LIVE*/',json.dumps(live)).replace('/*CUTS*/',json.dumps(cuts)).replace('/*DRAFTS*/',open(os.path.join(root,'data','drafts.json')).read())
+# ESPN waiver/roster history and the rebuilt seasons, from src/moves.py
+t=t.replace('/*MOVES*/',open(os.path.join(root,'data','moves.json')).read())
 open(os.path.join(root,'index.html'),'w').write(t)
 print('ok',len(t))

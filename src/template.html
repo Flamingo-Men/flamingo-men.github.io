@@ -133,6 +133,19 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .top5 .trade{border-left:4px solid var(--gold)}
 .top5 .why{margin:0;font-size:.95rem}
 .rank{font-family:var(--f-display);font-size:1.6rem;color:var(--gold);line-height:1}
+.score{font-family:var(--f-data);font-size:.8rem;color:var(--muted);margin:4px 0 0}
+.score b{color:var(--ink)}
+.pickup{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:flex;gap:14px;align-items:start}
+.pickup h4{margin:0;font-size:1.05rem}
+.mtable td{white-space:normal}
+.mtable td.nw{white-space:nowrap}
+.mtable tr.dim td{opacity:.6}
+.rbadge{display:inline-block;font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--stone);color:var(--muted);vertical-align:middle}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 12px;cursor:pointer;font-family:var(--f-data);font-size:.8rem;color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
+.toproster{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
+.toproster .hd{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 
 /* history */
 .chronicle{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:14px}
@@ -280,7 +293,7 @@ footer small{color:#99a1b8}
 <header class="site"><div class="wrap">
   <a class="brand" href="#home"><svg style="color:var(--flamingo)"><use href="#flamingo"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
-    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#trades">Trades</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
+    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#moves">Moves</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
   </nav>
 </div></header>
 <div class="meander" aria-hidden="true"></div>
@@ -343,7 +356,7 @@ footer small{color:#99a1b8}
         <a class="tile" href="#champions"><span class="eyebrow">Champions</span><h3>Champions & Sackos</h3><p>Every title roster, every last place, and the moves behind both.</p></a>
         <a class="tile" href="#history"><span class="eyebrow">Chronicle</span><h3>League History</h3><p>Year by year: controversies, rule changes, political fallout.</p></a>
         <a class="tile" href="#drafts"><span class="eyebrow">The Draft</span><h3>Past Drafts</h3><p>The boards, sticker by sticker.</p></a>
-        <a class="tile" href="#trades"><span class="eyebrow">The Agora</span><h3>Trade Ledger</h3><p>Every trade by date, the five craziest, and the vetoed.</p></a>
+        <a class="tile" href="#moves"><span class="eyebrow">The Agora</span><h3>Moves</h3><p>Every trade and waiver pickup, the top 5 trade rapes and the top 5 pickups.</p></a>
         <a class="tile" href="#teams"><span class="eyebrow">Profiles</span><h3>Team Profiles</h3><p>Records, favorite players and every season for each owner.</p></a>
       </div>
     </div>
@@ -352,7 +365,7 @@ footer small{color:#99a1b8}
       <div class="champ-strip" id="champStrip"></div>
     </div>
     <div class="block">
-      <div class="block-head"><h2>Latest from the Agora</h2><a href="#trades">All trades</a></div>
+      <div class="block-head"><h2>Latest from the Agora</h2><a href="#moves">All moves</a></div>
       <div class="trades-list" id="latestTrades"></div>
     </div>
     <div class="block">
@@ -370,6 +383,11 @@ footer small{color:#99a1b8}
   <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="years" id="yearPills" role="group" aria-label="Season"></div>
   <div class="yearcard" id="yearCard"></div>
+  <div class="block">
+    <div class="block-head"><h2>Top 5 rosters of all time</h2></div>
+    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2020 to 2024, plus the champion and Sacko rosters on file for other years. Kickers and defenses don't count.</p>
+    <div class="top5" id="topRosters"></div>
+  </div>
 </div></section>
 
 <!-- STATS -->
@@ -400,19 +418,30 @@ footer small{color:#99a1b8}
   <div id="profile"></div>
 </div></section>
 
-<!-- TRADES -->
-<section class="hall" id="hall-trades"><div class="wrap">
-  <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Trade ledger</h2>
-  <p>Every football trade in the league email archive: 2016 and 2017 from forwarded ESPN emails, then 2019 to 2025. Trades from 2018 were not in the archive, and 2026 trades are added as they happen.</p></div>
-  <h3 style="margin-bottom:12px">The five craziest trades ever made</h3>
-  <div class="top5" id="top5"></div>
+<!-- MOVES -->
+<section class="hall" id="hall-moves"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Moves</h2>
+  <p>Every trade and waiver pickup on record. Pickups come from ESPN for 2020 to 2024 and 2026. ESPN has no waiver history for 2016 to 2019 or 2025, so those seasons show trades only.</p></div>
+  <h3 style="margin-bottom:6px">Top 5 trade rapes of all time</h3>
+  <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
+  <div class="top5" id="top5rapes"></div>
   <div class="block">
-    <div class="block-head"><h2>All trades</h2><span class="muted num" id="tradeCount"></span></div>
+    <div class="block-head"><h2>Top 5 pickups of all time</h2></div>
+    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2020 to 2024 and 2026).</p>
+    <div class="top5" id="top5pickups"></div>
+  </div>
+  <div class="block">
+    <div class="block-head"><h2>All moves</h2><span class="muted num" id="tradeCount"></span></div>
     <div class="controls">
       <label for="tradeOwner">Team<select id="tradeOwner"></select></label>
       <label for="tradeSeason">Season<select id="tradeSeason"></select></label>
+      <label for="moveType">Type<select id="moveType"><option value="all">Trades and pickups</option><option value="trades">Trades</option><option value="pickups">Waiver pickups</option></select></label>
     </div>
-    <div class="trades-list" id="tradeList"></div>
+    <div id="moveList"></div>
+  </div>
+  <div class="block">
+    <div class="block-head"><h2>The five wildest trades</h2></div>
+    <div class="top5" id="top5"></div>
   </div>
   <div class="block">
     <div class="block-head"><h2>Vetoed</h2></div>
@@ -436,7 +465,7 @@ footer small{color:#99a1b8}
 
 <div class="meander" aria-hidden="true"></div>
 <footer><div class="wrap">
-  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#trades">Trades</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#moves">Moves</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
   <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
 </div></footer>
 
@@ -594,6 +623,7 @@ const SACKO_DETAIL = {
 };
 
 const DRAFTS = /*DRAFTS*/;
+const MV = /*MOVES*/;
 const BOARDS = [
   {year:2016,img:"draft-2016.jpg",cap:"The 2016 sticker board at Sal's office. Columns include Patcher's (Lucas), NY Lorenzos (Charles, with Le'Veon Bell, Antonio Brown and A.J. Green) and DAB (Duane, with David Johnson, Jordy Nelson, T.Y. Hilton and Kelce)."},
   {year:2017,img:"draft-2017.jpg",cap:"Live draft, August 6, 2017. Owners on the board include Fluff, Squirm, Patrick and Klugz."},
@@ -653,6 +683,7 @@ let histYear=2025;
 function renderHistory(){
   $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
   $("#chronicle").innerHTML=CHRONICLE.map(([h,p])=>`<div><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("");
+  renderTopRosters();
   $("#yearPills").innerHTML=[2015,...ALL_YEARS].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
   $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;renderHistory()};
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
@@ -663,8 +694,15 @@ function renderHistory(){
    <ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
    ${histYear<2026?`<div class="awards"><div><div class="eyebrow">Trade Rape of the Year${HEISTS[histYear]&&!HEISTS[histYear].official?" · editor's pick":""}</div>${HEISTS[histYear]?`<p style="margin:4px 0 10px">${esc(HEISTS[histYear].why)}</p>${tradeHTML(TR[HEISTS[histYear].id])}`:`<p class="muted" style="margin:4px 0 0">No trade records for ${histYear}.</p>`}</div>
    ${DRAFTS[histYear]?.steals.length?`<div><div class="eyebrow">Steal of the draft</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].steals[0][0])}</b>, round ${DRAFTS[histYear].steals[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].steals[0][2]][0])}). ${esc(DRAFTS[histYear].steals[0][3])}</p></div><div><div class="eyebrow">Worst pick</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].busts[0][0])}</b>, round ${DRAFTS[histYear].busts[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].busts[0][2]][0])}). ${esc(DRAFTS[histYear].busts[0][3])}</p></div>`:""}
-   <div><div class="eyebrow">Pickup of the Year</div>${PICKUPS[histYear]?`<p style="margin:4px 0 0"><b>${esc(PICKUPS[histYear].player)}</b>, picked up by ${esc(PICKUPS[histYear].team)}${PICKUPS[histYear].official?" (official league award)":""}.</p>`:`<p class="muted" style="margin:4px 0 0">Waiver records for ${histYear} are not in the files yet.</p>`}</div></div>`:""}
+   <div><div class="eyebrow">Pickup of the Year</div>${PICKUPS[histYear]?`<p style="margin:4px 0 0"><b>${esc(PICKUPS[histYear].player)}</b>, picked up by ${esc(PICKUPS[histYear].team)}${PICKUPS[histYear].official?" (official league award)":""}.</p>`:MV.pickupOfYear[histYear]?(m=>`<p style="margin:4px 0 0"><b>${esc(m.add[0])}</b>, picked up by ${esc(m.team)} (${esc(short(m.o))}) in week ${m.w}. He scored ${fmt(m.pts)} points in their lineup.</p>`)(MV.pickupOfYear[histYear]):`<p class="muted" style="margin:4px 0 0">Waiver records for ${histYear} are not in the files yet.</p>`}</div></div>`:""}
 `;
+}
+
+function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
+function renderTopRosters(){
+  $("#topRosters").innerHTML=MV.rosterRank.slice(0,5).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
+    <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th>${r.y+1} draft pick</th><th class="num">Score</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${esc(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num nw">${pickLabel(r.y,p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
+    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></article>`).join("");
 }
 
 /* ---------- STATS ---------- */
@@ -729,6 +767,7 @@ function renderTeams(){
   Object.keys(names).forEach(y=>{if(!yrs.includes(+y))yrs.push(+y)});
   Object.entries(CHAMPS).forEach(([y,c])=>{if(c.o===o&&!yrs.includes(+y))yrs.push(+y)});
   Object.entries(SACKOS).forEach(([y,c])=>{if(c.o===o&&!yrs.includes(+y))yrs.push(+y)});
+  Object.entries(MV.rosters).forEach(([y,R])=>{if(R[o]&&!yrs.includes(+y))yrs.push(+y)});
   yrs.sort((a,b)=>b-a);if(teamYear==null||!yrs.includes(teamYear))teamYear=yrs[0]??null;
   const nameList=Object.entries(names).sort((a,b)=>a[0]-b[0]).map(([y,s])=>`<span class="chip">${esc([...s].join(" / "))}<small>${y}</small></span>`).join("");
   $("#profile").innerHTML=`<div class="profile">
@@ -751,33 +790,67 @@ function renderTeams(){
    </div></div>`;
   if(yrs.length){$("#teamYear").onchange=e=>{teamYear=+e.target.value;renderSeasonDetail()};renderSeasonDetail()}
 }
+let teamView="roster";
+function rosterTable(pl,espn){const how=h=>h?`<span class="rbadge">${esc(h)}</span>`:"";
+  return `<div class="tablebox"><table class="mtable"><thead><tr><th>Slot</th><th>Player</th><th>Finish</th>${espn?'<th>Acquired</th><th class="num">Lineup pts</th>':'<th>Acquired</th>'}</tr></thead><tbody>${pl.map(p=>`<tr><td class="num">${esc(p[0]||p[2]||"")}</td><td>${esc(p[1])} <span class="muted">${esc(p[0]&&p[2]&&p[0]!==p[2]?p[2]:"")}</span></td><td class="num">${p[5]?`${p[5][0]}${p[5][1]}`:'<span class="muted">–</span>'}</td><td>${how(p[3])}</td>${espn?`<td class="num">${fmt(p[4])}</td>`:""}</tr>`).join("")}</tbody></table></div>`}
 function renderSeasonDetail(){
   const o=current,y=teamYear,r=S[o]?.seasons[y],st=standings(y),rank=st.findIndex(x=>x.o===o)+1;
   const tr=TR.filter(t=>t.s===y&&(t.a.o===o||t.b.o===o));
   const nm=teamNames(o)[y];
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
   let finish=CHAMPS[y]?.o===o?"♛ Champion":SACKOS[y]?.o===o?`${sackoMark()} Sacko`:rank?`${rank} of ${st.length} (reg. season)`:"–";
-  $("#seasonDetail").innerHTML=`<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):"–")}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}</div>
+  const R=MV.rosters[y]?.[o],espn=MV.seasons[y]==="espn",pk=MV.moves.filter(m=>m.y===y&&m.o===o&&m.add);
+  let body="";
+  if(teamView==="roster"){
+    if(!R)body=`<p class="muted">No roster on file for ${y}.</p>`;
+    else if(espn)body=`<p class="muted" style="margin:0;font-size:.85rem">Final ${y} roster from ESPN${y===2026?" (season in progress)":""}. Lineup pts are the points each player scored in this team's starting lineup that season.</p>${rosterTable(R.players,true)}`;
+    else body=(R.snap?`<p class="muted" style="margin:0;font-size:.85rem"><span class="rbadge">Rebuilt</span> ${esc(R.snap.note)}</p>${rosterTable(R.snap.players,false)}`:"")
+      +(R.players.length?`<p class="muted" style="margin:${R.snap?"10px":"0"} 0 0;font-size:.85rem"><span class="rbadge">Rebuilt</span> ${R.snap?"Drafted players and trades for the full season":"ESPN has no roster history for "+y+". This is rebuilt from the draft board and the trade log"}: every player drafted, plus players traded in and minus players traded away. Waiver moves for ${y} are not on file.</p>${rosterTable(R.players,false)}`:"");
+  } else if(teamView==="pickups"){
+    body=pk.length?pickupTable(pk.slice().reverse(),false):`<p class="muted">${espn?`No pickups in ${y}.`:`ESPN has no waiver history for ${y}.`}</p>`;
+  } else body=`<div class="trades-list">${tr.slice().reverse().map(t=>tradeHTML(t,tradeScore(t))).join("")||`<p class="muted">No trades on record for ${y}.</p>`}</div>`;
+  $("#seasonDetail").innerHTML=`<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):(R?.team?esc(R.team):"–"))}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}${espn?fact("Pickups",pk.length):""}${fact("Trades",tr.filter(t=>t.st==="completed").length)}</div>
    ${CHAMP_DETAIL[y]&&CHAMPS[y]?.o===o?`<div class="note">Title season. See the <a href="#champions">Hall of Champions</a> for the full roster.</div>`:""}
-   <h3 style="margin-top:6px">${tr.length?`Trades in ${y}`:`No trades on record for ${y}`}</h3>
-   <div class="trades-list">${tr.slice().reverse().map(t=>tradeHTML(t)).join("")}</div>`;
+   <div class="seg" role="group" aria-label="Show">${[["roster","Roster"],["pickups","Waiver pickups"],["trades","Trades"]].map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===teamView}">${l}</button>`).join("")}</div>
+   ${body}`;
+  $("#seasonDetail .seg").onclick=e=>{const b=e.target.closest("[data-v]");if(!b)return;teamView=b.dataset.v;renderSeasonDetail()};
 }
 
-/* ---------- TRADES ---------- */
-let tOwner="all",tSeason="all";
+/* ---------- MOVES ---------- */
+let tOwner="all",tSeason="all",tType="all",showAll=false;
+const MOVE_SEASONS=Object.entries(MV.seasons).filter(([,v])=>v==="espn").map(([y])=>+y);
+function tradeScore(t){const x=MV.trades[t.id];if(!x)return "";
+  const side=(s,g)=>`<b>${esc(s.team)}</b> got ${fmt(g.par)}${g.got.length?` <span class="muted">(${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`;
+  return `<p class="score">Points over replacement, rest of season${x.est?" (estimated)":""}: ${side(t.a,x.a)} · ${side(t.b,x.b)}</p>`}
+function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
+  return `<tr><td class="nw num">${d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}</td>${withTeam?`<td>${esc(m.team)} <span class="muted">${esc(short(m.o))}</span></td>`:""}<td><b>${esc(m.add[0])}</b> <span class="muted">${esc(m.add[1])}</span></td><td>${m.drop?`${esc(m.drop[0])} <span class="muted">${esc(m.drop[1])}</span>`:'<span class="muted">–</span>'}</td><td class="nw">${m.k}</td><td class="num">${m.pts?fmt(m.pts):"–"}</td></tr>`}
+function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
 function renderTrades(){
+  const margin=x=>Math.abs(x.a.par-x.b.par);
+  const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed").sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,5);
+  $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.par>=x.b.par?"a":"b",l=w==="a"?"b":"a";
+    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${fmt(margin(x))} points over replacement in ${t.s}. ${esc(t[l].team)} (${esc(short(t[l].o))}) got ${fmt(x[l].par)}.</p></div>${tradeScore(t)}`)}).join("");
+  $("#top5pickups").innerHTML=MV.topPickups.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(m.o)}<div><h4>${esc(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${esc(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p></div></article>`).join("");
   $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
-  const owners=[...new Set(TR.flatMap(t=>[t.a.o,t.b.o]).filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
+  const adds=MV.moves.filter(m=>m.add);
+  const owners=[...new Set([...TR.flatMap(t=>[t.a.o,t.b.o]),...adds.map(m=>m.o)].filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
   $("#tradeOwner").innerHTML=`<option value="all">All teams</option>${owners.map(o=>`<option value="${o}" ${o===tOwner?"selected":""}>${esc(OWNERS[o].name)}${OWNERS[o].nick?` (${esc(OWNERS[o].nick)})`:""}</option>`).join("")}<option value="unk" ${tOwner==="unk"?"selected":""}>Owner unconfirmed</option>`;
-  const ys=[...new Set(TR.map(t=>t.s))].sort((a,b)=>b-a);
+  const ys=[...new Set([...TR.map(t=>t.s),...adds.map(m=>m.y)])].sort((a,b)=>b-a);
   $("#tradeSeason").innerHTML=`<option value="all">All seasons</option>${ys.map(y=>`<option ${String(y)===String(tSeason)?"selected":""}>${y}</option>`).join("")}`;
-  $("#tradeOwner").onchange=e=>{tOwner=e.target.value;renderTrades()};
-  $("#tradeSeason").onchange=e=>{tSeason=e.target.value;renderTrades()};
+  $("#moveType").value=tType;
+  $("#tradeOwner").onchange=e=>{tOwner=e.target.value;showAll=false;renderTrades()};
+  $("#tradeSeason").onchange=e=>{tSeason=e.target.value;showAll=false;renderTrades()};
+  $("#moveType").onchange=e=>{tType=e.target.value;showAll=false;renderTrades()};
   const match=t=>(tSeason==="all"||t.s==+tSeason)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
   const byDate=(a,b)=>a.d.localeCompare(b.d)||a.id-b.id;
-  const list=TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse();
-  $("#tradeCount").textContent=`${list.length} trade${list.length===1?"":"s"}`;
-  $("#tradeList").innerHTML=list.map(t=>tradeHTML(t)).join("")||'<p class="muted">No trades match.</p>';
+  const list=tType==="pickups"?[]:TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse();
+  const pk=tType==="trades"||tOwner==="unk"?[]:adds.filter(m=>(tSeason==="all"||m.y==+tSeason)&&(tOwner==="all"||m.o===tOwner)).slice().reverse();
+  $("#tradeCount").textContent=[tType!=="pickups"?`${list.length} trade${list.length===1?"":"s"}`:"",tType!=="trades"?`${pk.length} pickup${pk.length===1?"":"s"}`:""].filter(Boolean).join(" · ");
+  const cap=showAll?pk.length:100;
+  const noWaivers=tSeason!=="all"&&!MOVE_SEASONS.includes(+tSeason)?`<div class="note" style="margin-bottom:12px">ESPN has no waiver history for ${tSeason}, so only trades are listed.</div>`:"";
+  $("#moveList").innerHTML=noWaivers+(tType!=="pickups"?`${tType==="all"?`<h3 style="margin:0 0 10px">Trades</h3>`:""}<div class="trades-list">${list.map(t=>tradeHTML(t,tradeScore(t))).join("")||'<p class="muted">No trades match.</p>'}</div>`:"")
+    +(tType!=="trades"&&pk.length?`${tType==="all"?`<h3 style="margin:24px 0 10px">Waiver and free agent pickups</h3>`:""}${pickupTable(pk.slice(0,cap))}${pk.length>cap?`<p><button type="button" class="seg-more" id="moreMoves" style="margin-top:10px;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--slab);cursor:pointer;color:var(--ink)">Show all ${pk.length} pickups</button></p>`:""}`:(tType==="pickups"?'<p class="muted">No pickups match.</p>':""));
+  const more=$("#moreMoves");if(more)more.onclick=()=>{showAll=true;renderTrades()};
   $("#vetoList").innerHTML=TR.filter(t=>t.st==="vetoed").reverse().map(t=>tradeHTML(t)).join("")+MANUAL_VETOES.map(v=>`<article class="trade"><div class="trade-top"><span>${v.y} season</span><span class="tag veto">Vetoed</span></div><p style="margin:0">${esc(v.text)} <span class="muted">Player details not on file.</span></p></article>`).join("");
 }
 
@@ -808,8 +881,8 @@ function renderSackos(){
 }
 
 /* ---------- router & lightbox ---------- */
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,trades:renderTrades,champions:renderChamps,sackos:renderSackos};
-function route(){let h=(location.hash||"#home").slice(1);if(!ROUTES[h])h="home";
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,moves:renderTrades,champions:renderChamps,sackos:renderSackos};
+function route(){let h=(location.hash||"#home").slice(1);if(h==="trades")h="moves";if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   ROUTES[h]();window.scrollTo(0,0)}
