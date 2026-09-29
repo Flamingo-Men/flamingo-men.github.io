@@ -1,0 +1,3788 @@
+<title>The Flamingo Men</title>
+<meta name="description" content="Official home of the Flamingo Men fantasy football league, est. 2016.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Spline+Sans+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a marble temple. Meander-banded header, pediment hero, colonnade of section tiles, then tabbed "halls" for each sub page. */
+:root{
+  --marble:#f6f3f4; --slab:#ffffff; --stone:#e9e3e6; --ink:#15203b; --muted:#5b6178;
+  --aegean:#1d4f91; --flamingo:#e0517a; --flamingo-soft:#fbe1e9; --gold:#a97c22; --line:#d9d1d5;
+  --good:#23845a; --bad:#c0392b; --night:#15203b;
+  --f-display:"Marcellus SC","Trajan Pro",Georgia,serif;
+  --f-body:"Alegreya Sans","Gill Sans","Segoe UI",system-ui,sans-serif;
+  --f-data:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  --r:6px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --marble:#0d1322; --slab:#141c30; --stone:#1b2540; --ink:#eef0f7; --muted:#9ca4bd;
+  --aegean:#86aee8; --flamingo:#ff7fa0; --flamingo-soft:#3a1c2a; --gold:#d8ad57; --line:#2a3553;
+  --good:#5cc995; --bad:#ff8a7a; --night:#060a14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --marble:#0d1322; --slab:#141c30; --stone:#1b2540; --ink:#eef0f7; --muted:#9ca4bd;
+  --aegean:#86aee8; --flamingo:#ff7fa0; --flamingo-soft:#3a1c2a; --gold:#d8ad57; --line:#2a3553;
+  --good:#5cc995; --bad:#ff8a7a; --night:#060a14; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--marble);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.5;margin:0}
+a{color:var(--aegean)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--flamingo);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0;letter-spacing:.02em}
+h2{font-size:clamp(1.6rem,3.4vw,2.3rem)}
+h3{font-size:1.25rem}
+.eyebrow{font-family:var(--f-data);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+.meander{height:12px;background:var(--gold);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x}
+
+/* top bar + nav (440 style) */
+.topbar{background:var(--night);color:#f6f3f4;font-size:.8rem}
+.topbar .wrap{display:flex;gap:12px;justify-content:space-between;align-items:center;padding-block:6px;flex-wrap:wrap}
+.topbar span{font-family:var(--f-data);letter-spacing:.1em;text-transform:uppercase}
+header.site{background:var(--slab);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+header.site .wrap{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
+.brand b{font-family:var(--f-display);font-weight:400;font-size:1.25rem;letter-spacing:.06em}
+.brand svg{width:34px;height:34px}
+nav.main{display:flex;gap:2px;flex-wrap:wrap}
+nav.main a{font-family:var(--f-data);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:8px 10px;border-radius:var(--r)}
+nav.main a:hover{background:var(--stone)}
+nav.main a[aria-current="page"]{background:var(--flamingo);color:#fff}
+
+section.hall{display:none;padding-block:36px 64px}
+section.hall.on{display:block}
+.hall-head{display:grid;gap:6px;margin-bottom:24px}
+.hall-head p{max-width:65ch;margin:0;color:var(--muted)}
+
+/* hero */
+.hero{position:relative;background:var(--night);color:#f6f3f4;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center;padding-block:44px 36px}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);line-height:.95;letter-spacing:.04em;color:#ff7fa0}
+.hero h1 em{font-style:normal;color:inherit}
+.hero p{max-width:52ch;color:#cfd4e4;margin:14px 0 0}
+.hero .eyebrow{color:#e8c574}
+.pediment{width:100%;max-width:380px;justify-self:center}
+.hero-stats{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap}
+.hero-stats div{display:grid}
+.hero-stats b{font-family:var(--f-display);font-weight:400;font-size:2rem;color:#fff}
+.hero-stats span{font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#aeb6cc}
+
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.tile{display:grid;gap:6px;text-decoration:none;color:var(--ink);background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:20px 18px 18px;position:relative}
+.tile:hover{border-color:var(--flamingo)}
+.tile .eyebrow{color:var(--flamingo)}
+.tile h3{font-size:1.4rem}
+.tile p{margin:0;color:var(--muted);font-size:.95rem}
+.block{margin-top:44px}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+
+.champ-strip{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:8px}
+.cyear{background:var(--slab);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--r);padding:10px 8px;text-align:center;min-width:0}
+.cyear .y{font-family:var(--f-data);font-size:.75rem;color:var(--muted)}
+.cyear .n{font-family:var(--f-display);font-size:.95rem;line-height:1.15;margin-top:4px;overflow-wrap:anywhere}
+.cyear.tbd{border-top-color:var(--line)}
+.cyear.tbd .n{color:var(--muted)}
+
+.owners-row{display:flex;gap:14px;flex-wrap:wrap}
+.owner-pill{display:grid;justify-items:center;gap:6px;text-decoration:none;color:var(--ink);width:84px;background:none;border:0;padding:0;cursor:pointer}
+.owner-pill span{font-size:.85rem;font-weight:700;text-align:center}
+.av{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--flamingo-soft);display:grid;place-items:center;font-family:var(--f-display);color:var(--flamingo);font-size:1.3rem;flex:none}
+.owner-pill[aria-pressed="true"] .av{border-color:var(--flamingo);box-shadow:0 0 0 3px var(--flamingo-soft)}
+
+/* tables */
+.tablebox{overflow-x:auto;background:var(--slab);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{font-family:var(--f-data);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--stone);position:sticky;top:0}
+th button{background:none;border:0;padding:0;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+th[aria-sort] button{color:var(--flamingo)}
+td.num,th.num{text-align:right}
+tr:last-child td{border-bottom:0}
+.who{display:flex;align-items:center;gap:10px}
+.who .av{width:30px;height:30px;font-size:.8rem;border-width:1px}
+.crown{color:var(--gold);font-size:1.35rem;line-height:1;letter-spacing:.05em}
+.sacko{color:var(--flamingo);font-family:var(--f-data)}
+.sk-ic{height:24px;width:auto;object-fit:contain;vertical-align:middle;margin-left:2px}
+
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:16px}
+.controls label{display:grid;gap:4px;font-family:var(--f-data);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;border-radius:var(--r);border:1px solid var(--line);background:var(--slab);color:var(--ink);min-width:0;max-width:100%}
+
+/* trades */
+.trade{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
+.trade-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--f-data);font-size:.75rem;color:var(--muted);letter-spacing:.06em}
+.sides{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:start}
+.side h4{margin:0 0 4px;font-size:1rem;font-weight:800;overflow-wrap:anywhere}
+.side .o{font-size:.8rem;color:var(--muted)}
+.side ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}
+.side li{font-size:.95rem}
+.pos{font-family:var(--f-data);font-size:.68rem;color:var(--muted);margin-left:6px}
+.swap{font-family:var(--f-display);color:var(--gold);font-size:1.4rem;padding-top:14px}
+.trades-list{display:grid;gap:10px}
+.tag{display:inline-block;font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--stone);color:var(--muted)}
+.tag.veto{background:var(--flamingo);color:#fff}
+.tag.flag{background:var(--flamingo-soft);color:var(--flamingo)}
+.tag.unk{border:1px dashed var(--muted);background:none}
+.top5{display:grid;gap:14px;counter-reset:t}
+.top5 .trade{border-left:4px solid var(--gold)}
+.top5 .why{margin:0;font-size:.95rem}
+.rank{font-family:var(--f-display);font-size:1.6rem;color:var(--gold);line-height:1}
+
+/* history */
+.chronicle{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:14px}
+.chronicle p{margin:0;max-width:68ch}
+.chronicle h3{color:var(--aegean)}
+.years{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 14px}
+.years button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:6px 14px;cursor:pointer;font-family:var(--f-data);font-size:.85rem}
+.years button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
+.yearcard{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:grid;gap:14px}
+.awards{display:grid;gap:18px;border-top:1px solid var(--line);padding-top:16px}
+.yearcard ul{margin:0;padding-left:1.1em;display:grid;gap:6px;max-width:70ch}
+.facts{display:flex;gap:10px;flex-wrap:wrap}
+.fact{border:1px solid var(--line);border-radius:var(--r);padding:8px 12px;min-width:0}
+.fact .eyebrow{display:block}
+.fact b{font-family:var(--f-display);font-weight:400;font-size:1.1rem}
+
+/* profiles */
+.profile{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:22px}
+.profile .big{width:220px;height:220px;border-radius:var(--r);object-fit:cover;border:3px solid var(--gold);background:var(--flamingo-soft);display:grid;place-items:center;font-family:var(--f-display);font-size:4rem;color:var(--flamingo)}
+.profile h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--stone);border-radius:var(--r);padding:10px 12px}
+.kpi b{display:block;font-family:var(--f-display);font-weight:400;font-size:1.6rem}
+.kpi span{font-family:var(--f-data);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:var(--flamingo-soft);color:var(--ink);border-radius:99px;padding:4px 12px;font-size:.9rem}
+.chip small{font-family:var(--f-data);color:var(--flamingo);margin-left:4px}
+.season-panel{border-top:1px solid var(--line);margin-top:18px;padding-top:18px;display:grid;gap:12px}
+
+/* drafts & champions */
+.boards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.board{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid}
+.board button{padding:0;border:0;background:none;cursor:zoom-in;display:block}
+.board img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.board .cap{padding:12px 14px;display:grid;gap:2px}
+.board.missing{border-style:dashed;place-items:center;min-height:150px;text-align:center;padding:16px;color:var(--muted)}
+.years button.dim{opacity:.55}
+.dgrid{--dw:min(calc(100vw - 48px),1560px);width:var(--dw);margin-left:calc(50% - var(--dw) / 2)}
+.dgrid table{border-collapse:separate;border-spacing:3px;background:var(--stone);font-size:clamp(.66rem,.78vw,.84rem);width:100%;table-layout:fixed}
+.dgrid th,.dgrid td{border:0}
+.dgrid thead th{position:sticky;top:0;z-index:2;background:var(--slab);padding:6px 6px;border-radius:4px;text-transform:none;letter-spacing:0;font-family:var(--f-body);color:var(--ink);font-size:1em;vertical-align:bottom}
+.dgrid th.rd{position:sticky;left:0;z-index:3;background:var(--slab);font-family:var(--f-data);font-size:.72rem;color:var(--muted);text-align:center;width:30px;padding:0;border-radius:4px}
+.dteam{display:flex;align-items:center;gap:6px;min-width:0}
+.dteam .av{width:24px;height:24px;font-size:.62rem;border-width:1px;flex:none}
+.dteam span{display:grid;line-height:1.15;min-width:0}.dteam b{font-weight:700;overflow:hidden;white-space:normal;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow-wrap:break-word}.dteam small{font-family:var(--f-data);font-size:.62rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+td.pk{padding:4px 6px;border-radius:4px;background:var(--slab);border-left:3px solid var(--pc,var(--line));vertical-align:top;overflow:hidden}
+td.pk .nm{display:block;font-weight:600;line-height:1.2;white-space:normal;overflow-wrap:break-word;hyphens:auto}
+td.pk .ps{display:block;font-family:var(--f-data);font-size:.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.06em;color:var(--muted)}
+.pk.qb{--pc:#d64545}.pk.rb{--pc:#2f6fd0}.pk.wr{--pc:#2e9a5a}.pk.te{--pc:#e08a2c}.pk.dst{--pc:#6b7280}.pk.k{--pc:#7c4dcc}
+td.pk{background:color-mix(in srgb,var(--pc) 9%,var(--slab))}
+td.pk.steal{box-shadow:inset 0 0 0 2px var(--gold);background:color-mix(in srgb,var(--gold) 18%,var(--slab))}
+td.pk.bust{box-shadow:inset 0 0 0 2px var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--slab))}
+td.pk.steal .ps{color:var(--gold)}td.pk.bust .ps{color:var(--bad)}
+td.pk .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+td.pk.empty{--pc:var(--line);color:var(--muted);font-size:.75rem}
+@media (max-width:1180px){.dteam .av{display:none}.dgrid table{border-spacing:2px}td.pk{padding:3px 4px}.dgrid thead th{padding:5px 4px}}
+@media (max-width:900px){.dteam .av{display:grid}.dgrid table{width:auto;table-layout:auto;font-size:.8rem}td.pk,.dteam{min-width:118px}.dteam b{max-width:130px}}
+.dlegend{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.dlegend .pk{font-family:var(--f-data);font-size:.68rem;padding:3px 9px;border-radius:4px;border-left:4px solid var(--pc);background:color-mix(in srgb,var(--pc) 12%,var(--slab))}
+.pickcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
+.pickcard{background:var(--slab);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--r);padding:16px 18px}
+.pickcard.bad{border-top-color:var(--bad)}.pickcard.bad .eyebrow{color:var(--bad)}
+.pickcard ol{margin:8px 0 0;padding-left:1.2em;display:grid;gap:8px;font-size:.95rem}
+@media (max-width:560px){.pickcards{grid-template-columns:1fr}}
+.lightbox{position:fixed;inset:0;background:rgba(8,12,24,.92);display:grid;place-items:center;z-index:50;padding:16px;cursor:zoom-out}
+.lightbox img{max-width:100%;max-height:92vh;border-radius:var(--r)}
+.champs{display:grid;gap:16px}
+.champ{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px}
+.champ.won{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:28px;padding:0;overflow:hidden}
+.champ-photo{position:relative;min-height:420px;background:var(--flamingo-soft)}
+.champ-photo img,.champ-photo .big{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;border-radius:0;display:grid;place-items:center;font-family:var(--f-display);font-size:6rem;color:var(--flamingo)}
+.champ-photo:has(.cut){background:
+    radial-gradient(120% 90% at 50% 100%,var(--flamingo-soft),var(--slab) 70%);
+  border-right:1px solid var(--line)}
+.champ-photo:has(.cut)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:18px;background:var(--gold);opacity:.9;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x bottom/24px 12px;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x bottom/24px 12px}
+.sackoed .champ-photo:has(.cut){background:
+    radial-gradient(120% 90% at 50% 100%,var(--stone),var(--slab) 70%)}
+.sackoed .champ-photo:has(.cut)::after{background:var(--muted);opacity:.5}
+.bgflam{position:absolute;right:3%;top:22px;width:auto;height:78%;aspect-ratio:142/180;color:var(--flamingo);opacity:.3;pointer-events:none;overflow:visible}
+.sackoed .bgflam{color:var(--muted);opacity:.28}
+.champ-photo img.cut{position:absolute;left:6%;right:6%;bottom:14px;top:64px;width:88%;height:calc(100% - 78px);object-fit:contain;object-position:50% 100%;border:0;border-radius:0;filter:drop-shadow(0 10px 18px rgba(0,0,0,.25))}
+.champ .champ-photo:has(.cut) .yr{top:14px;bottom:auto;color:var(--gold);text-shadow:none;font-size:2.8rem}
+.sackoed .champ-photo:has(.cut) .yr{color:var(--muted)}
+.champ .champ-photo .yr{position:absolute;left:16px;bottom:14px;font-size:3.4rem;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+.champ-body{padding:24px 24px 24px 0;display:grid;gap:12px;align-content:start}
+.champ .yr{font-family:var(--f-display);font-size:2.2rem;color:var(--gold);line-height:1}
+.champ.tbd{border-style:dashed}
+.roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:4px 16px;margin:8px 0 0;padding:0;list-style:none;font-size:.95rem}
+.roster b{font-family:var(--f-data);font-size:.7rem;color:var(--muted);display:inline-block;width:38px}
+.note{background:var(--flamingo-soft);border-radius:var(--r);padding:12px 14px;font-size:.95rem}
+
+footer{background:var(--night);color:#cfd4e4;padding-block:28px}
+footer .wrap{display:grid;gap:12px}
+footer nav{display:flex;gap:14px;flex-wrap:wrap}
+footer nav a{color:#fff;font-family:var(--f-data);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+footer small{color:#99a1b8}
+
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .pediment{max-width:260px}
+  .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .champ-strip{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .profile{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .tiles,.boards{grid-template-columns:1fr}
+  .sides{grid-template-columns:1fr}
+  .swap{padding:0;transform:rotate(90deg);justify-self:start}
+  .champ,.champ.won{grid-template-columns:1fr}
+  .champ-photo{min-height:0;aspect-ratio:1/1}
+  .champ-body{padding:0 18px 20px}
+  nav.main a{padding:6px 7px;font-size:.68rem}
+}
+@media (prefers-reduced-motion:no-preference){
+  .flap{transform-origin:50% 90%;animation:sway 6s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="flamingo" viewBox="0 0 64 64">
+      <path d="M40 8c-5 0-8 4-7 8 1 5 6 7 6 12 0 4-4 6-9 6-8 0-15 5-15 11 0 5 5 8 12 8 3 0 6-1 8-2l-4 12M32 51l5 1" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17 45c0-6 7-11 15-11 5 0 9-2 9-6l3 9c1 7-6 14-16 14-6 0-11-2-11-6z" fill="currentColor"/>
+      <path d="M40 8c3 0 6 2 7 5l-4 4-2-3" fill="currentColor"/>
+      <circle cx="39" cy="11" r="1.2" fill="var(--ink)"/>
+    </symbol>
+    <symbol id="flamingoBig" viewBox="96 52 142 180">
+      <path d="M160 172 L162 200 L160 226" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M152 226 L170 226" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M168 172 L182 196 L164 192" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="currentColor"/>
+      <ellipse cx="160" cy="154" rx="40" ry="23" fill="currentColor" transform="rotate(-12 160 154)"/>
+      <path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+      <circle cx="206" cy="68" r="8.5" fill="currentColor"/>
+      <path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="topbar"><div class="wrap"><span>Flamingo Men Fantasy Football · Est. 2016</span><span id="yearline">Year 11 · 2026 season</span></div></div>
+<header class="site"><div class="wrap">
+  <a class="brand" href="#home"><svg style="color:var(--flamingo)"><use href="#flamingo"/></svg><b>The Flamingo Men</b></a>
+  <nav class="main" aria-label="Sections">
+    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#trades">Trades</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
+  </nav>
+</div></header>
+<div class="meander" aria-hidden="true"></div>
+
+<main>
+<!-- HOME -->
+<section class="hall" id="hall-home" style="padding-top:0">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">Year 11 of the republic · 12 teams · 2026 season underway</div>
+        <h1>The <em>Flamingo</em><br>Men</h1>
+        <p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
+        <div class="hero-stats" id="heroStats"></div>
+      </div>
+      <svg class="pediment" viewBox="0 0 320 260" role="img" aria-label="A flamingo standing inside a Greek temple">
+        <path d="M20 78 160 14 300 78Z" fill="none" stroke="#e8c574" stroke-width="3"/>
+        <rect x="20" y="80" width="280" height="12" fill="#e8c574"/>
+        <g fill="none" stroke="#cfd4e4" stroke-width="2">
+          <path d="M44 96v130M60 96v130M260 96v130M276 96v130"/>
+          <path d="M40 96h24M40 226h24M256 96h24M256 226h24"/>
+        </g>
+        <rect x="16" y="228" width="288" height="10" fill="#e8c574"/>
+        <rect x="6" y="240" width="308" height="10" fill="#e8c574" opacity=".7"/>
+        <g class="flap"><g transform="translate(28 46) scale(.8)">
+          <!-- legs: one straight, one tucked -->
+          <path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M152 226 L170 226" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- tail and body -->
+          <path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/>
+          <ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/>
+          <!-- neck, head, beak -->
+          <path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/>
+          <path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/>
+          <path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/>
+          <circle cx="205" cy="66" r="1.8" fill="#15203b"/>
+          <!-- football tucked under the wing -->
+          <g transform="rotate(-28 190 160)">
+            <ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/>
+            <path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/>
+            <path d="M184 157 V163 M188 157 V163 M192 157 V163 M196 157 V163" stroke="#fff" stroke-width="1.3"/>
+            <path d="M175 155 Q173 160 175 165 M205 155 Q207 160 205 165" fill="none" stroke="#fff" stroke-width="1.3"/>
+          </g>
+          <!-- wing wrapping over the ball -->
+          <path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>
+          <path d="M150 152 C164 146 178 150 188 156" fill="none" stroke="#e0517a" stroke-width="2" stroke-linecap="round"/>
+        </g></g>
+        <text x="160" y="62" text-anchor="middle" fill="#e8c574" font-family="Marcellus SC, Georgia, serif" font-size="15" letter-spacing="3">ΦΛΑΜΙΝΓΚΟ</text>
+      </svg>
+    </div>
+  </div>
+  <div class="meander" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="block">
+      <div class="block-head"><h2>Enter the temple</h2></div>
+      <div class="tiles">
+        <a class="tile" href="#stats"><span class="eyebrow">Standings</span><h3>League Stats</h3><p>All-time wins, points, titles and Sackos for every owner.</p></a>
+        <a class="tile" href="#champions"><span class="eyebrow">Champions</span><h3>Champions & Sackos</h3><p>Every title roster, every last place, and the moves behind both.</p></a>
+        <a class="tile" href="#history"><span class="eyebrow">Chronicle</span><h3>League History</h3><p>Year by year: controversies, rule changes, political fallout.</p></a>
+        <a class="tile" href="#drafts"><span class="eyebrow">The Draft</span><h3>Past Drafts</h3><p>The boards, sticker by sticker.</p></a>
+        <a class="tile" href="#trades"><span class="eyebrow">The Agora</span><h3>Trade Ledger</h3><p>Every trade by date, the five craziest, and the vetoed.</p></a>
+        <a class="tile" href="#teams"><span class="eyebrow">Profiles</span><h3>Team Profiles</h3><p>Records, favorite players and every season for each owner.</p></a>
+      </div>
+    </div>
+    <div class="block">
+      <div class="block-head"><h2>Champions by year</h2><a href="#champions">Hall of Champions</a></div>
+      <div class="champ-strip" id="champStrip"></div>
+    </div>
+    <div class="block">
+      <div class="block-head"><h2>Latest from the Agora</h2><a href="#trades">All trades</a></div>
+      <div class="trades-list" id="latestTrades"></div>
+    </div>
+    <div class="block">
+      <div class="block-head"><h2>The owners</h2><a href="#teams">Team profiles</a></div>
+      <div class="owners-row" id="ownersRow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="hall" id="hall-history"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">League History</span><h2>The Chronicle of the Flamingo Republic</h2>
+  <p>A short first draft. It is built from the trade emails, the stats sheet and the 2016, 2017 and 2023 screenshots, so the political record will grow as more files come in.</p></div>
+  <div class="chronicle" id="chronicle"></div>
+  <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
+  <div class="years" id="yearPills" role="group" aria-label="Season"></div>
+  <div class="yearcard" id="yearCard"></div>
+</div></section>
+
+<!-- STATS -->
+<section class="hall" id="hall-stats"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
+  <p>Regular season records and points from the league stats sheet, 2016 to 2025, plus completed trades from the 2016, 2017 and 2019 to 2025 emails. Click a column to sort.</p></div>
+  <div class="tablebox"><table id="allTime"></table></div>
+  <div class="block">
+    <div class="block-head"><h2>Season standings</h2>
+      <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
+    <div class="tablebox"><table id="seasonTable"></table></div>
+    <p class="muted" id="seasonNote" style="font-size:.9rem"></p>
+  </div>
+</div></section>
+
+<!-- DRAFTS -->
+<section class="hall" id="hall-drafts"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">Past Drafts</span><h2>The draft boards</h2>
+  <p>Every pick by round and team, color-coded like the sticker board. Steals and busts are judged on how that NFL season actually went.</p></div>
+  <div class="years" id="draftYears" role="group" aria-label="Draft year" style="margin-top:0"></div>
+  <div id="draftBody"></div>
+</div></section>
+
+<!-- TEAMS -->
+<section class="hall" id="hall-teams"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">Team Profiles</span><h2>Choose an owner</h2></div>
+  <div class="owners-row" id="teamPicker" role="group" aria-label="Owners"></div>
+  <div id="profile"></div>
+</div></section>
+
+<!-- TRADES -->
+<section class="hall" id="hall-trades"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Trade ledger</h2>
+  <p>Every football trade in the league email archive: 2016 and 2017 from forwarded ESPN emails, then 2019 to 2025. Trades from 2018 were not in the archive, and 2026 trades are still to be added.</p></div>
+  <h3 style="margin-bottom:12px">The five craziest trades ever made</h3>
+  <div class="top5" id="top5"></div>
+  <div class="block">
+    <div class="block-head"><h2>All trades</h2><span class="muted num" id="tradeCount"></span></div>
+    <div class="controls">
+      <label for="tradeOwner">Team<select id="tradeOwner"></select></label>
+      <label for="tradeSeason">Season<select id="tradeSeason"></select></label>
+    </div>
+    <div class="trades-list" id="tradeList"></div>
+  </div>
+  <div class="block">
+    <div class="block-head"><h2>Vetoed</h2></div>
+    <div class="trades-list" id="vetoList"></div>
+  </div>
+</div></section>
+
+<!-- CHAMPIONS -->
+<section class="hall" id="hall-sackos"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">Hall of Shame</span><h2>Sacko winners</h2>
+  <p>Every last-place finish since 2016, with the season that earned it.</p></div>
+  <div class="champs" id="sackoList"></div>
+</div></section>
+
+<section class="hall" id="hall-champions"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">Hall of Champions</span><h2>League champions</h2>
+  <p>Title rosters and the trades or pickups that got them over the line.</p></div>
+  <div class="champs" id="champList"></div>
+</div></section>
+</main>
+
+<div class="meander" aria-hidden="true"></div>
+<footer><div class="wrap">
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#trades">Trades</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
+  <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
+</div></footer>
+
+<script>
+const LEAGUE = {"trades":[{"id":0,"d":"2019-08-16","s":2019,"st":"completed","a":{"team":"Team Kelly","o":"skelly","gave":["Evan Engram|TE"]},"b":{"team":"DilapiSTILLaint Makingthe yoffs","o":"kyle","gave":["Kenny Golladay|WR","Kyler Murray|QB"]}},{"id":1,"d":"2019-08-16","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Cam Newton|QB","Marlon Mack|RB","Julio Jones|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Josh Allen|QB","Austin Ekeler|RB","Tarik Cohen|RB","Robert Woods|WR"]}},{"id":2,"d":"2019-08-19","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Austin Ekeler|RB","Melvin Gordon|RB","Robert Woods|WR","Jared Cook|TE","Stefon Diggs|WR"]},"b":{"team":"Team Toppin","o":"mateus","gave":["Le'Veon Bell|RB","Zach Ertz|TE"]}},{"id":3,"d":"2019-08-25","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Kirk Cousins|QB"]},"b":{"team":"Team Toppin","o":"mateus","gave":["Keke Coutee|WR"]}},{"id":4,"d":"2019-08-29","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Will Fuller V|WR","Darrell Henderson|RB","Kenyan Drake|RB"]},"b":{"team":"Team Quincy","o":"quincy","gave":["T.Y. Hilton|WR"]}},{"id":5,"d":"2019-08-29","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Amari Cooper|WR","Le'Veon Bell|RB"]},"b":{"team":"Team Quincy","o":"quincy","gave":["Todd Gurley II|RB","Darrell Henderson|RB","Sammy Watkins|WR"]}},{"id":6,"d":"2019-09-01","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Emmanuel Sanders|WR","Todd Gurley II|RB","Robby Anderson|WR","Darrell Henderson|RB"]},"b":{"team":"Team Toppin","o":"mateus","gave":["DeAndre Hopkins|WR","A.J. Green|WR"]}},{"id":7,"d":"2019-09-01","s":2019,"st":"completed","a":{"team":"Team Toppin","o":"mateus","gave":["Melvin Gordon|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["T.Y. Hilton|WR"]}},{"id":8,"d":"2019-09-03","s":2019,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Aaron Jones|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Tyler Boyd|WR"]}},{"id":9,"d":"2019-09-03","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Donte Moncrief|WR"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Marvin Jones Jr.|WR"]}},{"id":10,"d":"2019-09-04","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Tony Pollard|RB"]},"b":{"team":"Team Kelly","o":"skelly","gave":["Derrius Guice|RB"]}},{"id":11,"d":"2019-09-05","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["DeAndre Hopkins|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Julio Jones|WR","Derrius Guice|RB"]}},{"id":12,"d":"2019-09-05","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Zach Ertz|TE","Julio Jones|WR"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["JuJu Smith-Schuster|WR","Evan Engram|TE","Tevin Coleman|RB"]}},{"id":13,"d":"2019-09-10","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Marquez Valdes-Scantling|WR"]},"b":{"team":"The Yogurtlechefts","o":"peanut","gave":["Chargers D/ST|D/ST"]}},{"id":14,"d":"2019-09-12","s":2019,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Wil Lutz|K"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Ronald Jones|RB"]}},{"id":15,"d":"2019-09-12","s":2019,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Baker Mayfield|QB","Joe Mixon|RB","Tyler Boyd|WR"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Philip Rivers|QB","Mike Evans|WR","Kerryon Johnson|RB"]}},{"id":16,"d":"2019-09-18","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Jacoby Brissett|QB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Dede Westbrook|WR"]}},{"id":17,"d":"2019-09-19","s":2019,"st":"completed","a":{"team":"Team Toppin","o":"mateus","gave":["Bears D/ST|D/ST"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Vikings D/ST|D/ST"]}},{"id":18,"d":"2019-09-23","s":2019,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Matt Breida|RB","Kerryon Johnson|RB"]},"b":{"team":"The Yogurtlechefts","o":"peanut","gave":["A.J. Green|WR","Dede Westbrook|WR","Nelson Agholor|WR","Tevin Coleman|RB"]}},{"id":19,"d":"2019-09-27","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Marlon Mack|RB","Mecole Hardman|WR","Tyrell Williams|WR"]},"b":{"team":"The Yogurtlechefts","o":"peanut","gave":["JuJu Smith-Schuster|WR","Kerryon Johnson|RB"]}},{"id":20,"d":"2019-10-03","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Wayne Gallman|RB","Darrel Williams|RB"]},"b":{"team":"The Yogurtlechefts","o":"peanut","gave":["Sammy Watkins|WR","Alshon Jeffery|WR"]}},{"id":21,"d":"2019-10-08","s":2019,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Sammy Watkins|WR"]},"b":{"team":"Team Toppin","o":"mateus","gave":["Jared Cook|TE"]}},{"id":22,"d":"2019-10-09","s":2019,"st":"completed","a":{"team":"Team Kelly","o":"skelly","gave":["Ezekiel Elliott|RB","Kenny Golladay|WR","Devin Singletary|RB"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Joe Mixon|RB","Tyler Boyd|WR","Zach Ertz|TE"]}},{"id":23,"d":"2019-10-22","s":2019,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Mohamed Sanu|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Alshon Jeffery|WR"]}},{"id":24,"d":"2019-11-06","s":2019,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["DJ Chark Jr.|WR"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Kareem Hunt|RB"]}},{"id":25,"d":"2019-11-09","s":2019,"st":"completed","a":{"team":"Team Quincy","o":"quincy","gave":["Kalen Ballage|RB"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Devin Singletary|RB"]}},{"id":26,"d":"2019-11-12","s":2019,"st":"vetoed","a":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Kalen Ballage|RB"]},"b":{"team":"Team Quincy","o":"quincy","gave":["Hunter Henry|TE"]}},{"id":27,"d":"2019-11-12","s":2019,"st":"vetoed","a":{"team":"Team Quincy","o":"quincy","gave":["Hunter Henry|TE"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Devin Singletary|RB"]}},{"id":28,"d":"2020-07-30","s":2020,"st":"completed","a":{"team":"Los Stogies","o":"lucas","gave":["LeSean McCoy|RB"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Phillip Lindsay|RB"]}},{"id":29,"d":"2020-08-03","s":2020,"st":"completed","a":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Calvin Ridley|WR","Saquon Barkley|RB"]},"b":{"team":"The Yogurtlechefts","o":"peanut","gave":["Ezekiel Elliott|RB","Kenny Golladay|WR"]}},{"id":30,"d":"2020-08-13","s":2020,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Chris Godwin|WR"]},"b":{"team":"Oh My BJ","o":"fluff","gave":["Aaron Jones|RB","Jerry Jeudy|WR"]}},{"id":31,"d":"2020-08-15","s":2020,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Adam Thielen|WR"]},"b":{"team":"New York Noses","o":"dilapi","gave":["A.J. Green|WR"]}},{"id":32,"d":"2020-09-11","s":2020,"st":"completed","a":{"team":"Harlem Brown Men","o":"jordan","gave":["Mark Ingram II|RB","Tyreek Hill|WR","Zach Ertz|TE"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Ezekiel Elliott|RB","Rob Gronkowski|TE","Tarik Cohen|RB"]}},{"id":33,"d":"2020-09-16","s":2020,"st":"completed","a":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Tyreek Hill|WR"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Cooper Kupp|WR","James Conner|RB"]}},{"id":34,"d":"2020-09-17","s":2020,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Melvin Gordon III|RB"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["DJ Chark Jr.|WR","Malcolm Brown|RB"]}},{"id":35,"d":"2020-09-17","s":2020,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Steelers D/ST|D/ST"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Robby Anderson|WR"]}},{"id":36,"d":"2020-09-19","s":2020,"st":"completed","a":{"team":"Sal's 34 Chickens","o":"charles","gave":["Diontae Johnson|WR","Daniel Jones|QB"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Cooper Kupp|WR"]}},{"id":37,"d":"2020-09-23","s":2020,"st":"completed","a":{"team":"The Yogurtlechefts","o":"peanut","gave":["Aaron Rodgers|QB"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Myles Gaskin|RB"]}},{"id":38,"d":"2020-10-03","s":2020,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Adam Thielen|WR"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Julian Edelman|WR","Antonio Gibson|RB","Jerick McKinnon|RB"]}},{"id":39,"d":"2020-10-15","s":2020,"st":"completed","a":{"team":"Let Russ Carry My Team","o":"jordan","gave":["Jimmy Graham|TE"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Austin Hooper|TE","Ryan Tannehill|QB"]}},{"id":40,"d":"2020-10-21","s":2020,"st":"completed","a":{"team":"Let Russ Carry My Team","o":"jordan","gave":["Jonnu Smith|TE","Ryan Tannehill|QB"]},"b":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Kenyan Drake|RB","Zach Ertz|TE"]}},{"id":41,"d":"2020-10-24","s":2020,"st":"completed","a":{"team":"Let Russ Carry My Team","o":"jordan","gave":["Jamison Crowder|WR","Emmanuel Sanders|WR","Ezekiel Elliott|RB"]},"b":{"team":"Él Flüff","o":"fluff","gave":["Joshua Kelley|RB","Dalvin Cook|RB","Chris Godwin|WR","Deebo Samuel|WR"]}},{"id":42,"d":"2020-10-30","s":2020,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["CeeDee Lamb|WR"]},"b":{"team":"Let Russ Carry My Team","o":"jordan","gave":["Christian Kirk|WR"]}},{"id":43,"d":"2020-11-03","s":2020,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Christian Kirk|WR"]},"b":{"team":"Let Russ Carry My Team","o":"jordan","gave":["CeeDee Lamb|WR"]}},{"id":44,"d":"2020-11-04","s":2020,"st":"completed","a":{"team":"Let Russ Carry My Team","o":"jordan","gave":["Zach Ertz|TE"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["DeVante Parker|WR"]}},{"id":45,"d":"2020-11-10","s":2020,"st":"completed","a":{"team":"Sal's 34 Chickens","o":"charles","gave":["Jerry Jeudy|WR"]},"b":{"team":"Let Dalvin Cook","o":"jordan","gave":["Austin Hooper|TE"]}},{"id":46,"d":"2020-11-15","s":2020,"st":"completed","a":{"team":"Bittersweet Distract0rs","o":"kyle","gave":["Chase Claypool|WR","Myles Gaskin|RB"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Adam Thielen|WR"]}},{"id":47,"d":"2020-11-20","s":2020,"st":"completed","a":{"team":"The Squimps","o":"peanut","gave":["Rob Gronkowski|TE"]},"b":{"team":"Sal's 34 Chickens","o":"charles","gave":["Leonard Fournette|RB"]}},{"id":48,"d":"2021-08-23","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Josh Jacobs|RB"]},"b":{"team":"Team Quincy","o":"quincy","gave":["Mike Davis|RB","Kareem Hunt|RB"]}},{"id":49,"d":"2021-08-23","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Cooper Kupp|WR"]},"b":{"team":"Team Quincy","o":"quincy","gave":["Adam Thielen|WR","Robby Anderson|WR"]}},{"id":50,"d":"2021-08-29","s":2021,"st":"completed","a":{"team":"Gus Hype Train Nastradamus","o":"quincy","gave":["George Kittle|TE"]},"b":{"team":"The Monglers","o":"kyle","gave":["Amari Cooper|WR","Jonnu Smith|TE","Justin Jefferson|WR"]}},{"id":51,"d":"2021-08-30","s":2021,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Curtis Samuel|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Brandin Cooks|WR"]}},{"id":52,"d":"2021-09-01","s":2021,"st":"completed","a":{"team":"Kelce's Kiddies","o":"jordan","gave":["David Montgomery|RB"]},"b":{"team":"Gus Hype Train Nostradamus","o":"quincy","gave":["Cooper Kupp|WR","Josh Jacobs|RB","Justin Jefferson|WR"]}},{"id":53,"d":"2021-09-06","s":2021,"st":"completed","a":{"team":"The Monglers","o":"kyle","gave":["Curtis Samuel|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Sony Michel|RB"]}},{"id":54,"d":"2021-09-07","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["CeeDee Lamb|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Sony Michel|RB","Robert Woods|WR"]}},{"id":55,"d":"2021-09-07","s":2021,"st":"completed","a":{"team":"The Monglers","o":"kyle","gave":["Chase Edmonds|RB"]},"b":{"team":"Kelce's Kiddies","o":"jordan","gave":["DeVonta Smith|WR","Cooper Kupp|WR"]}},{"id":56,"d":"2021-09-09","s":2021,"st":"completed","a":{"team":"Los Stogies","o":"lucas","gave":["A.J. Green|WR","Javonte Williams|RB"]},"b":{"team":"El Floof","o":"fluff","gave":["Antonio Brown|WR","Jamaal Williams|RB"]}},{"id":57,"d":"2021-09-22","s":2021,"st":"completed","a":{"team":"The Mongling Monglers","o":"kyle","gave":["Brandon Aiyuk|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Michael Thomas|WR"]}},{"id":58,"d":"2021-09-29","s":2021,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Austin Ekeler|RB"]},"b":{"team":"The Mongling Monglers","o":"kyle","gave":["Cooper Kupp|WR","Antonio Gibson|RB"]}},{"id":59,"d":"2021-09-29","s":2021,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Antonio Gibson|RB"]},"b":{"team":"Bishop Sycamore JV","o":"jordan","gave":["Josh Jacobs|RB","Jonathan Taylor|RB"]}},{"id":60,"d":"2021-10-06","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Stefon Diggs|WR","Nick Chubb|RB"]},"b":{"team":"The Monglers","o":"kyle","gave":["Michael Thomas|WR","Cordarrelle Patterson|RB","Saquon Barkley|RB"]}},{"id":61,"d":"2021-10-06","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Alex Collins|RB"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Laviska Shenault Jr.|WR"]}},{"id":62,"d":"2021-10-09","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Trey Sermon|RB"]},"b":{"team":"The Monglers","o":"kyle","gave":["Chuba Hubbard|RB"]}},{"id":63,"d":"2021-10-09","s":2021,"st":"completed","a":{"team":"El Floof","o":"fluff","gave":["Leonard Fournette|RB"]},"b":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Mike Gesicki|TE","Michael Pittman Jr.|WR"]}},{"id":64,"d":"2021-10-10","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Marvin Jones Jr.|WR","Kyle Pitts|TE"]},"b":{"team":"The Monglers","o":"kyle","gave":["George Kittle|TE"]}},{"id":65,"d":"2021-10-15","s":2021,"st":"completed","a":{"team":"Team Kelly","o":"skelly","gave":["Mike Evans|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Darrel Williams|RB","Tee Higgins|WR"]}},{"id":66,"d":"2021-10-16","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Chuba Hubbard|RB","Amon-Ra St. Brown|WR","Khalil Herbert|RB"]},"b":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Amari Cooper|WR"]}},{"id":67,"d":"2021-10-19","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Zach Ertz|TE"]},"b":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Michael Thomas|WR"]}},{"id":68,"d":"2021-10-19","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Michael Thomas|WR"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Courtland Sutton|WR"]}},{"id":69,"d":"2021-10-27","s":2021,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Aaron Jones|RB","Tyreek Hill|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Nick Chubb|RB","Stefon Diggs|WR","Mike Evans|WR"]}},{"id":70,"d":"2021-10-27","s":2021,"st":"completed","a":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Leonard Fournette|RB"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Alex Collins|RB","Jared Cook|TE","Mike Evans|WR"]}},{"id":71,"d":"2021-10-28","s":2021,"st":"completed","a":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Kadarius Toney|WR"]},"b":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["George Kittle|TE"]}},{"id":72,"d":"2021-10-28","s":2021,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Alex Collins|RB","Mike Evans|WR"]},"b":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Leonard Fournette|RB"]}},{"id":73,"d":"2021-10-28","s":2021,"st":"completed","a":{"team":"The Bengali Bhavi Bangalore","o":"peanut","gave":["Robert Woods|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Elijah Mitchell|RB","DeVonta Smith|WR"]}},{"id":74,"d":"2021-10-31","s":2021,"st":"completed","a":{"team":"Team Kelly","o":"skelly","gave":["Diontae Johnson|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Courtland Sutton|WR"]}},{"id":75,"d":"2021-11-05","s":2021,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Steelers D/ST|D/ST"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Carlos Hyde|RB"]}},{"id":76,"d":"2021-11-10","s":2021,"st":"completed","a":{"team":"Bishop Sycamore JV","o":"jordan","gave":["D'Ernest Johnson|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Adrian Peterson|RB","Steelers D/ST|D/ST"]}},{"id":77,"d":"2021-11-12","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Diontae Johnson|WR"]},"b":{"team":"Los Stogies","o":"lucas","gave":["Dalvin Cook|RB"]}},{"id":78,"d":"2021-11-18","s":2021,"st":"completed","a":{"team":"The Monglers","o":"kyle","gave":["Tyreek Hill|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Dolphins D/ST|D/ST","Amari Cooper|WR","Alvin Kamara|RB"]}},{"id":79,"d":"2021-11-28","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Myles Gaskin|RB"]},"b":{"team":"The Hospital RIP CMC,GUS","o":"quincy","gave":["Panthers D/ST|D/ST"]}},{"id":80,"d":"2021-12-02","s":2021,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["James Conner|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["AJ Dillon|RB","Dalvin Cook|RB"]}},{"id":81,"d":"2021-12-03","s":2021,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Nick Chubb|RB","Stefon Diggs|WR"]},"b":{"team":"El Floof","o":"fluff","gave":["Ezekiel Elliott|RB","Mark Ingram II|RB","Chris Godwin|WR"]}},{"id":82,"d":"2021-12-04","s":2021,"st":"completed","a":{"team":"The Hospital FÜĆKCMC","o":"quincy","gave":["Dontrell Hilliard|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Dolphins D/ST|D/ST"]}},{"id":83,"d":"2021-12-04","s":2021,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Jalen Hurts|QB","Derek Carr|QB"]},"b":{"team":"The Monglers","o":"kyle","gave":["Matthew Stafford|QB"]}},{"id":84,"d":"2022-08-28","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Christian Kirk|WR","Dak Prescott|QB"]},"b":{"team":"The Monglers","o":"kyle","gave":["Marquise Brown|WR"]}},{"id":85,"d":"2022-08-31","s":2022,"st":"completed","a":{"team":"Chicago Titysquashers","o":"jerry","gave":["Alvin Kamara|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Aaron Jones|RB","Treylon Burks|WR","Marquise Brown|WR"]}},{"id":86,"d":"2022-09-01","s":2022,"st":"completed","a":{"team":"Shivakamini Somakandarkram","o":"peanut","gave":["Melvin Gordon III|RB"]},"b":{"team":"El Floof","o":"fluff","gave":["Alexander Mattison|RB"]}},{"id":87,"d":"2022-09-20","s":2022,"st":"completed","a":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Aaron Jones|RB"]},"b":{"team":"The Monglers","o":"kyle","gave":["Brandin Cooks|WR","Leonard Fournette|RB"]}},{"id":88,"d":"2022-09-27","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Mike Williams|WR"]},"b":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Keenan Allen|WR"]}},{"id":89,"d":"2022-09-27","s":2022,"st":"completed","a":{"team":"Jerry Jewdys","o":"jordan","gave":["Jamaal Williams|RB","Justin Jefferson|WR"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Brian Robinson|RB","Kareem Hunt|RB","Keenan Allen|WR","Alvin Kamara|RB"]}},{"id":90,"d":"2022-09-28","s":2022,"st":"completed","a":{"team":"Free Ime Idoka","o":"quincy","gave":["Evan McPherson|K"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Julio Jones|WR","Ryan Succop|K","Derek Carr|QB"]}},{"id":91,"d":"2022-09-28","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Allen Lazard|WR","Cowboys D/ST|D/ST"]},"b":{"team":"Jerry Jewdys","o":"jordan","gave":["Packers D/ST|D/ST"]}},{"id":92,"d":"2022-10-04","s":2022,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Chris Olave|WR","Nick Chubb|RB"]},"b":{"team":"THE MNGLERS","o":"kyle","gave":["Tyreek Hill|WR","Aaron Jones|RB"]}},{"id":93,"d":"2022-10-06","s":2022,"st":"completed","a":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Brandon Aiyuk|WR","Patrick Mahomes|QB","DJ Moore|WR","Terry McLaurin|WR"]},"b":{"team":"The Monglers","o":"kyle","gave":["Christian Kirk|WR","Tyler Lockett|WR","Dak Prescott|QB","Teddy Bridgewater|QB"]}},{"id":94,"d":"2022-10-14","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Dalton Schultz|TE"]},"b":{"team":"Shivakamini Somakandarkram","o":"peanut","gave":["Kirk Cousins|QB"]}},{"id":95,"d":"2022-10-21","s":2022,"st":"completed","a":{"team":"El Floof","o":"fluff","gave":["Jeff Wilson Jr.|RB"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Geno Smith|QB","Drake London|WR"]}},{"id":96,"d":"2022-10-25","s":2022,"st":"completed","a":{"team":"Jerry Jewdys","o":"jordan","gave":["Darren Waller|TE","Cowboys D/ST|D/ST"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Robert Tonyan|TE","George Pickens|WR"]}},{"id":97,"d":"2022-10-27","s":2022,"st":"completed","a":{"team":"THE MONGLERS","o":"kyle","gave":["Raheem Mostert|RB"]},"b":{"team":"RodFather BigDonRod","o":"rod","gave":["Zach Ertz|TE","Michael Pittman Jr.|WR"]}},{"id":98,"d":"2022-10-27","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["James Robinson|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Michael Pittman Jr.|WR"]}},{"id":99,"d":"2022-11-01","s":2022,"st":"completed","a":{"team":"THE MONGLERS","o":"kyle","gave":["Brandon Aiyuk|WR"]},"b":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Devin Singletary|RB"]}},{"id":100,"d":"2022-11-05","s":2022,"st":"completed","a":{"team":"Shivakamini Somakandarkram","o":"peanut","gave":["Allen Robinson II|WR"]},"b":{"team":"Jerry Jewdys","o":"jordan","gave":["Brian Robinson Jr.|RB","Darrell Henderson Jr.|RB"]}},{"id":101,"d":"2022-11-09","s":2022,"st":"completed","a":{"team":"Jerry Jewdys","o":"jordan","gave":["Allen Lazard|WR","JuJu Smith-Schuster|WR"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Chris Olave|WR","James Robinson|RB","DJ Moore|WR"]}},{"id":102,"d":"2022-11-10","s":2022,"st":"completed","a":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Justin Fields|QB","Leonard Fournette|RB","Rachaad White|RB"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Deshaun Watson|QB","Eno Benjamin|RB","James Conner|RB"]}},{"id":103,"d":"2022-11-13","s":2022,"st":"completed","a":{"team":"Shivakamini Somakandarkram","o":"peanut","gave":["Dalton Schultz|TE"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Brandin Cooks|WR"]}},{"id":104,"d":"2022-11-16","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["D'Onta Foreman|RB","Michael Pittman Jr.|WR","Chris Godwin|WR","Leonard Fournette|RB"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Tyreek Hill|WR"]}},{"id":105,"d":"2022-11-16","s":2022,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["DeAndre Hopkins|WR","Derrick Henry|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Stefon Diggs|WR","Dalvin Cook|RB"]}},{"id":106,"d":"2022-11-16","s":2022,"st":"completed","a":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Ravens D/ST|D/ST"]},"b":{"team":"Sal's 12 Chickens","o":"charles","gave":["Nick Folk|K"]}},{"id":107,"d":"2022-11-20","s":2022,"st":"completed","a":{"team":"RodFather BigDonRod","o":"rod","gave":["Amari Cooper|WR","Ja'Marr Chase|WR"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Devin Singletary|RB","Bills D/ST|D/ST","Tee Higgins|WR","DeAndre Hopkins|WR"]}},{"id":108,"d":"2022-11-23","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Christian Watson|WR","Kyren Williams|RB","David Njoku|TE"]},"b":{"team":"El Floof","o":"fluff","gave":["Jeff Wilson Jr.|RB","Elijah Mitchell|RB"]}},{"id":109,"d":"2022-11-24","s":2022,"st":"completed","a":{"team":"El Floof","o":"fluff","gave":["Kenneth Walker III|RB","Dameon Pierce|RB"]},"b":{"team":"Chicago Tïttysquashers","o":"jerry","gave":["Austin Ekeler|RB"]}},{"id":110,"d":"2022-11-30","s":2022,"st":"completed","a":{"team":"Sal's 12 Chickens","o":"charles","gave":["Darius Slayton|WR"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Kirk Cousins|QB"]}},{"id":111,"d":"2022-12-01","s":2022,"st":"vetoed","a":{"team":"RodFather Marias lover","o":"rod","gave":[]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Darius Slayton|WR"]}},{"id":112,"d":"2022-12-02","s":2022,"st":"completed","a":{"team":"RodFather Marias lover","o":"rod","gave":["Tom Brady|QB"]},"b":{"team":"#dicksoutfor Dolan","o":"squirm","gave":["Darius Slayton|WR"]}},{"id":113,"d":"2023-09-10","s":2023,"st":"completed","a":{"team":"New York Noses","o":"dilapi","gave":["Brian Robinson Jr.|RB"]},"b":{"team":"THE MNGLRS","o":"kyle","gave":["Jaxon Smith-Njigba|WR"]}},{"id":114,"d":"2023-09-19","s":2023,"st":"completed","a":{"team":"The Encino Men","o":"jerry","gave":["Garrett Wilson|WR"]},"b":{"team":"THE MNGLRS","o":"kyle","gave":["Anthony Richardson|QB","Jerry Jeudy|WR"]}},{"id":115,"d":"2023-09-27","s":2023,"st":"completed","a":{"team":"The Feds","o":"squirm","gave":["Jaylen Waddle|WR"]},"b":{"team":"SNUBBLEWUBBLE'S REVENGE","o":"kyle","gave":["Adam Thielen|WR","Brian Robinson Jr.|RB"]}},{"id":116,"d":"2023-09-27","s":2023,"st":"completed","a":{"team":"The Feds","o":"squirm","gave":["Josh Jacobs|RB"]},"b":{"team":"The Encino Men","o":"jerry","gave":["Jordan Addison|WR","Puka Nacua|WR"]}},{"id":117,"d":"2023-10-11","s":2023,"st":"completed","a":{"team":"The Encino Men","o":"jerry","gave":["Aaron Jones|RB","Anthony Richardson|QB"]},"b":{"team":"THE MNGLRS","o":"kyle","gave":["Garrett Wilson|WR"]}},{"id":118,"d":"2023-10-17","s":2023,"st":"completed","a":{"team":"Team Pace","o":"lucas","gave":["Derrick Henry|RB"]},"b":{"team":"THE GOOB SQUAD","o":"kyle","gave":["Terry McLaurin|WR","Tank Dell|WR","James Cook|RB","Aaron Jones|RB"]}},{"id":119,"d":"2023-10-18","s":2023,"st":"completed","a":{"team":"THE GOOB SQUAD","o":"kyle","gave":["Jaylen Waddle|WR"]},"b":{"team":"Team Curran","o":"quincy","gave":["Isiah Pacheco|RB"]}},{"id":120,"d":"2023-10-28","s":2023,"st":"completed","a":{"team":"Team Pace","o":"lucas","gave":["Chris Olave|WR"]},"b":{"team":"THE GOOB SQUAD","o":"kyle","gave":["Darrell Henderson Jr.|RB","Tank Dell|WR","Kyler Murray|QB"]}},{"id":121,"d":"2023-11-24","s":2023,"st":"vetoed","a":{"team":"Dr. Kakofonus A. Dischord","o":"peanut","gave":["Alvin Kamara|RB","Cooper Kupp|WR"]},"b":{"team":"Floof","o":"fluff","gave":["Christian Kirk|WR","Leonard Fournette|RB","Ja'Marr Chase|WR"]}},{"id":122,"d":"2023-11-24","s":2023,"st":"vetoed","a":{"team":"Dr. Kakofonus A. Dischord","o":"peanut","gave":["Cooper Kupp|WR","Alvin Kamara|RB"]},"b":{"team":"Floof","o":"fluff","gave":["Tyjae Spears|RB","Christian Kirk|WR","Ja'Marr Chase|WR"]}},{"id":123,"d":"2024-09-17","s":2024,"st":"completed","a":{"team":"Galaxy Liberators","o":"jordan","gave":["Tyreek Hill|WR","Devin Singletary|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Kyren Williams|RB","DK Metcalf|WR"]}},{"id":124,"d":"2024-10-12","s":2024,"st":"completed","a":{"team":"Sultans of Squirm","o":"dylan","gave":["Brian Robinson Jr.|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Chuba Hubbard|RB","Travis Kelce|TE","Devin Singletary|RB","Tyrone Tracy Jr.|RB"]}},{"id":125,"d":"2025-09-09","s":2025,"st":"completed","a":{"team":"Galaxy Liberators","o":"jordan","gave":["De'Von Achane|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Javonte Williams|RB","Jameson Williams|WR"]}},{"id":126,"d":"2025-09-17","s":2025,"st":"completed","a":{"team":"FLOOFS RED TAINT","o":"peanut","gave":["Kenneth Walker III|RB"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Tony Pollard|RB","Baker Mayfield|QB"]}},{"id":127,"d":"2025-10-05","s":2025,"st":"completed","a":{"team":"THE SOUTH","o":"peanut","gave":["Terry McLaurin|WR"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Rachaad White|RB"]}},{"id":128,"d":"2025-10-11","s":2025,"st":"completed","a":{"team":"THE CENTER","o":"peanut","gave":["Stefon Diggs|WR","Tetairoa McMillan|WR"]},"b":{"team":"Sal's Chickens","o":"charles","gave":["Travis Etienne Jr.|RB"]}},{"id":129,"d":"2025-10-29","s":2025,"st":"completed","a":{"team":"THE CENTER","o":"peanut","gave":["Tyrone Tracy Jr.|RB","Chase Brown|RB","Michael Pittman Jr.|WR","Rome Odunze|WR"]},"b":{"team":"Sultans of Squirm","o":"dylan","gave":["Calvin Ridley|WR","Alvin Kamara|RB","Puka Nacua|WR","Dak Prescott|QB"]}},{"id":130,"d":"2025-10-29","s":2025,"st":"completed","a":{"team":"THE CENTER","o":"peanut","gave":["Kimani Vidal|RB"]},"b":{"team":"Sal's Chickens","o":"charles","gave":["Stefon Diggs|WR"]}},{"id":131,"d":"2025-11-01","s":2025,"st":"completed","a":{"team":"THE MONGLERS","o":"kyle","gave":["Terry McLaurin|WR"]},"b":{"team":"THE CENTER","o":"peanut","gave":["Dak Prescott|QB","Alvin Kamara|RB"]}},{"id":132,"d":"2025-11-14","s":2025,"st":"completed","a":{"team":"Galaxy Liberators","o":"jordan","gave":["Brock Bowers|TE","Javonte Williams|RB"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Deebo Samuel|WR","Saquon Barkley|RB"]}},{"id":133,"d":"2025-11-14","s":2025,"st":"completed","a":{"team":"Galaxy Liberators","o":"jordan","gave":["Deebo Samuel|WR","Saquon Barkley|RB"]},"b":{"team":"New York Noses","o":"dilapi","gave":["Brock Bowers|TE","Javonte Williams|RB"]}},{"id":134,"d":"2025-11-20","s":2025,"st":"completed","a":{"team":"THE MONGLERS","o":"kyle","gave":["Juwan Johnson|TE"]},"b":{"team":"THE CENTER","o":"peanut","gave":["Alec Pierce|WR"]}},{"id":135,"d":"2025-11-23","s":2025,"st":"completed","a":{"team":"Drake Maye's Aura","o":"quincy","gave":["Jaylen Waddle|WR"]},"b":{"team":"THE MONGLERS","o":"kyle","gave":["Kenneth Walker III|RB","Kareem Hunt|RB","Troy Franklin|WR"]}},{"id":136,"d":"2025-11-30","s":2025,"st":"completed","a":{"team":"Sal's Chickens","o":"charles","gave":["Darren Waller|TE"]},"b":{"team":"THE LAND DOWN UNDER","o":"peanut","gave":["Juwan Johnson|TE"]}},{"id":137,"d":"2016-10-05","s":2016,"st":"completed","a":{"team":"NYC Klugeys","o":"kyle","gave":["Julio Jones|WR","Jordan Reed|TE","Mark Ingram|RB"]},"b":{"team":"Little Bills","o":"charles","gave":["Calvin Johnson|WR","Marshawn Lynch|RB","Alshon Jeffery|WR"]}},{"id":138,"d":"2016-10-24","s":2016,"st":"completed","a":{"team":"Team Duffy","o":"fluff","gave":["Tyler Lockett|WR"]},"b":{"team":"NYC Klugeys","o":"kyle","gave":["Jonathan Stewart|RB"]}},{"id":139,"d":"2016-10-24","s":2016,"st":"completed","a":{"team":"Team Duffy","o":"fluff","gave":["Greg Olsen|TE"]},"b":{"team":"Little Bills","o":"charles","gave":["Coby Fleener|TE"]}},{"id":140,"d":"2016-10-25","s":2016,"st":"completed","a":{"team":"NYC Klugeys","o":"kyle","gave":[]},"b":{"team":"Little Bills","o":"charles","gave":["Jordan Reed|TE"]}},{"id":141,"d":"2016-11-03","s":2016,"st":"completed","a":{"team":"Team Duffy","o":"fluff","gave":["Amari Cooper|WR","Chiefs D/ST|D/ST"]},"b":{"team":"NYC Klugeys","o":"kyle","gave":["Terrance West|RB","Ravens D/ST|D/ST","Carson Palmer|QB","Stephen Gostkowski|K"]}},{"id":142,"d":"2017-08-08","s":2017,"st":"completed","a":{"team":"Heaven Peanus","o":"peanut","gave":["Jameis Winston|QB"]},"b":{"team":"The Dominican DS","o":"rod","gave":["Andrew Luck|QB"]}},{"id":143,"d":"2017-08-08","s":2017,"st":"completed","a":{"team":"The Brooklyn Noses","o":"dilapi","gave":["Justin Tucker|K"]},"b":{"team":"N Town Dolphins","o":"kyle","gave":["Wil Lutz|K","Mike Gillislee|RB"]}},{"id":144,"d":"2017-09-01","s":2017,"st":"completed","a":{"team":"Heaven Peanus","o":"peanut","gave":["Andrew Luck|QB"]},"b":{"team":"Sensitive Lesbians","o":"charles","gave":["Willie Snead|WR"]}}],"stats":{"kyle":{"seasons":{"2017":{"w":10,"l":2,"pts":null},"2018":{"w":5,"l":7,"pts":1553.2},"2019":{"w":6,"l":6,"pts":1387.48},"2020":{"w":1,"l":11,"pts":1180.84},"2021":{"w":5,"l":8,"pts":1556.48},"2022":{"w":7,"l":6,"pts":1581.32},"2023":{"w":11,"l":2,"pts":1674.76},"2024":{"w":4,"l":9,"pts":1509.9},"2025":{"w":7,"l":6,"pts":1634.52},"2026":{"w":1,"l":1,"pts":290.48,"live":true}},"titles":3,"sackos":0},"quincy":{"seasons":{"2018":{"w":5,"l":7,"pts":1480.2},"2019":{"w":7,"l":5,"pts":1481.7},"2020":{"w":5,"l":7,"pts":1447.92},"2021":{"w":7,"l":6,"pts":1533.48},"2022":{"w":9,"l":4,"pts":1641.52},"2023":{"w":2,"l":11,"pts":1461.38},"2024":{"w":7,"l":6,"pts":1498.24},"2025":{"w":7,"l":6,"pts":1513.32},"2026":{"w":0,"l":2,"pts":136.04,"live":true}},"titles":0,"sackos":2},"charles":{"seasons":{"2018":{"w":7,"l":5,"pts":1756.48},"2019":{"w":8,"l":4,"pts":1725.08},"2020":{"w":9,"l":3,"pts":1660.92},"2021":{"w":6,"l":7,"pts":1617.4},"2022":{"w":9,"l":4,"pts":1630.54},"2024":{"w":7,"l":6,"pts":1618.38},"2025":{"w":8,"l":5,"pts":1648.8},"2026":{"w":1,"l":1,"pts":234.04,"live":true}},"titles":3,"sackos":0},"lucas":{"seasons":{"2018":{"w":7,"l":5,"pts":1480.72},"2019":{"w":3,"l":9,"pts":1407.72},"2020":{"w":5,"l":7,"pts":1524.56},"2021":{"w":3,"l":10,"pts":1433.64},"2023":{"w":3,"l":10,"pts":1303.34},"2024":{"w":5,"l":8,"pts":1414.18},"2025":{"w":7,"l":6,"pts":1611.64},"2026":{"w":2,"l":0,"pts":269.64,"live":true}},"titles":0,"sackos":2},"rod":{"seasons":{"2022":{"w":7,"l":6,"pts":1549.76},"2023":{"w":8,"l":5,"pts":1629.48},"2024":{"w":8,"l":5,"pts":1656.12},"2026":{"w":1,"l":1,"pts":210.0,"live":true}},"titles":0,"sackos":0},"squirm":{"seasons":{"2018":{"w":2,"l":10,"pts":1427.66},"2019":{"w":8,"l":4,"pts":1517.3},"2020":{"w":8,"l":4,"pts":1540.94},"2021":{"w":8,"l":5,"pts":1613.26},"2022":{"w":8,"l":5,"pts":1511.46},"2023":{"w":5,"l":8,"pts":1412.52},"2024":{"w":8,"l":5,"pts":1530.3},"2025":{"w":9,"l":4,"pts":1682.18},"2026":{"w":0,"l":2,"pts":223.08,"live":true}},"titles":1,"sackos":0},"peanut":{"seasons":{"2018":{"w":7,"l":5,"pts":1609.16},"2019":{"w":3,"l":9,"pts":1288.26},"2020":{"w":6,"l":6,"pts":1356.7},"2021":{"w":6,"l":7,"pts":1588.74},"2022":{"w":5,"l":8,"pts":1610.84},"2023":{"w":6,"l":7,"pts":1406.38},"2025":{"w":7,"l":6,"pts":1545.84}},"titles":0,"sackos":1},"fluff":{"seasons":{"2017":{"w":9,"l":3,"pts":null},"2018":{"w":9,"l":3,"pts":1806.76},"2019":{"w":9,"l":3,"pts":1627.48},"2020":{"w":8,"l":4,"pts":1496.92},"2021":{"w":7,"l":6,"pts":1690.14},"2022":{"w":4,"l":9,"pts":1402.44},"2023":{"w":11,"l":2,"pts":1769.74},"2025":{"w":7,"l":6,"pts":1580.9},"2026":{"w":1,"l":1,"pts":187.76,"live":true}},"titles":1,"sackos":1},"dilapi":{"seasons":{"2018":{"w":6,"l":6,"pts":1590.14},"2019":{"w":6,"l":6,"pts":1345.74},"2020":{"w":5,"l":7,"pts":1410.76},"2021":{"w":11,"l":2,"pts":1804.68},"2022":{"w":2,"l":11,"pts":1421.9},"2023":{"w":6,"l":7,"pts":1529.54},"2024":{"w":9,"l":4,"pts":1565.56},"2025":{"w":7,"l":6,"pts":1530.42},"2026":{"w":1,"l":1,"pts":258.46,"live":true}},"titles":0,"sackos":2},"jordan":{"seasons":{"2020":{"w":4,"l":8,"pts":1524.56},"2021":{"w":6,"l":7,"pts":1457.72},"2022":{"w":5,"l":8,"pts":1452.86},"2024":{"w":4,"l":9,"pts":1421.78},"2025":{"w":1,"l":12,"pts":1326.2},"2026":{"w":2,"l":0,"pts":285.9,"live":true}},"titles":0,"sackos":1},"skelly":{"seasons":{"2019":{"w":6,"l":6,"pts":1512.16},"2020":{"w":9,"l":3,"pts":1651.62},"2021":{"w":6,"l":7,"pts":1565.38}},"titles":0,"sackos":0},"mateus":{"seasons":{"2019":{"w":4,"l":8,"pts":1249.98}},"titles":0,"sackos":0},"jerry":{"seasons":{"2022":{"w":9,"l":4,"pts":1611.9},"2023":{"w":7,"l":6,"pts":1644.94},"2024":{"w":5,"l":8,"pts":1653.06},"2026":{"w":1,"l":1,"pts":232.38,"live":true}},"titles":0,"sackos":0},"dylan":{"seasons":{"2023":{"w":6,"l":7,"pts":1583.34},"2024":{"w":8,"l":5,"pts":1560.46},"2025":{"w":5,"l":8,"pts":1499.1},"2026":{"w":2,"l":0,"pts":243.76,"live":true}},"titles":1,"sackos":0},"duane":{"seasons":{},"titles":1,"sackos":0},"keeves":{"seasons":{},"titles":0,"sackos":0},"ghost":{"seasons":{"2026":{"w":0,"l":2,"pts":175.86,"live":true}},"titles":0,"sackos":0}}};
+const IMG = {"charles": "img/charles.jpg", "kyle": "img/kyle.jpg", "dylan": "img/dylan.jpg", "fluff": "img/fluff.jpg", "peanut": "img/peanut.jpg", "keeves": "img/keeves.jpg", "jordan": "img/jordan.jpg", "duane": "img/duane.jpg", "ghost": "img/ghost.jpg", "quincy": "img/quincy.jpg", "skelly": "img/skelly.jpg", "lucas": "img/lucas.jpg", "mateus": "img/mateus.jpg", "rod": "img/rod.jpg", "jerry": "img/jerry.jpg", "sacko": "img/sacko.png", "dilapi": "img/dilapi.jpg", "vicente": "img/vicente.jpg", "squirm": "img/squirm.jpg"};
+const CUT = {"vicente": "img/cut/vicente.webp", "rod": "img/cut/rod.webp", "quincy": "img/cut/quincy.webp", "jerry": "img/cut/jerry.webp", "jordan": "img/cut/jordan.webp", "dilapi": "img/cut/dilapi.webp", "charles": "img/cut/charles.webp", "peanut": "img/cut/peanut.webp", "dylan": "img/cut/dylan.webp", "kyle": "img/cut/kyle.webp", "mateus": "img/cut/mateus.webp", "lucas": "img/cut/lucas.webp", "ghost": "img/cut/ghost.webp", "squirm": "img/cut/squirm.webp", "duane": "img/cut/duane.webp", "keeves": "img/cut/keeves.webp", "fluff": "img/cut/fluff.webp", "skelly": "img/cut/skelly.webp"};
+
+const OWNERS = {
+  kyle:{name:"Kyle Klugewicz",nick:"",favs:["De'Von Achane","Mike Evans","Julio Jones"],desc:"The league's most restless trader and a commissioner from 2018 to 2024. Three titles: the 2017 NYC Klugeys, the 2023 Monglers and the 2025 Monglers. In 2019 he built a super team around an Ezekiel Elliott deal the commissioner vetoed and the league voted back in, then missed the playoffs when David Johnson got hurt. Has traded for Aaron Jones three separate times. Jerry was his college roommate."},
+  charles:{name:"Charles Lorenzo",nick:"",favs:["Alvin Kamara","Tyreek Hill","Jalen Hurts","Kareem Hunt"],desc:"Three championships (2019, 2020 and 2022), the best all-time win rate, and co-commissioner from 2018 to 2022. His franchise usually goes by some version of Sal's Chickens and is the busiest dealer in the archive, with 15 trades in 2019 alone. He also won the unofficial 2015 Wu-Tang league, which does not count. In 2016 he was one half of the league's first collusion scandal, then went 12-1 and lost the final to Duane. In 2018 he bought a Kareem Hunt jersey days before the Hunt video came out. In 2022 his Sal's 12 Chickens ran the Jefferson Affair."},
+  fluff:{name:"Jack Duffy",nick:"Floof / Fluff",favs:["James Robinson","George Pickens"],desc:"The first Sacko (2016) who became the 2018 champion. James Robinson is the favorite player he ever had. Renowned for not trading, and for sexualizing Squirm too much. In 2016 he tried to collude with Kyle while hanging out with Alex Katemaris, and failed. Went 11-2 in 2023 and was on one end of the twice-vetoed Kamara and Kupp for Ja'Marr Chase deal."},
+  squirm:{name:"Sean Woram",nick:"Squirm / Old Hickory",favs:["Christian McCaffrey","Derrick Henry","Amon-Ra St. Brown"],desc:"The 2021 champion as #dicksoutfor Dolan, and owner of the best 2025 regular season (9-4, 1,682 points). In 2016 he benched his own team so his cousin Peanut could make the playoffs. Owner of #dicksoutfor Dolan and The Feds. Has traded for Stefon Diggs twice."},
+  lucas:{name:"Lucas Pace",nick:"",desc:"The founding commissioner in 2016 and 2017, and back in the chair for 2026. Sackos in 2021 and 2024, and a 3-10 season as Team Pace in 2023. He was also on the other end of the Derrick Henry trade that won Kyle the 2023 title, and reached the 2025 final after losing Patrick Mahomes, where he played nine and declared \"Nine is my guy.\""},
+  quincy:{name:"Tommy Curran",nick:"Quincy",favs:["Drake Maye"],desc:"A major anal mongler who argues for sport. His team names double as an injury report: The Hospital RIP CMC, GUS. Sackos in 2018 and 2025, and a 2-11 finish in 2023. In 2026 he proposed that every trade go to a league vote, the league called it a dumb idea, and he did not take it well."},
+  dilapi:{name:"Chris DiLapi",nick:"",short:"DiLapi",desc:"The New York Noses since 2019 and the 2025 commissioner. Back-to-back Sackos in 2019 and 2020, and in between them he got catfished by Peanut. Then 11-2 in 2021 and 2-11 in 2022. Kyle once named a team DilapiSTILLaint Makingthe yoffs."},
+  peanut:{name:"Andrew Woram",nick:"Peanut / Kad",desc:"Squirm's cousin, and the beneficiary of the 2016 benching. Dr. Kakofonus A. Dischord. Shivakamini Somakandarkram. The Yogurtlechefts. THE CENTER, THE SOUTH and THE LAND DOWN UNDER, all in one season. Owner of the league's most elaborate team names and the 2023 Sacko. Often refuses to play. In the 2020 final he went up 50 on Charles after week one, declared himself champion, and lost."},
+  jordan:{name:"Jordan Cruz",nick:"",desc:"Joined in 2020. Ran Let Russ Carry My Team, Kelce's Kiddies, Jerry Jewdys and the Galaxy Liberators, gave Justin Jefferson to Charles for four starters in 2022, was on one side of the 2025 Great Reversal, has one Sacko on the books, and went 1-12 in 2025, which the league will not let him forget."},
+  dylan:{name:"Dylan Olivieri",nick:"",desc:"Joined in 2023 and won the 2024 title a year later. Named his team Sultans of Squirm, which tells you who lives rent-free in his head. He loves Squirm and makes inappropriate comments about his body."},
+  rod:{name:"Christian Rodriguez",nick:"Rod",desc:"RodFather. Turned down a 2017 collusion attempt from Vicente that the league vetoed. Won the Wrangler Conference in 2023 at 8-5 as MisoTrillerBoy. Once had a trade vetoed by the commissioner, then got the same player a day later for Tom Brady."},
+  jerry:{name:"Jeremy Carroll",nick:"Jerry",desc:"The Chicago Tittysquashers in 2022, then The Encino Men. Kyle's college roommate, whose team is blessed by Swiss Vinny. Went 9-4 in his first season, and gave Kyle Aaron Jones and Anthony Richardson for Garrett Wilson in 2023."},
+  skelly:{name:"Sean Kelly",nick:"Skelly",desc:"Team Kelly, 2019 to 2021. A .568 owner whose Zeke, Golladay and Singletary trade to Kyle was vetoed, overturned by a league vote, and handed Kyle a super team. Left the league to become a \"Pussy Doctor.\""},
+  mateus:{name:"Mateus Toppin",nick:"",desc:"Team Toppin, 2019. One season, six trades, and a Le'Veon Bell deal that sent five players his way."},
+  duane:{name:"Duane Bernard",nick:"",desc:"The first champion: the 2016 Emmustangs, who beat Charles's 12-1 team 242 to 190 in the two-week final behind Andrew Luck, David Johnson and Travis Kelce. He received his championship pot during a basketball game at Chaminade High School, which was very suspicious."},
+  keeves:{name:"Pat McKeever",nick:"Keeves",desc:"The 2017 Sacko. Also the target of one of Vicente's two vetoed collusion attempts that year."},
+  ghost:{name:"Adam Smith",nick:"Ghost",desc:"A friend the league met playing video games online. Joined for the 2026 expansion as Vick's Vet Clinic and opened 0-2."},
+  vicente:{name:"Cristian Vicente",nick:"",desc:"Tried to collude twice in 2017, once with Rod and once with Keeves. Both trades were vetoed. Hosted the 2017 draft at his summer house and did not invite Squirm, who once copied his homework and got him detention. Now trying to become a professional MMA fighter."}
+};
+const ORDER=["kyle","charles","fluff","squirm","dilapi","quincy","lucas","peanut","rod","jerry","dylan","jordan","skelly","mateus","duane","keeves","ghost","vicente"];
+
+// Known team names that are not in the trade archive
+const EXTRA_NAMES = {
+  2016:{duane:"Emmustangs"},
+  2017:{kyle:"NYC Klugeys"},
+  2023:{kyle:"The Monglers",rod:"MisoTrillerBoy",dylan:"Sultans of Squirm",dilapi:"New York Noses",squirm:"The Feds",quincy:"Team Curran",fluff:"Floof",jerry:"The Encino Men",peanut:"Dr. Kakofonus A. Dischord",lucas:"Team Pace"}
+};
+const COMMISH = {2016:["lucas"],2017:["lucas"],2018:["kyle","charles"],2019:["kyle","charles"],2020:["kyle","charles"],2021:["kyle","charles"],2022:["kyle","charles"],2023:["kyle"],2024:["kyle"],2025:["dilapi"],2026:["lucas"]};
+const MANUAL_VETOES = [{y:2017,text:"Vicente tries to collude with Rod. Vetoed."},{y:2017,text:"Vicente tries to collude with Keeves. Vetoed."}];
+const HEISTS = {
+  2016:{id:137,why:"The collusion trade: Julio Jones, Jordan Reed and Mark Ingram for two retired players and Alshon Jeffery. Reed came back for free three weeks later."},
+  2017:{id:142,why:"Rod dumped Andrew Luck, who never played a snap in 2017, on Peanut for Jameis Winston before the season. Peanut then passed Luck to Charles for Willie Snead."},
+  2019:{id:22,why:"Kyle's Zeke deal with Skelly. It was vetoed for a reason, and the league voted it through anyway."},
+  2020:{id:33,why:"Sal's 34 Chickens turned Cooper Kupp and James Conner into Tyreek Hill."},
+  2021:{id:55,why:"The Monglers got Cooper Kupp and DeVonta Smith for Chase Edmonds, right before Kupp's triple-crown season."},
+  2022:{id:89,why:"Justin Jefferson for four starters, the heart of the Jefferson Affair."},
+  2023:{id:117,why:"The Encino Men sent Aaron Jones and Anthony Richardson to The Monglers for Garrett Wilson."},
+  2024:{id:123,why:"Jordan's Galaxy Liberators picked up Kyren Williams and DK Metcalf from Kyle for Tyreek Hill and Devin Singletary."},
+  2025:{id:125,why:"The Monglers turned Javonte Williams and Jameson Williams into De'Von Achane."}
+};
+const DRAFT_SPOT = {2016:"Sal's office",2017:"Vicente's summer house",2018:"Sal's office",2019:"Sal's office",2020:"Sal's office",2021:"Sal's office",2022:"Quincy's apartment complex",2023:"Sal's office",2024:"Sal's office",2025:"Sal's office",2026:"Sal's office"};
+const PICKUPS = {2023:{team:"The Monglers",player:"Kyren Williams"}};
+const CHAMPS = {2016:{o:"duane",team:"Emmustangs"},2017:{o:"kyle",team:"NYC Klugeys / The Monglers"},2018:{o:"fluff",team:"Fluff"},2019:{o:"charles",team:"Sal's 12 Chickens"},2020:{o:"charles",team:"Sal's 34 Chickens"},2021:{o:"squirm",team:"#dicksoutfor Dolan"},2022:{o:"charles",team:"Sal's 12 Chickens"},2023:{o:"kyle",team:"The Monglers"},2024:{o:"dylan",team:"Sultans of Squirm"},2025:{o:"kyle",team:"THE MONGLERS"}};
+const SACKOS = {2016:{o:"fluff",team:"Fluff"},2017:{o:"keeves",team:"Keeves"},2018:{o:"quincy",team:"Quincy"},2019:{o:"dilapi",team:"DiLapi (New York Noses)"},2020:{o:"dilapi",team:"DiLapi (New York Noses)"},2021:{o:"lucas",team:"Lucas"},2022:{o:"jordan",team:"Jordan"},2023:{o:"peanut",team:"Peanut"},2024:{o:"lucas",team:"Lucas"},2025:{o:"quincy",team:"Quincy"}};
+const LIVE = {"jordan": {"team": "Galaxy Liberators", "moves": 4}, "lucas": {"team": "Student Ath-o-letes", "moves": 3}, "dylan": {"team": "Sultans of Squirm", "moves": 1}, "kyle": {"team": "THE MONGLERS", "moves": 12}, "dilapi": {"team": "New York Noses", "moves": 6}, "charles": {"team": "Sal's 4 Chickens", "moves": 7}, "jerry": {"team": "Chicago Tiddysquashers", "moves": 12}, "rod": {"team": "2girls 1Kupp", "moves": 5}, "fluff": {"team": "SQUIRMYS SLUTZS", "moves": 7}, "squirm": {"team": "#dicksoutfor Dolan", "moves": 3}, "ghost": {"team": "Vick's Vet Clinic", "moves": 2}, "quincy": {"team": "Quincy Jonesin' for a TD", "moves": 8}};
+
+const HISTORY = {
+  2015:{title:"The Wu-Tang Prequel",unofficial:true,items:["An unofficial season in a league officially called the Wu-Tang, played by a group of friends who called themselves The #Squad.","It was so fraught with cheating and tampering that it does not count. The low point: Quincy's team was put up on a TV at Roosevelt Field Mall and passersby were invited to drop his players.","Charles won it, but the title is not counted in his championships.","The chaos laid the groundwork for a proper league the next year."]},
+  2016:{title:"The Founding",items:["Year one: an eight-team league on ESPN called The LI League, separate from today's league history. Scoring was full PPR, as it would be every year through 2025.","The draft is held at Sal's office.","Scandal one: Kyle and Charles collude. Kyle sends Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired, plus Alshon Jeffery. Charles hands Reed back for nothing on October 25.","Fluff tries to collude with Kyle while hanging out with Alex Katemaris, and fails.","Scandal two: Squirm benches his own team so his cousin Peanut can make the playoffs.","Charles goes 12-1 with a super team and still loses the two-week final to Duane, 242 to 190. David Johnson has a historic stretch for Duane, and the final fell in the last week of the NFL season, when several of Charles's players were rested. After this the league moved the championship to the two weeks before the final NFL week.","The Emmustangs win the first crown. Fluff takes the first Sacko."]},
+  2017:{title:"The Klugey Coronation",items:["Played in a separate ESPN league, also called The Flamingo Men, and the league format was not saved.","The draft is held at Vicente's summer house. Squirm is not invited, because Vicente never forgave him for copying his homework and getting him detention.","The draft order is randomized and Kyle gets the first overall pick. He was not at the draft, and the rest of the league colluded to rearrange the order.","Rod unloads Andrew Luck, who would miss the whole season, on Peanut for Jameis Winston. Peanut then passes Luck to Charles for Willie Snead.","Vicente tries to collude twice, first with Rod and then with Keeves. Both trades are vetoed.","Kyle goes 10-2 as the NYC Klugeys and wins the title with Kelce, Michael Thomas and Mike Evans.","Right before the playoffs Kyle trades Alvin Kamara to Charles for Ezekiel Elliott. Kamara gets hurt in their first-round matchup.","Live draft on the big sticker board on August 6, 2017.","Keeves takes the Sacko."]},
+  2018:{title:"The Move to ESPN",items:["The league moves to the ESPN Flamingo Men league with a 12-game regular season.","Fluff posts the best record (9-3) and the most points (1,806.76), then wins the title. Quincy takes the Sacko.","Charles buys a Kareem Hunt jersey days before the Hunt video comes out, ruining both his team and the jersey.","Eight teams again, and the draft is back at Sal's office."]},
+  2019:{title:"The Super Team That Wasn't",items:["Kyle (Bittersweet Distract0rs) sends Mixon, Boyd and Ertz to Skelly for Ezekiel Elliott, Kenny Golladay and Devin Singletary. The deal is vetoed, then a league vote overturns the veto.","The trade makes Kyle a super team, until David Johnson gets hurt and Kyle misses the playoffs.","Team Quincy and Kyle try to swap Hunter Henry twice in two days. Vetoed both times.","Kyle also ran DilapiSTILLaint Makingthe yoffs for a stretch, a name aimed squarely at Dilapi.","25 completed trades in the first year of the archive. Charles's Sal's 12 Chickens were in 15 of them."]},
+  2020:{title:"The Pandemic Season",items:["Kyle goes 1-11 but escapes the Sacko.","CeeDee Lamb is traded for Christian Kirk on October 30, and the exact trade is run in reverse four days later.","Charles and Skelly share the best record at 9-3.","Peanut reaches the final against Charles as a big underdog, and the whole league is rooting for him. He goes up 50 after the first week, declares himself champion, and loses the crowd. Charles rallies behind a 56-point Kamara game and wins it."]},
+  2021:{title:"The Monglers Arrive",items:["The regular season grows to 13 games.","The busiest trade year on record with 36 deals. Kyle rebrands as The Monglers and makes 15 of them, including Chubb, Diggs and Evans for Aaron Jones and Tyreek Hill.","Dilapi goes 11-2 with 1,804.68 points. Quincy renames his team The Hospital RIP CMC, GUS."]},
+  2022:{title:"The Jefferson Affair",items:["Charles's Sal's 12 Chickens become the league's biggest dealer with 15 trades.","The headline deal: Kamara, Keenan Allen, Kareem Hunt and Brian Robinson go to Jordan's Jerry Jewdys for Justin Jefferson and Jamaal Williams.","The commissioner vetoes a Darius Slayton giveaway to the RodFather on December 1. It goes through the next day for Tom Brady.","Dilapi drops from 11-2 to 2-11.","And the Chickens win the title. Charles's third championship came in the same season as the firesale.","The draft moves to Quincy's apartment complex, because Sal was in Europe."]},
+  2023:{title:"The Breakaway Season",items:["Played in a separate league, Flamingo Football Year 8, split into the Flamingo and Wrangler conferences.","The Monglers (11-2) win it all after flipping Garrett Wilson for Aaron Jones and Anthony Richardson, then packaging four players for Derrick Henry.","November 24: the league votes down Floof and Dr. Kakofonus's Kamara and Kupp for Ja'Marr Chase trade twice in one evening.","Peanut takes the Sacko."]},
+  2024:{title:"The Restoration",items:["The league returns to the main ESPN league as Flamingo Football Year 9.","A quiet trade year: only two deals in the archive, both involving The Monglers.","Kyle falls to 4-9. Squirm goes 8-5, and Dilapi finishes 9-4."]},
+  2025:{title:"The Great Reversal",items:["Year 10, with DiLapi as commissioner. In mid-November, Galaxy Liberators and New York Noses swap Brock Bowers and Javonte Williams for Deebo Samuel and Saquon Barkley. Hours later the exact trade runs in reverse.","THE CENTER and Sultans of Squirm swap eight players in a 4-for-4 on October 29.","Squirm posts the best record (9-4). Jordan goes 1-12.","Lucas reaches the final, then loses Patrick Mahomes to injury. He waits on a waiver QB until Kyle has taken most of the good ones, then plays nine in the final against Kyle, saying, infamously, \"Nine is my guy.\"","Kyle wins his third title as THE MONGLERS. Quincy takes the Sacko."]},
+  2026:{title:"Year 11: The Great Expansion",items:["Lucas is commissioner again, ten years after the founding.","The biggest format change in league history: the first 12-team season, a second flex spot, and a switch from full PPR (every year from 2016 to 2025) to half PPR.","Kyle trades for Romeo Doubs, and Quincy throws a fit. He had proposed that every trade go to a league vote, the rest of the league called it a dumb idea, and he said he felt minimized.","Adam Smith (Ghost) joins as the twelfth team, Vick's Vet Clinic. Peanut is out.","Two divisions: Lex and Bhavi. After week 2, Galaxy Liberators, Student Ath-o-letes and Sultans of Squirm are 2-0. Quincy, whose trade-vote plan was laughed off, is 0-2 with the fewest points."]}
+};
+
+const CHRONICLE = [
+  ["The Wu-Tang Prequel, 2015 (unofficial)","Before the republic there was the Wu-Tang, an unofficial league run by a crew called The #Squad, with no rules anyone respected. Cheating and tampering were routine, and at one point Quincy's roster went up on a TV at Roosevelt Field Mall so strangers could drop his players. Charles won, the season was struck from the record, and the survivors founded the Flamingo Men a year later."],
+  ["The Founding Era, 2016 to 2017","The republic was founded in 2016 under Commissioner Lucas, and its first season produced its first scandal: Kyle and Charles colluded on a trade, and Squirm benched his own team so his cousin Peanut could reach the playoffs. The Emmustangs took the crown and Fluff took the first Sacko. In 2017 Vicente tried to collude twice and was vetoed both times, and Kyle's NYC Klugeys won it all."],
+  ["The LI League, 2016","The Flamingo Men started life on ESPN as The LI League, an eight-team league with the draft at Sal's office. The email trail shows how the first scandal worked: on October 5 Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, both already retired, plus Alshon Jeffery, and on October 25 Charles gave Reed back for nothing. Charles went 12-1 and lost the final to Duane anyway."],
+  ["The Co-Commissioner Years, 2018 to 2022","Kyle and Charles took joint control when the league moved to ESPN, and both ran the busiest trade desks in the league. In 2019 Kyle took Ezekiel Elliott, Kenny Golladay and Devin Singletary from Skelly. The commissioner vetoed it and a league vote overturned the veto, Kyle had a super team, and then David Johnson got hurt and the super team missed the playoffs. Charles's Sal's 12 Chickens were in 15 of the year's trades."],
+  ["The Jefferson Affair, 2022","Charles's Sal's 12 Chickens traded away Kamara, Keenan Allen, Kareem Hunt and Brian Robinson for Justin Jefferson and Jamaal Williams, and kept dealing all season. Nobody was vetoed. As co-commissioner, nobody could veto him. The Chickens then won the championship."],
+  ["The Breakaway and the Restoration, 2023 to 2024","With Kyle as sole commissioner, the 2023 season was played in a separate league split into two conferences, and The Monglers traded their way to a second title on record. The league returned to the main ESPN league in 2024."],
+  ["The Great Reversal, 2025","A Bowers and Saquon trade was completed and then undone within hours, move for move. It happened on Commissioner DiLapi's watch, with his own New York Noses on one side, and the league still argues about whether that was diplomacy or a cover-up."],
+  ["The Second Pace Administration, 2026","Lucas returns to the chair he held at the founding and presides over the expansion to 12 teams, double flex and half PPR. The first crisis came fast: Quincy's plan to put every trade to a league vote was laughed off, and when Kyle traded for Romeo Doubs, Quincy let everyone know he felt minimized. Seven years earlier, a league vote had saved Kyle's Zeke trade."]
+];
+
+const TOP5 = [
+  {id:137,why:"The founding scandal. Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired before the season, plus Alshon Jeffery. Twenty days later Charles gave Reed back for nothing. This is the 2016 collusion."},
+  {id:89,why:"Four starters for one superstar. Jordan's Jerry Jewdys handed over Justin Jefferson and got Kamara, Keenan Allen, Kareem Hunt and Brian Robinson, the centerpiece of the Jefferson Affair."},
+  {id:93,why:"Patrick Mahomes, DJ Moore, Terry McLaurin and Brandon Aiyuk for Dak Prescott, Teddy Bridgewater, Christian Kirk and Tyler Lockett. Eight players, and the only one people remember is Mahomes."},
+  {id:69,why:"A superstar swap: The Monglers sent Nick Chubb, Stefon Diggs and Mike Evans to #dicksoutfor Dolan for Aaron Jones and Tyreek Hill."},
+  {id:118,why:"The title move. The Monglers sent four players, including McLaurin, James Cook and Aaron Jones, to Team Pace for Derrick Henry, and won the 2023 championship."}
+];
+const FLAGS = {...({"22": "Veto overturned by league vote"}), 42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",137:"Collusion: Megatron and Lynch were retired",140:"Reed handed back for nothing",142:"Luck missed all of 2017",144:"Luck missed all of 2017"};
+
+const CHAMP_STORY = {
+  2016:"The first crown, won at 7-6. Duane beat Charles's 12-1 super team 242 to 190 over the two-week final, most of it in week 16, while several of Charles's players sat out the last week of the NFL season. It is the reason the league moved the championship earlier.",
+  2017:"Kyle went 10-2 as the NYC Klugeys and turned the league's second season into his first title.",
+  2018:"Two years after taking the first Sacko, Fluff built the best team in the league: a league-best 9-3 and 1,806.76 points, the highest regular-season total on record. This season predates the trade archive.",
+  2019:"Sal's 12 Chickens were in 15 trades, more than anyone. Charles turned Josh Allen, Austin Ekeler, Tarik Cohen and Robert Woods into Cam Newton, Marlon Mack and Julio Jones, flipped Julio and Derrius Guice for DeAndre Hopkins, and bought Aaron Jones from the New York Noses for Tyler Boyd.",
+  2020:"Back-to-back. Charles sent Cooper Kupp and James Conner to Kyle for Tyreek Hill, then bought Kupp back three days later for Diontae Johnson and Daniel Jones. He added Aaron Rodgers for Myles Gaskin and picked up Gronk for Leonard Fournette in November.",
+  2021:"#dicksoutfor Dolan made the season's biggest blockbuster, sending Aaron Jones and Tyreek Hill to Kyle for Nick Chubb, Stefon Diggs and Mike Evans. In December Squirm flipped Chubb and Diggs to El Floof for Ezekiel Elliott, Mark Ingram and Chris Godwin, and rode that roster to the title.",
+  2022:"The Jefferson Affair season. Charles made 15 trades, sent Kamara, Keenan Allen, Kareem Hunt and Brian Robinson to Jordan for Justin Jefferson and Jamaal Williams, and in November paid four players to the New York Noses for Tyreek Hill. He won a third title.",
+  2023:"Kyle went 11-2 and traded his way through the whole autumn. The full build is below.",
+  2024:"Sultans of Squirm won the title in only their second season. Dylan made one trade on record, and it was the right one: Brian Robinson Jr. to Kyle for Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr.",
+  2025:"A third title from a 7-6 record. Kyle bought De'Von Achane in week one for Javonte Williams and Jameson Williams, cycled through Kenneth Walker III and Terry McLaurin, took Dak Prescott and Alvin Kamara from THE CENTER, and closed in late November by landing Jaylen Waddle from Quincy's Drake Maye's Aura. Quincy finished with the Sacko."
+};
+const SACKO_STORY = {
+  2016:"The first Sacko in league history. Two years later Fluff won the whole thing.",
+  2017:"No records from 2017 were saved. Keeves was also the target of one of Vicente's two vetoed collusion attempts that year.",
+  2018:"Quincy took the first Sacko of the ESPN era. The records say 5-7 and 1,480.2 points, which was not enough to survive the losers' bracket.",
+  2019:"DiLapi went .500 but scored only 1,345.74. He sent Joe Mixon, Baker Mayfield and Tyler Boyd to Kyle for Philip Rivers, Mike Evans and Kerryon Johnson, and sold Aaron Jones to Charles for Tyler Boyd. Jones went to the eventual champion.",
+  2020:"Back-to-back Sackos, and the offseason in between was no better: Peanut catfished him. DiLapi traded Chris Godwin for Aaron Jones and Jerry Jeudy, then sold Adam Thielen to the eventual champion for Julian Edelman, Antonio Gibson and Jerick McKinnon.",
+  2021:"A 3-10 season as Los Stogies. Lucas sent A.J. Green and Javonte Williams to El Floof for Antonio Brown and Jamaal Williams in September, then gave Dalvin Cook to Charles for Diontae Johnson in November. Tom Brady scored 374 points for him and it did not matter.",
+  2022:"Jordan went 5-8 as Jerry Jewdys and was on the wrong end of the Jefferson Affair, sending Justin Jefferson and Jamaal Williams to Charles for Kamara, Keenan Allen, Kareem Hunt and Brian Robinson. He flipped Robinson and Darrell Henderson to Peanut for Allen Robinson, and gave Allen Lazard and JuJu Smith-Schuster to Kyle for Chris Olave, James Robinson and DJ Moore. Charles won the title with Jefferson.",
+  2023:"Dr. Kakofonus A. Dischord tried twice on November 24 to buy Ja'Marr Chase from Floof with Alvin Kamara and Cooper Kupp. The league vetoed both.",
+  2024:"Lucas's second Sacko, this time as Lucas's Loud Team at 5-8. No trades on record, and a roster built on Matthew Stafford, Joe Mixon and Garrett Wilson.",
+  2025:"A winning record (7-6) and still the Sacko. Quincy's one trade on record sent Jaylen Waddle to Kyle, who went on to win the title."
+};
+function seasonLine(o,y){const r=S[o]?.seasons?.[y];if(!r)return "";const st=standings(y);const byPts=st.slice().sort((a,b)=>(b.pts||0)-(a.pts||0));const pr=byPts.findIndex(x=>x.o===o)+1;
+  return `<div class="facts"><div class="fact"><span class="eyebrow">Record</span><b>${r.w}-${r.l}</b></div>${r.pts?`<div class="fact"><span class="eyebrow">Points scored</span><b>${fmt(r.pts)}</b></div><div class="fact"><span class="eyebrow">Points rank</span><b>${pr} of ${st.length}</b></div>`:""}</div>`}
+const CHAMP_DETAIL = {
+  2016:{roster:[["QB","Andrew Luck"],["RB","David Johnson"],["RB","LeGarrette Blount"],["WR","Jordy Nelson"],["WR","T.Y. Hilton"],["TE","Travis Kelce"],["FLX","Bilal Powell"],["D/ST","Ravens"],["K","Matt Prater"]],
+        rosterNote:"Starting lineup in the two-week final, won 242 to 190 over Charles (170 in week 16, 72 in week 17)."},
+  2018:{roster:[["QB","Deshaun Watson"],["RB","Alvin Kamara"],["RB","Melvin Gordon"],["WR","Michael Thomas"],["WR","T.Y. Hilton"],["TE","Zach Ertz"],["FLX","Jarvis Landry"],["D/ST","Chargers"],["K","Wil Lutz"],["BE","Kenyan Drake"],["BE","Lamar Miller"],["BE","Mitchell Trubisky"],["BE","Lamar Jackson"],["BE","Broncos D/ST"],["BE","Chris Godwin"],["BE","John Kelly"]],
+        rosterNote:"Final roster as Team Duffy, 9-3 and first in the Quincys division."},
+  2019:{roster:[["QB","Lamar Jackson"],["RB","Alvin Kamara"],["RB","Leonard Fournette"],["WR","DeAndre Hopkins"],["WR","Breshad Perriman"],["TE","Travis Kelce"],["FLX","Keenan Allen"],["D/ST","Ravens"],["K","Wil Lutz"],["BE","Melvin Gordon"],["BE","Aaron Jones"],["BE","Mark Andrews"],["BE","Michael Gallup"],["BE","Mike Boone"],["BE","Dion Lewis"],["BE","Damien Williams"]],
+        rosterNote:"Final roster as Sal's 12 Chickens, 8-4 and second in the Lex division."},
+  2020:{roster:[["QB","Aaron Rodgers"],["RB","Alvin Kamara"],["RB","Myles Gaskin"],["WR","Tyreek Hill"],["WR","Cooper Kupp"],["TE","George Kittle"],["FLX","David Johnson"],["D/ST","Browns"],["K","Tyler Bass"],["BE","Mike Davis"],["BE","Mike Gesicki"],["BE","Tony Pollard"],["BE","Jalen Hurts"],["BE","Allen Lazard"],["BE","Cam Akers"],["BE","Clyde Edwards-Helaire"],["IR","Julio Jones"]],
+        rosterNote:"Final roster as Sal's 34 Chickens, 9-3 and first in the Lex division."},
+  2021:{roster:[["QB","Justin Herbert"],["RB","Devin Singletary"],["RB","Ezekiel Elliott"],["WR","Marquise Brown"],["WR","Amon-Ra St. Brown"],["TE","Zach Ertz"],["FLX","Brandin Cooks"],["D/ST","Saints"],["K","Evan McPherson"],["BE","Leonard Fournette"],["BE","A.J. Green"],["BE","David Njoku"],["BE","Justin Jackson"],["BE","Eagles D/ST"],["BE","Tyler Huntley"],["BE","Jaret Patterson"],["IR","Elijah Moore"]],
+        rosterNote:"Final roster as #dicksoutfor Dolan, 8-5 and first in the Lex division."},
+  2022:{roster:[["QB","Justin Fields"],["RB","Christian McCaffrey"],["RB","Zonovan Knight"],["WR","Justin Jefferson"],["WR","Tyreek Hill"],["TE","Dalton Schultz"],["FLX","Davante Adams"],["D/ST","Cowboys"],["K","Cameron Dicker"],["BE","Rachaad White"],["BE","Ravens D/ST"],["BE","J.K. Dobbins"],["BE","Dallas Goedert"],["BE","James Cook"],["BE","Hassan Haskins"],["BE","Chuba Hubbard"]],
+        rosterNote:"Final roster as Sal's 12 Chickens, 9-4 and second in the Lex division."},
+  2024:{roster:[["QB","Josh Allen"],["RB","Rachaad White"],["RB","Tyjae Spears"],["WR","Terry McLaurin"],["WR","Courtland Sutton"],["TE","Travis Kelce"],["FLX","Drake London"],["D/ST","Dolphins"],["K","Cameron Dicker"],["BE","Marvin Harrison Jr."],["BE","Najee Harris"],["BE","Chuba Hubbard"],["BE","Tyrone Tracy Jr."],["BE","Bo Nix"],["BE","Isaac Guerendo"],["BE","Jalen McMillan"],["IR","CeeDee Lamb"]],
+        rosterNote:"Final roster as Sultans of Squirm, 8-5 and first in the Bhavi division."},
+  2025:{roster:[["QB","Dak Prescott"],["RB","Omarion Hampton"],["RB","De'Von Achane"],["WR","CeeDee Lamb"],["WR","Amon-Ra St. Brown"],["TE","George Kittle"],["FLX","Jaylen Waddle"],["D/ST","Saints"],["K","Ka'imi Fairbairn"],["BE","Michael Carter"],["BE","Trevor Lawrence"],["BE","Emanuel Wilson"],["BE","Tyler Shough"],["BE","Brenton Strange"],["BE","Chris Rodriguez Jr."],["BE","Cam Skattebo"],["IR","Garrett Wilson"]],
+        rosterNote:"Final roster as THE MONGLERS, 7-6 and second in the Bhavi division."},
+  2017:{roster:[["QB","Kirk Cousins"],["RB","Leonard Fournette"],["RB","LeSean McCoy"],["WR","Mike Evans"],["WR","Michael Thomas"],["TE","Travis Kelce"],["FLX","Jarvis Landry"],["D/ST","Lions"],["BE","Robby Anderson"],["BE","Marvin Jones Jr."],["BE","Ezekiel Elliott"],["BE","Jared Goff"],["BE","Austin Ekeler"],["BE","Jay Ajayi"],["BE","Josh Gordon"]],
+        rosterNote:"Roster from a mid-season screenshot at 9-2.",
+        moves:["Built around a Travis Kelce, Michael Thomas and Mike Evans core with LeSean McCoy and Leonard Fournette in the backfield.","Trade and waiver records for 2017 are not on file yet."]},
+  2023:{roster:[["QB","Patrick Mahomes"],["RB","Bijan Robinson"],["RB","Derrick Henry"],["WR","Keenan Allen"],["WR","DJ Moore"],["TE","Travis Kelce"],["FLX","Chris Olave"],["D/ST","Chiefs"],["K","Dustin Hopkins"],["BE","Kyren Williams"],["BE","Isiah Pacheco"],["BE","Nico Collins"],["BE","Saints D/ST"],["BE","49ers D/ST"],["BE","Demario Douglas"]],
+        rosterNote:"Week 12 roster at 9-2.",
+        moves:["Traded for Garrett Wilson in September, then flipped him to The Encino Men for Aaron Jones and Anthony Richardson.","Sent Terry McLaurin, Tank Dell, James Cook and Aaron Jones to Team Pace for Derrick Henry.","Swapped Jaylen Waddle to Team Curran for Isiah Pacheco.","Landed Chris Olave from Team Pace for Darrell Henderson, Tank Dell and Kyler Murray.","Picked up Kyren Williams off waivers."]}
+};
+
+const SACKO_DETAIL = {
+  2018:{roster:[["QB","Tom Brady"],["RB","Ezekiel Elliott"],["RB","Tarik Cohen"],["WR","Odell Beckham Jr."],["WR","Tyreek Hill"],["TE","Jimmy Graham"],["FLX","Marlon Mack"],["D/ST","Patriots"],["K","Stephen Gostkowski"],["BE","LeSean McCoy"],["BE","Alex Collins"],["BE","Josh Gordon"],["BE","Allen Robinson"],["BE","Kenny Golladay"],["BE","DJ Moore"],["BE","David Njoku"]],
+        rosterNote:"Final roster as Team Quincy, 5-7 and fourth in the Peans division."},
+  2019:{roster:[["QB","Ryan Tannehill"],["RB","Chris Carson"],["RB","DeAndre Washington"],["WR","Davante Adams"],["WR","DJ Chark Jr."],["TE","Austin Hooper"],["FLX","Patrick Laird"],["D/ST","Seahawks"],["K","Robbie Gould"],["BE","Mike Evans"],["BE","Philip Rivers"],["BE","Tevin Coleman"],["BE","Curtis Samuel"],["BE","Larry Fitzgerald"],["BE","Anthony Miller"],["BE","Adrian Peterson"]],
+        rosterNote:"Final roster as the New York Noses, 6-6 and fifth in the Lex division."},
+  2020:{roster:[["QB","Deshaun Watson"],["RB","Aaron Jones"],["RB","Antonio Gibson"],["WR","Robby Anderson"],["WR","Justin Jefferson"],["TE","Mark Andrews"],["FLX","Jeff Wilson Jr."],["D/ST","Bills"],["K","Jason Myers"],["BE","Michael Thomas"],["BE","Darrell Henderson Jr."],["BE","Jerick McKinnon"],["BE","Justin Jackson"],["BE","Sterling Shepard"],["BE","Samaje Perine"],["BE","Michael Pittman Jr."]],
+        rosterNote:"Final roster as the New York Noses, 5-7 and fifth in the Lex division."},
+  2021:{roster:[["QB","Tom Brady"],["RB","Darrell Henderson Jr."],["RB","Jamaal Williams"],["WR","DK Metcalf"],["WR","Diontae Johnson"],["TE","Rob Gronkowski"],["FLX","Chase Claypool"],["D/ST","Browns"],["K","Jason Sanders"],["BE","D'Andre Swift"],["BE","Lamar Jackson"],["BE","Dallas Goedert"],["BE","Tyler Boyd"],["BE","Antonio Brown"],["BE","Marquez Callaway"],["BE","Van Jefferson"],["IR","Calvin Ridley"]],
+        rosterNote:"Final roster as Los Stogies, 3-10 and fifth in the Lex division."},
+  2022:{roster:[["QB","Tom Brady"],["RB","Josh Jacobs"],["RB","Alvin Kamara"],["WR","Jerry Jeudy"],["WR","Keenan Allen"],["TE","Robert Tonyan"],["FLX","Chris Olave"],["D/ST","Rams"],["K","Younghoe Koo"],["BE","Antonio Gibson"],["BE","Kareem Hunt"],["BE","George Pickens"],["BE","James Robinson"],["BE","DJ Moore"]],
+        rosterNote:"Final roster as Jerry Jewdys, 5-8 and third in the Bhavi division."},
+  2024:{roster:[["QB","Matthew Stafford"],["RB","Joe Mixon"],["RB","Kenneth Walker III"],["WR","Garrett Wilson"],["WR","Romeo Doubs"],["TE","Jake Ferguson"],["FLX","Breece Hall"],["D/ST","Chargers"],["K","Will Reichard"],["BE","Chris Olave"],["BE","Tank Dell"],["BE","Jordan Love"],["BE","Joshua Palmer"],["BE","Rico Dowdle"],["BE","Pat Freiermuth"],["BE","Jaylen Waddle"]],
+        rosterNote:"Final roster as Lucas's Loud Team, 5-8 and fourth in the Lex division."},
+};
+
+const DRAFTS = {
+ "2016": {
+  "source": "Transcribed from the 2016 sticker board photo. Columns are in board order. The Team 5 card reads \"Brklyn Noses\" and its owner is not confirmed; PEANS (Peanut) is the Team 8 card.",
+  "teams": [
+   [
+    "Patcher's",
+    "lucas"
+   ],
+   [
+    "NY Lorenzos",
+    "charles"
+   ],
+   [
+    "The Hot Mikes",
+    "squirm"
+   ],
+   [
+    "Team Duffy",
+    "fluff"
+   ],
+   [
+    "DAB",
+    "duane"
+   ],
+   [
+    "NYC Klugeys",
+    "kyle"
+   ],
+   [
+    "Brklyn Noses",
+    null
+   ],
+   [
+    "PEANS",
+    "peanut"
+   ]
+  ],
+  "cols": [
+   [
+    "Todd Gurley/RB",
+    "Allen Robinson/WR",
+    "Dez Bryant/WR",
+    "Demaryius Thomas/WR",
+    "Zach Ertz/TE",
+    "Gary Barnidge/TE",
+    "Ben Roethlisberger/QB",
+    "Rams/DST",
+    "Brandin Cooks/WR",
+    "Dan Bailey/K",
+    "Cooper/WR",
+    "Matt Ryan/QB",
+    "Matt Jones/RB",
+    "Chris Conley/WR",
+    "Arian Foster/RB",
+    "Kyle Rudolph/TE"
+   ],
+   [
+    "Antonio Brown/WR",
+    "A.J. Green/WR",
+    "Le'Veon Bell/RB",
+    "Mike Evans/WR",
+    "Alshon Jeffery/WR",
+    "Sammy Watkins/WR",
+    "Thomas Rawls/RB",
+    "LeSean McCoy/RB",
+    "Carlos Hyde/RB",
+    "Jeremy Maclin/WR",
+    "Latavius Murray/RB",
+    "Jeremy Langford/RB",
+    "Blake Bortles/QB",
+    "Coby Fleener/TE",
+    "Raiders/DST",
+    "Chandler Catanzaro/K"
+   ],
+   [
+    "Adrian Peterson/RB",
+    "Ezekiel Elliott/RB",
+    "DeMarco Murray/RB",
+    "Brandon Marshall/WR",
+    "Jarvis Landry/WR",
+    "Kelvin Benjamin/WR",
+    "Delanie Walker/TE",
+    "Drew Brees/QB",
+    "Cardinals/DST",
+    "Derek Carr/QB",
+    "Jimmy Graham/TE",
+    "Graham Gano/K",
+    "Justin Forsett/RB",
+    "Vincent Jackson/WR",
+    "Dion Lewis/RB",
+    "Panthers/DST"
+   ],
+   [
+    "Odell Beckham Jr./WR",
+    "Lamar Miller/RB",
+    "Amari Cooper/WR",
+    "Greg Olsen/TE",
+    "Keenan Allen/WR",
+    "Randall Cobb/WR",
+    "Russell Wilson/QB",
+    "C.J. Anderson/RB",
+    "Chiefs/DST",
+    "Steven Hauschka/K",
+    "Tyler Lockett/WR",
+    "T.J. Yeldon/RB",
+    "Ted Ginn/WR",
+    "Jason Witten/TE",
+    "Bengals/DST",
+    "Peyton Manning/QB"
+   ],
+   [
+    "David Johnson/RB",
+    "Doug Martin/RB",
+    "Jordy Nelson/WR",
+    "T.Y. Hilton/WR",
+    "Travis Kelce/TE",
+    "Doug Baldwin/WR",
+    "Andrew Luck/QB",
+    "Seahawks/DST",
+    "Mason Crosby/K",
+    "Kirk Cousins/QB",
+    "DeAngelo Williams/RB",
+    "Michael Crabtree/WR",
+    "Frank Gore/RB",
+    "Antonio Gates/TE",
+    "Jones/WR",
+    "Jets/DST"
+   ],
+   [
+    "Julio Jones/WR",
+    "Devonta Freeman/RB",
+    "Mark Ingram/RB",
+    "Jordan Reed/TE",
+    "Jonathan Stewart/RB",
+    "Golden Tate/WR",
+    "Carson Palmer/QB",
+    "Giovani Bernard/RB",
+    "Stephen Gostkowski/K",
+    "Tom Brady/QB",
+    "Julius Thomas/TE",
+    "Miller/WR",
+    "Richard Rodgers/TE",
+    "Victor Cruz/WR",
+    "Redskins/DST",
+    "Giants/DST"
+   ],
+   [
+    "Broncos/DST",
+    "Rob Gronkowski/TE",
+    "Cam Newton/QB",
+    "Chris Ivory/RB",
+    "Eric Decker/WR",
+    "Darren Sproles/RB",
+    "Michael Floyd/WR",
+    "Matt Forte/RB",
+    "Adam Vinatieri/K",
+    "Emmanuel Sanders/WR",
+    "Danny Amendola/WR",
+    "Larry Fitzgerald/WR",
+    "Jared Cook/TE",
+    "Justin Tucker/K",
+    "Devontae Booker/RB",
+    "Packers/DST"
+   ],
+   [
+    "Jamaal Charles/RB",
+    "DeAndre Hopkins/WR",
+    "Eddie Lacy/RB",
+    "Tyler Eifert/TE",
+    "Aaron Rodgers/QB",
+    "Julian Edelman/WR",
+    "DeSean Jackson/WR",
+    "Jeremy Hill/RB",
+    "Texans/DST",
+    "Allen Hurns/WR",
+    "Jameis Winston/QB",
+    "Sebastian Janikowski/K",
+    "Jordan Matthews/WR",
+    "Martellus Bennett/TE",
+    "Tony Romo/QB",
+    "Ray Rice/RB"
+   ]
+  ],
+  "steals": [
+   [
+    "Matt Ryan",
+    12,
+    0,
+    "Went in round 12 and won league MVP."
+   ],
+   [
+    "LeSean McCoy",
+    8,
+    1,
+    "An eighth-rounder who finished as a top-five back."
+   ],
+   [
+    "Ezekiel Elliott",
+    2,
+    2,
+    "Led the NFL in rushing as a rookie."
+   ],
+   [
+    "Drew Brees",
+    8,
+    2,
+    "Round 8 for a 5,000-yard passer."
+   ]
+  ],
+  "busts": [
+   [
+    "Broncos D/ST",
+    1,
+    6,
+    "A defense in round 1."
+   ],
+   [
+    "Jamaal Charles",
+    1,
+    7,
+    "First-rounder who played three games."
+   ],
+   [
+    "Adrian Peterson",
+    1,
+    2,
+    "First-rounder, torn meniscus in week 2."
+   ],
+   [
+    "Eddie Lacy",
+    3,
+    7,
+    "Third-rounder, done by October."
+   ]
+  ],
+  "odd": "Peyton Manning (retired) and Ray Rice (out of the league) both got drafted."
+ },
+ "2017": {
+  "source": "Transcribed from the August 6, 2017 sticker board photo and checked against Kyle's draft sheet.",
+  "teams": [
+   [
+    "The 718 Pahtinis",
+    "lucas"
+   ],
+   [
+    "The Dominican DS",
+    "rod"
+   ],
+   [
+    "The Brooklyn Noses",
+    "dilapi"
+   ],
+   [
+    "Fluff",
+    "fluff"
+   ],
+   [
+    "Little Bills",
+    "charles"
+   ],
+   [
+    "Squirm",
+    "squirm"
+   ],
+   [
+    "Quleefie Beefies",
+    "vicente"
+   ],
+   [
+    "Patrick",
+    "keeves"
+   ],
+   [
+    "Klugz",
+    "kyle"
+   ],
+   [
+    "Team Peanus",
+    "peanut"
+   ]
+  ],
+  "cols": [
+   [
+    "Antonio Brown/WR",
+    "Jamaal Charles/RB",
+    "Sammy Watkins/WR",
+    "Mark Ingram/RB",
+    "Drew Brees/QB",
+    "Davante Adams/WR",
+    "Tyler Eifert/TE",
+    "Vikings/DST",
+    "Dan Bailey/K",
+    "Latavius Murray/RB",
+    "Jason Witten/TE",
+    "Darren Sproles/RB",
+    "Sterling Shepard/WR",
+    "Joe Flacco/QB",
+    "DeSean Jackson/WR",
+    "Kendall Wright/WR"
+   ],
+   [
+    "Odell Beckham Jr./WR",
+    "T.Y. Hilton/WR",
+    "Jay Ajayi/RB",
+    "Lamar Miller/RB",
+    "Andrew Luck/QB",
+    "Kyle Rudolph/TE",
+    "Matt Bryant/K",
+    "Giants/DST",
+    "Tyrell Williams/WR",
+    "Eli Manning/QB",
+    "Hunter Henry/TE",
+    "Jonathan Stewart/RB",
+    "Victor Cruz/WR",
+    "Dustin Hopkins/K",
+    "Cole Beasley/WR",
+    "Jamaal Williams/RB"
+   ],
+   [
+    "Le'Veon Bell/RB",
+    "Tom Brady/QB",
+    "Amari Cooper/WR",
+    "Jordan Reed/TE",
+    "Jarvis Landry/WR",
+    "Bilal Powell/RB",
+    "Chiefs/DST",
+    "Justin Tucker/K",
+    "Matthew Stafford/QB",
+    "Eric Ebron/TE",
+    "Quincy Enunwa/WR",
+    "Packers/DST",
+    "Ryan Succop/K",
+    "Danny Amendola/WR",
+    "Titans/DST",
+    "Aldrick Rosas/K"
+   ],
+   [
+    "David Johnson/RB",
+    "Jordy Nelson/WR",
+    "Todd Gurley/RB",
+    "Alshon Jeffery/WR",
+    "Greg Olsen/TE",
+    "Russell Wilson/QB",
+    "Terrelle Pryor/WR",
+    "C.J. Anderson/RB",
+    "Cardinals/DST",
+    "Stefon Diggs/WR",
+    "Cam Newton/QB",
+    "Kelvin Benjamin/WR",
+    "Antonio Gates/TE",
+    "Matt Prater/K",
+    "James White/RB",
+    "DeVante Parker/WR"
+   ],
+   [
+    "Ezekiel Elliott/RB",
+    "DeMarco Murray/RB",
+    "Dez Bryant/WR",
+    "Demaryius Thomas/WR",
+    "Carlos Hyde/RB",
+    "Joe Mixon/RB",
+    "Delanie Walker/TE",
+    "Golden Tate/WR",
+    "Pierre Garcon/WR",
+    "Ameer Abdullah/RB",
+    "Marcus Mariota/QB",
+    "Willie Snead/WR",
+    "Danny Woodhead/RB",
+    "Philip Rivers/QB",
+    "Panthers/DST",
+    "Sebastian Janikowski/K"
+   ],
+   [
+    "Devonta Freeman/RB",
+    "A.J. Green/WR",
+    "Doug Baldwin/WR",
+    "Tyreek Hill/WR",
+    "Christian McCaffrey/RB",
+    "Ty Montgomery/RB",
+    "Matt Ryan/QB",
+    "Martellus Bennett/TE",
+    "Raiders/DST",
+    "Matt Forte/RB",
+    "Evan Engram/TE",
+    "Adam Vinatieri/K",
+    "Jeremy Maclin/WR",
+    "Derek Carr/QB",
+    "Falcons/DST",
+    "Derrick Henry/RB"
+   ],
+   [
+    "Julio Jones/WR",
+    "Jordan Howard/RB",
+    "Rob Gronkowski/TE",
+    "Brandin Cooks/WR",
+    "Frank Gore/RB",
+    "Ben Roethlisberger/QB",
+    "LeGarrette Blount/RB",
+    "Texans/DST",
+    "Dak Prescott/QB",
+    "Randall Cobb/WR",
+    "Jack Doyle/TE",
+    "Mason Crosby/K",
+    "Mike Davis/RB",
+    "Ted Ginn/WR",
+    "Tyler Lockett/WR",
+    "Jeremy Langford/RB"
+   ],
+   [
+    "Colin Kaepernick/QB",
+    "Broncos/DST",
+    "Marshawn Lynch/RB",
+    "Brandon Marshall/WR",
+    "Adrian Peterson/RB",
+    "Keenan Allen/WR",
+    "Jared Cook/TE",
+    "Dalvin Cook/RB",
+    "Emmanuel Sanders/WR",
+    "Zach Ertz/TE",
+    "Matt Moore/QB",
+    "Steelers/DST",
+    "Kenny Britt/WR",
+    "Josh Lambo/K",
+    "Andy Dalton/QB",
+    "Thomas Rawls/RB"
+   ],
+   [
+    "Mike Evans/WR",
+    "Melvin Gordon/RB",
+    "Michael Thomas/WR",
+    "Leonard Fournette/RB",
+    "Isaiah Crowell/RB",
+    "Jimmy Graham/TE",
+    "Larry Fitzgerald/WR",
+    "Kirk Cousins/QB",
+    "Spencer Ware/RB",
+    "Julian Edelman/WR",
+    "Jamison Crowder/WR",
+    "Coby Fleener/TE",
+    "Patriots/DST",
+    "Wil Lutz/K",
+    "Mike Gillislee/RB",
+    "Carson Wentz/QB"
+   ],
+   [
+    "LeSean McCoy/RB",
+    "Aaron Rodgers/QB",
+    "DeAndre Hopkins/WR",
+    "Travis Kelce/TE",
+    "Allen Robinson/WR",
+    "Eddie Lacy/RB",
+    "Michael Crabtree/WR",
+    "Seahawks/DST",
+    "Stephen Gostkowski/K",
+    "Paul Perkins/RB",
+    "Martavis Bryant/WR",
+    "Doug Martin/RB",
+    "Jameis Winston/QB",
+    "Jeremy Hill/RB",
+    "Richard Rodgers/TE",
+    "Jordan Matthews/WR"
+   ]
+  ],
+  "steals": [
+   [
+    "Mark Ingram",
+    4,
+    0,
+    "Fourth-rounder who ran for 1,124 yards and 12 touchdowns."
+   ],
+   [
+    "Carson Wentz",
+    16,
+    8,
+    "Last-round pick who played at an MVP level until his knee injury."
+   ],
+   [
+    "Todd Gurley",
+    3,
+    3,
+    "Third-rounder who won Offensive Player of the Year."
+   ],
+   [
+    "Keenan Allen",
+    6,
+    7,
+    "Sixth-rounder who went for 1,393 yards."
+   ]
+  ],
+  "busts": [
+   [
+    "Colin Kaepernick",
+    1,
+    7,
+    "A first-round pick on a quarterback who never signed with a team."
+   ],
+   [
+    "David Johnson",
+    1,
+    3,
+    "First-rounder who broke his wrist in week 1."
+   ],
+   [
+    "Odell Beckham Jr.",
+    1,
+    1,
+    "First-rounder, broken ankle in week 5."
+   ],
+   [
+    "Andrew Luck",
+    5,
+    1,
+    "Never played a snap in 2017."
+   ]
+  ],
+  "odd": "Kyle drew the first overall pick, missed the draft, and the league rearranged the order. The board has him ninth."
+ },
+ "2018": {
+  "teams": [
+   [
+    "Squirm",
+    "squirm"
+   ],
+   [
+    "Kyle",
+    "kyle"
+   ],
+   [
+    "Charles",
+    "charles"
+   ],
+   [
+    "Fluff",
+    "fluff"
+   ],
+   [
+    "DiLapi",
+    "dilapi"
+   ],
+   [
+    "Sal",
+    "lucas"
+   ],
+   [
+    "Kad",
+    "peanut"
+   ],
+   [
+    "Quincy",
+    "quincy"
+   ]
+  ],
+  "cols": [
+   [
+    "Antonio Brown/WR",
+    "Derrick Henry/RB",
+    "A.J. Green/WR",
+    "Christian McCaffrey/RB",
+    "Russell Wilson/QB",
+    "Alshon Jeffery/WR",
+    "Kyle Rudolph/TE",
+    "Rams/DST",
+    "Eagles/DST",
+    "Marcus Mariota/QB",
+    "Justin Tucker/K",
+    "Julian Edelman/WR",
+    "Isaiah Crowell/RB",
+    "Jared Cook/TE",
+    "Cooper Kupp/WR",
+    "Duke Johnson/RB"
+   ],
+   [
+    "Todd Gurley/RB",
+    "Keenan Allen/WR",
+    "Dalvin Cook/RB",
+    "Doug Baldwin/WR",
+    "Travis Kelce/TE",
+    "Jerick McKinnon/RB",
+    "Larry Fitzgerald/WR",
+    "Golden Tate/WR",
+    "Jimmy Garoppolo/QB",
+    "Michael Crabtree/WR",
+    "Ronald Jones/RB",
+    "Stephen Gostkowski/K",
+    "Chris Thompson/RB",
+    "Robby Anderson/WR",
+    "Chargers/DST",
+    "Jordan Howard/RB"
+   ],
+   [
+    "Le'Veon Bell/RB",
+    "Leonard Fournette/RB",
+    "Rob Gronkowski/TE",
+    "Amari Cooper/WR",
+    "Adam Thielen/WR",
+    "Mark Ingram/RB",
+    "Demaryius Thomas/WR",
+    "Devin Funchess/WR",
+    "Sony Michel/RB",
+    "Dion Lewis/RB",
+    "Corey Davis/WR",
+    "Andrew Luck/QB",
+    "Matt Ryan/QB",
+    "Royce Freeman/RB",
+    "Robert Woods/WR",
+    "Seahawks/DST"
+   ],
+   [
+    "Alvin Kamara/RB",
+    "Michael Thomas/WR",
+    "Melvin Gordon/RB",
+    "T.Y. Hilton/WR",
+    "Zach Ertz/TE",
+    "Deshaun Watson/QB",
+    "Jarvis Landry/WR",
+    "Kenyan Drake/RB",
+    "Chris Hogan/WR",
+    "Lamar Miller/RB",
+    "Emmanuel Sanders/WR",
+    "Alex Smith/QB",
+    "Will Lutz/K",
+    "Patriots/DST",
+    "Randall Cobb/WR",
+    "Sterling Shepard/WR"
+   ],
+   [
+    "Rashaad Penny/RB",
+    "DeAndre Hopkins/WR",
+    "Kareem Hunt/RB",
+    "Stefon Diggs/WR",
+    "Greg Olsen/TE",
+    "Carlos Hyde/RB",
+    "Baker Mayfield/QB",
+    "Carson Wentz/QB",
+    "Tarik Cohen/RB",
+    "Vikings/DST",
+    "Marqise Lee/WR",
+    "Jordy Nelson/WR",
+    "Matt Bryant/K",
+    "Broncos/DST",
+    "Ben Roethlisberger/QB",
+    "Graham Gano/K"
+   ],
+   [
+    "David Johnson/RB",
+    "Julio Jones/WR",
+    "Devonta Freeman/RB",
+    "Drew Brees/QB",
+    "Joe Mixon/RB",
+    "Brandin Cooks/WR",
+    "Sammy Watkins/WR",
+    "Marvin Jones Jr./WR",
+    "Delanie Walker/TE",
+    "Jaguars/DST",
+    "Kirk Cousins/QB",
+    "LeGarrette Blount/RB",
+    "Tyler Eifert/TE",
+    "Texans/DST",
+    "Spencer Ware/RB",
+    "Dan Bailey/K"
+   ],
+   [
+    "Saquon Barkley/RB",
+    "Aaron Rodgers/QB",
+    "Davante Adams/WR",
+    "Mike Evans/WR",
+    "Jay Ajayi/RB",
+    "Jordan Reed/TE",
+    "JuJu Smith-Schuster/WR",
+    "Josh Gordon/WR",
+    "Ty Montgomery/RB",
+    "Cam Newton/QB",
+    "Kelvin Benjamin/WR",
+    "Marshawn Lynch/RB",
+    "Ravens/DST",
+    "Eric Decker/WR",
+    "Ameer Abdullah/RB",
+    "Adam Vinatieri/K"
+   ],
+   [
+    "Odell Beckham Jr./WR",
+    "Ezekiel Elliott/RB",
+    "Tom Brady/QB",
+    "Tyreek Hill/WR",
+    "LeSean McCoy/RB",
+    "Jimmy Graham/TE",
+    "Alex Collins/RB",
+    "Allen Robinson/WR",
+    "Tevin Coleman/RB",
+    "Marquise Goodwin/WR",
+    "James White/RB",
+    "Nelson Agholor/WR",
+    "Lamar Jackson/QB",
+    "Evan Engram/TE",
+    "Saints/DST",
+    "Greg Zuerlein/K"
+   ]
+  ],
+  "source": "Typed from Kyle's league draft sheet. The first ESPN season, with eight teams.",
+  "steals": [
+   [
+    "Christian McCaffrey",
+    4,
+    0,
+    "Fourth-rounder with almost 2,000 scrimmage yards and 107 catches."
+   ],
+   [
+    "Tyreek Hill",
+    4,
+    7,
+    "Fourth-rounder with 1,479 yards and 12 touchdowns."
+   ],
+   [
+    "James White",
+    11,
+    7,
+    "Eleventh-rounder who caught 87 passes and scored 12 touchdowns."
+   ],
+   [
+    "Robert Woods",
+    15,
+    2,
+    "Fifteenth-rounder who went over 1,200 receiving yards."
+   ]
+  ],
+  "busts": [
+   [
+    "Le'Veon Bell",
+    1,
+    2,
+    "First-round pick who held out the entire season."
+   ],
+   [
+    "Rashaad Penny",
+    1,
+    4,
+    "First-round rookie who ran for 419 yards."
+   ],
+   [
+    "Devonta Freeman",
+    3,
+    5,
+    "Third-rounder who played two games."
+   ],
+   [
+    "Leonard Fournette",
+    2,
+    2,
+    "Second-rounder who missed half the year with a hamstring."
+   ]
+  ]
+ },
+ "2019": {
+  "teams": [
+   [
+    "Sal",
+    "lucas"
+   ],
+   [
+    "Squirm",
+    "squirm"
+   ],
+   [
+    "Charles",
+    "charles"
+   ],
+   [
+    "Kyle",
+    "kyle"
+   ],
+   [
+    "Skelly",
+    "skelly"
+   ],
+   [
+    "Quincy",
+    "quincy"
+   ],
+   [
+    "Kad",
+    "peanut"
+   ],
+   [
+    "DiLapi",
+    "dilapi"
+   ],
+   [
+    "Fluff",
+    "fluff"
+   ],
+   [
+    "Toose",
+    "mateus"
+   ]
+  ],
+  "cols": [
+   [
+    "Saquon Barkley/RB",
+    "Nick Chubb/RB",
+    "Devonta Freeman/RB",
+    "Brandin Cooks/WR",
+    "Patrick Mahomes/QB",
+    "Cooper Kupp/WR",
+    "Tyler Lockett/WR",
+    "Mike Williams/WR",
+    "Vance McDonald/TE",
+    "Bills/DST",
+    "Demaryius Thomas/WR",
+    "Marqise Lee/WR",
+    "Justin Tucker/K",
+    "Russell Wilson/QB",
+    "Tyler Eifert/TE",
+    "Giovani Bernard/RB"
+   ],
+   [
+    "Christian McCaffrey/RB",
+    "Derrick Henry/RB",
+    "Antonio Brown/WR",
+    "N'Keal Harry/WR",
+    "Jarvis Landry/WR",
+    "Eric Ebron/TE",
+    "Drew Brees/QB",
+    "Lamar Miller/RB",
+    "David Njoku/TE",
+    "Browns/DST",
+    "Marquise Brown/WR",
+    "Jordan Howard/RB",
+    "Noah Fant/TE",
+    "Graham Gano/K",
+    "Ben Roethlisberger/QB",
+    "Patriots/DST"
+   ],
+   [
+    "Alvin Kamara/RB",
+    "Travis Kelce/TE",
+    "Keenan Allen/WR",
+    "Robert Woods/WR",
+    "Leonard Fournette/RB",
+    "Tyler Boyd/WR",
+    "Tarik Cohen/RB",
+    "Austin Ekeler/RB",
+    "Kenyan Drake/RB",
+    "Will Fuller/WR",
+    "Dede Westbrook/WR",
+    "Darrell Henderson/RB",
+    "Jaylen Samuels/RB",
+    "Carlos Hyde/RB",
+    "Lamar Jackson/QB",
+    "Josh Allen/QB"
+   ],
+   [
+    "David Johnson/RB",
+    "JuJu Smith-Schuster/WR",
+    "Mike Evans/WR",
+    "Kerryon Johnson/RB",
+    "David Montgomery/RB",
+    "Kenny Golladay/WR",
+    "Miles Sanders/RB",
+    "Christian Kirk/WR",
+    "Trey Burton/TE",
+    "Dante Pettis/WR",
+    "Tevin Coleman/RB",
+    "Matt Ryan/QB",
+    "Texans/DST",
+    "Ka'imi Fairbairn/K",
+    "Kyler Murray/QB",
+    "Jordan Thomas/WR"
+   ],
+   [
+    "Ezekiel Elliott/RB",
+    "Tyreek Hill/WR",
+    "Dalvin Cook/RB",
+    "Julian Edelman/WR",
+    "Evan Engram/TE",
+    "James White/RB",
+    "Calvin Ridley/WR",
+    "Carson Wentz/QB",
+    "Derrius Guice/RB",
+    "Ravens/DST",
+    "T.J. Hockenson/TE",
+    "DK Metcalf/WR",
+    "Devin Singletary/RB",
+    "Josh Gordon/WR",
+    "Adam Humphries/WR",
+    "Dustin Hopkins/K"
+   ],
+   [
+    "Todd Gurley/RB",
+    "James Conner/RB",
+    "Adam Thielen/WR",
+    "T.Y. Hilton/WR",
+    "Sony Michel/RB",
+    "Hunter Henry/TE",
+    "Deshaun Watson/QB",
+    "Sammy Watkins/WR",
+    "DJ Moore/WR",
+    "Ronald Jones/RB",
+    "Vikings/DST",
+    "Courtland Sutton/WR",
+    "Harrison Butker/K",
+    "Mecole Hardman/WR",
+    "Royce Freeman/RB",
+    "Tom Brady/QB"
+   ],
+   [
+    "Julio Jones/WR",
+    "Melvin Gordon/RB",
+    "Stefon Diggs/WR",
+    "Amari Cooper/WR",
+    "Marlon Mack/RB",
+    "Philip Lindsay/RB",
+    "Jared Cook/TE",
+    "Cam Newton/QB",
+    "Robby Anderson/WR",
+    "Chargers/DST",
+    "Jerick McKinnon/RB",
+    "Dion Lewis/RB",
+    "Aldrick Rosas/K",
+    "Greg Olsen/TE",
+    "Eli Manning/QB",
+    "Dolphins/DST"
+   ],
+   [
+    "Davante Adams/WR",
+    "Joe Mixon/RB",
+    "Aaron Jones/RB",
+    "Chris Carson/RB",
+    "Alshon Jeffery/WR",
+    "O.J. Howard/TE",
+    "Baker Mayfield/QB",
+    "Sterling Shepard/WR",
+    "Kareem Hunt/RB",
+    "Jaguars/DST",
+    "Jared Goff/QB",
+    "DeSean Jackson/WR",
+    "Will Lutz/K",
+    "Austin Hooper/TE",
+    "Devin Funchess/WR",
+    "Marvin Jones Jr./WR"
+   ],
+   [
+    "Odell Beckham Jr./WR",
+    "Michael Thomas/WR",
+    "Damien Williams/RB",
+    "George Kittle/TE",
+    "Josh Jacobs/RB",
+    "Chris Godwin/WR",
+    "Mark Ingram/RB",
+    "Andrew Luck/QB",
+    "Allen Robinson/WR",
+    "Rams/DST",
+    "Latavius Murray/RB",
+    "Larry Fitzgerald/WR",
+    "Stephen Gostkowski/K",
+    "Delanie Walker/TE",
+    "Dak Prescott/QB",
+    "Michael Gallup/WR"
+   ],
+   [
+    "Le'Veon Bell/RB",
+    "DeAndre Hopkins/WR",
+    "Aaron Rodgers/QB",
+    "Zach Ertz/TE",
+    "A.J. Green/WR",
+    "Nyheim Hines/RB",
+    "Rashaad Penny/RB",
+    "LeSean McCoy/RB",
+    "Bears/DST",
+    "Greg Zuerlein/K",
+    "Golden Tate/WR",
+    "Kapri Bibbs/RB",
+    "Daniel Jones/QB",
+    "Keke Coutee/WR",
+    "Marquise Goodwin/WR",
+    "Matt Gay/K"
+   ]
+  ],
+  "source": "Typed from Kyle's league draft sheet.",
+  "steals": [
+   [
+    "Lamar Jackson",
+    15,
+    2,
+    "Fifteenth-rounder who won league MVP."
+   ],
+   [
+    "Chris Godwin",
+    6,
+    8,
+    "Sixth-rounder with 1,333 yards and 9 touchdowns."
+   ],
+   [
+    "Austin Ekeler",
+    8,
+    2,
+    "Eighth-rounder with 92 catches and over 1,500 scrimmage yards."
+   ],
+   [
+    "Dak Prescott",
+    15,
+    8,
+    "Fifteenth-rounder who threw for almost 5,000 yards."
+   ]
+  ],
+  "busts": [
+   [
+    "Antonio Brown",
+    3,
+    1,
+    "Third-rounder who played one game all year."
+   ],
+   [
+    "David Johnson",
+    1,
+    3,
+    "First-rounder who got hurt and lost his job to Kenyan Drake."
+   ],
+   [
+    "N'Keal Harry",
+    4,
+    1,
+    "Fourth-round rookie who finished with 105 receiving yards."
+   ],
+   [
+    "JuJu Smith-Schuster",
+    2,
+    3,
+    "Second-rounder with 552 yards."
+   ]
+  ],
+  "odd": "Charles took Lamar Jackson in round 15 and Josh Allen in round 16, then won the title."
+ },
+ "2020": {
+  "teams": [
+   [
+    "Skelly",
+    "skelly"
+   ],
+   [
+    "Kyle",
+    "kyle"
+   ],
+   [
+    "Kad",
+    "peanut"
+   ],
+   [
+    "Squirm",
+    "squirm"
+   ],
+   [
+    "Fluff",
+    "fluff"
+   ],
+   [
+    "Charles",
+    "charles"
+   ],
+   [
+    "Quincy",
+    "quincy"
+   ],
+   [
+    "DiLapi",
+    "dilapi"
+   ],
+   [
+    "Sal",
+    "lucas"
+   ],
+   [
+    "Cruz",
+    "jordan"
+   ]
+  ],
+  "cols": [
+   [
+    "Christian McCaffrey/RB",
+    "Josh Jacobs/RB",
+    "Travis Kelce/TE",
+    "A.J. Brown/WR",
+    "Allen Robinson/WR",
+    "Kyler Murray/QB",
+    "Tyler Lockett/WR",
+    "Raheem Mostert/RB",
+    "Will Fuller/WR",
+    "49ers/DST",
+    "Sony Michel/RB",
+    "Justin Tucker/K",
+    "Allen Lazard/WR",
+    "Reggie Bonnafon/RB",
+    "Noah Fant/TE",
+    "Ryan Tannehill/QB"
+   ],
+   [
+    "Saquon Barkley/RB",
+    "Miles Sanders/RB",
+    "Kenyan Drake/RB",
+    "DJ Moore/WR",
+    "Calvin Ridley/WR",
+    "Robert Woods/WR",
+    "DJ Chark/WR",
+    "David Montgomery/RB",
+    "Cam Akers/RB",
+    "Rob Gronkowski/TE",
+    "Marvin Jones Jr./WR",
+    "Carson Wentz/QB",
+    "Ronald Jones/RB",
+    "Tarik Cohen/RB",
+    "Ke'Shaun Vaughn/RB",
+    "Seahawks/DST"
+   ],
+   [
+    "Ezekiel Elliott/RB",
+    "Kenny Golladay/WR",
+    "Mike Evans/WR",
+    "Lamar Jackson/QB",
+    "Chris Carson/RB",
+    "Courtland Sutton/WR",
+    "Michael Gallup/WR",
+    "Brandon Aiyuk/WR",
+    "Austin Hooper/TE",
+    "Tony Pollard/RB",
+    "Alexander Mattison/RB",
+    "Bills/DST",
+    "Joe Burrow/QB",
+    "Tevin Coleman/RB",
+    "Matt Breida/RB",
+    "Robbie Gould/K"
+   ],
+   [
+    "Derrick Henry/RB",
+    "Todd Gurley/RB",
+    "Adam Thielen/WR",
+    "DK Metcalf/WR",
+    "Stefon Diggs/WR",
+    "Devin Singletary/RB",
+    "Drew Brees/QB",
+    "CeeDee Lamb/WR",
+    "Tyler Eifert/TE",
+    "Philip Lindsay/RB",
+    "Jared Cook/TE",
+    "Colts/DST",
+    "Teddy Bridgewater/QB",
+    "Darius Slayton/WR",
+    "Jake Elliott/K",
+    "Rams/DST"
+   ],
+   [
+    "Dalvin Cook/RB",
+    "Austin Ekeler/RB",
+    "Aaron Jones/RB",
+    "JuJu Smith-Schuster/WR",
+    "Keenan Allen/WR",
+    "Darren Waller/TE",
+    "T.Y. Hilton/WR",
+    "Devante Parker/WR",
+    "Josh Allen/QB",
+    "Duke Johnson/RB",
+    "John Brown/WR",
+    "Derrius Guice/RB",
+    "Jerry Jeudy/WR",
+    "Saints/DST",
+    "Anthony Miller/WR",
+    "Matt Prater/K"
+   ],
+   [
+    "Alvin Kamara/RB",
+    "Julio Jones/WR",
+    "George Kittle/TE",
+    "James Conner/RB",
+    "Clyde Edwards-Helaire/RB",
+    "David Johnson/RB",
+    "Cooper Kupp/WR",
+    "Julian Edelman/WR",
+    "J.K. Dobbins/RB",
+    "Hayden Hurst/TE",
+    "Aaron Rodgers/QB",
+    "Daniel Jones/QB",
+    "Diontae Johnson/WR",
+    "Latavius Murray/RB",
+    "Antonio Gibson/RB",
+    "Hunter Renfrow/WR"
+   ],
+   [
+    "Nick Chubb/RB",
+    "DeAndre Hopkins/WR",
+    "Patrick Mahomes/QB",
+    "Le'Veon Bell/RB",
+    "Terry McLaurin/WR",
+    "Jonathan Taylor/RB",
+    "Marquise Brown/WR",
+    "Hunter Henry/TE",
+    "Jarvis Landry/WR",
+    "James White/RB",
+    "Ravens/DST",
+    "Harrison Butker/K",
+    "Cam Newton/QB",
+    "Mike Williams/WR",
+    "Justin Jackson/RB",
+    "Zack Moss/RB"
+   ],
+   [
+    "Michael Thomas/WR",
+    "Chris Godwin/WR",
+    "Leonard Fournette/RB",
+    "Mark Andrews/TE",
+    "Melvin Gordon/RB",
+    "Deshaun Watson/QB",
+    "Jordan Howard/RB",
+    "A.J. Green/WR",
+    "Marlon Mack/RB",
+    "Sterling Shepard/WR",
+    "Steelers/DST",
+    "Matt Ryan/QB",
+    "Jack Doyle/TE",
+    "Will Lutz/K",
+    "Antonio Brown/WR",
+    "Rashaad Penny/RB"
+   ],
+   [
+    "Davante Adams/WR",
+    "Joe Mixon/RB",
+    "Odell Beckham Jr./WR",
+    "Amari Cooper/WR",
+    "Kareem Hunt/RB",
+    "Dak Prescott/QB",
+    "Evan Engram/TE",
+    "Tyler Boyd/WR",
+    "Brandin Cooks/WR",
+    "LeSean McCoy/RB",
+    "Patriots/DST",
+    "Delanie Walker/TE",
+    "Tom Brady/QB",
+    "Greg Zuerlein/K",
+    "Alshon Jeffery/WR",
+    "Darwin Thompson/RB"
+   ],
+   [
+    "Tyreek Hill/WR",
+    "D'Andre Swift/RB",
+    "Zach Ertz/TE",
+    "Mecole Hardman/WR",
+    "Russell Wilson/QB",
+    "Mark Ingram/RB",
+    "Deebo Samuel/WR",
+    "Frank Gore/RB",
+    "Kerryon Johnson/RB",
+    "Jamison Crowder/WR",
+    "Bears/DST",
+    "Christian Kirk/WR",
+    "Matt Gay/K",
+    "Greg Olsen/TE",
+    "Drew Lock/QB",
+    "Emmanuel Sanders/WR"
+   ]
+  ],
+  "source": "Typed from Kyle's league draft sheet.",
+  "steals": [
+   [
+    "Josh Allen",
+    9,
+    4,
+    "Ninth-rounder who finished as the top fantasy quarterback."
+   ],
+   [
+    "Aaron Rodgers",
+    11,
+    5,
+    "Eleventh-rounder who threw 48 touchdowns and won MVP."
+   ],
+   [
+    "Stefon Diggs",
+    5,
+    3,
+    "Fifth-rounder who led the NFL in catches and receiving yards."
+   ],
+   [
+    "Jonathan Taylor",
+    6,
+    6,
+    "Sixth-round rookie who ran for almost 1,200 yards."
+   ]
+  ],
+  "busts": [
+   [
+    "Christian McCaffrey",
+    1,
+    0,
+    "First-rounder who played three games."
+   ],
+   [
+    "Saquon Barkley",
+    1,
+    1,
+    "First-rounder who tore his ACL in week 2."
+   ],
+   [
+    "Michael Thomas",
+    1,
+    7,
+    "First-rounder with 438 yards, in a Sacko season for DiLapi."
+   ],
+   [
+    "Kenny Golladay",
+    2,
+    2,
+    "Second-rounder who played five games."
+   ]
+  ]
+ },
+ "2021": {
+  "source": "Transcribed from the 2021 sticker board photo Kyle sent. Quincy's round 16 Harris sticker shows only the last name; it is listed as Damien Harris.",
+  "teams": [
+   [
+    "Quincy",
+    "quincy"
+   ],
+   [
+    "Sal's 12 Chickens",
+    "charles"
+   ],
+   [
+    "Sal",
+    "lucas"
+   ],
+   [
+    "Skelly",
+    "skelly"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "Peanut",
+    "peanut"
+   ],
+   [
+    "Jordan",
+    "jordan"
+   ],
+   [
+    "El Floof",
+    "fluff"
+   ],
+   [
+    "New York Noses",
+    "dilapi"
+   ],
+   [
+    "Squirm's",
+    "squirm"
+   ]
+  ],
+  "cols": [
+   [
+    "Christian McCaffrey/RB",
+    "DeAndre Hopkins/WR",
+    "George Kittle/TE",
+    "Kyler Murray/QB",
+    "Adam Thielen/WR",
+    "Mike Davis/RB",
+    "Kareem Hunt/RB",
+    "Robby Anderson/WR",
+    "JuJu Smith-Schuster/WR",
+    "Justin Tucker/K",
+    "Mecole Hardman/WR",
+    "Devin Singletary/RB",
+    "Henry Ruggs III/WR",
+    "Gus Edwards/RB",
+    "Latavius Murray/RB",
+    "Damien Harris/RB"
+   ],
+   [
+    "Alvin Kamara/RB",
+    "Joe Mixon/RB",
+    "Darren Waller/TE",
+    "J.K. Dobbins/RB",
+    "Myles Gaskin/RB",
+    "DJ Moore/WR",
+    "Michael Thomas/WR",
+    "Trey Sermon/RB",
+    "Laviska Shenault Jr./WR",
+    "Darnell Mooney/WR",
+    "Irv Smith Jr./TE",
+    "Jalen Hurts/QB",
+    "Matthew Stafford/QB",
+    "Kenneth Gainwell/RB",
+    "Robert Tonyan/TE",
+    "Michael Pittman Jr./WR"
+   ],
+   [
+    "Dalvin Cook/RB",
+    "Calvin Ridley/WR",
+    "DK Metcalf/WR",
+    "D'Andre Swift/RB",
+    "Darrell Henderson/RB",
+    "Javonte Williams/RB",
+    "Lamar Jackson/QB",
+    "Chase Claypool/WR",
+    "Dallas Goedert/TE",
+    "Tyler Boyd/WR",
+    "Ravens/DST",
+    "Tom Brady/QB",
+    "Alexander Mattison/RB",
+    "Jason Sanders/K",
+    "Rob Gronkowski/TE",
+    "A.J. Green/WR"
+   ],
+   [
+    "Derrick Henry/RB",
+    "Clyde Edwards-Helaire/RB",
+    "A.J. Brown/WR",
+    "Mike Evans/WR",
+    "Mark Andrews/TE",
+    "Diontae Johnson/WR",
+    "Raheem Mostert/RB",
+    "Russell Wilson/QB",
+    "DJ Chark/WR",
+    "Rams/DST",
+    "Mike Williams/WR",
+    "Jaylen Waddle/WR",
+    "Darrynton Evans/RB",
+    "Greg Zuerlein/K",
+    "Tarik Cohen/RB",
+    "Le'Veon Bell/RB"
+   ],
+   [
+    "Saquon Barkley/RB",
+    "Antonio Gibson/RB",
+    "Justin Jefferson/WR",
+    "Robert Woods/WR",
+    "Amari Cooper/WR",
+    "Brandon Aiyuk/WR",
+    "Tee Higgins/WR",
+    "Chase Edmonds/RB",
+    "Brandin Cooks/WR",
+    "Tyler Higbee/TE",
+    "Corey Davis/WR",
+    "Jonnu Smith/TE",
+    "AJ Dillon/RB",
+    "Ryan Fitzpatrick/QB",
+    "Tony Pollard/RB",
+    "Ryan Tannehill/QB"
+   ],
+   [
+    "Nick Chubb/RB",
+    "Stefon Diggs/WR",
+    "Josh Jacobs/RB",
+    "CeeDee Lamb/WR",
+    "Kyle Pitts/TE",
+    "Cooper Kupp/WR",
+    "Ja'Marr Chase/WR",
+    "Michael Carter/RB",
+    "Deebo Samuel/WR",
+    "Dak Prescott/QB",
+    "James Conner/RB",
+    "Will Fuller/WR",
+    "Rashod Bateman/WR",
+    "Ryan Succop/K",
+    "Marvin Jones Jr./WR",
+    "Joe Burrow/QB"
+   ],
+   [
+    "Travis Kelce/TE",
+    "Jonathan Taylor/RB",
+    "Terry McLaurin/WR",
+    "David Montgomery/RB",
+    "T.Y. Hilton/WR",
+    "Aaron Rodgers/QB",
+    "Mike Gesicki/TE",
+    "Jerry Jeudy/WR",
+    "DeVonta Smith/WR",
+    "Steelers/DST",
+    "Nyheim Hines/RB",
+    "Jarvis Landry/WR",
+    "Younghoe Koo/K",
+    "Randall Cobb/WR",
+    "Deshaun Watson/QB",
+    "Hunter Henry/TE"
+   ],
+   [
+    "Ezekiel Elliott/RB",
+    "Najee Harris/RB",
+    "Allen Robinson/WR",
+    "Keenan Allen/WR",
+    "Chris Godwin/WR",
+    "Josh Allen/QB",
+    "Logan Thomas/TE",
+    "James Robinson/RB",
+    "Kenny Golladay/WR",
+    "Melvin Gordon/RB",
+    "Antonio Brown/WR",
+    "Curtis Samuel/WR",
+    "Leonard Fournette/RB",
+    "David Johnson/RB",
+    "Harrison Butker/K",
+    "49ers/DST"
+   ],
+   [
+    "Austin Ekeler/RB",
+    "Davante Adams/WR",
+    "Miles Sanders/RB",
+    "Patrick Mahomes/QB",
+    "Tyler Lockett/WR",
+    "Travis Etienne/RB",
+    "Noah Fant/TE",
+    "Courtland Sutton/WR",
+    "Kenyan Drake/RB",
+    "Buccaneers/DST",
+    "Elijah Moore/WR",
+    "Cam Akers/RB",
+    "Rodrigo Blankenship/K",
+    "DeVante Parker/WR",
+    "Tua Tagovailoa/QB",
+    "Phillip Lindsay/RB"
+   ],
+   [
+    "Tyreek Hill/WR",
+    "Aaron Jones/RB",
+    "Julio Jones/WR",
+    "Chris Carson/RB",
+    "T.J. Hockenson/TE",
+    "Odell Beckham Jr./WR",
+    "Justin Herbert/QB",
+    "Ronald Jones/RB",
+    "Marquise Brown/WR",
+    "Zack Moss/RB",
+    "Amon-Ra St. Brown/WR",
+    "Trevor Lawrence/QB",
+    "Austin Hooper/TE",
+    "Washington/DST",
+    "Matt Breida/RB",
+    "Tyler Bass/K"
+   ]
+  ],
+  "steals": [
+   [
+    "Cooper Kupp",
+    6,
+    5,
+    "Sixth-rounder who won the receiving triple crown with 1,947 yards."
+   ],
+   [
+    "Deebo Samuel",
+    9,
+    5,
+    "Ninth-rounder with over 1,700 scrimmage yards."
+   ],
+   [
+    "Tom Brady",
+    12,
+    2,
+    "Twelfth-rounder who threw for 5,316 yards and 43 touchdowns."
+   ],
+   [
+    "Leonard Fournette",
+    13,
+    7,
+    "Thirteenth-rounder who scored 10 touchdowns for the Bucs."
+   ]
+  ],
+  "busts": [
+   [
+    "Christian McCaffrey",
+    1,
+    0,
+    "First-rounder who played seven games."
+   ],
+   [
+    "Calvin Ridley",
+    2,
+    2,
+    "Second-rounder who stepped away from football after five games."
+   ],
+   [
+    "Allen Robinson",
+    3,
+    7,
+    "Third-rounder with 410 yards."
+   ],
+   [
+    "Clyde Edwards-Helaire",
+    2,
+    3,
+    "Second-rounder who missed a third of the season."
+   ]
+  ],
+  "odd": "Peanut drafted Cooper Kupp, Ja'Marr Chase and Deebo Samuel in rounds 6, 7 and 9, then traded Kupp away in August. Kupp went through Quincy and Jordan to Kyle before week 1."
+ },
+ "2022": {
+  "source": "Transcribed from the 2022 sticker board photo Kyle sent. Owners follow the header row of Kyle's sheet.",
+  "teams": [
+   [
+    "Shiva-KAD",
+    "peanut"
+   ],
+   [
+    "El Squirm",
+    "squirm"
+   ],
+   [
+    "El Floof",
+    "fluff"
+   ],
+   [
+    "Megaladon",
+    "charles"
+   ],
+   [
+    "Sal's Bussy",
+    "jordan"
+   ],
+   [
+    "Jerry",
+    "jerry"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "NY Noses",
+    "dilapi"
+   ],
+   [
+    "BigDonRod",
+    "rod"
+   ],
+   [
+    "Quincy",
+    "quincy"
+   ]
+  ],
+  "cols": [
+   [
+    "Jonathan Taylor/RB",
+    "CeeDee Lamb/WR",
+    "Saquon Barkley/RB",
+    "Mike Evans/WR",
+    "A.J. Brown/WR",
+    "Dallas Goedert/TE",
+    "Allen Robinson/WR",
+    "Jalen Hurts/QB",
+    "Tony Pollard/RB",
+    "Melvin Gordon/RB",
+    "Rondale Moore/WR",
+    "DJ Chark/WR",
+    "Nyheim Hines/RB",
+    "Michael Gallup/WR",
+    "Matt Breida/RB",
+    "Tyler Bass/K"
+   ],
+   [
+    "Derrick Henry/RB",
+    "DeAndre Hopkins/WR",
+    "DK Metcalf/WR",
+    "Miles Sanders/RB",
+    "Adam Thielen/WR",
+    "T.J. Hockenson/TE",
+    "Justin Herbert/QB",
+    "Amon-Ra St. Brown/WR",
+    "Cordarrelle Patterson/RB",
+    "Kadarius Toney/WR",
+    "Drake London/WR",
+    "Mike Gesicki/TE",
+    "J.D. McKissic/RB",
+    "Colts/DST",
+    "Tua Tagovailoa/QB",
+    "Nick Folk/K"
+   ],
+   [
+    "Najee Harris/RB",
+    "Deebo Samuel/WR",
+    "Javonte Williams/RB",
+    "Kyle Pitts/TE",
+    "Travis Etienne/RB",
+    "Elijah Mitchell/RB",
+    "Courtland Sutton/WR",
+    "Darnell Mooney/WR",
+    "Gabe Davis/WR",
+    "Robert Woods/WR",
+    "Dameon Pierce/RB",
+    "Alexander Mattison/RB",
+    "Russell Wilson/QB",
+    "Skyy Moore/WR",
+    "Rams/DST",
+    "Harrison Butker/K"
+   ],
+   [
+    "Christian McCaffrey/RB",
+    "Davante Adams/WR",
+    "Aaron Jones/RB",
+    "James Conner/RB",
+    "Mike Williams/WR",
+    "Dalton Schultz/TE",
+    "Kareem Hunt/RB",
+    "Chris Godwin/WR",
+    "Allen Lazard/WR",
+    "Trey Lance/QB",
+    "Christian Kirk/WR",
+    "James Robinson/RB",
+    "Dak Prescott/QB",
+    "Brian Robinson/RB",
+    "Treylon Burks/WR",
+    "Julio Jones/WR"
+   ],
+   [
+    "Justin Jefferson/WR",
+    "Josh Jacobs/RB",
+    "Darren Waller/TE",
+    "Antonio Gibson/RB",
+    "Jerry Jeudy/WR",
+    "AJ Dillon/RB",
+    "JuJu Smith-Schuster/WR",
+    "Kyler Murray/QB",
+    "Jamaal Williams/RB",
+    "Robbie Anderson/WR",
+    "Darrell Henderson/RB",
+    "Hunter Henry/TE",
+    "Matthew Stafford/QB",
+    "Deshaun Watson/QB",
+    "Saints/DST",
+    "Younghoe Koo/K"
+   ],
+   [
+    "Austin Ekeler/RB",
+    "Alvin Kamara/RB",
+    "Keenan Allen/WR",
+    "Terry McLaurin/WR",
+    "DJ Moore/WR",
+    "Damien Harris/RB",
+    "Patrick Mahomes/QB",
+    "Rashod Bateman/WR",
+    "Pat Freiermuth/TE",
+    "Devin Singletary/RB",
+    "Brandon Aiyuk/WR",
+    "Khalil Herbert/RB",
+    "Derek Carr/QB",
+    "49ers/DST",
+    "Jameson Williams/WR",
+    "Justin Tucker/K"
+   ],
+   [
+    "Dalvin Cook/RB",
+    "Stefon Diggs/WR",
+    "Leonard Fournette/RB",
+    "Tyreek Hill/WR",
+    "Tee Higgins/WR",
+    "Breece Hall/RB",
+    "Brandin Cooks/WR",
+    "Marquise Brown/WR",
+    "Chase Edmonds/RB",
+    "Elijah Moore/WR",
+    "Kenneth Walker III/RB",
+    "Tyler Lockett/WR",
+    "Dawson Knox/TE",
+    "Bills/DST",
+    "Kirk Cousins/QB",
+    "Cole Kmet/TE"
+   ],
+   [
+    "Cooper Kupp/WR",
+    "Nick Chubb/RB",
+    "Cam Akers/RB",
+    "George Kittle/TE",
+    "Michael Thomas/WR",
+    "J.K. Dobbins/RB",
+    "Aaron Rodgers/QB",
+    "DeVonta Smith/WR",
+    "Chase Claypool/WR",
+    "James Cook/RB",
+    "Garrett Wilson/WR",
+    "Chris Olave/WR",
+    "Gus Edwards/RB",
+    "Logan Thomas/TE",
+    "Ravens/DST",
+    "Matt Gay/K"
+   ],
+   [
+    "Joe Mixon/RB",
+    "Ja'Marr Chase/WR",
+    "Michael Pittman Jr./WR",
+    "David Montgomery/RB",
+    "Amari Cooper/WR",
+    "Josh Allen/QB",
+    "Sterling Shepard/WR",
+    "Zach Ertz/TE",
+    "Rashaad Penny/RB",
+    "Mark Ingram/RB",
+    "Buccaneers/DST",
+    "Tom Brady/QB",
+    "Jarvis Landry/WR",
+    "Jerick McKinnon/RB",
+    "Rodrigo Blankenship/K",
+    "Mecole Hardman/WR"
+   ],
+   [
+    "D'Andre Swift/RB",
+    "Travis Kelce/TE",
+    "Ezekiel Elliott/RB",
+    "Mark Andrews/TE",
+    "Jaylen Waddle/WR",
+    "Diontae Johnson/WR",
+    "Clyde Edwards-Helaire/RB",
+    "Lamar Jackson/QB",
+    "Hunter Renfrow/WR",
+    "Rhamondre Stevenson/RB",
+    "Tyler Boyd/WR",
+    "Joe Burrow/QB",
+    "George Pickens/WR",
+    "Michael Carter/RB",
+    "Patriots/DST",
+    "Evan McPherson/K"
+   ]
+  ],
+  "steals": [
+   [
+    "Jalen Hurts",
+    8,
+    0,
+    "Eighth-rounder who finished second in MVP voting."
+   ],
+   [
+    "Amon-Ra St. Brown",
+    8,
+    1,
+    "Eighth-rounder with 106 catches."
+   ],
+   [
+    "Tony Pollard",
+    9,
+    0,
+    "Ninth-rounder with almost 1,400 scrimmage yards."
+   ],
+   [
+    "Garrett Wilson",
+    11,
+    7,
+    "Eleventh-round rookie who went over 1,100 yards."
+   ]
+  ],
+  "busts": [
+   [
+    "Jonathan Taylor",
+    1,
+    0,
+    "First overall pick, 861 rushing yards in an injury-shortened year."
+   ],
+   [
+    "Kyle Pitts",
+    4,
+    2,
+    "Fourth-round tight end with 356 yards."
+   ],
+   [
+    "Darren Waller",
+    3,
+    4,
+    "Third-round tight end who played nine games."
+   ],
+   [
+    "Michael Thomas",
+    5,
+    7,
+    "Fifth-rounder who played three games."
+   ]
+  ]
+ },
+ "2023": {
+  "source": "Transcribed from the August 29, 2023 sticker board photo and checked against Kyle's draft sheet.",
+  "teams": [
+   [
+    "The New York Noses",
+    "dilapi"
+   ],
+   [
+    "Floof",
+    "fluff"
+   ],
+   [
+    "Quincy",
+    "quincy"
+   ],
+   [
+    "Encino Men",
+    "jerry"
+   ],
+   [
+    "RodFather",
+    "rod"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "#Locked Goon Squad",
+    "squirm"
+   ],
+   [
+    "Dylan",
+    "dylan"
+   ],
+   [
+    "SAL",
+    "lucas"
+   ],
+   [
+    "Kad (Kakofonus A. Dischord)",
+    "peanut"
+   ]
+  ],
+  "cols": [
+   [
+    "Justin Jefferson/WR",
+    "Davante Adams/WR",
+    "Joe Mixon/RB",
+    "Breece Hall/RB",
+    "James Conner/RB",
+    "Rachaad White/RB",
+    "Brian Robinson/RB",
+    "Trevor Lawrence/QB",
+    "Jahan Dotson/WR",
+    "Jeff Wilson/RB",
+    "Cole Kmet/TE",
+    "49ers/DST",
+    "Nico Collins/WR",
+    "Matt Gay/K",
+    "Hunter Renfrow/WR"
+   ],
+   [
+    "Ja'Marr Chase/WR",
+    "CeeDee Lamb/WR",
+    "Amon-Ra St. Brown/WR",
+    "Travis Etienne/RB",
+    "Justin Fields/QB",
+    "T.J. Hockenson/TE",
+    "Javonte Williams/RB",
+    "Brandon Aiyuk/WR",
+    "Christian Kirk/WR",
+    "Khalil Herbert/RB",
+    "Antonio Gibson/RB",
+    "Skyy Moore/WR",
+    "Samaje Perine/RB",
+    "Broncos/DST",
+    "Tyler Bass/K"
+   ],
+   [
+    "Austin Ekeler/RB",
+    "Jonathan Taylor/RB",
+    "Rhamondre Stevenson/RB",
+    "Deebo Samuel/WR",
+    "Amari Cooper/WR",
+    "Justin Herbert/QB",
+    "Chris Godwin/WR",
+    "Evan Engram/TE",
+    "Isiah Pacheco/RB",
+    "Aaron Rodgers/QB",
+    "Allen Lazard/WR",
+    "Odell Beckham Jr./WR",
+    "Mike Gesicki/TE",
+    "Ravens/DST",
+    "Daniel Carlson/K"
+   ],
+   [
+    "Christian McCaffrey/RB",
+    "Garrett Wilson/WR",
+    "A.J. Brown/WR",
+    "Joe Burrow/QB",
+    "Aaron Jones/RB",
+    "Christian Watson/WR",
+    "Cam Akers/RB",
+    "Jordan Addison/WR",
+    "Michael Thomas/WR",
+    "David Njoku/TE",
+    "Zay Flowers/WR",
+    "Zach Charbonnet/RB",
+    "Dalton Kincaid/TE",
+    "Browns/DST",
+    "Evan McPherson/K"
+   ],
+   [
+    "Stefon Diggs/WR",
+    "Mark Andrews/TE",
+    "Jahmyr Gibbs/RB",
+    "Josh Allen/QB",
+    "Mike Evans/WR",
+    "David Montgomery/RB",
+    "Drake London/WR",
+    "Gabe Davis/WR",
+    "Leonard Fournette/RB",
+    "Devin Singletary/RB",
+    "Elijah Moore/WR",
+    "Zach Ertz/TE",
+    "Damien Harris/RB",
+    "Jets/DST",
+    "Michael Gallup/WR"
+   ],
+   [
+    "Travis Kelce/TE",
+    "Bijan Robinson/RB",
+    "Patrick Mahomes/QB",
+    "Keenan Allen/WR",
+    "DJ Moore/WR",
+    "Jerry Jeudy/WR",
+    "Terry McLaurin/WR",
+    "James Cook/RB",
+    "D'Andre Swift/RB",
+    "Jaxon Smith-Njigba/WR",
+    "JuJu Smith-Schuster/WR",
+    "Treylon Burks/WR",
+    "Anthony Richardson/QB",
+    "Patriots/DST",
+    "Elijah Mitchell/RB"
+   ],
+   [
+    "Josh Jacobs/RB",
+    "Tony Pollard/RB",
+    "Jaylen Waddle/WR",
+    "Kenneth Walker III/RB",
+    "DeAndre Hopkins/WR",
+    "Darren Waller/TE",
+    "Tyler Lockett/WR",
+    "Michael Pittman Jr./WR",
+    "Mike Williams/WR",
+    "Jamaal Williams/RB",
+    "Tyler Higbee/TE",
+    "Geno Smith/QB",
+    "Jakobi Meyers/WR",
+    "Eagles/DST",
+    "Jason Myers/K"
+   ],
+   [
+    "Tyreek Hill/WR",
+    "Saquon Barkley/RB",
+    "DK Metcalf/WR",
+    "Calvin Ridley/WR",
+    "Lamar Jackson/QB",
+    "Dameon Pierce/RB",
+    "Diontae Johnson/WR",
+    "Dallas Goedert/TE",
+    "Dalvin Cook/RB",
+    "Brandin Cooks/WR",
+    "Quentin Johnston/WR",
+    "AJ Dillon/RB",
+    "Steelers/DST",
+    "Justin Tucker/K",
+    "Parris Campbell/WR"
+   ],
+   [
+    "Derrick Henry/RB",
+    "Najee Harris/RB",
+    "Chris Olave/WR",
+    "Tee Higgins/WR",
+    "Deshaun Watson/QB",
+    "Miles Sanders/RB",
+    "George Kittle/TE",
+    "J.K. Dobbins/RB",
+    "Kadarius Toney/WR",
+    "Courtland Sutton/WR",
+    "Zay Jones/WR",
+    "Chigoziem Okonkwo/TE",
+    "Kareem Hunt/RB",
+    "Cowboys/DST",
+    "Greg Zuerlein/K"
+   ],
+   [
+    "Cooper Kupp/WR",
+    "Nick Chubb/RB",
+    "DeVonta Smith/WR",
+    "Jalen Hurts/QB",
+    "Alexander Mattison/RB",
+    "Alvin Kamara/RB",
+    "Marquise Brown/WR",
+    "Kyle Pitts/TE",
+    "Pat Freiermuth/TE",
+    "George Pickens/WR",
+    "Daniel Jones/QB",
+    "Ezekiel Elliott/RB",
+    "Bills/DST",
+    "Ty Chandler/RB",
+    "Harrison Butker/K"
+   ]
+  ],
+  "steals": [
+   [
+    "Nico Collins",
+    13,
+    0,
+    "Thirteenth-rounder who broke out for nearly 1,300 yards."
+   ],
+   [
+    "Rachaad White",
+    6,
+    0,
+    "Sixth-rounder who became a top-10 PPR back."
+   ],
+   [
+    "Mike Evans",
+    5,
+    4,
+    "Fifth-rounder with 1,255 yards and 13 touchdowns."
+   ],
+   [
+    "DJ Moore",
+    5,
+    5,
+    "Fifth-rounder who topped 1,300 yards for the champion."
+   ]
+  ],
+  "busts": [
+   [
+    "Najee Harris",
+    2,
+    8,
+    "A second-round pick for a middling season."
+   ],
+   [
+    "Aaron Rodgers",
+    10,
+    2,
+    "Tore his Achilles four snaps into the season."
+   ],
+   [
+    "Deshaun Watson",
+    5,
+    8,
+    "Fifth-round quarterback, six games and a shoulder injury."
+   ],
+   [
+    "Mark Andrews",
+    2,
+    4,
+    "Second-round tight end who went down in November."
+   ]
+  ]
+ },
+ "2024": {
+  "teams": [
+   [
+    "Donfather Rodfather",
+    "rod"
+   ],
+   [
+    "Sultans of Squirm",
+    "dylan"
+   ],
+   [
+    "Galaxy Liberators",
+    "jordan"
+   ],
+   [
+    "New York Noses",
+    "dilapi"
+   ],
+   [
+    "Ted Bundy Lookin Sals",
+    "charles"
+   ],
+   [
+    "Free Ime Idoka",
+    "quincy"
+   ],
+   [
+    "#dicksoutfor Dolan",
+    "squirm"
+   ],
+   [
+    "Lucas's Loud Team",
+    "lucas"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "The Encino Men",
+    "jerry"
+   ]
+  ],
+  "cols": [
+   [
+    "Christian McCaffrey/RB",
+    "Keenan Allen/WR",
+    "Austin Ekeler/RB",
+    "Josh Jacobs/RB",
+    "Lamar Jackson/QB",
+    "Tee Higgins/WR",
+    "David Njoku/TE",
+    "Chris Godwin/WR",
+    "David Montgomery/RB",
+    "Gabe Davis/WR",
+    "Keon Coleman/WR",
+    "Tyler Conklin/TE",
+    "Khalil Herbert/RB",
+    "Saints/DST",
+    "Matt Gay/K",
+    "DeMario Douglas/WR"
+   ],
+   [
+    "CeeDee Lamb/WR",
+    "Marvin Harrison Jr./WR",
+    "Rachaad White/RB",
+    "Josh Allen/QB",
+    "Drake London/WR",
+    "Evan Engram/TE",
+    "Zamir White/RB",
+    "Javonte Williams/RB",
+    "Terry McLaurin/WR",
+    "Najee Harris/RB",
+    "Brian Robinson Jr./RB",
+    "Courtland Sutton/WR",
+    "Chase Brown/RB",
+    "Khalil Shakir/WR",
+    "Harrison Butker/K",
+    "Dolphins/DST"
+   ],
+   [
+    "Tyreek Hill/WR",
+    "Derrick Henry/RB",
+    "Davante Adams/WR",
+    "Brandon Aiyuk/WR",
+    "Aaron Jones/RB",
+    "C.J. Stroud/QB",
+    "Kyle Pitts/TE",
+    "Diontae Johnson/WR",
+    "Devin Singletary/RB",
+    "Christian Watson/WR",
+    "Gus Edwards/RB",
+    "Justin Tucker/K",
+    "DeAndre Hopkins/WR",
+    "Texans/DST",
+    "Dalton Schultz/TE",
+    "Ja'Lynn Polk/WR"
+   ],
+   [
+    "Bijan Robinson/RB",
+    "Isiah Pacheco/RB",
+    "Mike Evans/WR",
+    "Stefon Diggs/WR",
+    "DeVonta Smith/WR",
+    "D'Andre Swift/RB",
+    "Joe Burrow/QB",
+    "Amari Cooper/WR",
+    "Dallas Goedert/TE",
+    "Tyjae Spears/RB",
+    "Tony Pollard/RB",
+    "Jameson Williams/WR",
+    "49ers/DST",
+    "Greg Zuerlein/K",
+    "Aaron Rodgers/QB",
+    "Jerry Jeudy/WR"
+   ],
+   [
+    "Amon-Ra St. Brown/WR",
+    "Saquon Barkley/RB",
+    "Cooper Kupp/WR",
+    "Jalen Hurts/QB",
+    "Deebo Samuel/WR",
+    "Dalton Kincaid/TE",
+    "Jonathan Brooks/RB",
+    "Marquise Brown/WR",
+    "Raheem Mostert/RB",
+    "Jerome Ford/RB",
+    "Ezekiel Elliott/RB",
+    "Jets/DST",
+    "Ravens/DST",
+    "Brandon Aubrey/K",
+    "Rashid Shaheed/WR",
+    "Jaleel McLaughlin/RB"
+   ],
+   [
+    "Justin Jefferson/WR",
+    "Travis Etienne/RB",
+    "Alvin Kamara/RB",
+    "DJ Moore/WR",
+    "Rhamondre Stevenson/RB",
+    "Anthony Richardson/QB",
+    "George Kittle/TE",
+    "George Pickens/WR",
+    "Nick Chubb/RB",
+    "Jaxon Smith-Njigba/WR",
+    "Xavier Worthy/WR",
+    "Dak Prescott/QB",
+    "Jakobi Meyers/WR",
+    "Steelers/DST",
+    "Jake Elliott/K",
+    "Romeo Doubs/WR"
+   ],
+   [
+    "Jahmyr Gibbs/RB",
+    "Puka Nacua/WR",
+    "Malik Nabers/WR",
+    "Sam LaPorta/TE",
+    "Michael Pittman Jr./WR",
+    "James Conner/RB",
+    "Caleb Williams/QB",
+    "Zay Flowers/WR",
+    "Jordan Addison/WR",
+    "J.K. Dobbins/RB",
+    "Zack Moss/RB",
+    "T.J. Hockenson/TE",
+    "Mike Williams/WR",
+    "Browns/DST",
+    "Ka'imi Fairbairn/K",
+    "Tyler Lockett/WR"
+   ],
+   [
+    "Breece Hall/RB",
+    "Garrett Wilson/WR",
+    "Chris Olave/WR",
+    "Joe Mixon/RB",
+    "Jaylen Waddle/WR",
+    "Kenneth Walker III/RB",
+    "Tank Dell/WR",
+    "Christian Kirk/WR",
+    "Jake Ferguson/TE",
+    "Jordan Love/QB",
+    "Jaylen Wright/RB",
+    "Josh Palmer/WR",
+    "Cowboys/DST",
+    "Rico Dowdle/RB",
+    "Tyler Bass/K",
+    "Pat Freiermuth/TE"
+   ],
+   [
+    "Ja'Marr Chase/WR",
+    "Kyren Williams/RB",
+    "James Cook/RB",
+    "Travis Kelce/TE",
+    "DK Metcalf/WR",
+    "Trey McBride/TE",
+    "Calvin Ridley/WR",
+    "Kyler Murray/QB",
+    "Jayden Reed/WR",
+    "Jayden Daniels/QB",
+    "Rome Odunze/WR",
+    "Trey Benson/RB",
+    "Blake Corum/RB",
+    "Chuba Hubbard/RB",
+    "Jason Sanders/K",
+    "Bengals/DST"
+   ],
+   [
+    "A.J. Brown/WR",
+    "Jonathan Taylor/RB",
+    "De'Von Achane/RB",
+    "Nico Collins/WR",
+    "Patrick Mahomes/QB",
+    "Mark Andrews/TE",
+    "Rashee Rice/WR",
+    "Brock Bowers/TE",
+    "Jaylen Warren/RB",
+    "Brian Thomas Jr./WR",
+    "Brock Purdy/QB",
+    "Ladd McConkey/WR",
+    "Tyler Allgeier/RB",
+    "Chiefs/DST",
+    "Jake Moody/K",
+    "Bears/DST"
+   ]
+  ],
+  "source": "Typed from Kyle's league draft sheet.",
+  "steals": [
+   [
+    "Saquon Barkley",
+    2,
+    4,
+    "Second-rounder who ran for 2,005 yards."
+   ],
+   [
+    "Chase Brown",
+    13,
+    1,
+    "Thirteenth-rounder with over 1,300 scrimmage yards, for the champion."
+   ],
+   [
+    "Chuba Hubbard",
+    14,
+    8,
+    "Fourteenth-rounder who ran for almost 1,200 yards."
+   ],
+   [
+    "Jayden Daniels",
+    10,
+    8,
+    "Tenth-round rookie who won Offensive Rookie of the Year."
+   ]
+  ],
+  "busts": [
+   [
+    "Christian McCaffrey",
+    1,
+    0,
+    "First-rounder who played four games."
+   ],
+   [
+    "Tyreek Hill",
+    1,
+    2,
+    "First-rounder who fell from 1,799 yards to 959."
+   ],
+   [
+    "Isiah Pacheco",
+    2,
+    3,
+    "Second-rounder who broke his leg in week 2."
+   ],
+   [
+    "Anthony Richardson",
+    6,
+    5,
+    "Sixth-round quarterback who got benched in October."
+   ]
+  ],
+  "odd": "Jerry got Brock Bowers in round 8, Brian Thomas Jr. in round 10 and Ladd McConkey in round 12."
+ },
+ "2025": {
+  "source": "Typed from Kyle's 2025 draft sheet. The sheet lists Chuba Hubbard twice (Squirm's Clients round 9 and Drake Maye's Aura round 5); both are shown as written.",
+  "teams": [
+   [
+    "Lucas's Loud Team",
+    "lucas"
+   ],
+   [
+    "Sal's Chickens",
+    "charles"
+   ],
+   [
+    "Squirm's Clients",
+    "peanut"
+   ],
+   [
+    "Drake Maye's Aura",
+    "quincy"
+   ],
+   [
+    "New York Noses",
+    "dilapi"
+   ],
+   [
+    "Galaxy Liberators",
+    "jordan"
+   ],
+   [
+    "#dicksoutfor Dolan",
+    "squirm"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "El Floof",
+    "fluff"
+   ],
+   [
+    "Sultans of Squirm",
+    "dylan"
+   ]
+  ],
+  "cols": [
+   [
+    "Ja'Marr Chase/WR",
+    "Trey McBride/TE",
+    "Josh Jacobs/RB",
+    "Mike Evans/WR",
+    "Terry McLaurin/WR",
+    "D'Andre Swift/RB",
+    "Courtland Sutton/WR",
+    "Patrick Mahomes/QB",
+    "Aaron Jones/RB",
+    "David Njoku/TE",
+    "Austin Ekeler/RB",
+    "Keenan Allen/WR",
+    "Brandin Cooks/WR",
+    "Texans/DST",
+    "Keaton Mitchell/RB",
+    "Evan McPherson/K"
+   ],
+   [
+    "Justin Jefferson/WR",
+    "Bucky Irving/RB",
+    "Jonathan Taylor/RB",
+    "Jalen Hurts/QB",
+    "Marvin Harrison Jr./WR",
+    "Isiah Pacheco/RB",
+    "Travis Hunter/WR",
+    "Evan Engram/TE",
+    "Ricky Pearsall/WR",
+    "Travis Etienne/RB",
+    "Brandon Aubrey/K",
+    "Nick Chubb/RB",
+    "Steelers/DST",
+    "Jayden Higgins/WR",
+    "Tucker Kraft/TE",
+    "J.J. McCarthy/QB"
+   ],
+   [
+    "Bijan Robinson/RB",
+    "Chase Brown/RB",
+    "Tetairoa McMillan/WR",
+    "Tyreek Hill/WR",
+    "Kenneth Walker III/RB",
+    "Zay Flowers/WR",
+    "Sam LaPorta/TE",
+    "Stefon Diggs/WR",
+    "Chuba Hubbard/RB",
+    "Michael Pittman Jr./WR",
+    "Cam Skattebo/RB",
+    "Tyjae Spears/RB",
+    "Kyler Murray/QB",
+    "Rachaad White/RB",
+    "Lions/DST",
+    "Jaxson Dart/QB"
+   ],
+   [
+    "Jahmyr Gibbs/RB",
+    "Brian Thomas Jr./WR",
+    "Tee Higgins/WR",
+    "Davante Adams/WR",
+    "Chuba Hubbard/RB",
+    "RJ Harvey/RB",
+    "David Montgomery/RB",
+    "Jaylen Waddle/WR",
+    "Cooper Kupp/WR",
+    "Matthew Golden/WR",
+    "Joe Mixon/RB",
+    "Drake Maye/QB",
+    "Hunter Henry/TE",
+    "Patriots/DST",
+    "Tank Bigsby/RB",
+    "Brock Purdy/QB"
+   ],
+   [
+    "Saquon Barkley/RB",
+    "Drake London/WR",
+    "Ladd McConkey/WR",
+    "TreVeyon Henderson/RB",
+    "Jaxon Smith-Njigba/WR",
+    "Bo Nix/QB",
+    "Tyrone Tracy Jr./RB",
+    "T.J. Hockenson/TE",
+    "Deebo Samuel/WR",
+    "J.K. Dobbins/RB",
+    "Jaylen Warren/RB",
+    "Justin Herbert/QB",
+    "Marvin Mims/WR",
+    "Vikings/DST",
+    "Cameron Dicker/K",
+    "Brandon Aiyuk/WR"
+   ],
+   [
+    "Derrick Henry/RB",
+    "De'Von Achane/RB",
+    "Brock Bowers/TE",
+    "Jerry Jeudy/WR",
+    "Joe Burrow/QB",
+    "DK Metcalf/WR",
+    "Jordan Addison/WR",
+    "Jordan Mason/RB",
+    "Zach Ertz/TE",
+    "Luther Burden III/WR",
+    "Jauan Jennings/WR",
+    "Jake Elliott/K",
+    "Xavier Legette/WR",
+    "Eagles/DST",
+    "Zay Jones/WR",
+    "Braelon Allen/RB"
+   ],
+   [
+    "Christian McCaffrey/RB",
+    "A.J. Brown/WR",
+    "Kyren Williams/RB",
+    "Jayden Daniels/QB",
+    "James Conner/RB",
+    "Emeka Egbuka/WR",
+    "Tyler Warren/TE",
+    "Jakobi Meyers/WR",
+    "Chris Olave/WR",
+    "Rhamondre Stevenson/RB",
+    "Jerome Ford/RB",
+    "Keon Coleman/WR",
+    "Dalton Kincaid/TE",
+    "Ravens/DST",
+    "Jake Bates/K",
+    "C.J. Stroud/QB"
+   ],
+   [
+    "CeeDee Lamb/WR",
+    "Amon-Ra St. Brown/WR",
+    "Omarion Hampton/RB",
+    "George Kittle/TE",
+    "Jameson Williams/WR",
+    "Garrett Wilson/WR",
+    "Tony Pollard/RB",
+    "Kaleb Johnson/RB",
+    "Javonte Williams/RB",
+    "Baker Mayfield/QB",
+    "Dylan Sampson/RB",
+    "Broncos/DST",
+    "Jaydon Blue/RB",
+    "Justin Fields/QB",
+    "Colston Loveland/TE",
+    "Ka'imi Fairbairn/K"
+   ],
+   [
+    "Ashton Jeanty/RB",
+    "Nico Collins/WR",
+    "James Cook/RB",
+    "Lamar Jackson/QB",
+    "Xavier Worthy/WR",
+    "DeVonta Smith/WR",
+    "Rashee Rice/WR",
+    "George Pickens/WR",
+    "Quinshon Judkins/RB",
+    "Mark Andrews/TE",
+    "Josh Downs/WR",
+    "Brian Robinson Jr./RB",
+    "Jayden Reed/WR",
+    "Gabe Davis/WR",
+    "Bills/DST",
+    "Wil Lutz/K"
+   ],
+   [
+    "Malik Nabers/WR",
+    "Puka Nacua/WR",
+    "Josh Allen/QB",
+    "Alvin Kamara/RB",
+    "DJ Moore/WR",
+    "Breece Hall/RB",
+    "Calvin Ridley/WR",
+    "Travis Kelce/TE",
+    "Jacory Croskey-Merritt/RB",
+    "Chris Godwin/WR",
+    "Zach Charbonnet/RB",
+    "Khalil Shakir/WR",
+    "Chase McLaughlin/K",
+    "Trey Benson/RB",
+    "Darnell Mooney/WR",
+    "Giants/DST"
+   ]
+  ],
+  "steals": [
+   [
+    "Jaxon Smith-Njigba",
+    5,
+    4,
+    "Fifth-rounder who led the NFL in receiving yards."
+   ],
+   [
+    "George Pickens",
+    8,
+    8,
+    "Eighth-rounder who went over 1,300 yards in his first year in Dallas."
+   ],
+   [
+    "Javonte Williams",
+    9,
+    7,
+    "Ninth-rounder who ran for over 1,000 yards, for the champion."
+   ],
+   [
+    "Drake Maye",
+    12,
+    3,
+    "Twelfth-round quarterback who became one of the best in the league."
+   ]
+  ],
+  "busts": [
+   [
+    "Malik Nabers",
+    1,
+    9,
+    "First-rounder who tore his ACL in week 4."
+   ],
+   [
+    "Tyreek Hill",
+    4,
+    2,
+    "Fourth-rounder whose season ended with a knee injury in week 4."
+   ],
+   [
+    "Brian Thomas Jr.",
+    2,
+    3,
+    "Second-rounder who slumped badly after a 1,282-yard rookie year."
+   ],
+   [
+    "Joe Burrow",
+    5,
+    5,
+    "Fifth-round quarterback who hurt his toe in week 2 and missed two months."
+   ]
+  ],
+  "odd": "Quincy drafted Drake Maye in round 12 and wrote \"(GOAT)\" next to him on the sheet. His team was named Drake Maye's Aura. He still took the Sacko."
+ },
+ "2026": {
+  "source": "Transcribed from the August 26, 2026 sticker board photo. The first 12-team draft. Fluff's column is headed \"sgonk\".",
+  "teams": [
+   [
+    "sgonk",
+    "fluff"
+   ],
+   [
+    "Sal's 4 Chickens",
+    "charles"
+   ],
+   [
+    "Vick's Vet Clinic",
+    "ghost"
+   ],
+   [
+    "Sultans of Squirm",
+    "dylan"
+   ],
+   [
+    "#Dicksout4Dolan",
+    "squirm"
+   ],
+   [
+    "Galaxy Libs",
+    "jordan"
+   ],
+   [
+    "Sal's Ath-o-letes",
+    "lucas"
+   ],
+   [
+    "Encino Men",
+    "jerry"
+   ],
+   [
+    "The New York Noses",
+    "dilapi"
+   ],
+   [
+    "The Monglers",
+    "kyle"
+   ],
+   [
+    "2 Girls 1 Kupp",
+    "rod"
+   ],
+   [
+    "Quincy Jonesin' for a Touchdown",
+    "quincy"
+   ]
+  ],
+  "cols": [
+   [
+    "Jahmyr Gibbs/RB",
+    "Nico Collins/WR",
+    "George Pickens/WR",
+    "Tee Higgins/WR",
+    "Colston Loveland/TE",
+    "Rome Odunze/WR",
+    "Rhamondre Stevenson/RB",
+    "Michael Wilson/WR",
+    "Tony Pollard/RB",
+    "Trevor Lawrence/QB",
+    "Matthew Golden/WR",
+    "Keaton Mitchell/RB",
+    "Tank Bigsby/RB",
+    "Jonah Coleman/RB",
+    "Matthew Stafford/QB",
+    "Lions/DST"
+   ],
+   [
+    "Bijan Robinson/RB",
+    "Malik Nabers/WR",
+    "Brock Bowers/TE",
+    "Ladd McConkey/WR",
+    "Jadarian Price/RB",
+    "Parker Washington/WR",
+    "Tucker Kraft/TE",
+    "De'Zhaun Stribling/WR",
+    "Jacory Croskey-Merritt/RB",
+    "Justin Herbert/QB",
+    "Brandon Aubrey/K",
+    "Woody Marks/RB",
+    "Brian Robinson Jr./RB",
+    "Brock Purdy/QB",
+    "Jaguars/DST",
+    "Emmett Johnson/RB"
+   ],
+   [
+    "Ja'Marr Chase/WR",
+    "Josh Jacobs/RB",
+    "Kyren Williams/RB",
+    "Emeka Egbuka/WR",
+    "Lamar Jackson/QB",
+    "DK Metcalf/WR",
+    "J.K. Dobbins/RB",
+    "Jake Ferguson/TE",
+    "Wan'Dale Robinson/WR",
+    "Deebo Samuel/WR",
+    "Aaron Jones/RB",
+    "Texans/DST",
+    "Jalen Coker/WR",
+    "Cameron Dicker/K",
+    "Jared Goff/QB",
+    "Justice Hill/RB"
+   ],
+   [
+    "Puka Nacua/WR",
+    "Kenneth Walker III/RB",
+    "Javonte Williams/RB",
+    "DeVonta Smith/WR",
+    "Davante Adams/WR",
+    "Courtland Sutton/WR",
+    "Jonathon Brooks/RB",
+    "Bo Nix/QB",
+    "Alec Pierce/WR",
+    "Rachaad White/RB",
+    "Dalton Kincaid/TE",
+    "Jakobi Meyers/WR",
+    "Tre Tucker/WR",
+    "Caleb Douglas/WR",
+    "Jason Myers/K",
+    "Eagles/DST"
+   ],
+   [
+    "Jaxon Smith-Njigba/WR",
+    "Jeremiyah Love/RB",
+    "Cam Skattebo/RB",
+    "Tetairoa McMillan/WR",
+    "Tyler Warren/TE",
+    "Jalen Hurts/QB",
+    "Quentin Johnston/WR",
+    "Rico Dowdle/RB",
+    "Denzel Boston/WR",
+    "Mark Andrews/TE",
+    "Isiah Pacheco/RB",
+    "Ka'imi Fairbairn/K",
+    "Broncos/DST",
+    "Travis Hunter/WR",
+    "Najee Harris/RB",
+    "Jordan Love/QB"
+   ],
+   [
+    "Amon-Ra St. Brown/WR",
+    "Chase Brown/RB",
+    "Chris Olave/WR",
+    "D'Andre Swift/RB",
+    "DJ Moore/WR",
+    "Jayden Daniels/QB",
+    "Sam LaPorta/TE",
+    "Jordan Mason/RB",
+    "Stefon Diggs/WR",
+    "Romeo Doubs/WR",
+    "Tyler Allgeier/RB",
+    "Isaac TeSlaa/WR",
+    "Luke Musgrave/TE",
+    "Jake Elliott/K",
+    "Chargers/DST",
+    "Calvin Ridley/WR"
+   ],
+   [
+    "Christian McCaffrey/RB",
+    "Derrick Henry/RB",
+    "Rashee Rice/WR",
+    "Zay Flowers/WR",
+    "Quinshon Judkins/RB",
+    "Joe Burrow/QB",
+    "Jaylen Warren/RB",
+    "Dallas Goedert/TE",
+    "Brian Thomas Jr./WR",
+    "Michael Pittman Jr./WR",
+    "Kyle Monangai/RB",
+    "Seahawks/DST",
+    "Jerry Jeudy/WR",
+    "Juwan Johnson/TE",
+    "Cam Little/K",
+    "Baker Mayfield/QB"
+   ],
+   [
+    "James Cook/RB",
+    "Drake London/WR",
+    "Josh Allen/QB",
+    "Jaylen Waddle/WR",
+    "TreVeyon Henderson/RB",
+    "Jameson Williams/WR",
+    "RJ Harvey/RB",
+    "Isaiah Likely/TE",
+    "Tyrone Tracy Jr./RB",
+    "Jordan Addison/WR",
+    "KC Concepcion/WR",
+    "Rams/DST",
+    "Brenton Strange/TE",
+    "Patrick Mahomes/QB",
+    "Jake Bates/K",
+    "Ja'Kobi Lane/WR"
+   ],
+   [
+    "Justin Jefferson/WR",
+    "Ashton Jeanty/RB",
+    "Breece Hall/RB",
+    "Bucky Irving/RB",
+    "Terry McLaurin/WR",
+    "Makai Lemon/WR",
+    "George Kittle/TE",
+    "Chuba Hubbard/RB",
+    "Jordyn Tyson/WR",
+    "Dak Prescott/QB",
+    "Mike Washington Jr./RB",
+    "Braelon Allen/RB",
+    "T.J. Hockenson/TE",
+    "Eddy Pineiro/K",
+    "Steelers/DST",
+    "Kyler Murray/QB"
+   ],
+   [
+    "Jonathan Taylor/RB",
+    "Omarion Hampton/RB",
+    "Trey McBride/TE",
+    "Garrett Wilson/WR",
+    "Carnell Tate/WR",
+    "Christian Watson/WR",
+    "Caleb Williams/QB",
+    "Chris Godwin/WR",
+    "Kenneth Gainwell/RB",
+    "Hunter Henry/TE",
+    "MarShawn Lloyd/RB",
+    "Tyjae Spears/RB",
+    "Cyrus Allen/WR",
+    "Omar Cooper Jr./WR",
+    "Ravens/DST",
+    "Jordan James/RB"
+   ],
+   [
+    "CeeDee Lamb/WR",
+    "De'Von Achane/RB",
+    "David Montgomery/RB",
+    "Mike Evans/WR",
+    "Harold Fannin Jr./TE",
+    "Xavier Worthy/WR",
+    "Trevor Etienne/RB",
+    "Jaxson Dart/QB",
+    "Blake Corum/RB",
+    "Jayden Reed/WR",
+    "Zach Charbonnet/RB",
+    "Rashid Shaheed/WR",
+    "Jalen McMillan/WR",
+    "Cooper Kupp/WR",
+    "Dylan Sampson/RB",
+    "Vikings/DST"
+   ],
+   [
+    "Saquon Barkley/RB",
+    "A.J. Brown/WR",
+    "Travis Etienne/RB",
+    "Drake Maye/QB",
+    "Luther Burden III/WR",
+    "Bhayshul Tuten/RB",
+    "Kyle Pitts/TE",
+    "Marvin Harrison Jr./WR",
+    "Travis Kelce/TE",
+    "Josh Downs/WR",
+    "Chris Rodriguez Jr./RB",
+    "Khalil Shakir/WR",
+    "Alvin Kamara/RB",
+    "Adonai Mitchell/WR",
+    "Harrison Mevis/K",
+    "Kaelon Black/RB"
+   ]
+  ],
+  "steals": [],
+  "busts": []
+ }
+};
+const BOARDS = [
+  {year:2016,img:"draft-2016.jpg",cap:"The 2016 sticker board at Sal's office. Columns include Patcher's (Lucas), NY Lorenzos (Charles, with Le'Veon Bell, Antonio Brown and A.J. Green) and DAB (Duane, with David Johnson, Jordy Nelson, T.Y. Hilton and Kelce)."},
+  {year:2017,img:"draft-2017.jpg",cap:"Live draft, August 6, 2017. Owners on the board include Fluff, Squirm, Patrick and Klugz."},
+  {year:2021,img:"draft-2021.jpg",cap:"The 2021 board at Sal's office, with KK and Chuck written in as commissioners."},
+  {year:2022,img:"draft-2022.jpg",cap:"The 2022 board at Quincy's apartment complex. Headers include Shiva-KAD, Megaladon, Sal's Bussy and BigDonRod."},
+  {year:2023,img:"draft-2023.jpg",cap:"Live draft, August 29, 2023. Columns include Fluff, Quincy, Encino Men, RodFather, The Monglers, Dylan and Sal."},
+  {year:2026,img:"draft-2026.jpg",cap:"Flamingo Men Fantasy Year 12, August 26, 2026. The first 12-team board."},
+];
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>n==null?"–":Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
+const S=LEAGUE.stats, TR=LEAGUE.trades;
+const SEASONS=[2016,2017,2018,2019,2020,2021,2022,2023,2024,2025];
+const ALL_YEARS=[...SEASONS,2026];
+const commish=y=>(COMMISH[y]||[]).map(o=>short(o)).join(" & ");
+function av(o,cls="av"){const p=IMG[o];const n=OWNERS[o]?.name||"?";
+  return p?`<img class="${cls}" src="${p}" alt="${esc(n)}">`:`<span class="${cls}" aria-hidden="true">${esc(n.split(" ").map(x=>x[0]).join("").slice(0,2))}</span>`}
+function sackoIcons(n){if(!n)return "–";return IMG.sacko?Array.from({length:n},()=>`<img class="sk-ic" src="${IMG.sacko}" alt="Sacko">`).join(""):`<span class="sacko">${n}</span>`}
+function cutout(o){return CUT[o]?`<svg class="bgflam" aria-hidden="true"><use href="#flamingoBig"/></svg><img class="cut" src="${CUT[o]}" alt="${esc(OWNERS[o]?.name||"")}" loading="lazy">`:av(o,"big")}
+function sackoMark(){return IMG.sacko?`<img class="sk-ic" src="${IMG.sacko}" alt="">`:""}
+function tradeCount(o){return TR.filter(t=>t.st==="completed"&&(t.a.o===o||t.b.o===o)).length}
+function short(o){if(!o)return "Unconfirmed";const x=OWNERS[o];return x.short||(x.nick?x.nick.split(" / ")[0]:x.name.split(" ")[0])}
+function totals(o){const s=S[o];if(!s)return null;let w=0,l=0,p=0,n=0,best=null;
+  for(const y in s.seasons){const r=s.seasons[y];if(r.live)continue;w+=r.w;l+=r.l;if(r.pts!=null){p+=r.pts;n++}
+    if(!best||r.w/(r.w+r.l)>best.w/(best.w+best.l))best={...r,y}}
+  return {w,l,pct:w+l?w/(w+l):0,pts:p,avg:n?p/n:null,seasons:Object.values(s.seasons).filter(r=>!r.live).length,titles:s.titles,sackos:s.sackos,best}}
+function standings(y){const rows=[];for(const o in S){const r=S[o].seasons[y];if(r)rows.push({o,...r})}
+  rows.sort((a,b)=>b.w-a.w||(b.pts||0)-(a.pts||0));return rows}
+function teamNames(o){const m={};if(LIVE[o])(m[2026]??=new Set()).add(LIVE[o].team);TR.forEach(t=>{[t.a,t.b].forEach(s=>{if(s.o===o){(m[t.s]??=new Set()).add(s.team)}})});
+  for(const y in EXTRA_NAMES){if(EXTRA_NAMES[y][o])(m[y]??=new Set()).add(EXTRA_NAMES[y][o])}
+  return m}
+function favorites(o){const c={};TR.forEach(t=>{if(t.st!=="completed")return;
+  if(t.a.o===o)t.b.gave.forEach(p=>c[p]=(c[p]||0)+1);if(t.b.o===o)t.a.gave.forEach(p=>c[p]=(c[p]||0)+1)});
+  return Object.entries(c).filter(e=>e[1]>1).sort((a,b)=>b[1]-a[1]).slice(0,6)}
+
+function tradeHTML(t,extra=""){
+  const side=s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${s.o?esc(OWNERS[s.o].name):'<span class="tag unk">Owner unconfirmed</span>'}</div>
+    <div class="eyebrow" style="margin-top:6px">Sends</div><ul>${s.gave.length?s.gave.map(p=>{const[n,pos]=p.split("|");return `<li>${esc(n)}<span class="pos">${esc(pos)}</span></li>`}).join(""):'<li class="muted">Nothing</li>'}</ul></div>`;
+  const d=new Date(t.d+"T12:00:00");
+  return `<article class="trade">${extra}<div class="trade-top"><span>${d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})}</span><span>${t.st==="vetoed"?'<span class="tag veto">Vetoed</span> ':""}${FLAGS[t.id]?`<span class="tag flag">${FLAGS[t.id]}</span>`:""}</span></div>
+    <div class="sides">${side(t.a)}<div class="swap" aria-hidden="true">⇄</div>${side(t.b)}</div></article>`}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const done=TR.filter(t=>t.st==="completed").length, vet=TR.filter(t=>t.st==="vetoed").length;
+  $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  $("#champStrip").innerHTML=ALL_YEARS.map(y=>{const c=CHAMPS[y];return c?`<a class="cyear" href="#champions" style="text-decoration:none;color:inherit"><div class="y">${y}</div><div class="n">${esc(c.team.split(" / ")[0])}</div></a>`:`<div class="cyear tbd"><div class="y">${y}</div><div class="n">${y===2026?"In progress":"To confirm"}</div></div>`}).join("");
+  $("#latestTrades").innerHTML=TR.filter(t=>t.st==="completed").sort((a,b)=>a.d.localeCompare(b.d)||a.id-b.id).slice(-3).reverse().map(t=>tradeHTML(t)).join("");
+  $("#ownersRow").innerHTML=ORDER.filter(o=>S[o]).map(o=>`<a class="owner-pill" href="#teams" data-o="${o}">${av(o)}<span>${esc(short(o))}</span></a>`).join("");
+  $("#ownersRow").onclick=e=>{const a=e.target.closest("[data-o]");if(a)current=a.dataset.o};
+}
+
+/* ---------- HISTORY ---------- */
+let histYear=2025;
+function renderHistory(){
+  $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
+  $("#chronicle").innerHTML=CHRONICLE.map(([h,p])=>`<div><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join("");
+  $("#yearPills").innerHTML=[2015,...ALL_YEARS].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
+  $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;renderHistory()};
+  const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
+  const nT=TR.filter(t=>t.s===histYear&&t.st==="completed").length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
+  const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
+  $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
+   <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
+   <ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+   ${histYear<2026?`<div class="awards"><div><div class="eyebrow">Trade Rape of the Year${HEISTS[histYear]&&!HEISTS[histYear].official?" · editor's pick":""}</div>${HEISTS[histYear]?`<p style="margin:4px 0 10px">${esc(HEISTS[histYear].why)}</p>${tradeHTML(TR[HEISTS[histYear].id])}`:`<p class="muted" style="margin:4px 0 0">No trade records for ${histYear}.</p>`}</div>
+   ${DRAFTS[histYear]?.steals.length?`<div><div class="eyebrow">Steal of the draft</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].steals[0][0])}</b>, round ${DRAFTS[histYear].steals[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].steals[0][2]][0])}). ${esc(DRAFTS[histYear].steals[0][3])}</p></div><div><div class="eyebrow">Worst pick</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].busts[0][0])}</b>, round ${DRAFTS[histYear].busts[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].busts[0][2]][0])}). ${esc(DRAFTS[histYear].busts[0][3])}</p></div>`:""}
+   <div><div class="eyebrow">Pickup of the Year</div>${PICKUPS[histYear]?`<p style="margin:4px 0 0"><b>${esc(PICKUPS[histYear].player)}</b>, picked up by ${esc(PICKUPS[histYear].team)}${PICKUPS[histYear].official?" (official league award)":""}.</p>`:`<p class="muted" style="margin:4px 0 0">Waiver records for ${histYear} are not in the files yet.</p>`}</div></div>`:""}
+`;
+}
+
+/* ---------- STATS ---------- */
+let sortKey="titles",sortDir=-1,seasonSel=2025;
+function renderStats(){
+  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["trades","Trades"]];
+  const rows=Object.keys(S).filter(o=>totals(o).seasons||S[o].titles||S[o].sackos).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o)}));
+  rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
+  $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
+   <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span>${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span></div></td>
+     <td class="num">${r.seasons||"–"}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
+     <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
+     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num">${r.trades||"–"}</td></tr>`).join("")}</tbody>`;
+  $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"?1:-1);sortKey=k;renderStats()};
+  $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
+  $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
+  const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
+  $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${fmt(r.pts)}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
+  $("#seasonNote").textContent=seasonSel===2026?"2026 standings after week 2, from the ESPN standings page. Divisions: Lex and Bhavi. Moves counts every ESPN transaction, not only trades.":seasonSel===2016?"No 2016 records are in the stats sheet yet.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
+}
+
+/* ---------- DRAFTS ---------- */
+let draftYear=null;
+const POSN={QB:"QB",RB:"RB",WR:"WR",TE:"TE",DST:"D/ST",K:"K"};
+function renderDrafts(){
+  const withData=Object.keys(DRAFTS).map(Number);
+  if(draftYear==null)draftYear=Math.max(...withData);
+  $("#draftYears").innerHTML=ALL_YEARS.map(y=>{const has=DRAFTS[y]||BOARDS.find(b=>b.year===y);return `<button type="button" data-y="${y}" aria-pressed="${y===draftYear}"${has?"":' class="dim"'}>${y}</button>`}).join("");
+  $("#draftYears").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;draftYear=+b.dataset.y;renderDrafts()};
+  const D=DRAFTS[draftYear],B=BOARDS.find(b=>b.year===draftYear);
+  const photo=B?`<figure class="board" style="margin:22px 0 0;max-width:820px"><button type="button" data-full="img/${B.img}"><img src="img/${B.img}" alt="${draftYear} draft board" loading="lazy"></button><figcaption class="cap"><h3>The ${draftYear} board</h3><span class="muted" style="font-size:.9rem">${esc(B.cap)}</span></figcaption></figure>`:"";
+  if(!D){$("#draftBody").innerHTML=`<div class="board missing" style="min-height:180px"><div><h3>${draftYear} draft</h3><span style="font-size:.95rem">No draft sheet for this year yet.</span></div></div>${photo}`;return}
+  const rounds=Math.max(...D.cols.map(c=>c.length));
+  const key=(r,c)=>r+"-"+c;
+  const mark={};D.steals.forEach(s=>mark[key(s[1],s[2])]="steal");D.busts.forEach(s=>mark[key(s[1],s[2])]="bust");
+  const head=`<tr><th class="rd">Rd</th>${D.teams.map(([n,o])=>`<th><div class="dteam">${o?av(o,"av"):""}<span><b>${esc(n)}</b><small>${o?esc(short(o)):"Owner unconfirmed"}</small></span></div></th>`).join("")}</tr>`;
+  let body="";
+  for(let r=1;r<=rounds;r++){body+=`<tr><th class="rd">${r}</th>`+D.cols.map((col,c)=>{const v=col[r-1];if(!v)return `<td class="pk empty"><span>Not on board</span></td>`;const[n,p]=v.split("/");const m=mark[key(r,c)];
+    return `<td class="pk ${p.toLowerCase()}${m?" "+m:""}" title="${esc(n)}, ${POSN[p]||p}"><span class="nm">${esc(n)}</span>${m?`<span class="ps">${m==="steal"?"Steal":"Bust"}</span>`:""}<span class="sr">, ${POSN[p]||p}</span></td>`}).join("")+"</tr>"}
+  const card=(title,list,cls)=>`<div class="pickcard ${cls}"><div class="eyebrow">${title}</div><ol>${list.map(([n,r,c,why])=>`<li><b>${esc(n)}</b> <span class="muted">round ${r}, ${esc(D.teams[c][0])}</span><br>${esc(why)}</li>`).join("")}</ol></div>`;
+  $("#draftBody").innerHTML=`<div class="dlegend">${["QB","RB","WR","TE","DST","K"].map(p=>`<span class="pk ${p.toLowerCase()}">${POSN[p]}</span>`).join("")}<span class="muted" style="font-size:.85rem">${D.teams.length} teams · ${rounds} rounds</span></div>
+    <div class="tablebox dgrid"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>
+    <p class="muted" style="font-size:.85rem;margin:8px 0 0">${esc(D.source)}</p>
+    ${D.steals.length?`<div class="pickcards">${card("Steals of the draft",D.steals,"good")}${card("Worst picks",D.busts,"bad")}</div>`:`<div class="note" style="margin-top:14px">The season is still being played. Steals and worst picks get called once it ends.</div>`}
+    ${D.odd?`<div class="note" style="margin-top:14px">${esc(D.odd)}</div>`:""}
+    ${photo}`;
+}
+
+/* ---------- TEAMS ---------- */
+let current="kyle",teamYear=null;
+function draftedMost(o){
+  const m={};
+  Object.entries(DRAFTS).forEach(([y,D])=>D.teams.forEach(([n,ow],c)=>{if(ow!==o)return;D.cols[c].forEach(v=>{if(!v)return;const[p,pos]=v.split("/");if(pos==="DST"||pos==="K")return;(m[p]=m[p]||[]).push(+y)})}));
+  return Object.entries(m).filter(([,ys])=>ys.length>1).sort((a,b)=>b[1].length-a[1].length||Math.max(...b[1])-Math.max(...a[1])).slice(0,8);
+}
+function renderTeams(){
+  const list=ORDER;
+  $("#teamPicker").innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
+  $("#teamPicker").onclick=e=>{const b=e.target.closest("[data-o]");if(!b)return;current=b.dataset.o;teamYear=null;renderTeams();$("#profile").scrollIntoView({behavior:"smooth",block:"start"})};
+  const o=current,O=OWNERS[o],t=totals(o),names=teamNames(o),fav=favorites(o),drafted=draftedMost(o);
+  const yrs=S[o]?Object.keys(S[o].seasons).map(Number):[];
+  Object.keys(names).forEach(y=>{if(!yrs.includes(+y))yrs.push(+y)});
+  Object.entries(CHAMPS).forEach(([y,c])=>{if(c.o===o&&!yrs.includes(+y))yrs.push(+y)});
+  Object.entries(SACKOS).forEach(([y,c])=>{if(c.o===o&&!yrs.includes(+y))yrs.push(+y)});
+  yrs.sort((a,b)=>b-a);if(teamYear==null||!yrs.includes(teamYear))teamYear=yrs[0]??null;
+  const nameList=Object.entries(names).sort((a,b)=>a[0]-b[0]).map(([y,s])=>`<span class="chip">${esc([...s].join(" / "))}<small>${y}</small></span>`).join("");
+  $("#profile").innerHTML=`<div class="profile">
+   <div>${av(o,"big")}</div>
+   <div>
+     <span class="eyebrow">${O.nick?esc(O.nick):"Owner"}</span><h2>${esc(O.name)}</h2>
+     <div class="kpis">
+       <div class="kpi"><b>${t?.titles||0}</b><span>Championships</span></div>
+       <div class="kpi"><b>${t?`${t.w}-${t.l}`:"–"}</b><span>All-time record</span></div>
+       <div class="kpi"><b>${t&&t.w+t.l?t.pct.toFixed(3).replace(/^0/,""):"–"}</b><span>Win %</span></div>
+       <div class="kpi"><b>${t?.sackos||0} ${t?.sackos?sackoMark():""}</b><span>Sackos</span></div>
+       <div class="kpi"><b>${tradeCount(o)}</b><span>Trades made</span></div>
+     </div>
+     <p style="max-width:65ch;margin:0 0 14px">${esc(O.desc)}</p>
+     ${O.favs?`<div class="eyebrow" style="margin-bottom:6px">${esc(O.favNote||"Favorite players")}</div><div class="chips" style="margin-bottom:14px">${O.favs.map(p=>`<span class="chip">${esc(p)}</span>`).join("")}</div>`:""}
+     ${drafted.length?`<div class="eyebrow" style="margin-bottom:6px">Keeps drafting · picked in more than one draft</div><div class="chips" style="margin-bottom:14px">${drafted.map(([p,ys])=>`<span class="chip" title="${ys.join(", ")}">${esc(p)}<small>×${ys.length}</small></span>`).join("")}</div>`:""}
+     ${fav.length?`<div class="eyebrow" style="margin-bottom:6px">Can't quit them · acquired more than once</div><div class="chips">${fav.map(([p,n])=>`<span class="chip">${esc(p.split("|")[0])}<small>×${n}</small></span>`).join("")}</div>`:""}
+     ${nameList?`<div class="eyebrow" style="margin:14px 0 6px">Team names on record</div><div class="chips">${nameList}</div>`:""}
+     ${yrs.length?`<div class="season-panel"><div class="controls" style="margin:0"><label for="teamYear">Season<select id="teamYear">${yrs.map(y=>`<option ${y===teamYear?"selected":""}>${y}</option>`).join("")}</select></label></div><div id="seasonDetail"></div></div>`:""}
+   </div></div>`;
+  if(yrs.length){$("#teamYear").onchange=e=>{teamYear=+e.target.value;renderSeasonDetail()};renderSeasonDetail()}
+}
+function renderSeasonDetail(){
+  const o=current,y=teamYear,r=S[o]?.seasons[y],st=standings(y),rank=st.findIndex(x=>x.o===o)+1;
+  const tr=TR.filter(t=>t.s===y&&(t.a.o===o||t.b.o===o));
+  const nm=teamNames(o)[y];
+  const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
+  let finish=CHAMPS[y]?.o===o?"♛ Champion":SACKOS[y]?.o===o?`${sackoMark()} Sacko`:rank?`${rank} of ${st.length} (reg. season)`:"–";
+  $("#seasonDetail").innerHTML=`<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):"–")}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}</div>
+   ${CHAMP_DETAIL[y]&&CHAMPS[y]?.o===o?`<div class="note">Title season. See the <a href="#champions">Hall of Champions</a> for the full roster.</div>`:""}
+   <h3 style="margin-top:6px">${tr.length?`Trades in ${y}`:`No trades on record for ${y}`}</h3>
+   <div class="trades-list">${tr.slice().reverse().map(t=>tradeHTML(t)).join("")}</div>`;
+}
+
+/* ---------- TRADES ---------- */
+let tOwner="all",tSeason="all";
+function renderTrades(){
+  $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
+  const owners=[...new Set(TR.flatMap(t=>[t.a.o,t.b.o]).filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
+  $("#tradeOwner").innerHTML=`<option value="all">All teams</option>${owners.map(o=>`<option value="${o}" ${o===tOwner?"selected":""}>${esc(OWNERS[o].name)}${OWNERS[o].nick?` (${esc(OWNERS[o].nick)})`:""}</option>`).join("")}<option value="unk" ${tOwner==="unk"?"selected":""}>Owner unconfirmed</option>`;
+  const ys=[...new Set(TR.map(t=>t.s))].sort((a,b)=>b-a);
+  $("#tradeSeason").innerHTML=`<option value="all">All seasons</option>${ys.map(y=>`<option ${String(y)===String(tSeason)?"selected":""}>${y}</option>`).join("")}`;
+  $("#tradeOwner").onchange=e=>{tOwner=e.target.value;renderTrades()};
+  $("#tradeSeason").onchange=e=>{tSeason=e.target.value;renderTrades()};
+  const match=t=>(tSeason==="all"||t.s==+tSeason)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
+  const byDate=(a,b)=>a.d.localeCompare(b.d)||a.id-b.id;
+  const list=TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse();
+  $("#tradeCount").textContent=`${list.length} trade${list.length===1?"":"s"}`;
+  $("#tradeList").innerHTML=list.map(t=>tradeHTML(t)).join("")||'<p class="muted">No trades match.</p>';
+  $("#vetoList").innerHTML=TR.filter(t=>t.st==="vetoed").reverse().map(t=>tradeHTML(t)).join("")+MANUAL_VETOES.map(v=>`<article class="trade"><div class="trade-top"><span>${v.y} season</span><span class="tag veto">Vetoed</span></div><p style="margin:0">${esc(v.text)} <span class="muted">Player details not on file.</span></p></article>`).join("");
+}
+
+/* ---------- CHAMPIONS ---------- */
+function renderChamps(){
+  const counts=Object.keys(S).filter(o=>S[o].titles).map(o=>`${short(o)} ${S[o].titles}`).join(", ");
+  $("#champList").innerHTML=ALL_YEARS.slice().reverse().map(y=>{const c=CHAMPS[y],d=CHAMP_DETAIL[y];
+    if(!c&&y===2026)return `<article class="champ tbd"><div class="yr">${y}</div><div><h3 class="muted">Season in progress</h3><p class="muted" style="margin:6px 0 0;font-size:.95rem">Commissioner ${esc(commish(y))}. The crown is up for grabs.</p></div></article>`;
+    if(!c)return `<article class="champ tbd"><div class="yr">${y}</div><div><h3 class="muted">Champion to confirm</h3><p class="muted" style="margin:6px 0 0;font-size:.95rem">The stats sheet has title counts (${esc(counts)}) but not the year of each one.</p></div></article>`;
+    return `<article class="champ won"><div class="champ-photo">${cutout(c.o)}<div class="yr">${y}</div></div><div class="champ-body">
+      <div><span class="eyebrow">♛ ${y} Champion</span><h2>${esc(c.team)}</h2><span class="muted">${esc(OWNERS[c.o].name)}</span></div>
+      ${seasonLine(c.o,y)}
+      ${CHAMP_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(CHAMP_STORY[y])}</p>`:""}
+      ${d?`<div><div class="eyebrow">Title roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${esc(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>
+      ${d.moves?`<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${d.moves.map(m=>`<li>${esc(m)}</li>`).join("")}</ul></div>`:""}`:`<p class="muted" style="margin:0">No roster on file yet.</p>`}
+    </div></article>`}).join("");
+}
+
+/* ---------- SACKOS ---------- */
+function renderSackos(){
+  $("#sackoList").innerHTML=SEASONS.slice().reverse().map(y=>{const k=SACKOS[y];if(!k)return "";
+    return `<article class="champ won sackoed"><div class="champ-photo">${cutout(k.o)}<div class="yr">${y}</div></div><div class="champ-body">
+      <div><span class="eyebrow">${sackoMark()} ${y} Sacko</span><h2>${esc(OWNERS[k.o].name)}</h2>${k.team!==short(k.o)?`<span class="muted">${esc(k.team)}</span>`:""}</div>
+      ${seasonLine(k.o,y)}
+      ${SACKO_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(SACKO_STORY[y])}</p>`:""}
+      ${(d=>d?`<div><div class="eyebrow">Sacko roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${esc(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>`:"")(SACKO_DETAIL[y])}
+    </div></article>`}).join("");
+}
+
+/* ---------- router & lightbox ---------- */
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,trades:renderTrades,champions:renderChamps,sackos:renderSackos};
+function route(){let h=(location.hash||"#home").slice(1);if(!ROUTES[h])h="home";
+  document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
+  document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  ROUTES[h]();window.scrollTo(0,0)}
+window.addEventListener("hashchange",route);
+document.addEventListener("click",e=>{const b=e.target.closest("[data-full]");if(!b)return;
+  const lb=document.createElement("div");lb.className="lightbox";lb.innerHTML=`<img src="${b.dataset.full}" alt="">`;lb.onclick=()=>lb.remove();document.body.appendChild(lb)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelector(".lightbox")?.remove()});
+route();
+</script>
