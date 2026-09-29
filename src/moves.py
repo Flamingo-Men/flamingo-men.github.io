@@ -26,7 +26,7 @@ def get(path,name,hdr=None):
 # ---------- players: names, positions, PPR points (computed from raw stats) ----------
 def ppr(s,rec):
     g=lambda k:s.get(str(k),0)
-    return g(3)/25+4*g(4)-2*g(20)+g(24)/10+6*g(25)+g(42)/10+6*g(43)+rec*g(53)-2*g(72)+2*(g(19)+g(26)+g(44))+6*(g(101)+g(102))
+    return g(3)/25+4*g(4)-2*g(20)+g(24)/10+6*g(25)+g(42)/10+6*g(43)+rec*g(53)-2*g(72)+2*(g(19)+g(26)+g(44))+6*(g(63)+g(101)+g(102))
 PL={}
 def players(y):
     if y in PL: return PL[y]
@@ -309,10 +309,56 @@ def main():
     cands.sort(key=lambda c:-c['score'])
     out['rosterRank']=cands
     # pickups: points the player scored in the lineup of the team that grabbed him
+    # pickup score: lineup points, with RBs and WRs weighted above QBs (Kyle, 2026-09-29)
+    WT={'RB':1.0,'WR':1.0,'TE':0.85,'QB':0.6,'K':0.4,'D/ST':0.4}
     mv=[m for m in out['moves'] if m.get('pts') and not m.get('again')]
-    out['topPickups']=sorted(mv,key=lambda m:-m['pts'])[:5]
-    out['pickupOfYear']={y:max((m for m in mv if m['y']==y),key=lambda m:m['pts']) for y in LEAGUE if y<2026}
+    for m in mv: m['score']=round(m['pts']*WT.get(m['add'][1],0.5),1)
+    out['topPickups']=sorted(mv,key=lambda m:-m['score'])[:5]
+    out['pickupOfYear']={y:max((m for m in mv if m['y']==y),key=lambda m:m['score']) for y in LEAGUE if y<2026}
+    # how each champion was built, and what sank each Sacko
+    nteams=lambda y:len({p['o'] for p in out['drafts'][y]}) or 10
+    def drafted(y,o):
+        n=nteams(y);res=[]
+        for p in out['drafts'][y]:
+            if p['o']!=o or not p['pid']: continue
+            f=finish(y,p['pid']);P=players(y).get(p['pid'],{})
+            res.append(dict(n=P.get('n',p['n']),rd=(p['pick']-1)//n+1,fin=f))
+        return res
+    good=lambda f:f and f[1]<=(24 if f[0] in('RB','WR') else 12)
+    def trades_of(y,o):
+        res=[]
+        for tr in trades:
+            if tr['s']!=y or tr['st']!='completed' or str(tr['id']) not in out['trades'] and tr['id'] not in out['trades']: continue
+            x=out['trades'].get(tr['id']) or out['trades'].get(str(tr['id']))
+            for side,other in(('a','b'),('b','a')):
+                if tr[side]['o']==o:
+                    res.append(dict(id=tr['id'],got=[g.partition('|')[0] for g in tr[other]['gave']],gave=[g.partition('|')[0] for g in tr[side]['gave']],par=x[side]['par'],opp=x[other]['par']))
+        return res
+    out['champBuilt']={};out['sackoNotes']={}
+    for y,o in champs.items():
+        d=[p for p in drafted(y,o) if good(p['fin'])]
+        fv=lambda p:(25-p['fin'][1]) if p['fin'][0] in('RB','WR') else (13-p['fin'][1])*2
+        d.sort(key=lambda p:(-fv(p),p['rd']))
+        gem=next((p for p in sorted(d,key=lambda p:-fv(p)) if p['rd']>=8 and p not in d[:2]),None)
+        d=d[:2]+([gem] if gem else d[2:3])
+        tr=sorted([t for t in trades_of(y,o) if t['par']>0],key=lambda t:-t['par'])[:3]
+        pk=sorted([m for m in mv if m['y']==y and m['o']==o and m['add'][1] in('QB','RB','WR','TE')],key=lambda m:-m['pts'])[:3]
+        out['champBuilt'][y]=dict(draft=d[:3],trades=tr,pickups=[dict(n=m['add'][0],pos=m['add'][1],w=m['w'],pts=m['pts']) for m in pk])
+    for y,o in sackos.items():
+        d=[p for p in drafted(y,o) if p['rd']<=5 and p['fin'] and not good(p['fin'])]
+        d.sort(key=lambda p:p['rd'])
+        tr=sorted([t for t in trades_of(y,o) if t['opp']-t['par']>=30],key=lambda t:t['par']-t['opp'])[:2]
+        out['sackoNotes'][y]=dict(draft=d[:2],trades=tr)
     for m in out['moves']: m.pop('pid',None)
+    # team name overrides from build.py (e.g. Pinky Sized Kyle -> The Yogurtlechefts), matched ignoring case and spacing
+    RN={' '.join(k.lower().replace('’',"'").split()):v for k,v in ns['RENAME'].items()}
+    fix=lambda n:RN.get(' '.join((n or '').lower().replace('’',"'").split()),n)
+    for m in out['moves']: m['team']=fix(m['team'])
+    for R in out['rosters'].values():
+        for r in R.values(): r['team']=fix(r['team'])
+    for c in out['rosterRank']: c['team']=fix(c['team'])
+    out['rosterRank']=out['rosterRank'][:25]
+    for m in out['topPickups']+list(out['pickupOfYear'].values()): m['team']=fix(m['team'])
     del out['drafts']
     json.dump(out,open(os.path.join(root,'data','moves.json'),'w'),ensure_ascii=False,separators=(',',':'))
     print('moves',len(out['moves']),'trades scored',len(out['trades']),{y:len(r) for y,r in out['rosters'].items()})

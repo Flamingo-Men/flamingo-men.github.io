@@ -384,7 +384,7 @@ footer small{color:#99a1b8}
   <div class="years" id="yearPills" role="group" aria-label="Season"></div>
   <div class="yearcard" id="yearCard"></div>
   <div class="block">
-    <div class="block-head"><h2>Top 5 rosters of all time</h2></div>
+    <div class="block-head"><h2>Top 10 rosters of all time</h2></div>
     <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
     <div class="top5" id="topRosters"></div>
   </div>
@@ -422,12 +422,12 @@ footer small{color:#99a1b8}
 <section class="hall" id="hall-moves"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Moves</h2>
   <p>Every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
-  <h3 style="margin-bottom:6px">Top 5 trade rapes of all time</h3>
+  <h3 style="margin-bottom:6px">Top 10 trade rapes of all time</h3>
   <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
   <div class="top5" id="top5rapes"></div>
   <div class="block">
-    <div class="block-head"><h2>Top 5 pickups of all time</h2></div>
-    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026).</p>
+    <div class="block-head"><h2>Top 5 waiver pickups of all time</h2><div class="seg" id="pickPos" role="group" aria-label="Position"></div></div>
+    <p class="muted" style="margin:-6px 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
     <div class="top5" id="top5pickups"></div>
   </div>
   <div class="block">
@@ -477,7 +477,7 @@ const CUT = /*CUTS*/;
 const OWNERS = {
   kyle:{name:"Kyle Klugewicz",nick:"",favs:["De'Von Achane","Mike Evans","Julio Jones"],desc:"Three titles, tied for the most in league history. He went 10-2 as the NYC Klugeys to win in 2017, went 11-2 and traded all autumn to win in 2023, then won again in 2025 from a 7-6 record after landing De'Von Achane in week one and Jaylen Waddle in November. Between titles his record sits right around .500, so it is usually title or bust. The second-busiest trader in league history and the owner most likely to rebuild his roster mid-season. Commissioner from 2018 to 2024, the first five years alongside Charles. Has played every season."},
   charles:{name:"Charles Lorenzo",nick:"",favs:["Alvin Kamara","Tyreek Hill","Jalen Hurts","Kareem Hunt"],desc:"Three titles and one of the best win rates in the league. He won back-to-back in 2019 and 2020 and again in 2022, and traded his way to all three: 15 deals in 2019, and 15 more in 2022, the year he landed Justin Jefferson. The busiest trader in league history. No Sackos, and a top-two regular season in five of his seven ESPN years. He also went 12-1 in 2016 and lost the final to Duane. His teams almost always go by some version of Sal's Chickens. Co-commissioner from 2018 to 2022. Sat out 2023."},
-  fluff:{name:"Jack Duffy",nick:"Floof / Fluff",favs:["James Robinson","George Pickens"],desc:"The best career win rate in the league, and the only owner to go from Sacko to champion. He took the first Sacko in 2016, then two years later went a league-best 9-3 with 1,806.76 points, still the highest regular-season total on record, and won the 2018 title. He has finished first in the regular season three times but has only the one ring. Famous for not trading. Sat out 2024. Also known for sexualizing Squirm too much."},
+  fluff:{name:"Jack Duffy",nick:"Floof / Fluff",favs:["James Robinson","George Pickens"],desc:"The best career win rate in the league, and the only owner to go from Sacko to champion. He took the first Sacko in 2016, then two years later went a league-best 9-3 with 1,806.76 points, still the highest regular-season total on record, and won the 2018 title. He has finished first in the regular season three times but has only the one ring. Famous for not trading. Sat out 2024, still angry that the league vetoed his 2023 trade with Kad. Also known for sexualizing Squirm too much."},
   squirm:{name:"Sean Woram",nick:"Squirm / Old Hickory",favs:["Christian McCaffrey","Derrick Henry","Amon-Ra St. Brown"],desc:"The 2021 champion. That year #dicksoutfor Dolan made the season's biggest blockbuster, sending Aaron Jones and Tyreek Hill to Kyle for Nick Chubb, Stefon Diggs and Mike Evans, then flipped Chubb and Diggs in December for Ezekiel Elliott, Mark Ingram and Chris Godwin and rode that roster to the title. One of the steadiest owners in the league: a winning career record, a top-four regular season in six of eight ESPN years, the best regular season of 2025, and no Sackos. Trades now and then. Has played every season."},
   lucas:{name:"Lucas Pace",nick:"",desc:"The founding commissioner in 2016 and 2017, and back in the chair for 2026. The results have been rough: one of the lowest win rates in the league and two Sackos, a 3-10 year as Los Stogies in 2021 and a 5-8 year in 2024. He did reach the 2025 final, where he played nine and declared \"Nine is my guy.\" Rarely trades. Sat out 2022."},
   quincy:{name:"Tommy Curran",nick:"Quincy",favs:["Drake Maye"],desc:"A major anal mongler who argues for sport. Joined in 2018 and took the first Sacko of the ESPN era that year, then another in 2025, when he went 7-6 and still ended up with it. His best year was 2022, when he finished first in the regular season. A middle-of-the-pack career record and a moderate trader. His team names double as an injury report."},
@@ -530,8 +530,8 @@ const HISTORY = {
   2020:{title:"The Pandemic Season",items:["Kyle goes 1-11 but escapes the Sacko.","CeeDee Lamb is traded for Christian Kirk on October 30, and the exact trade is run in reverse four days later.","Charles and Skelly share the best record at 9-3.","Peanut reaches the final against Charles as a big underdog, and the whole league is rooting for him. He goes up 50 after the first week, declares himself champion, and loses the crowd. Charles rallies behind a 56-point Kamara game and wins it."]},
   2021:{title:"The Monglers Arrive",items:["The regular season grows to 13 games.","The busiest trade year on record with 36 deals. Kyle rebrands as The Monglers and makes 15 of them, including Chubb, Diggs and Evans for Aaron Jones and Tyreek Hill.","Dilapi goes 11-2 with 1,804.68 points. Quincy renames his team The Hospital RIP CMC, GUS."]},
   2022:{title:"The Jefferson Affair",items:["Charles's Sal's 12 Chickens become the league's biggest dealer with 15 trades.","The headline deal: Kamara, Keenan Allen, Kareem Hunt and Brian Robinson go to Jordan's Jerry Jewdys for Justin Jefferson and Jamaal Williams.","The commissioner vetoes a Darius Slayton giveaway to the RodFather on December 1. It goes through the next day for Tom Brady.","Dilapi drops from 11-2 to 2-11.","And the Chickens win the title. Charles's third championship came in the same season as the firesale.","The draft moves to Quincy's apartment complex, because Sal was in Europe."]},
-  2023:{title:"The Breakaway Season",items:["Played in a separate league, Flamingo Football Year 8, split into the Flamingo and Wrangler conferences.","The Monglers (11-2) win it all after flipping Garrett Wilson for Aaron Jones and Anthony Richardson, then packaging four players for Derrick Henry.","November 24: the league votes down Floof and Dr. Kakofonus's Kamara and Kupp for Ja'Marr Chase trade twice in one evening.","Peanut takes the Sacko."]},
-  2024:{title:"The Restoration",items:["The league returns to the main ESPN league as Flamingo Football Year 9.","A quiet trade year: only two deals in the archive, both involving The Monglers.","Kyle falls to 4-9. Squirm goes 8-5, and Dilapi finishes 9-4."]},
+  2023:{title:"The Breakaway Season",items:["Played in a separate league, Flamingo Football Year 8, split into the Flamingo and Wrangler conferences.","The Monglers (11-2) win it all after flipping Garrett Wilson for Aaron Jones and Anthony Richardson, then packaging four players for Derrick Henry.","November 24: the league votes down Floof and Dr. Kakofonus's Kamara and Kupp for Ja'Marr Chase trade twice in one evening. Fluff was so angry about the veto that he sat out the 2024 season.","Peanut takes the Sacko."]},
+  2024:{title:"The Restoration",items:["Fluff sits the season out, still angry that the league vetoed his trade with Kad in 2023.","The league returns to the main ESPN league as Flamingo Football Year 9.","A quiet trade year: only two deals in the archive, both involving The Monglers.","Kyle falls to 4-9. Squirm goes 8-5, and Dilapi finishes 9-4."]},
   2025:{title:"The Great Reversal",items:["Year 10, with DiLapi as commissioner. In mid-November, Galaxy Liberators and New York Noses swap Brock Bowers and Javonte Williams for Deebo Samuel and Saquon Barkley. Hours later the exact trade runs in reverse.","THE CENTER and Sultans of Squirm swap eight players in a 4-for-4 on October 29.","Squirm posts the best record (9-4). Jordan goes 1-12.","Lucas reaches the final, then loses Patrick Mahomes to injury. He waits on a waiver QB until Kyle has taken most of the good ones, then plays nine in the final against Kyle, saying, infamously, \"Nine is my guy.\"","Kyle wins his third title as THE MONGLERS. Quincy takes the Sacko."]},
   2026:{title:"Year 11: The Great Expansion",items:["Lucas is commissioner again, ten years after the founding.","The biggest format change in league history: the first 12-team season, a second flex spot, and a switch from full PPR (every year from 2016 to 2025) to half PPR.","Before the draft, Dylan trades the No. 9 pick to DiLapi for No. 4 and takes Puka Nacua with it. DiLapi takes Justin Jefferson at 9.","On September 25 Kyle trades Hunter Henry and Sam Darnold to Jordan for Romeo Doubs, and Quincy throws a fit. He had proposed that every trade go to a league vote, the rest of the league called it a dumb idea, and he said he felt minimized.","Adam Smith (Ghost) joins as the twelfth team, Vick's Vet Clinic. Peanut is out.","Two divisions: Lex and Bhavi. After week 2, Galaxy Liberators, Student Ath-o-letes and Sultans of Squirm are 2-0. Quincy, whose trade-vote plan was laughed off, is 0-2 with the fewest points."]}
 };
@@ -554,7 +554,7 @@ const TOP5 = [
   {id:69,why:"A superstar swap: The Monglers sent Nick Chubb, Stefon Diggs and Mike Evans to #dicksoutfor Dolan for Aaron Jones and Tyreek Hill."},
   {id:118,why:"The title move. The Monglers sent four players, including McLaurin, James Cook and Aaron Jones, to Team Pace for Derrick Henry, and won the 2023 championship."}
 ];
-const FLAGS = {...(/*FLAGS*/), 42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",149:"Three teams voted to veto; it went through",155:"ESPN shows nothing sent back",137:"Collusion: Megatron and Lynch were retired",140:"Reed handed back for nothing",142:"Luck missed all of 2017",144:"Luck missed all of 2017",147:"Before the 2017 draft. The exact date and the secret were never recorded"};
+const FLAGS = {...(/*FLAGS*/), 42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",121:"Fluff sat out 2024 over this veto",122:"Fluff sat out 2024 over this veto",149:"Three teams voted to veto; it went through",155:"ESPN shows nothing sent back",137:"Collusion: Megatron and Lynch were retired",140:"Reed handed back for nothing",142:"Luck missed all of 2017",144:"Luck missed all of 2017",147:"Before the 2017 draft. The exact date and the secret were never recorded"};
 
 const CHAMP_STORY = {
   2016:"The first crown, won at 7-6. Duane beat Charles's 12-1 super team 242 to 190 over the two-week final, most of it in week 16, while several of Charles's players sat out the last week of the NFL season. It is the reason the league moved the championship earlier.",
@@ -700,7 +700,7 @@ function renderHistory(){
 
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
-  $("#topRosters").innerHTML=MV.rosterRank.slice(0,5).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
+  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
     <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th>${r.y+1} draft pick</th><th class="num">Score</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${esc(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num nw">${pickLabel(r.y,p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
     <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></article>`).join("");
 }
@@ -817,7 +817,7 @@ function renderSeasonDetail(){
 }
 
 /* ---------- MOVES ---------- */
-let tOwner="all",tSeason="all",tType="all",showAll=false;
+let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
 const MOVE_SEASONS=Object.entries(MV.seasons).filter(([,v])=>v==="espn").map(([y])=>+y);
 function tradeScore(t){const x=MV.trades[t.id];if(!x)return "";
   const side=(s,g)=>`<b>${esc(s.team)}</b> got ${fmt(g.par)}${g.got.length?` <span class="muted">(${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`;
@@ -827,10 +827,13 @@ function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
 function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
 function renderTrades(){
   const margin=x=>Math.abs(x.a.par-x.b.par);
-  const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed").sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,5);
+  const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed").sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
   $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.par>=x.b.par?"a":"b",l=w==="a"?"b":"a";
-    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${fmt(margin(x))} points over replacement in ${t.s}. ${esc(t[l].team)} (${esc(short(t[l].o))}) got ${fmt(x[l].par)}.</p></div>${tradeScore(t)}`)}).join("");
-  $("#top5pickups").innerHTML=MV.topPickups.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(m.o)}<div><h4>${esc(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${esc(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p></div></article>`).join("");
+    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${fmt(margin(x))} points over replacement in ${t.s}. ${esc(t[l].team)} (${esc(short(t[l].o))}) got ${fmt(x[l].par)}.</p></div>${tradeScore(t)}`)}).join("");
+  $("#pickPos").innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
+  $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTrades()};
+  const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
+  $("#top5pickups").innerHTML=best.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(m.o)}<div><h4>${esc(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${esc(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("");
   $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
   const adds=MV.moves.filter(m=>m.add);
   const owners=[...new Set([...TR.flatMap(t=>[t.a.o,t.b.o]),...adds.map(m=>m.o)].filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
@@ -864,10 +867,25 @@ function renderChamps(){
       <div><span class="eyebrow">♛ ${y} Champion</span><h2>${esc(c.team)}</h2><span class="muted">${esc(OWNERS[c.o].name)}</span></div>
       ${seasonLine(c.o,y)}
       ${CHAMP_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(CHAMP_STORY[y])}</p>`:""}
-      ${d?`<div><div class="eyebrow">Title roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${esc(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>
-      ${d.moves?`<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${d.moves.map(m=>`<li>${esc(m)}</li>`).join("")}</ul></div>`:""}`:`<p class="muted" style="margin:0">No roster on file yet.</p>`}
+      ${!d?builtHTML(y,{}):""}${d?`<div><div class="eyebrow">Title roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${esc(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>
+      ${builtHTML(y,d)}`:`<p class="muted" style="margin:0">No roster on file yet.</p>`}
     </div></article>`}).join("");
 }
+
+const finS=f=>f?`${f[0]}${f[1]}`:"";
+const rdS=r=>`round ${r}`;
+function builtHTML(y,d){const b=MV.champBuilt[y];if(!b)return "";const li=[];
+  if(b.draft.length)li.push(`<b>Draft:</b> ${b.draft.map(p=>`${esc(p.n)} (${rdS(p.rd)}, finished ${finS(p.fin)})`).join(", ")}.`);
+  if(b.trades.length)li.push(`<b>Trades:</b> ${b.trades.map(t=>`got ${esc(t.got.join(" and "))} for ${t.gave.length?esc(t.gave.join(", ")):"nothing"} (${fmt(t.par)} points over replacement${t.opp>t.par?`, though the other side got ${fmt(t.opp)}`:""})`).join("; ")}.`);
+  else if(MV.seasons[y]!=="rebuilt"||y>=2018)li.push(`<b>Trades:</b> none that paid off.`);
+  if(b.pickups.length)li.push(`<b>Pickups:</b> ${b.pickups.map(p=>`${esc(p.n)} (${p.pos}, week ${p.w}, ${fmt(p.pts)} lineup pts)`).join(", ")}.`);
+  else if(y<2018)li.push(`<b>Pickups:</b> no waiver records for ${y}.`);
+  const extra=d&&d.moves&&y<2018?d.moves.filter(m=>!/not on file/.test(m)):[];
+  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul></div>`}
+function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trades.length))return "";const bits=[];
+  if(n.draft.length)bits.push(`Drafted ${n.draft.map(p=>`${esc(p.n)} in ${rdS(p.rd)} (finished ${finS(p.fin)})`).join(" and ")}.`);
+  if(n.trades.length)bits.push(`Traded ${n.trades.map(t=>`${esc(t.gave.join(" and "))} for ${esc(t.got.join(" and ")||"nothing")} (${fmt(t.par)} vs ${fmt(t.opp)} points over replacement)`).join("; ")}.`);
+  return `<p style="margin:0;max-width:65ch;font-size:.95rem"><span class="eyebrow" style="margin-right:6px">What went wrong</span>${bits.join(" ")}</p>`}
 
 /* ---------- SACKOS ---------- */
 function renderSackos(){
@@ -876,6 +894,7 @@ function renderSackos(){
       <div><span class="eyebrow">${sackoMark()} ${y} Sacko</span><h2>${esc(OWNERS[k.o].name)}</h2>${k.team!==short(k.o)?`<span class="muted">${esc(k.team)}</span>`:""}</div>
       ${seasonLine(k.o,y)}
       ${SACKO_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(SACKO_STORY[y])}</p>`:""}
+      ${sackoNote(y)}
       ${(d=>d?`<div><div class="eyebrow">Sacko roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${esc(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>`:"")(SACKO_DETAIL[y])}
     </div></article>`}).join("");
 }
