@@ -30,6 +30,9 @@ EARLY=[
  ('2017-08-08',('Heaven Peanus','peanut',['Jameis Winston|QB']),('The Dominican DS','rod',['Andrew Luck|QB'])),
  ('2017-08-08',('The Brooklyn Noses','dilapi',['Justin Tucker|K']),('N Town Dolphins','kyle',['Wil Lutz|K','Mike Gillislee|RB'])),
  ('2017-09-01',('Heaven Peanus','peanut',['Andrew Luck|QB']),('Sensitive Lesbians','charles',['Willie Snead|WR'])),
+ # 2026 trades Kyle reported on 2026-09-29 (pick numbers checked against the 2026 board: Dylan drafted 4th, DiLapi 9th)
+ ('2026-08-24',('Sultans of Squirm','dylan',['No. 9 overall pick, 2026 draft|Pick']),('New York Noses','dilapi',['No. 4 overall pick, 2026 draft|Pick'])),
+ ('2026-09-25',('THE MONGLERS','kyle',['Hunter Henry|TE','Sam Darnold|QB']),('Galaxy Liberators','jordan',['Romeo Doubs|WR'])),
 ]
 for d,(ta,oa,ga),(tb,ob,gb) in EARLY:
     league['trades'].append(dict(id=len(league['trades']),d=d,s=int(d[:4]),st='completed',a=dict(team=ta,o=oa,gave=ga),b=dict(team=tb,o=ob,gave=gb)))
