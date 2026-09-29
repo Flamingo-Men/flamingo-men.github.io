@@ -1,16 +1,16 @@
 # Pulls ESPN waiver, roster and box score history and writes ../data/moves.json.
 # Usage: python3 moves.py CACHE_DIR   (raw ESPN responses are cached there; about 350 MB)
-# Seasons ESPN can't return (2016-2019, 2025) are reconstructed from data/drafts.json and the trade log.
+# 2018, 2019 and 2025 are private on ESPN: set ESPN_S2 and ESPN_SWID. 2016 and 2017 are reconstructed from data/drafts.json and the trade log.
 import json,os,re,sys,subprocess,unicodedata,datetime,collections
 here=os.path.dirname(os.path.abspath(__file__)); root=os.path.dirname(here)
 CACHE=sys.argv[1] if len(sys.argv)>1 else os.path.join(root,'.espn-cache'); os.makedirs(CACHE,exist_ok=True)
 B='https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl'
-LEAGUE={2020:92604,2021:92604,2022:92604,2023:604928347,2024:92604,2026:92604}   # 2023 ran in its own ESPN league
+LEAGUE={2018:92604,2019:92604,2025:92604,2020:92604,2021:92604,2022:92604,2023:604928347,2024:92604,2026:92604}   # 2023 ran in its own ESPN league
 ALL=list(range(2016,2027))
 KICKOFF={2016:'2016-09-08',2017:'2017-09-07',2018:'2018-09-06',2019:'2019-09-05',2020:'2020-09-10',2021:'2021-09-09',2022:'2022-09-08',2023:'2023-09-07',2024:'2024-09-05',2025:'2025-09-04',2026:'2026-09-10'}
 LASTWK=lambda y:16 if y<=2020 else 17         # fantasy championship week
 MEMBER={'Charles Lorenzo':'charles','Jack Duffy':'fluff','Chris DiLapi':'dilapi','Sean Woram':'squirm','Tommy Curran':'quincy','Kyle Klugewicz':'kyle',
- 'Andrew Woram':'peanut','Lucas Pace':'lucas','Sean Kelly':'skelly','Jordan Cruz':'jordan','Christian Rod':'rod','Jeremy Carroll':'jerry','Dylan Olivieri':'dylan','Adam Smith':'ghost'}
+ 'Andrew Woram':'peanut','Lucas Pace':'lucas','Sean Kelly':'skelly','Jordan Cruz':'jordan','Christian Rod':'rod','Jeremy Carroll':'jerry','Dylan Olivieri':'dylan','Adam Smith':'ghost','Mateus Toppin':'mateus'}
 POS={1:'QB',2:'RB',3:'WR',4:'TE',5:'K',16:'D/ST'}
 SLOT={0:'QB',2:'RB',4:'WR',6:'TE',16:'D/ST',17:'K',23:'FLX',20:'BE',21:'IR'}
 
@@ -18,6 +18,8 @@ def get(path,name,hdr=None):
     f=os.path.join(CACHE,name)
     if not os.path.exists(f):
         cmd=['curl','-sS','-o',f,B+path]+(['-H',hdr] if hdr else [])
+        s2,sw=os.environ.get('ESPN_S2',''),os.environ.get('ESPN_SWID','')
+        if s2.startswith('AE') and sw.startswith('{'): cmd+=['-H',f'Cookie: espn_s2={s2}; SWID={sw}']
         subprocess.run(cmd,check=True)
     return json.load(open(f))
 
@@ -132,6 +134,7 @@ def espn(y):
             adds=[i for i in t['items'] if i['type']=='ADD'];drops=[i for i in t['items'] if i['type']=='DROP']
             dt=datetime.datetime.utcfromtimestamp(t.get('processDate',t['proposedDate'])/1000)
             tid=t['teamId']; w0=max(1,t['scoringPeriodId'])
+            if tid not in team: continue
             if dt.date()<datetime.date.fromisoformat(KICKOFF[y])-datetime.timedelta(days=2): w0=1
             for a in adds or [None]:
                 mv=dict(y=y,d=dt.strftime('%Y-%m-%d'),w=w0,o=team[tid]['o'],team=team[tid]['name'],k='Waiver' if t['type']=='WAIVER' else 'Free agent')

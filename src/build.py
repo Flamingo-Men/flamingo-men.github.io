@@ -35,6 +35,16 @@ EARLY=[
  ('2026-09-25',('THE MONGLERS','kyle',['Hunter Henry|TE','Sam Darnold|QB']),('Galaxy Liberators','jordan',['Romeo Doubs|WR'])),
  # Kyle, 2026-09-29: before the 2017 draft Charles traded Peanut a secret for his pick (exact date not saved; dated to draft day)
  ('2017-08-06',('Little Bills','charles',['A secret|Secret']),('Team Peanus','peanut',["Peanut's 2017 draft pick|Pick"])),
+ # 2018 trades from ESPN's transaction history (pulled 2026-09-29 with Kyle's cookies; none were in the email archive)
+ ('2018-08-18', ('Hempstead Cummings', 'peanut', ['Mike Evans|WR', 'Cam Newton|QB']), ('The Sal Claps On Planes', 'charles', ['Demaryius Thomas|WR', 'Sony Michel|RB', 'Matt Ryan|QB'])),
+ ('2018-09-21', ('New York Noses', 'dilapi', ['Kareem Hunt|RB', 'Patrick Mahomes|QB']), ('The Sal Claps On Planes', 'charles', ['James Conner|RB', 'Matt Breida|RB'])),
+ ('2018-09-25', ('New York Noses', 'dilapi', ['Quincy Enunwa|WR']), ('Dilapi aint Makingthe yoffs', 'kyle', ['DeSean Jackson|WR'])),
+ ('2018-10-05', ('Dilapi aint Makingthe yoffs', 'kyle', ['James White|RB']), ('Hempstead Cummings', 'peanut', ['JuJu Smith-Schuster|WR'])),
+ ('2018-10-27', ('Team Quincy', 'quincy', ['Tevin Coleman|RB']), ('Dilapi aint Makingthe yoffs', 'kyle', ['Kenny Golladay|WR', 'Stephen Gostkowski|K'])),
+ ('2018-11-02', ('Hempstead Cummings', 'peanut', ['Phillip Lindsay|RB', 'Demaryius Thomas|WR']), ('The Sal Claps On Planes', 'charles', ['O.J. Howard|TE', 'Mark Ingram II|RB'])),
+ ('2018-11-09', ('Dilapi aint Makingthe yoffs', 'kyle', ['Todd Gurley II|RB']), ('The Sal Claps On Planes', 'charles', ['Nick Chubb|RB'])),
+ ('2018-11-15', ('The Sal Claps On Planes', 'charles', ['Sony Michel|RB', 'Phillip Lindsay|RB']), ('Dilapi aint Makingthe yoffs', 'kyle', [])),
+ ('2018-11-22', ('Hempstead Cummings', 'peanut', ['Saquon Barkley|RB']), ('The Sal Claps On Planes', 'charles', ['Todd Gurley II|RB'])),
 ]
 for d,(ta,oa,ga),(tb,ob,gb) in EARLY:
     league['trades'].append(dict(id=len(league['trades']),d=d,s=int(d[:4]),st='completed',a=dict(team=ta,o=oa,gave=ga),b=dict(team=tb,o=ob,gave=gb)))
