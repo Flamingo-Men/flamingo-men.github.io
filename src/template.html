@@ -242,6 +242,18 @@ details.fold:not([open])>summary{margin-bottom:0}
 .box tr.bh td{font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:10px}
 .box .pos{font-size:.66rem;color:var(--muted);margin-left:4px;font-family:var(--f-data)}
 @media (max-width:640px){.box{grid-template-columns:1fr}}
+.recgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:12px}
+@media (max-width:520px){.recgrid{grid-template-columns:1fr 1fr;gap:8px}}
+.rec{position:relative;aspect-ratio:1/1;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:linear-gradient(160deg,var(--slab) 0%,var(--flamingo-soft) 100%);container-type:inline-size}
+.rec img.cut,.rec .big{position:absolute;right:-6%;bottom:0;height:72%;width:62%;object-fit:contain;object-position:100% 100%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2));border:0;border-radius:0}
+.rec .big{display:grid;place-items:center;font-family:var(--f-display);font-size:2.4rem;color:var(--flamingo);background:none}
+.rec .rt{position:absolute;left:12px;top:12px;right:12px;display:grid;gap:2px}
+.rec .rt .eyebrow{font-size:clamp(.58rem,5.2cqi,.7rem);line-height:1.25}
+.rec .rv{font-family:var(--f-display);font-size:clamp(1.3rem,15cqi,2.3rem);line-height:1;color:var(--ink);margin-top:4px}
+.rec .rw{font-weight:700;font-size:clamp(.8rem,7cqi,1rem);margin-top:4px;max-width:60%}
+.rec .rc{position:absolute;left:10px;bottom:10px;max-width:56%;font-size:clamp(.62rem,5.4cqi,.78rem);line-height:1.3;color:var(--muted);background:color-mix(in srgb,var(--slab) 80%,transparent);border-radius:6px;padding:3px 5px}
+.rec .multi{position:absolute;right:8px;bottom:8px;display:flex}
+.rec .multi img,.rec .multi span{width:clamp(28px,20cqi,44px);height:clamp(28px,20cqi,44px);border-radius:99px;border:2px solid var(--slab);margin-left:-8px;object-fit:cover}
 .yearbio{margin:0;max-width:70ch;font-size:1.05rem}
 .bracket{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:center;gap:0;margin-top:6px}
 .bracket .col{display:grid;gap:14px}
@@ -506,16 +518,20 @@ footer small{color:#99a1b8}
 <section class="hall" id="hall-records"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
   <p>The all-time lists, plus every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
-  <details class="fold block" open><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+  <div class="block" style="margin-top:0"><div class="block-head"><h2>League records</h2></div>
+    <div class="recgrid" id="recGrid"></div>
+    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records use the stats sheet, 2016 to 2025, and leave out the 2026 season in progress.</p>
+  </div>
+  <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
     <div class="top5" id="top5rapes"></div>
   </details>
-  <details class="fold block" open><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+  <details class="fold block"><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
     <div class="seg" id="pickPos" role="group" aria-label="Position" style="margin:0 0 10px"></div>
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
     <div class="top5" id="top5pickups"></div>
   </details>
-  <details class="fold block" open><summary><h2>Top 10 rosters of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+  <details class="fold block"><summary><h2>Top 10 rosters of all time</h2><span class="chev" aria-hidden="true"></span></summary>
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
     <div class="top5" id="topRosters"></div>
   </details>
@@ -528,7 +544,7 @@ footer small{color:#99a1b8}
     </div>
     <div id="moveList"></div>
   </div>
-  <details class="fold block" open><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
+  <details class="fold block"><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
     <div class="top5" id="top5"></div>
   </details>
   <div class="block">
@@ -609,6 +625,7 @@ const CHAMPS = {2016:{o:"duane",team:"Emmustangs"},2017:{o:"kyle",team:"NYC Klug
 const SACKOS = {2016:{o:"fluff",team:"Fluff"},2017:{o:"keeves",team:"Keeves"},2018:{o:"quincy",team:"Quincy"},2019:{o:"dilapi",team:"DiLapi (New York Noses)"},2020:{o:"dilapi",team:"DiLapi (New York Noses)"},2021:{o:"lucas",team:"Lucas"},2022:{o:"jordan",team:"Jordan"},2023:{o:"peanut",team:"Peanut"},2024:{o:"lucas",team:"Lucas"},2025:{o:"quincy",team:"Quincy"}};
 const LIVE = /*LIVE*/;
 const PLAYOFFS = /*PLAYOFFS*/;
+const RECW = /*RECORDS*/;
 
 const HISTORY = {
   2015:{title:"The Wu-Tang Prequel",unofficial:true,items:["An unofficial season in a league officially called the Wu-Tang, played by a group of friends who called themselves The #Squad.","It was so fraught with cheating and tampering that it does not count. The low point: Quincy's team was put up on a TV at Roosevelt Field Mall and passersby were invited to drop his players.","Charles won it, but the title is not counted in his championships.","The chaos laid the groundwork for a proper league the next year."]},
@@ -845,6 +862,41 @@ function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
     return `<article class="game${op?" open":""}"><button type="button" data-g="${k}" aria-expanded="${op}"><div class="gmeta"><span>${esc(meta[0])}</span><span>${op?"Hide box score":"Box score"}</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button>${op?`<div class="box">${lineup(g.a)}${lineup(g.b)}</div>`:""}</article>`}).join("");
   $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
 }
+function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
+  const seas=[];for(const o in S)for(const y in S[o].seasons){const r=S[o].seasons[y];if(!r.live&&OWNERS[o])seas.push({o,y:+y,...r})}
+  const T=Object.keys(S).filter(o=>OWNERS[o]).map(o=>({o,...totals(o),trades:tradeCount(o)}));
+  const top=(arr,f,dir=-1)=>{const v=arr.map(f).filter(x=>x!=null);const b=dir<0?Math.max(...v):Math.min(...v);return arr.filter(x=>f(x)===b)};
+  const names=a=>a.map(x=>short(x.o)).join(" and ");
+  const card=(label,val,rows,ctx)=>{const os=[...new Set(rows.map(r=>r.o))];
+    const face=os.length===1?cutout(os[0]).replace(/<svg[^>]*>.*?<\/svg>/,""):`<div class="multi">${os.map(o=>av(o)).join("")}</div>`;
+    return `<article class="rec">${face}<div class="rt"><span class="eyebrow">${label}</span><span class="rv">${val}</span><span class="rw">${esc(os.map(short).join(" & "))}</span></div>${ctx?`<span class="rc">${ctx}</span>`:""}</article>`};
+  const tn=x=>esc(x.team||"");
+  const withPts=seas.filter(r=>r.pts!=null),pct=r=>r.w/(r.w+r.l);
+  const hiS=top(withPts,r=>r.pts),loS=top(withPts,r=>r.pts,1),bestR=top(seas,pct),worstR=top(seas,pct,1);
+  const mW=top(T,x=>x.w),mL=top(T,x=>x.l),mT=top(T,x=>x.titles),mS=top(T,x=>x.sackos),mTr=top(T,x=>x.trades);
+  const car=T.filter(x=>x.w+x.l>=36),bP=top(car,x=>x.pct),wP=top(car,x=>x.pct,1);
+  const c=[
+    card("Most points, one week",fmt(R.weekHigh.p),[R.weekHigh],`${tn(R.weekHigh)} vs ${esc(short(R.weekHigh.vs))}, ${wk(R.weekHigh.y,R.weekHigh.w)}`),
+    card("Fewest points, one week",fmt(R.weekLow.p),[R.weekLow],`${tn(R.weekLow)} vs ${esc(short(R.weekLow.vs))}, ${wk(R.weekLow.y,R.weekLow.w)}`),
+    card("Most points, one season",fmt(hiS[0].pts),hiS,hiS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
+    card("Fewest points, one season",fmt(loS[0].pts),loS,loS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
+    card("Best record, one season",`${bestR[0].w}-${bestR[0].l}`,bestR,bestR.map(r=>r.y).join(", ")),
+    card("Worst record, one season",`${worstR[0].w}-${worstR[0].l}`,worstR,worstR.map(r=>r.y).join(", ")),
+    card("Most wins, all time",mW[0].w,mW,`${mW.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
+    card("Most losses, all time",mL[0].l,mL,`${mL.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
+    card("Most titles",mT[0].titles,mT,"Championships"),
+    card("Most Sackos",mS[0].sackos,mS,"Last-place finishes"),
+    card("Best career win rate",(bP[0].pct*100).toFixed(1)+"%",bP,`${bP[0].w}-${bP[0].l}, at least 36 games`),
+    card("Worst career win rate",(wP[0].pct*100).toFixed(1)+"%",wP,`${wP[0].w}-${wP[0].l}, at least 36 games`),
+    card("Biggest blowout",fmt(R.blowout.m),[R.blowout],`${fmt(R.blowout.p)} to ${fmt(R.blowout.vsp)} over ${esc(short(R.blowout.vs))}, ${wk(R.blowout.y,R.blowout.w)}`),
+    card("Closest game",fmt(R.closest.m),[R.closest],`${fmt(R.closest.p)} to ${fmt(R.closest.vsp)} over ${esc(short(R.closest.vs))}, ${wk(R.closest.y,R.closest.w)}`),
+    card("Longest win streak",R.winStreak.n,[R.winStreak],`Regular-season games, ${wk(...R.winStreak.start)} to ${wk(...R.winStreak.end)}`),
+    card("Longest losing streak",R.loseStreak.n,[R.loseStreak],`Regular-season games, ${wk(...R.loseStreak.start)} to ${wk(...R.loseStreak.end)}`),
+    card("Best player week",fmt(R.player.p),[R.player],`${esc(R.player.n)} (${R.player.pos}) for ${tn(R.player)}, ${wk(R.player.y,R.player.w)}`),
+    card("Most points in a loss",fmt(R.unluckiest.p),[R.unluckiest],`Lost to ${esc(short(R.unluckiest.vs))}'s ${fmt(R.unluckiest.vsp)}, ${wk(R.unluckiest.y,R.unluckiest.w)}`),
+    card("Most points left on the bench",fmt(R.bench.bench),[R.bench],`${tn(R.bench)}, ${wk(R.bench.y,R.bench.w)}`),
+    card("Most trades, all time",mTr[0].trades,mTr,"Completed trades on record")];
+  $("#recGrid").innerHTML=c.join("")}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
   $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
@@ -1053,7 +1105,7 @@ function renderSackos(){
 }
 
 /* ---------- router & lightbox ---------- */
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderTrades();renderTopRosters()},champions:renderChamps,sackos:renderSackos};
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},champions:renderChamps,sackos:renderSackos};
 function route(){let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="moves")h="records";if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});

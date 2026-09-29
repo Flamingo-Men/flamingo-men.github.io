@@ -74,5 +74,6 @@ t=t.replace('/*DATA*/',json.dumps(league,ensure_ascii=False,separators=(',',':')
 # ESPN waiver/roster history and the rebuilt seasons, from src/moves.py
 t=t.replace('/*MOVES*/',open(os.path.join(root,'data','moves.json')).read())
 t=t.replace('/*PLAYOFFS*/',open(os.path.join(root,'data','playoffs.json')).read())
+t=t.replace('/*RECORDS*/',open(os.path.join(root,'data','records.json')).read())
 open(os.path.join(root,'index.html'),'w').write(t)
 print('ok',len(t))
