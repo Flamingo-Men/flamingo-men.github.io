@@ -812,6 +812,20 @@ const YEAR_BIO={
 const BRACKET_MANUAL={
   2016:{rounds:[[{a:{o:"charles"},b:{o:"peanut"},win:"a"},{a:{o:"duane",team:"Emmustangs"},b:{o:"squirm"},win:"a"}],[{a:{o:"duane",team:"Emmustangs",pts:242},b:{o:"charles",pts:190},win:"a"}]],note:"First-round scores weren't saved. The final ran over two weeks."},
   2017:{rounds:[[{a:{o:"kyle",team:"NYC Klugeys"},b:{o:"charles"},win:"a"},{a:{o:"vicente",team:"Quleefie Beefies"},b:{o:"squirm"},win:null}],[{a:{o:"kyle",team:"NYC Klugeys"},b:{o:null,team:"Vicente or Squirm"},win:"a"}]],note:"Scores weren't saved, and neither was the winner of Vicente vs. Squirm."}};
+function histStandings(y){if(y===2015)return "";
+  const st=standings(y),seen=new Set(st.map(r=>r.o));
+  (DRAFTS[y]?.teams||[]).forEach(([,o])=>{if(o&&!seen.has(o)&&OWNERS[o]){seen.add(o);st.push({o,w:null,l:null,pts:null})}});
+  if(!st.length)return "";
+  const P=BRACKET_MANUAL[y]||PLAYOFFS[y],res={},seed={};
+  if(P&&P.rounds&&P.rounds.length){P.rounds[0].forEach(m=>[m.a,m.b].forEach(s=>{if(s.o){res[s.o]="Semifinal";if(s.seed)seed[s.o]=s.seed}}));
+    const f=P.rounds[P.rounds.length-1][0];[f.a,f.b].forEach(s=>{if(s.o)res[s.o]="Runner-up"});if(f.win&&f[f.win].o)res[f[f.win].o]="Champion";
+    (P.byes||[]).forEach(b=>{if(b.o)seed[b.o]=b.seed})}
+  if(CHAMPS[y])res[CHAMPS[y].o]="Champion";
+  const tag=o=>res[o]==="Champion"?'<span class="crown" style="font-size:.95rem">♛ Champion</span>':res[o]==="Runner-up"?'<span class="tag">Runner-up</span>':res[o]?'<span class="tag">Semifinal</span>':"";
+  const anyPts=st.some(r=>r.pts!=null),anySeed=Object.keys(seed).length;
+  const names=o=>{const n=teamNames(o)[y];return n?[...n].slice(-1)[0]:(MV.rosters[y]?.[o]?.team||"")};
+  return `<div style="min-width:0"><div class="eyebrow" style="margin-bottom:8px">Final standings${y===2026?" (in progress)":""}</div><div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>
+  <p class="muted bnote">${y<2018?"Only some records from "+y+" were saved. Owners without one are listed from the draft board.":y===2026?"Standings so far this season.":"Ranked by regular-season wins, then points. Seeds are ESPN's playoff seeds."}</p></div>`}
 function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
   if(y===2015)return "";
   if(!P||!P.rounds||!P.rounds.length)return `<div><div class="eyebrow">Playoff bracket</div><p class="muted" style="margin:4px 0 0">${y===2026?"The playoffs haven't started. Six of the twelve teams get in.":"No bracket on file."}</p></div>`;
@@ -840,6 +854,7 @@ function renderHistory(){
   $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
    <p class="yearbio">${esc(YEAR_BIO[histYear]||"")}</p>
    ${bracketHTML(histYear)}
+   ${histStandings(histYear)}
    <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
    <div><div class="eyebrow">The full story</div><ul style="margin-top:6px">${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>
    ${histTrades((HIST_TRADES[histYear]||[]).filter(id=>id!==HEISTS[histYear]?.id),histYear===2017)}
