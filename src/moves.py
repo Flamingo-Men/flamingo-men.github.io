@@ -257,7 +257,7 @@ def main():
         return json.loads(re.sub(r',\s*}','}',body))
     CH={int(y):v for y,v in jsobj('CHAMP_DETAIL').items()};SK={int(y):v for y,v in jsobj('SACKO_DETAIL').items()}
     champs={2016:'duane',2017:'kyle',2018:'fluff',2019:'charles',2020:'charles',2021:'squirm',2022:'charles',2023:'kyle',2024:'dylan',2025:'kyle'}
-    sackos={2016:'fluff',2017:'keeves',2018:'quincy',2019:'dilapi',2020:'dilapi',2021:'lucas',2022:'jordan',2023:'peanut',2024:'lucas',2025:'quincy'}
+    sackos={2016:'fluff',2017:'peanut',2018:'quincy',2019:'dilapi',2020:'dilapi',2021:'lucas',2022:'jordan',2023:'peanut',2024:'lucas',2025:'quincy'}
     SNAP=collections.defaultdict(dict)
     for y,v in CH.items(): SNAP[y][champs[y]]=(v['rosterNote'],v['roster'])
     for y,v in SK.items(): SNAP[y][sackos[y]]=(v['rosterNote'],v['roster'])

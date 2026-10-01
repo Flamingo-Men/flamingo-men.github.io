@@ -158,7 +158,7 @@ MAN={2016:{'charles':"Charles went 12-1 with a super team and beat Peanut in the
            'fluff':"Finished last and took the league's first Sacko."},
      2017:{'kyle':"The NYC Klugeys went 10-2, beat Charles in the first round and won the title.",'charles':"Made the playoffs and lost to Kyle in the first round.",
            'vicente':"Made the playoffs in his only season and played Squirm in the first round.",'squirm':"Made the playoffs and played Vicente in the first round.",
-           'keeves':"Finished last and took the Sacko."}}
+           'peanut':"Finished last and took the Sacko."}}
 for y in (2016,2017):
     owners={o for o in (MV['rosters'].get(str(y)) or {})}|set(MAN[y])
     for o in owners:
