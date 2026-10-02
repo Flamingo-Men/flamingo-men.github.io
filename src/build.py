@@ -63,6 +63,20 @@ S2026={'jordan':(2,0,285.9,'Galaxy Liberators',4),'lucas':(2,0,269.64,'Student A
  'kyle':(1,1,290.48,'THE MONGLERS',12),'dilapi':(1,1,258.46,'New York Noses',6),'charles':(1,1,234.04,"Sal's 4 Chickens",7),
  'jerry':(1,1,232.38,'Chicago Tiddysquashers',12),'rod':(1,1,210.0,'2girls 1Kupp',5),'fluff':(1,1,187.76,'SQUIRMYS SLUTZS',7),
  'squirm':(0,2,223.08,'#dicksoutfor Dolan',3),'ghost':(0,2,175.86,"Vick's Vet Clinic",2),'quincy':(0,2,136.04,"Quincy Jonesin' for a TD",8)}
+# newer: rebuild the 2026 table from ESPN's weekly results (data/weeks/2026.json, completed weeks only)
+wf=os.path.join(root,'data','weeks','2026.json')
+if os.path.exists(wf):
+    W=json.load(open(wf));cur=W.get('cur') or 99;mv=json.load(open(os.path.join(root,'data','moves.json')))
+    new={}
+    for wk,gs in W['weeks'].items():
+        if int(wk)>=cur: continue
+        for g in gs:
+            for me,op in ((g['a'],g['b']),(g['b'],g['a'])):
+                o,tn=W['teams'][str(me['t'])];r=new.setdefault(o,[0,0,0.0,tn,0])
+                r[0 if me['p']>op['p'] else 1]+=1;r[2]=round(r[2]+me['p'],2)
+    for m in mv['moves']:
+        if m['y']==2026 and m['o'] in new: new[m['o']][4]+=1
+    if new: S2026={o:tuple(v) for o,v in new.items()}
 live={}
 for o,(w,l,pts,team,moves) in S2026.items():
     league['stats'].setdefault(o,{'seasons':{},'titles':0,'sackos':0})['seasons']['2026']=dict(w=w,l=l,pts=pts,live=True)
@@ -75,6 +89,7 @@ t=t.replace('/*DATA*/',json.dumps(league,ensure_ascii=False,separators=(',',':')
 t=t.replace('/*MOVES*/',open(os.path.join(root,'data','moves.json')).read())
 t=t.replace('/*PLAYOFFS*/',open(os.path.join(root,'data','playoffs.json')).read())
 t=t.replace('/*RECORDS*/',open(os.path.join(root,'data','records.json')).read())
+t=t.replace('/*RANKINGS*/',open(os.path.join(root,'data','rankings.json')).read() if os.path.exists(os.path.join(root,'data','rankings.json')) else '{}')
 t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() if os.path.exists(os.path.join(root,'data','stories.json')) else '{}')
 open(os.path.join(root,'index.html'),'w').write(t)
 print('ok',len(t))

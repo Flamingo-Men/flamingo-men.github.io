@@ -121,7 +121,20 @@ def espn(y):
                     pe=e['playerPoolEntry']
                     st=[x for x in pe['player'].get('stats',[]) if x.get('scoringPeriodId')==w and x.get('statSourceId')==0]
                     box[(s['teamId'],w)][e['playerId']]=(e['lineupSlotId'],round(st[0]['appliedTotal'],2) if st else 0.0,pe['player']['fullName'],POS.get(pe['player'].get('defaultPositionId'),''))
-    started=lambda tid,pid,w0:round(sum(box[(tid,w)][pid][1] for w in range(w0,last+1) if pid in box.get((tid,w),{}) and box[(tid,w)][pid][0] not in(20,21)),2)
+    def stint(tid,pid,w0):
+        # only the stretch right after the add, until the player leaves this roster (dropped or traded);
+        # a later re-acquisition by trade or a second add is not credited to this pickup
+        pts=0.0;st=0;held=0
+        for w in range(w0,last+1):
+            b=box.get((tid,w))
+            if not b: continue                      # no matchup that week (eliminated)
+            if pid not in b:
+                if held: break
+                continue                            # add processed after that week's lock
+            held+=1
+            if b[pid][0] not in(20,21): pts+=b[pid][1];st+=1
+        return round(pts,2),st,held
+    started=lambda tid,pid,w0:stint(tid,pid,w0)[0]
     name=lambda pid:(P.get(pid,{}).get('n') or next((v[2] for b in box.values() for k,v in b.items() if k==pid),str(pid)))
     pos=lambda pid:(P.get(pid,{}).get('pos') or next((v[3] for b in box.values() for k,v in b.items() if k==pid),''))
     # moves
@@ -138,7 +151,9 @@ def espn(y):
             if dt.date()<datetime.date.fromisoformat(KICKOFF[y])-datetime.timedelta(days=2): w0=1
             for a in adds or [None]:
                 mv=dict(y=y,d=dt.strftime('%Y-%m-%d'),w=w0,o=team[tid]['o'],team=team[tid]['name'],k='Waiver' if t['type']=='WAIVER' else 'Free agent')
-                if a: mv.update(add=[name(a['playerId']),pos(a['playerId'])],pid=a['playerId'],pts=started(tid,a['playerId'],w0))
+                if a:
+                    p_,st_,h_=stint(tid,a['playerId'],w0)
+                    mv.update(add=[name(a['playerId']),pos(a['playerId'])],pid=a['playerId'],pts=p_,st=st_,held=h_)
                 if drops and (a is adds[0] if adds else True): mv['drop']=[name(drops[0]['playerId']),pos(drops[0]['playerId'])]
                 moves.append(mv)
     moves.sort(key=lambda m:(m['d'],m.get('pid',0)))
@@ -359,6 +374,29 @@ def main():
     for c in out['rosterRank']: c['team']=fix(c['team'])
     out['rosterRank']=out['rosterRank'][:25]
     for m in out['topPickups']+list(out['pickupOfYear'].values()): m['team']=fix(m['team'])
+    # draft value: each pick's season points over a replacement starter, against what that draft slot usually returns
+    def pval(y,pid):
+        P=players(y).get(pid)
+        if not P or P['pos'] not in('QB','RB','WR','TE'): return 0.0
+        return max(0.0,P['tot']-17*repl(y,P['pos']))
+    allp=collections.defaultdict(list)
+    for y,ps in out['drafts'].items():
+        if y>=2026: continue
+        for p in ps:
+            if p['pid']: allp[p['pick']].append(pval(y,p['pid']))
+    raw={k:sum(v)/len(v) for k,v in allp.items()}
+    exp={k:sum(raw.get(j,0) for j in range(k-4,k+5) if j in raw)/max(1,sum(1 for j in range(k-4,k+5) if j in raw)) for k in raw}
+    out['draftScore']={}
+    for y,ps in out['drafts'].items():
+        if y>=2026: continue
+        by=collections.defaultdict(lambda:dict(score=0.0,n=0,best=None))
+        for p in ps:
+            if not p['pid'] or not p['o']: continue
+            v=pval(y,p['pid']);d=v-exp.get(p['pick'],0);b=by[p['o']]
+            b['score']+=d;b['n']+=1
+            if not b['best'] or d>b['best'][2]: b['best']=[players(y)[p['pid']]['n'],p['pick'],round(d,1)]
+        out['draftScore'][y]={o:dict(score=round(b['score'],1),n=b['n'],best=b['best']) for o,b in by.items()}
+    out['repl']={y:{k:round(repl(y,k),2) for k in('QB','RB','WR','TE')} for y in list(LEAGUE)+[2016,2017]}
     del out['drafts']
     json.dump(out,open(os.path.join(root,'data','moves.json'),'w'),ensure_ascii=False,separators=(',',':'))
     print('moves',len(out['moves']),'trades scored',len(out['trades']),{y:len(r) for y,r in out['rosters'].items()})

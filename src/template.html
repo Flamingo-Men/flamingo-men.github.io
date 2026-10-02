@@ -262,6 +262,21 @@ details.fold:not([open])>summary{margin-bottom:0}
 .rec .rc{position:absolute;left:10px;bottom:10px;max-width:56%;font-size:clamp(.62rem,5.4cqi,.78rem);line-height:1.3;color:var(--muted);background:color-mix(in srgb,var(--slab) 80%,transparent);border-radius:6px;padding:3px 5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .rec .multi{position:absolute;right:8px;bottom:8px;display:flex}
 .rec .multi img,.rec .multi span{width:clamp(28px,20cqi,44px);height:clamp(28px,20cqi,44px);border-radius:99px;border:2px solid var(--slab);margin-left:-8px;object-fit:cover}
+.rkseg{margin:4px 0 10px}.rkseg button{font-size:.85rem;padding:7px 14px}
+.rkhow{font-size:.85rem;max-width:80ch;margin:0 0 14px}
+.rklist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rk{display:grid;grid-template-columns:44px 52px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
+.rk .n{font-family:var(--f-display);font-size:1.6rem;color:var(--muted);text-align:center}
+.rk:nth-child(1){border-color:var(--gold);border-left:4px solid var(--gold)}.rk:nth-child(1) .n{color:var(--gold)}
+.rk:nth-child(2) .n,.rk:nth-child(3) .n{color:var(--ink)}
+.rk .av{width:52px;height:52px}
+.rk h3{margin:0;font-size:1.05rem}.rk h3 small{font-weight:400;color:var(--muted);font-size:.85rem}
+.rk .bar{height:6px;border-radius:99px;background:var(--line);margin:6px 0 4px;overflow:hidden}.rk .bar i{display:block;height:100%;background:var(--flamingo);border-radius:99px}
+.rk .neg i{background:var(--muted)}
+.rk .meta{font-size:.82rem;color:var(--muted);line-height:1.45}
+.rk .sc{font-family:var(--f-data);font-size:1.15rem;font-weight:700;text-align:right;white-space:nowrap}
+.rk .sc small{display:block;font-weight:400;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+@media (max-width:560px){.rk{grid-template-columns:30px 40px minmax(0,1fr);gap:10px}.rk .av{width:40px;height:40px}.rk .n{font-size:1.2rem}.rk .sc{grid-column:3;text-align:left}.rk .sc small{display:inline;margin-left:6px}}
 .yearbio{margin:0;max-width:70ch;font-size:1.05rem}
 .bracket{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:center;gap:0;margin-top:6px}
 .bracket .col{display:grid;gap:14px}
@@ -394,7 +409,7 @@ footer small{color:#99a1b8}
 <header class="site"><div class="wrap">
   <a class="brand" href="#home"><svg style="color:var(--flamingo)"><use href="#flamingo"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
-    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
+    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
   </nav>
 </div></header>
 <div class="meander" aria-hidden="true"></div>
@@ -561,6 +576,15 @@ footer small{color:#99a1b8}
   </div>
 </div></section>
 
+<!-- RANKINGS -->
+<section class="hall" id="hall-rankings"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">The Oracle</span><h2>Rankings</h2>
+  <p>Who's best right now, who's best ever, and who is best at each part of the game: the draft, the trade market and the waiver wire.</p></div>
+  <div class="seg rkseg" id="rankSeg" role="group" aria-label="Ranking"></div>
+  <p class="muted rkhow" id="rankHow"></p>
+  <ol class="rklist" id="rankList"></ol>
+</div></section>
+
 <!-- CHAMPIONS -->
 <section class="hall" id="hall-sackos"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">Hall of Shame</span><h2>Sacko winners</h2>
@@ -577,7 +601,7 @@ footer small{color:#99a1b8}
 
 <div class="meander" aria-hidden="true"></div>
 <footer><div class="wrap">
-  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
   <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
 </div></footer>
 
@@ -635,6 +659,7 @@ const LIVE = /*LIVE*/;
 const PLAYOFFS = /*PLAYOFFS*/;
 const RECW = /*RECORDS*/;
 const STORIES = /*STORIES*/;
+const RANK = /*RANKINGS*/;
 
 const HISTORY = {
   2015:{title:"The Wu-Tang Prequel",unofficial:true,items:["An unofficial season in a league officially called the Wu-Tang, played by a group of friends who called themselves The #Squad.","It was so fraught with cheating and tampering that it does not count. The low point: Quincy's team was put up on a TV at Roosevelt Field Mall and passersby were invited to drop his players.","Charles won it, but the title is not counted in his championships.","The chaos laid the groundwork for a proper league the next year."]},
@@ -882,7 +907,7 @@ function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
     const tr=(r,c)=>`<tr class="${c}"><td class="sl">${r[2]}</td><td>${esc(r[0])}${["FLX","BE","IR"].includes(r[2])?`<span class="pos">${esc(r[1])}</span>`:""}</td><td class="pt">${fmt(r[3])}</td></tr>`;
     return `<div><h4>${esc(n)} <span class="muted" style="font-weight:400">${esc(o?short(o):"")}</span></h4><table><tbody>${st.map(r=>tr(r,"")).join("")}<tr class="tot"><td></td><td>Total</td><td class="pt">${s.p!=null?fmt(s.p):"–"}</td></tr>${be.length?`<tr class="bh"><td colspan="3">Bench</td></tr>${be.map(r=>tr(r,"bench")).join("")}`:""}</tbody></table></div>`};
   $("#weekGames").innerHTML=G.map((g,i)=>{const k=D.weeks[histWeek].indexOf(g),aw=(g.a.p??0)>(g.b.p??0),bw=(g.b.p??0)>(g.a.p??0),op=openGame===k;
-    const meta=[g.tier?`${g.tier}${g.leg?`, week ${g.leg}`:""}`:"Regular season",g.tot?`Two-week total ${fmt(g.tot[0])} to ${fmt(g.tot[1])}`:""].filter(Boolean);
+    const meta=[D.cur&&histWeek>=D.cur?"In progress":g.tier?`${g.tier}${g.leg?`, week ${g.leg}`:""}`:"Regular season",g.tot?`Two-week total ${fmt(g.tot[0])} to ${fmt(g.tot[1])}`:""].filter(Boolean);
     return `<article class="game${op?" open":""}"><button type="button" data-g="${k}" aria-expanded="${op}"><div class="gmeta"><span>${esc(meta[0])}</span><span>${op?"Hide box score":"Box score"}</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button>${op?`<div class="box">${lineup(g.a)}${lineup(g.b)}</div>`:""}</article>`}).join("");
   $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
 }
@@ -925,6 +950,25 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
   const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
   pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
   g.onscroll=upd;requestAnimationFrame(upd)}
+let rankKey="current";
+function renderRankings(){
+  const R=RANK,sg=(n,v)=>(v>0?"+":"")+fmt(v);
+  const B={
+    current:{l:"Power ranking (2026)",rows:R.current?.rows||[],unit:"power",how:`Through ${R.current?.weeks||0} completed week${R.current?.weeks===1?"":"s"} of 2026. Score out of 100: 35% all-play record (how you'd do against every team every week), 30% actual record, 20% points scored, 15% last week's score.`,
+      meta:r=>`${esc(r.team)} · ${r.rec}, ${fmt(r.pf)} points · all-play ${r.ap} · last week ${fmt(r.lastw)}`},
+    alltime:{l:"All-time power",rows:R.alltime||[],unit:"score",how:"Owners with 3+ seasons. Score out of 100: 30% titles, 25% career win rate, 20% playoff rate, 10% finals reached, 10% points versus the league average, 5% avoiding the Sacko. Rates are pulled toward the league average for short careers so a three-year run can't top the list on a small sample.",
+      meta:r=>`${r.seasons} seasons · ${r.rec} (${r.pct}%) · ${r.titles} title${r.titles===1?"":"s"}, ${r.finals} final${r.finals===1?"":"s"}, ${r.po} playoff trip${r.po===1?"":"s"}${r.sackos?` · ${r.sackos} Sacko${r.sackos>1?"s":""}`:""} · scores ${r.pidx}% of league average`},
+    draft:{l:"Best drafter",rows:R.draft||[],unit:"pts per draft",signed:true,how:"Every pick is worth the player's season points above a replacement starter (QB12, RB30, WR30, TE12). That is compared with what the same draft slot usually returns in this league, so a 10th-rounder who becomes a starter counts for a lot and a first-rounder who busts costs a lot. The score is the average per draft, 2016 to 2025, for owners with 3+ drafts.",
+      meta:r=>`${r.seasons} drafts · best ${r.bestYear} (${sg(0,r.bestYearScore)}), worst ${r.worstYear} (${sg(0,r.worstYearScore)})${r.steal?` · biggest steal: ${esc(r.steal[0])} at pick ${r.steal[1]} in ${r.steal[3]}`:""}`},
+    trade:{l:"Best trader",rows:R.trade||[],unit:"net pts",signed:true,how:"Every completed trade is scored the way the Records tab scores them: rest-of-season points over replacement each side received, counted until a player was traded again. The score is the total gained minus the total given up across every trade, for owners with 5+ trades.",
+      meta:r=>`${r.n} trades, won ${r.won} · ${sg(0,r.avg)} per trade${r.best?` · best: ${r.best[2]} for ${esc(r.best[3].join(" and "))} (${sg(0,r.best[1])})`:""}${r.worst&&r.worst[1]<0?` · worst: ${r.worst[2]} for ${esc(r.worst[3].join(" and ")||"nothing")} (${sg(0,r.worst[1])})`:""}`},
+    waiver:{l:"Best on waivers",rows:R.waiver||[],unit:"pts per season",how:"From ESPN's transaction logs, 2018 to 2025. A pickup only counts for the weeks right after it was made, while the player stayed on that roster and was in the starting lineup. Dropping him or trading him away ends the credit, and getting him back later doesn't count as the same pickup. Each start is worth the points above a replacement starter at his position. The score is the average per season, for owners with 3+ ESPN seasons. Kickers and defenses don't count.",
+      meta:r=>`${r.seasons} seasons, ${r.adds} adds, ${r.hits} that started 3+ games and beat replacement${r.best?` · best: ${esc(r.best[0])} in ${r.best[2]}, ${r.best[3]} starts, ${fmt(r.best[4])} points`:""}`}};
+  $("#rankSeg").innerHTML=Object.entries(B).map(([k,b])=>`<button type="button" data-k="${k}" aria-pressed="${k===rankKey}">${b.l}</button>`).join("");
+  $("#rankSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;rankKey=b.dataset.k;renderRankings()};
+  const b=B[rankKey],mx=Math.max(...b.rows.map(r=>Math.abs(r.score)),1);
+  $("#rankHow").textContent=b.how;
+  $("#rankList").innerHTML=b.rows.length?b.rows.map((r,i)=>`<li class="rk"><span class="n">${i+1}</span>${av(r.o)}<div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3><div class="bar${r.score<0?" neg":""}"><i style="width:${Math.max(2,Math.abs(r.score)/mx*100)}%"></i></div><div class="meta">${b.meta(r)}</div></div><div class="sc">${b.signed?sg(0,r.score):fmt(r.score)}<small>${b.unit}</small></div></li>`).join(""):`<li class="muted">No data yet.</li>`}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
   $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
@@ -948,7 +992,7 @@ function renderStats(){
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
   const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
   $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${fmt(r.pts)}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
-  $("#seasonNote").textContent=seasonSel===2026?"2026 standings after week 2, from the ESPN standings page. Divisions: Lex and Bhavi. Moves counts every ESPN transaction, not only trades.":seasonSel===2016?"Only Charles's 2016 record (12-1) was saved. Points and the other records from 2016 were not.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
+  $("#seasonNote").textContent=seasonSel===2026?"2026 standings so far, from ESPN's weekly results (completed weeks only). Divisions: Lex and Bhavi. Moves counts every waiver and free-agent add.":seasonSel===2016?"Only Charles's 2016 record (12-1) was saved. Points and the other records from 2016 were not.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
 }
 
 /* ---------- DRAFTS ---------- */
@@ -1134,7 +1178,7 @@ function renderSackos(){
 }
 
 /* ---------- router & lightbox ---------- */
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},champions:renderChamps,sackos:renderSackos};
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},rankings:renderRankings,champions:renderChamps,sackos:renderSackos};
 function route(){let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="moves")h="records";if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});

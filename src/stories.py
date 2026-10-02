@@ -51,10 +51,18 @@ def trade_bits(y,o,res=None):
     return bits,len(tl)
 
 def pickup_bit(y,o):
-    pk=[m for m in MV['moves'] if m['y']==y and m['o']==o and m.get('add') and (m.get('pts') or 0)>=60 and m['add'][1] in ('QB','RB','WR','TE')]
+    # judge a pickup only by what it did for this team: starts during the stint right after the add
+    # (moves.py stops counting once he leaves the roster), at least 3 starts, a real per-start average
+    ok=lambda m:m.get('add') and m['add'][1] in('QB','RB','WR','TE') and (m.get('st') or 0)>=3 and (m.get('pts') or 0)>=60 and m['pts']/m['st']>=(15 if m['add'][1]=='QB' else 11)
+    pk=[m for m in MV['moves'] if m['y']==y and m['o']==o and ok(m)]
     if not pk: return None
-    p=max(pk,key=lambda m:m['pts'])
-    return f"Their best pickup was {p['add'][0]} ({p['add'][1]}) in week {p['w']}, who put up {f1(p['pts'])} points in their lineup."
+    p=max(pk,key=lambda m:m['pts']);nm=p['add'][0]
+    drop=next((m for m in MV['moves'] if m['y']==y and m['o']==o and m.get('drop',[None])[0]==nm and m['w']>p['w']),None)
+    end_w=p['w']+p['held']-1
+    if drop: tail=f" They dropped him in week {drop['w']}."
+    elif end_w<15: tail=f" They traded him away after week {end_w}."
+    else: tail=" He stayed on the roster the rest of the year."
+    return f"Their best pickup was {nm} ({p['add'][1]}), added in week {p['w']}, who started {p['st']} games for them and scored {f1(p['pts'])} points.{tail}"
 
 def playoff_bit(y,o,seed_rank,n):
     P=PO.get(str(y))

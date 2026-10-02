@@ -44,6 +44,7 @@ for y in range(2018,2027):
             out.append(dict(a=sides[0],b=sides[1],tier=tier,leg=f"{per.index(w)+1} of {len(per)}" if len(per)>1 else "",mp=m['matchupPeriodId'],tot=[m['home'].get('totalPoints'),m['away'].get('totalPoints')] if len(per)>1 else None))
         if out and any((x['a']['p'] or 0)+(x['b']['p'] or 0)>0 for x in out): weeks[w]=out
         w+=1
-    js=json.dumps(dict(teams=T,weeks=weeks),separators=(',',':'))
+    cur=full['status'].get('currentMatchupPeriod') if y==2026 else None
+    js=json.dumps(dict(teams=T,weeks=weeks,cur=cur),separators=(',',':'))
     open(os.path.join(root,'data','weeks',f'{y}.json'),'w').write(js)
     print(y,len(weeks),'weeks',sum(len(v) for v in weeks.values()),'games',len(js)//1024,'KB',sum(1 for v in weeks.values() for g in v for s in (g['a'],g['b']) if not s['r']),'empty rosters')
