@@ -4,7 +4,9 @@ here=os.path.dirname(os.path.abspath(__file__)); root=os.path.dirname(here)
 G=[];P=[];res={}
 for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
     y=int(os.path.basename(f)[:4]);d=json.load(open(f));T=d['teams']
+    cur=d.get('cur')
     for w,gs in sorted(d['weeks'].items(),key=lambda x:int(x[0])):
+        if cur and int(w)>=cur: continue  # skip the week in progress (and later)
         for g in gs:
             if g['tier'] not in ('','Playoffs'): continue
             a,b=g['a'],g['b']
