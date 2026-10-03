@@ -816,7 +816,8 @@ function favorites(o){const c={};TR.forEach(t=>{if(t.st!=="completed")return;
   if(t.a.o===o)t.b.gave.forEach(p=>c[p]=(c[p]||0)+1);if(t.b.o===o)t.a.gave.forEach(p=>c[p]=(c[p]||0)+1)});
   return Object.entries(c).filter(e=>e[1]>1).sort((a,b)=>b[1]-a[1]).slice(0,6)}
 
-const TRADE_LORE={2:"The backstory: this deal was struck on a trip to Central Park, where Kyle and Charles deceptively encouraged Peanut to accept it, knowing full well it was a horrible trade."};
+const TRADE_LORE={2:"The backstory: this deal was struck on a trip to Central Park, where Kyle and Charles deceptively encouraged Peanut to accept it, knowing full well it was a horrible trade.",
+  12:"The backstory: right after Charles fleeced Peanut for DeAndre Hopkins, Kyle called Peanut to tell him it wasn't right what Charles did to him, wined and dined him, and then made this trade with him."};
 const lore=id=>TRADE_LORE[id]?`<p class="lore">${esc(TRADE_LORE[id])}</p>`:"";
 function tradeHTML(t,extra=""){
   const side=s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${s.o?esc(OWNERS[s.o].name):'<span class="tag unk">Owner unconfirmed</span>'}</div>
