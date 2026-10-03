@@ -138,6 +138,7 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .top5{display:grid;gap:14px;counter-reset:t}
 .top5 .trade{border-left:4px solid var(--gold)}
 .tboxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin-top:8px}
+.lore{margin:0;font-size:.9rem;font-style:italic;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
 .tbox{background:var(--marble);border:1px solid var(--line);border-left:4px solid var(--good);border-radius:var(--r);padding:10px 12px;display:grid;gap:8px}
 .tbox.loss{border-left-color:var(--bad)}
 .tbox-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;font-family:var(--f-data);font-size:.7rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
@@ -815,12 +816,14 @@ function favorites(o){const c={};TR.forEach(t=>{if(t.st!=="completed")return;
   if(t.a.o===o)t.b.gave.forEach(p=>c[p]=(c[p]||0)+1);if(t.b.o===o)t.a.gave.forEach(p=>c[p]=(c[p]||0)+1)});
   return Object.entries(c).filter(e=>e[1]>1).sort((a,b)=>b[1]-a[1]).slice(0,6)}
 
+const TRADE_LORE={2:"The backstory: this deal was struck on a trip to Central Park, where Kyle and Charles deceptively encouraged Peanut to accept it, knowing full well it was a horrible trade."};
+const lore=id=>TRADE_LORE[id]?`<p class="lore">${esc(TRADE_LORE[id])}</p>`:"";
 function tradeHTML(t,extra=""){
   const side=s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${s.o?esc(OWNERS[s.o].name):'<span class="tag unk">Owner unconfirmed</span>'}</div>
     <div class="eyebrow" style="margin-top:6px">Sends</div><ul>${s.gave.length?s.gave.map(p=>{const[n,pos]=p.split("|");return `<li>${esc(n)}<span class="pos">${esc(pos)}</span></li>`}).join(""):'<li class="muted">Nothing</li>'}</ul></div>`;
   const d=new Date(t.d+"T12:00:00");
   return `<article class="trade${t.st==="vetoed"?" vetoed":""}">${extra}<div class="trade-top"><span>${d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})}</span><span>${t.st==="vetoed"?'<span class="tag veto">✕ Vetoed</span> ':""}${FLAGS[t.id]?`<span class="tag flag">${FLAGS[t.id]}</span>`:""}</span></div>
-    <div class="sides">${side(t.a)}<div class="swap" aria-hidden="true">⇄</div>${side(t.b)}</div></article>`}
+    <div class="sides">${side(t.a)}<div class="swap" aria-hidden="true">⇄</div>${side(t.b)}</div>${lore(t.id)}</article>`}
 
 /* ---------- HOME ---------- */
 function renderHome(){
@@ -1195,7 +1198,7 @@ function tradeBox(id,o){const t=TR.find(t=>t.id===id),x=MV.trades[id];if(!t||!x)
   const d=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
   const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${esc(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(got.reduce((s,g)=>s+(g[3]||0),0))}</span></div></div>`;
   return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">with ${esc(t[op].team)} (${esc(short(t[op].o))})</span></span><span class="res">${win?"Won":"Lost"} by ${fmt(Math.abs(x[me].par-x[op].par))}</span></div>
-    <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div></article>`}
+    <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div>${lore(id)}</article>`}
 
 /* ---------- SACKOS ---------- */
 function renderSackos(){
