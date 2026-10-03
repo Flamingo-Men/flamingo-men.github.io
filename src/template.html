@@ -118,6 +118,7 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .trade{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
 .trade-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--f-data);font-size:.75rem;color:var(--muted);letter-spacing:.06em}
 .sides{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:start}
+.sides.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .side h4{margin:0 0 4px;font-size:1rem;font-weight:800;overflow-wrap:anywhere}
 .side .o{font-size:.8rem;color:var(--muted)}
 .side ul{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px}
@@ -384,7 +385,7 @@ footer small{color:#99a1b8}
 }
 @media (max-width:560px){
   .tiles,.boards{grid-template-columns:1fr}
-  .sides{grid-template-columns:1fr}
+  .sides,.sides.three{grid-template-columns:1fr}
   .swap{padding:0;transform:rotate(90deg);justify-self:start}
   .champ,.champ.won{grid-template-columns:1fr}
   .champ-photo{min-height:0;aspect-ratio:1/1}
@@ -655,7 +656,7 @@ const EXTRA_NAMES = {
 const COMMISH = {2016:["lucas"],2017:["lucas"],2018:["kyle","charles"],2019:["kyle","charles"],2020:["kyle","charles"],2021:["kyle","charles"],2022:["kyle","charles"],2023:["kyle","quincy"],2024:["kyle"],2025:["dilapi"],2026:["lucas"]};
 const MANUAL_VETOES = [{y:2017,text:"Vicente tries to collude with Rod. Vetoed."},{y:2017,text:"Vicente tries to collude with Keeves. Vetoed."}];
 const HEISTS = {
-  2016:{id:137,why:"The collusion trade: Julio Jones, Jordan Reed and Mark Ingram for two retired players and Alshon Jeffery. Reed came back for free three weeks later."},
+  2016:{id:137,why:"The collusion trade: Julio Jones, Jordan Reed and Mark Ingram for two retired players and Alshon Jeffery. Reed came back to Kyle three weeks later in a three-team trade with Fluff."},
   2017:{id:142,why:"Rod dumped Andrew Luck, who never played a snap in 2017, on Peanut for Jameis Winston before the season. Peanut then passed Luck to Charles for Willie Snead."},
   2019:{id:22,why:"Kyle's Zeke deal with Skelly. It was vetoed for a reason, and the league voted it through anyway."},
   2020:{id:33,why:"Sal's 34 Chickens turned Cooper Kupp and James Conner into Tyreek Hill."},
@@ -677,7 +678,7 @@ const RANK = /*RANKINGS*/;
 
 const HISTORY = {
   2015:{title:"The Wu-Tang Prequel",unofficial:true,items:["An unofficial season in a league officially called the Wu-Tang, played by a group of friends who called themselves The #Squad.","It was so fraught with cheating and tampering that it does not count. The low point: Quincy's team was put up on a TV at Roosevelt Field Mall and passersby were invited to drop his players.","Charles won it, but the title is not counted in his championships.","The chaos laid the groundwork for a proper league the next year."]},
-  2016:{title:"The Founding",items:["Year one: an eight-team league on ESPN called The LI League, separate from today's league history. Scoring was full PPR, as it would be every year through 2025.","The draft is held at Sal's office.","Scandal one: Kyle and Charles collude. Kyle sends Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired, plus Alshon Jeffery. Charles hands Reed back for nothing on October 25.","Fluff tries to collude with Kyle while hanging out with Alex Katemaris, and fails.","Scandal two: Squirm benches his own team so his cousin Peanut can make the playoffs.","Charles goes 12-1 with a super team and still loses the two-week final to Duane, 242 to 190. David Johnson has a historic stretch for Duane, and the final fell in the last week of the NFL season, when several of Charles's players were rested. After this the league moved the championship to the two weeks before the final NFL week.","The Emmustangs win the first crown. Fluff takes the first Sacko."]},
+  2016:{title:"The Founding",items:["Year one: an eight-team league on ESPN called The LI League, separate from today's league history. Scoring was full PPR, as it would be every year through 2025.","The draft is held at Sal's office.","Scandal one: Kyle and Charles collude. Kyle sends Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired, plus Alshon Jeffery. Three weeks later Reed comes back to Kyle in a three-team trade with Fluff.","Fluff tries to collude with Kyle while hanging out with Alex Katemaris, and fails.","Scandal two: Squirm benches his own team so his cousin Peanut can make the playoffs.","Charles goes 12-1 with a super team and still loses the two-week final to Duane, 242 to 190. David Johnson has a historic stretch for Duane, and the final fell in the last week of the NFL season, when several of Charles's players were rested. After this the league moved the championship to the two weeks before the final NFL week.","The Emmustangs win the first crown. Fluff takes the first Sacko."]},
   2017:{title:"The Klugey Coronation",items:["Played in a separate ESPN league, also called The Flamingo Men, and the league format was not saved.","The draft is held at Vicente's summer house. Squirm is not invited, because Vicente never forgave him for copying his homework and getting him detention.","The draft order is randomized and Kyle gets the first overall pick. He was not at the draft, and the rest of the league colluded to rearrange the order.","Rod unloads Andrew Luck, who would miss the whole season, on Peanut for Jameis Winston. Peanut then passes Luck to Charles for Willie Snead.","Before the draft, Charles trades Peanut a secret for Peanut's draft pick. Nobody has said what the secret was.","Vicente tries to collude twice, first with Rod and then with Keeves. Both trades are vetoed.","Kyle goes 10-2 as the NYC Klugeys and wins the title with Kelce, Michael Thomas and Mike Evans.","Right before the playoffs Kyle trades Alvin Kamara to Charles for Ezekiel Elliott. Kamara gets hurt in their first-round matchup.","Live draft on the big sticker board on August 6, 2017.","Peanut takes the Sacko."]},
   2018:{title:"The Move to ESPN",items:["The league moves to the ESPN Flamingo Men league with a 12-game regular season.","Fluff posts the best record (9-3) and the most points (1,806.76), then wins the title. Quincy takes the Sacko.","Charles buys a Kareem Hunt jersey days before the Hunt video comes out, ruining both his team and the jersey.","The draft is back at Sal's office. Vicente and Keeves are gone, and this is the last eight-team season in league history."]},
   2019:{title:"The Super Team That Wasn't",items:["Kyle (Bittersweet Distract0rs) sends Mixon, Boyd and Ertz to Skelly for Ezekiel Elliott, Kenny Golladay and Devin Singletary. The deal is vetoed, then a league vote overturns the veto.","The trade makes Kyle a super team, until David Johnson gets hurt and Kyle misses the playoffs.","Team Quincy and Kyle try to swap Hunter Henry twice in two days. Vetoed both times.","Kyle also ran DilapiSTILLaint Makingthe yoffs for a stretch, a name aimed squarely at Dilapi.","25 completed trades in the first year of the archive. Charles's Sal's 12 Chickens were in 15 of them."]},
@@ -694,20 +695,20 @@ const HIST_TRADES = {2016:[137,140],2017:[147,142,144],2019:[22,26,27],2020:[42,
 const CHRON_TRADES = {"The Founding Era, 2016 to 2018":[137,140],"The Sal's 12 Chickens Dynasty Era, 2019 to 2022":[8,33,89,104,22],"The Monglers Era, 2023 to 2025":[121,132,133],"The Second Pace Administration, 2026":[146]};
 const CHRONICLE = [
   ["The Wu-Tang Prequel, 2015 (unofficial)","Before the republic there was the Wu-Tang, an unofficial league run by a crew called The #Squad, with no rules anyone respected. Cheating and tampering were routine, and at one point Quincy's roster went up on a TV at Roosevelt Field Mall so strangers could drop his players. Charles won, the season was struck from the record, and the survivors founded the Flamingo Men a year later."],
-  ["The Founding Era, 2016 to 2018","The republic was founded in 2016 under Commissioner Lucas as The LI League, an eight-team ESPN league with the draft at Sal's office. Its first season produced its first scandal: on October 5 Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, both already retired, plus Alshon Jeffery, and on October 25 Charles gave Reed back for nothing. Squirm benched his own team so his cousin Peanut could reach the playoffs. Charles went 12-1 and lost the final to Duane's Emmustangs anyway, and Fluff took the first Sacko. In 2017 Vicente tried to collude twice and was vetoed both times, and Kyle's NYC Klugeys won it all. In 2018 the league moved to the ESPN Flamingo Men league with Kyle and Charles as co-commissioners. Vicente and Keeves were gone, and it was the last eight-team season the league ever played. Fluff went 9-3 and won the title, and Quincy took the Sacko."],
+  ["The Founding Era, 2016 to 2018","The republic was founded in 2016 under Commissioner Lucas as The LI League, an eight-team ESPN league with the draft at Sal's office. Its first season produced its first scandal: on October 5 Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, both already retired, plus Alshon Jeffery, and three weeks later Reed came back to Kyle in a three-team trade with Fluff. Squirm benched his own team so his cousin Peanut could reach the playoffs. Charles went 12-1 and lost the final to Duane's Emmustangs anyway, and Fluff took the first Sacko. In 2017 Vicente tried to collude twice and was vetoed both times, and Kyle's NYC Klugeys won it all. In 2018 the league moved to the ESPN Flamingo Men league with Kyle and Charles as co-commissioners. Vicente and Keeves were gone, and it was the last eight-team season the league ever played. Fluff went 9-3 and won the title, and Quincy took the Sacko."],
   ["The Sal's 12 Chickens Dynasty Era, 2019 to 2022","Charles won three titles in four years, in 2019, 2020 and 2022, and traded his way to every one of them. In 2019 his Sal's 12 Chickens were in 15 of the year's 25 trades, and the best of them brought in Aaron Jones for Tyler Boyd and DeAndre Hopkins for Julio Jones and Derrius Guice. In 2020 he sent Cooper Kupp and James Conner to Kyle for Tyreek Hill and repeated. Squirm's #dicksoutfor Dolan broke the run in 2021. In 2022 Charles made two blockbusters: Kamara, Keenan Allen, Kareem Hunt and Brian Robinson to Jordan's Jerry Jewdys for Justin Jefferson and Jamaal Williams in September, then D'Onta Foreman, Michael Pittman Jr., Chris Godwin and Leonard Fournette to DiLapi's New York Noses for Tyreek Hill in November. The Chickens won a third title. The era's other famous deal was Kyle's: in 2019 he took Ezekiel Elliott, Kenny Golladay and Devin Singletary from Skelly, a veto was overturned by a league vote, and his super team missed the playoffs after David Johnson got hurt."],
   ["The Monglers Era, 2023 to 2025","With Kyle and Quincy as co-commissioners, the 2023 season was played in a separate league split into two conferences. The Monglers won their second title on record. The league vetoed Fluff's trade for Ja'Marr Chase twice in one night, and he was so angry he sat out 2024. The league returned to the main ESPN league in 2024 with Kyle as sole commissioner, and Dylan's Sultans of Squirm won the title. In 2025, under Commissioner DiLapi, a Bowers and Saquon trade was completed and then undone within hours, move for move, with DiLapi's own New York Noses on one side. The league still argues about whether that was diplomacy or a cover-up. Kyle won his third title that December, beating Lucas, who played nine in the final."],
   ["The Second Pace Administration, 2026","Lucas returns to the chair he held at the founding and presides over the expansion to 12 teams, double flex and half PPR. The first crisis came fast: Quincy's plan to put every trade to a league vote was laughed off, and when Kyle traded for Romeo Doubs, Quincy let everyone know he felt minimized. Seven years earlier, a league vote had saved Kyle's Zeke trade."]
 ];
 
 const TOP5 = [
-  {id:137,why:"The founding scandal. Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired before the season, plus Alshon Jeffery. Twenty days later Charles gave Reed back for nothing. This is the 2016 collusion."},
+  {id:137,why:"The founding scandal. Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired before the season, plus Alshon Jeffery. Three weeks later Reed came back to Kyle in a three-team trade with Fluff. This is the 2016 collusion."},
   {id:89,why:"Four starters for one superstar. Jordan's Jerry Jewdys handed over Justin Jefferson and got Kamara, Keenan Allen, Kareem Hunt and Brian Robinson, the biggest trade of 2022."},
   {id:93,why:"Patrick Mahomes, DJ Moore, Terry McLaurin and Brandon Aiyuk for Dak Prescott, Teddy Bridgewater, Christian Kirk and Tyler Lockett. Eight players, and the only one people remember is Mahomes."},
   {id:69,why:"A superstar swap: The Monglers sent Nick Chubb, Stefon Diggs and Mike Evans to #dicksoutfor Dolan for Aaron Jones and Tyreek Hill."},
   {id:118,why:"The title move. The Monglers sent four players, including McLaurin, James Cook and Aaron Jones, to Team Pace for Derrick Henry, and won the 2023 championship."}
 ];
-const FLAGS = {...(/*FLAGS*/), 42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",121:"Fluff sat out 2024 over this veto",122:"Fluff sat out 2024 over this veto",149:"Three teams voted to veto; it went through",155:"ESPN shows nothing sent back",137:"Collusion: Megatron and Lynch were retired",140:"Reed handed back for nothing",142:"Luck missed all of 2017",144:"Luck missed all of 2017",147:"Before the 2017 draft. The exact date and the secret were never recorded"};
+const FLAGS = {...(/*FLAGS*/), 42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",121:"Fluff sat out 2024 over this veto",122:"Fluff sat out 2024 over this veto",149:"Three teams voted to veto; it went through",155:"ESPN shows nothing sent back",137:"Collusion: Megatron and Lynch were retired",138:"Three-team trade",142:"Luck missed all of 2017",144:"Luck missed all of 2017",147:"Before the 2017 draft. The exact date and the secret were never recorded"};
 
 const CHAMP_STORY = {
   2016:"The first crown, won at 7-6. Duane beat Charles's 12-1 super team 242 to 190 over the two-week final, most of it in week 16, while several of Charles's players sat out the last week of the NFL season. It is the reason the league moved the championship earlier.",
@@ -799,7 +800,7 @@ function av(o,cls="av"){const p=IMG[o];const n=OWNERS[o]?.name||"?";
 function sackoIcons(n){if(!n)return "–";return IMG.sacko?Array.from({length:n},()=>`<img class="sk-ic" src="${IMG.sacko}" alt="Sacko">`).join(""):`<span class="sacko">${n}</span>`}
 function cutout(o){return CUT[o]?`<svg class="bgflam" aria-hidden="true"><use href="#flamingoBig"/></svg><img class="cut" src="${CUT[o]}" alt="${esc(OWNERS[o]?.name||"")}" loading="lazy">`:av(o,"big")}
 function sackoMark(){return IMG.sacko?`<img class="sk-ic" src="${IMG.sacko}" alt="">`:""}
-function tradeCount(o){return TR.filter(t=>t.st==="completed"&&(t.a.o===o||t.b.o===o)).length}
+function tradeCount(o){return uniqT(TR.filter(t=>t.st==="completed"&&(t.a.o===o||t.b.o===o))).length}
 function short(o){if(!o)return "Unconfirmed";const x=OWNERS[o];return x.short||(x.nick?x.nick.split(" / ")[0]:x.name.split(" ")[0])}
 // 2016 and 2017: owners on the draft boards whose records weren't saved
 const NOREC={};[2016,2017].forEach(y=>(DRAFTS[y]?.teams||[]).forEach(([,o])=>{if(o&&!S[o]?.seasons?.[y])(NOREC[o]??=[]).push(y)}));
@@ -816,10 +817,21 @@ function favorites(o){const c={};TR.forEach(t=>{if(t.st!=="completed")return;
   if(t.a.o===o)t.b.gave.forEach(p=>c[p]=(c[p]||0)+1);if(t.b.o===o)t.a.gave.forEach(p=>c[p]=(c[p]||0)+1)});
   return Object.entries(c).filter(e=>e[1]>1).sort((a,b)=>b[1]-a[1]).slice(0,6)}
 
+// three-team trades, stored as two-team legs (build.py EARLY); shown as one deal
+const TRI=[[138,139,140]],TRI_OF={};TRI.forEach(g=>g.forEach(id=>TRI_OF[id]=g));
+const tkey=t=>TRI_OF[t.id]?TRI_OF[t.id][0]:t.id;
+const uniqT=list=>{const seen=new Set();return list.filter(t=>{const k=tkey(t);if(seen.has(k))return false;seen.add(k);return true})};
+function triHTML(g,extra){const legs=g.map(id=>TR[id]),t0=legs[0],S={};
+  legs.forEach(t=>[["a","b"],["b","a"]].forEach(([m,o])=>{const s=t[m];(S[s.o]??={team:s.team,o:s.o,out:[]}).out.push(...s.gave.map(p=>[p,t[o].o]))}));
+  const d=new Date(t0.d+"T12:00:00");
+  return `<article class="trade">${extra}<div class="trade-top"><span>${d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})}</span><span>${FLAGS[t0.id]?`<span class="tag flag">${FLAGS[t0.id]}</span>`:""}</span></div>
+    <div class="sides three">${Object.values(S).map(s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${esc(OWNERS[s.o].name)}</div><div class="eyebrow" style="margin-top:6px">Sends</div><ul>${s.out.length?s.out.map(([p,to])=>{const[n,pos]=p.split("|");return `<li>${esc(n)}<span class="pos">${esc(pos)}</span> <span class="muted" style="font-size:.85em">→ ${esc(short(to))}</span></li>`}).join(""):'<li class="muted">Nothing</li>'}</ul></div>`).join("")}</div>${lore(t0.id)}</article>`}
+function triScore(g){const P={};g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;["a","b"].forEach(m=>{const r=(P[t[m].o]??={team:t[m].team,par:0,got:[]});r.par+=x[m].par;r.got.push(...x[m].got)})});
+  return `<p class="score">Points over replacement, rest of season (estimated): ${Object.values(P).map(r=>`<b>${esc(r.team)}</b> got ${fmt(r.par)}${r.got.length?` <span class="muted">(${r.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`).join(" · ")}</p>`}
 const TRADE_LORE={2:"The backstory: this deal was struck on a trip to Central Park, where Kyle and Charles deceptively encouraged Peanut to accept it, knowing full well it was a horrible trade.",
   12:"The backstory: right after Charles fleeced Peanut for DeAndre Hopkins, Kyle called Peanut to tell him it wasn't right what Charles did to him, wined and dined him, and then made this trade with him."};
 const lore=id=>TRADE_LORE[id]?`<p class="lore">${esc(TRADE_LORE[id])}</p>`:"";
-function tradeHTML(t,extra=""){
+function tradeHTML(t,extra=""){if(TRI_OF[t.id])return triHTML(TRI_OF[t.id],extra);
   const side=s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${s.o?esc(OWNERS[s.o].name):'<span class="tag unk">Owner unconfirmed</span>'}</div>
     <div class="eyebrow" style="margin-top:6px">Sends</div><ul>${s.gave.length?s.gave.map(p=>{const[n,pos]=p.split("|");return `<li>${esc(n)}<span class="pos">${esc(pos)}</span></li>`}).join(""):'<li class="muted">Nothing</li>'}</ul></div>`;
   const d=new Date(t.d+"T12:00:00");
@@ -828,10 +840,10 @@ function tradeHTML(t,extra=""){
 
 /* ---------- HOME ---------- */
 function renderHome(){
-  const done=TR.filter(t=>t.st==="completed").length, vet=TR.filter(t=>t.st==="vetoed").length;
+  const done=uniqT(TR.filter(t=>t.st==="completed")).length, vet=TR.filter(t=>t.st==="vetoed").length;
   $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
   $("#champStrip").innerHTML=ALL_YEARS.map(y=>{const c=CHAMPS[y];return c?`<a class="cyear" href="#champions" style="text-decoration:none;color:inherit"><div class="y">${y}</div><div class="n">${esc(c.team.split(" / ")[0])}</div></a>`:`<div class="cyear tbd"><div class="y">${y}</div><div class="n">${y===2026?"In progress":"To confirm"}</div></div>`}).join("");
-  $("#latestTrades").innerHTML=TR.filter(t=>t.st==="completed").sort((a,b)=>a.d.localeCompare(b.d)||a.id-b.id).slice(-3).reverse().map(t=>tradeHTML(t)).join("");
+  $("#latestTrades").innerHTML=uniqT(TR.filter(t=>t.st==="completed")).sort((a,b)=>a.d.localeCompare(b.d)||a.id-b.id).slice(-3).reverse().map(t=>tradeHTML(t)).join("");
   $("#ownersRow").innerHTML=ORDER.filter(o=>S[o]).map(o=>`<a class="owner-pill" href="#teams" data-o="${o}">${av(o)}<span>${esc(short(o))}</span></a>`).join("");
   $("#ownersRow").onclick=e=>{const a=e.target.closest("[data-o]");if(a)current=a.dataset.o};
 }
@@ -891,7 +903,7 @@ function renderHistory(){
   $("#yearPills").innerHTML=era[2].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
   $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;histWeek=null;openGame=null;renderHistory()};
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
-  const nT=TR.filter(t=>t.s===histYear&&t.st==="completed").length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
+  const nT=uniqT(TR.filter(t=>t.s===histYear&&t.st==="completed")).length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
   $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
    <p class="yearbio">${esc(YEAR_BIO[histYear]||"")}</p>
@@ -1102,7 +1114,7 @@ function rosterTable(pl,espn){const how=h=>h?`<span class="rbadge">${esc(h)}</sp
   return `<div class="tablebox"><table class="mtable"><thead><tr><th>Slot</th><th>Player</th><th>Finish</th>${espn?'<th>Acquired</th><th class="num">Lineup pts</th>':'<th>Acquired</th>'}</tr></thead><tbody>${pl.map(p=>`<tr><td class="num">${esc(p[0]||p[2]||"")}</td><td>${esc(p[1])} <span class="muted">${esc(p[0]&&p[2]&&p[0]!==p[2]?p[2]:"")}</span></td><td class="num">${p[5]?`${p[5][0]}${p[5][1]}`:'<span class="muted">–</span>'}</td><td>${how(p[3])}</td>${espn?`<td class="num">${fmt(p[4])}</td>`:""}</tr>`).join("")}</tbody></table></div>`}
 function renderSeasonDetail(){
   const o=current,y=teamYear,r=S[o]?.seasons[y],st=standings(y),rank=st.findIndex(x=>x.o===o)+1;
-  const tr=TR.filter(t=>t.s===y&&(t.a.o===o||t.b.o===o));
+  const tr=uniqT(TR.filter(t=>t.s===y&&(t.a.o===o||t.b.o===o)));
   const nm=teamNames(o)[y];
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
   let finish=CHAMPS[y]?.o===o?"♛ Champion":SACKOS[y]?.o===o?`${sackoMark()} Sacko`:rank?`${rank} of ${st.length} (reg. season)`:"–";
@@ -1127,7 +1139,7 @@ function renderSeasonDetail(){
 /* ---------- MOVES ---------- */
 let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
 const MOVE_SEASONS=Object.entries(MV.seasons).filter(([,v])=>v==="espn").map(([y])=>+y);
-function tradeScore(t){const x=MV.trades[t.id];if(!x)return "";
+function tradeScore(t){if(TRI_OF[t.id])return triScore(TRI_OF[t.id]);const x=MV.trades[t.id];if(!x)return "";
   const side=(s,g)=>`<b>${esc(s.team)}</b> got ${fmt(g.par)}${g.got.length?` <span class="muted">(${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`;
   return `<p class="score">Points over replacement, rest of season${x.est?" (estimated)":""}: ${side(t.a,x.a)} · ${side(t.b,x.b)}</p>`}
 function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
@@ -1135,7 +1147,7 @@ function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
 function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
 function renderTrades(){
   const margin=x=>Math.abs(x.a.par-x.b.par);
-  const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed").sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
+  const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
   $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.par>=x.b.par?"a":"b",l=w==="a"?"b":"a";
     return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${fmt(margin(x))} points over replacement in ${t.s}. ${esc(t[l].team)} (${esc(short(t[l].o))}) got ${fmt(x[l].par)}.</p></div>${tradeScore(t)}`)}).join("");
   $("#pickPos").innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
@@ -1154,7 +1166,7 @@ function renderTrades(){
   $("#moveType").onchange=e=>{tType=e.target.value;showAll=false;renderTrades()};
   const match=t=>(tSeason==="all"||t.s==+tSeason)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
   const byDate=(a,b)=>a.d.localeCompare(b.d)||a.id-b.id;
-  const list=tType==="pickups"?[]:TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse();
+  const list=tType==="pickups"?[]:uniqT(TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse());
   const pk=tType==="trades"||tOwner==="unk"?[]:adds.filter(m=>(tSeason==="all"||m.y==+tSeason)&&(tOwner==="all"||m.o===tOwner)).slice().reverse();
   $("#tradeCount").textContent=[tType!=="pickups"?`${list.length} trade${list.length===1?"":"s"}`:"",tType!=="trades"?`${pk.length} pickup${pk.length===1?"":"s"}`:""].filter(Boolean).join(" · ");
   const cap=showAll?pk.length:100;
@@ -1194,7 +1206,14 @@ function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trade
   if(n.trades.length)bits.push(`And ${n.trades.length===1?"a trade that backfired":"trades that backfired"}:`);
   return `<div><p style="margin:0;max-width:65ch;font-size:.95rem"><span class="eyebrow" style="margin-right:6px">What went wrong</span>${bits.join(" ")}</p>${n.trades.length?`<div class="tboxes">${n.trades.map(t=>tradeBox(t.id,SACKOS[y].o)).join("")}</div>`:""}</div>`}
 
-function tradeBox(id,o){const t=TR.find(t=>t.id===id),x=MV.trades[id];if(!t||!x)return "";
+function triBox(g,o){const got=[],gave=[],with_=new Set();let d0;
+  g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;d0??=t.d;["a","b"].forEach(m=>{const op=m==="a"?"b":"a";if(t[m].o!==o)return;with_.add(t[op].o);got.push(...x[m].got);gave.push(...x[op].got)})});
+  const sum=l=>l.reduce((s,g)=>s+(g[3]||0),0),win=sum(got)>=sum(gave);
+  const list=(l,label)=>`<div><div class="eyebrow">${label}</div><ul>${l.length?l.map(g=>`<li><span>${esc(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(sum(l))}</span></div></div>`;
+  const d=new Date(d0+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">three-team trade with ${[...with_].map(x=>esc(short(x))).join(" and ")}</span></span><span class="res">${win?"Won":"Lost"} by ${fmt(Math.abs(sum(got)-sum(gave)))}</span></div>
+    <div class="tbox-sides">${list(got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(gave,"Gave")}</div>${lore(g[0])}</article>`}
+function tradeBox(id,o){if(TRI_OF[id])return triBox(TRI_OF[id],o);const t=TR.find(t=>t.id===id),x=MV.trades[id];if(!t||!x)return "";
   const me=t.a.o===o?"a":"b",op=me==="a"?"b":"a",win=x[me].par>=x[op].par;
   const d=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
   const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${esc(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(got.reduce((s,g)=>s+(g[3]||0),0))}</span></div></div>`;

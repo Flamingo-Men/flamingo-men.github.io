@@ -75,14 +75,19 @@ out['draft']=sorted([dict(o=o,score=round(sum(s for s,_ in v)/len(v),1),seasons=
 
 # ---- trading ----
 tr=collections.defaultdict(lambda:dict(net=0.0,n=0,won=0,best=None,worst=None,yrs=set()))
+TRI=[[138,139,140]]   # three-team trades stored as two-team legs (same as TRI in template.html); count each as one trade
+key=lambda tid:next((g[0] for g in TRI if tid in g),tid)
+per={}   # (trade key, owner) -> [net, got, year, other owners]
 for tid,x in MV['trades'].items():
     t=TR.get(int(tid))
     if not t or t['st']!='completed': continue
     for me,op in (('a','b'),('b','a')):
         o=t[me]['o']
         if not o: continue
-        d=x[me]['par']-x[op]['par'];r=tr[o];r['net']+=d;r['n']+=1;r['won']+=d>0;r['yrs'].add(t['s'])
-        item=[int(tid),round(d,1),t['s'],[g[0] for g in x[me]['got']][:3],t[op]['o']]
+        e=per.setdefault((key(int(tid)),o),[0.0,[],t['s'],[]]);e[0]+=x[me]['par']-x[op]['par'];e[1]+=[g[0] for g in x[me]['got']];e[3].append(t[op]['o'])
+for (tid,o),(d,got,y,ops) in per.items():
+        r=tr[o];r['net']+=d;r['n']+=1;r['won']+=d>0;r['yrs'].add(y)
+        item=[tid,round(d,1),y,got[:3],ops[0]]
         if not r['best'] or d>r['best'][1]: r['best']=item
         if not r['worst'] or d<r['worst'][1]: r['worst']=item
 out['trade']=sorted([dict(o=o,score=round(r['net'],1),n=r['n'],won=r['won'],avg=round(r['net']/r['n'],1),best=r['best'],worst=r['worst']) for o,r in tr.items() if r['n']>=5],key=lambda r:-r['score'])
