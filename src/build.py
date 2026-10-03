@@ -26,9 +26,9 @@ STATUS={22:('completed','Veto overturned by league vote')}   # Kyle: vetoed, the
 EARLY=[
  ('2016-10-05',('NYC Klugeys','kyle',['Julio Jones|WR','Jordan Reed|TE','Mark Ingram|RB']),('Little Bills','charles',['Calvin Johnson|WR','Marshawn Lynch|RB','Alshon Jeffery|WR'])),
  # Kyle, 2026-10-03: these three are legs of one three-team trade (Kyle, Fluff, Charles); the site groups them (TRI in template.html)
- ('2016-10-24',('Team Duffy','fluff',['Tyler Lockett|WR']),('NYC Klugeys','kyle',[])),
+ ('2016-10-24',('NYC Klugeys','kyle',['Tyler Lockett|WR']),('Team Duffy','fluff',['Jonathan Stewart|RB'])),
  ('2016-10-24',('Team Duffy','fluff',['Greg Olsen|TE']),('Little Bills','charles',['Coby Fleener|TE'])),
- ('2016-10-24',('NYC Klugeys','kyle',['Jonathan Stewart|RB']),('Little Bills','charles',['Jordan Reed|TE'])),
+ ('2016-10-24',('NYC Klugeys','kyle',[]),('Little Bills','charles',['Jordan Reed|TE'])),
  ('2016-11-03',('Team Duffy','fluff',['Amari Cooper|WR','Chiefs D/ST|D/ST']),('NYC Klugeys','kyle',['Terrance West|RB','Ravens D/ST|D/ST','Carson Palmer|QB','Stephen Gostkowski|K'])),
  ('2017-08-08',('Heaven Peanus','peanut',['Jameis Winston|QB']),('The Dominican DS','rod',['Andrew Luck|QB'])),
  ('2017-08-08',('The Brooklyn Noses','dilapi',['Justin Tucker|K']),('N Town Dolphins','kyle',['Wil Lutz|K','Mike Gillislee|RB'])),
