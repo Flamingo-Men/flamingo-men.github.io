@@ -246,6 +246,18 @@ details.fold:not([open])>summary{margin-bottom:0}
 .recgrid{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(160px,15vw,172px);gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:2px 2px 6px}
 .recgrid::-webkit-scrollbar{display:none}
 .recgrid .rec{scroll-snap-align:start}
+.retro{margin-top:28px;border:2px dashed var(--gold);border-radius:var(--r);padding:20px 18px;background:repeating-linear-gradient(0deg,transparent 0 27px,color-mix(in srgb,var(--gold) 12%,transparent) 27px 28px),color-mix(in srgb,var(--gold) 6%,var(--slab))}
+.retro h3{font-family:var(--f-data);font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:4px 0 2px}
+.retro .rule{font-family:var(--f-data);color:var(--muted);letter-spacing:.2em;overflow:hidden;white-space:nowrap;margin-bottom:10px}
+.retro ol{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.retro li{display:grid;grid-template-columns:auto auto 1fr;gap:10px;align-items:start}
+.retro li .n{font-family:var(--f-data);color:var(--gold);font-size:1.1rem;min-width:1.4em}
+.retro li b{font-family:var(--f-data);letter-spacing:.04em}
+.retro li p{margin:2px 0 0;font-size:.95rem}
+.retro .aside{font-style:italic;color:var(--muted);margin:2px 0;font-size:.92rem}
+.retro .ednote{margin-top:18px;border-left:4px solid var(--flamingo);background:var(--flamingo-soft);padding:12px 14px;border-radius:0 var(--r) var(--r) 0;font-size:.95rem}
+.retro .ednote .eyebrow{color:var(--flamingo)}
+.retro .stamp{display:inline-block;transform:rotate(-4deg);border:2px solid var(--bad);color:var(--bad);font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:1px 6px;margin-left:6px;vertical-align:middle}
 .recnav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:99px;border:1px solid var(--line);background:var(--slab);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:grid;place-items:center;padding:0 0 3px}
 .recnav.prev{left:-6px}.recnav.next{right:-6px}
 .recnav[disabled]{opacity:0;pointer-events:none}
@@ -583,6 +595,7 @@ footer small{color:#99a1b8}
   <div class="seg rkseg" id="rankSeg" role="group" aria-label="Ranking"></div>
   <p class="muted rkhow" id="rankHow"></p>
   <ol class="rklist" id="rankList"></ol>
+  <div id="rankRetro"></div>
 </div></section>
 
 <!-- CHAMPIONS -->
@@ -951,6 +964,24 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
   pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
   g.onscroll=upd;requestAnimationFrame(upd)}
 let rankKey="current";
+const RETRO=[
+ ["charles","Chuck","2 Time Champ, Enough said"],
+ ["squirm","Squirm","1 Finals appearance and 3 consecutive playoff appearances, Dismissed by most at first but his resume is quite impressive"],
+ ["fluff","Fluff","2 Playoff Appearances and in his absent year still maintained a 8-4 record, yet to reach the finals but is always a top tier contender"],
+ ["quincy","Quincy","2 playoff appearances but has a 5-7 season to his name, engineered a surprising comeback in the current season with the hospital on his back (FÜĆKCMC) and sent delapi to the sacko by 0.1 *cough* *cough* wonder women titties"],
+ ["skelly","Skelly","1 playoff appearance but has become a major competitor in this league, Impressive start to the current season but no manager could patch the hole Derrick Henry left, but falls lower on this list due to his choke in the playoffs against peanut and has a 6-6 season to his name"],
+ ["peanut","Peanut","1 Finals appearance that carries him atop this list other then that 6-6 miracle season he had a lackluster 3-9 season but came through in the sacko playoffs to save his legacy, in the current season missed the playoffs choking in end with his fate in his own hands. His win over skelly in the playoffs of last year needs to be respected though"],
+ ["dilapi","Delapi","1 Playoff Appearance off the back of Cruz’s lack of chromosomes but said appearance comes with a impressive 10-2 record so his position on this list could be a cold take, this accomplishment puts him over the other 3 below him on this list but his 2 sacko losses can not be forgotten"],
+ "This part of the list I go based off all time record because there is nothing else to base it off and non of these players have won a sacko",
+ ["mateus","Cruz/Mateus","Two 4-8 seasons under split management with a all time record of 14-22 puts him above the others"],
+ ["kyle","Kyle","Holds a All Time record of 12-24 with numerous historical losses, always talks shit but has never backed it up in the history of the league, possesses the worst record in league history at 1-11"],
+ ["lucas","Lucas","Uncle Don owns a All Time Record of 10-26 putting him at the bottom of this list, he is Kyles true competitor at who is the worst in the league at fantasy possessing the second worst record ever at 3-10, This would just be a tie at 3-9 if not for the extra week added to the season but he has the extra loss so it must apply"]];
+function retroHTML(){
+  const q=(RANK.alltime||[]).find(r=>r.o==="quincy"),qi=(RANK.alltime||[]).findIndex(r=>r.o==="quincy")+1,n=(RANK.alltime||[]).length;
+  const k=Object.values(CHAMPS).filter(c=>c.o==="kyle").length,qs=Object.entries(SACKOS).filter(([y,c])=>c.o==="quincy").map(([y])=>y);
+  let i=0;
+  return `<section class="retro"><div class="eyebrow">From the archives</div><h3>Flamingo Men All time rankings 2019-Pre 2021 Playoffs</h3><div class="rule">————————————————————————————————————————</div><ol>${RETRO.map(e=>typeof e==="string"?`<li style="display:block"><p class="aside">${esc(e)}</p></li>`:`<li><span class="n">${++i}</span>${av(e[0])}<div><b>${esc(e[1])}</b>${e[0]==="quincy"?'<span class="stamp">Aged poorly</span>':""}<p>${esc(e[2])}</p></div></li>`).join("")}</ol>
+  ${q?`<div class="ednote"><div class="eyebrow">Editor's note, 2026</div>Nobody on this list has aged worse than Quincy. Ranked 4th here, he has since added zero titles, zero finals and a second Sacko (${qs.join(" and ")}), and now sits ${qi}th of ${n} in the real all-time rankings above at ${q.rec}. Kyle, who this list calls the second-worst manager in the league, has ${k} titles. Quincy is still waiting on his first finals appearance, and at this point so is the hospital he was carrying on his back.</div>`:""}</section>`}
 function renderRankings(){
   const R=RANK,sg=(n,v)=>(v>0?"+":"")+fmt(v);
   const B={
@@ -968,7 +999,8 @@ function renderRankings(){
   $("#rankSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;rankKey=b.dataset.k;renderRankings()};
   const b=B[rankKey],mx=Math.max(...b.rows.map(r=>Math.abs(r.score)),1);
   $("#rankHow").textContent=b.how;
-  $("#rankList").innerHTML=b.rows.length?b.rows.map((r,i)=>`<li class="rk"><span class="n">${i+1}</span>${av(r.o)}<div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3><div class="bar${r.score<0?" neg":""}"><i style="width:${Math.max(2,Math.abs(r.score)/mx*100)}%"></i></div><div class="meta">${b.meta(r)}</div></div><div class="sc">${b.signed?sg(0,r.score):fmt(r.score)}<small>${b.unit}</small></div></li>`).join(""):`<li class="muted">No data yet.</li>`}
+  $("#rankList").innerHTML=b.rows.length?b.rows.map((r,i)=>`<li class="rk"><span class="n">${i+1}</span>${av(r.o)}<div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3><div class="bar${r.score<0?" neg":""}"><i style="width:${Math.max(2,Math.abs(r.score)/mx*100)}%"></i></div><div class="meta">${b.meta(r)}</div></div><div class="sc">${b.signed?sg(0,r.score):fmt(r.score)}<small>${b.unit}</small></div></li>`).join(""):`<li class="muted">No data yet.</li>`;
+  $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
   $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
