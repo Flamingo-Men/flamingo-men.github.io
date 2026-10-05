@@ -38,7 +38,7 @@ def players(y):
         if not pos: continue
         tot=None;wk={}
         for s in p.get('stats',[]):
-            if s['seasonId']!=y or s['statSourceId']!=0: continue
+            if s['seasonId']!=y or s['statSourceId']!=0 or 'stats' not in s: continue
             if s['statSplitTypeId']==0 and s['scoringPeriodId']==0: tot=ppr(s['stats'],rec)
             elif s['statSplitTypeId']==1 and s['scoringPeriodId']>0: wk[s['scoringPeriodId']]=ppr(s['stats'],rec)
         if not p.get('fullName') or ' vs. ' in p['fullName']: continue
