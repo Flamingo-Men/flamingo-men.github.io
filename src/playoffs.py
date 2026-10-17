@@ -16,7 +16,7 @@ def load(y):
             if 'schedule' in d: return d
     f=os.path.join(CACHE,f'sched_{y}.json')
     s2,sw=os.environ.get('ESPN_S2',''),os.environ.get('ESPN_SWID','')
-    subprocess.run(['curl','-sS','-o',f,f'{B}/seasons/{y}/segments/0/leagues/{LEAGUE[y]}?view=mMatchupScore&view=mTeam&view=mSettings','-H',f'Cookie: espn_s2={s2}; SWID={sw}'],check=True)
+    subprocess.run(['curl','-sS','-o',f,f'{B}/seasons/{y}/segments/0/leagues/{LEAGUE[y]}?view=mMatchupScore&view=mTeam&view=mSettings','-H','Cookie: '+'; '.join([f'espn_s2={s2}']+([f'SWID={sw}'] if sw else []))],check=True)
     return json.load(open(f))
 out={}
 for y in LEAGUE:

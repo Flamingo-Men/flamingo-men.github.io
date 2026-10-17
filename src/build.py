@@ -48,10 +48,18 @@ EARLY=[
  ('2018-11-09', ('Dilapi aint Makingthe yoffs', 'kyle', ['Todd Gurley II|RB']), ('The Sal Claps On Planes', 'charles', ['Nick Chubb|RB'])),
  ('2018-11-15', ('The Sal Claps On Planes', 'charles', ['Sony Michel|RB', 'Phillip Lindsay|RB']), ('Dilapi aint Makingthe yoffs', 'kyle', [])),
  ('2018-11-22', ('Hempstead Cummings', 'peanut', ['Saquon Barkley|RB']), ('The Sal Claps On Planes', 'charles', ['Todd Gurley II|RB'])),
+ # always append new trades here: site text refers to trades by id, so ids must not shift
+ # 2026 trades from ESPN's transaction log (pulled 2026-10-17); optional 4th/5th items are status and flag
+ ('2026-09-25',('THE MONGLERS','kyle',['Trey McBride|TE','Garrett Wilson|WR','Christian Watson|WR','Omarion Hampton|RB','Jonathan Taylor|RB']),("Sal's 4 Chickens",'charles',['Kenyon Sadiq|TE']),'vetoed'),
+ ('2026-10-01',('THE MONGLERS','kyle',['Ravens D/ST|D/ST']),("Sal's 4 Chickens",'charles',['Jadarian Price|RB','Packers D/ST|D/ST'])),
+ ('2026-10-13',('THE MONGLERS','kyle',['Omarion Hampton|RB','Jacory Croskey-Merritt|RB']),("Quincy Jonesin' for a TD",'quincy',['Josh Downs|WR','Bhayshul Tuten|RB']),'completed','Four veto votes; it went through'),
 ]
-for d,(ta,oa,ga),(tb,ob,gb) in EARLY:
-    league['trades'].append(dict(id=len(league['trades']),d=d,s=int(d[:4]),st='completed',a=dict(team=ta,o=oa,gave=ga),b=dict(team=tb,o=ob,gave=gb)))
-flags={}
+EFLAG={}
+for e in EARLY:
+    d,(ta,oa,ga),(tb,ob,gb)=e[:3]
+    league['trades'].append(dict(id=len(league['trades']),d=d,s=int(d[:4]),st=e[3] if len(e)>3 else 'completed',a=dict(team=ta,o=oa,gave=ga),b=dict(team=tb,o=ob,gave=gb)))
+    if len(e)>4: EFLAG[league['trades'][-1]['id']]=e[4]
+flags=dict(EFLAG)
 for tr in league['trades']:
     for s in (tr['a'],tr['b']):
         if s['team'] in TEAM_OWNER: s['o']=TEAM_OWNER[s['team']]

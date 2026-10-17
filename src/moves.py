@@ -17,9 +17,9 @@ SLOT={0:'QB',2:'RB',4:'WR',6:'TE',16:'D/ST',17:'K',23:'FLX',20:'BE',21:'IR'}
 def get(path,name,hdr=None):
     f=os.path.join(CACHE,name)
     if not os.path.exists(f):
-        cmd=['curl','-sS','-o',f,B+path]+(['-H',hdr] if hdr else [])
+        cmd=['curl','-fsS','-o',f,B+path]+(['-H',hdr] if hdr else [])
         s2,sw=os.environ.get('ESPN_S2',''),os.environ.get('ESPN_SWID','')
-        if s2.startswith('AE') and sw.startswith('{'): cmd+=['-H',f'Cookie: espn_s2={s2}; SWID={sw}']
+        if s2: cmd+=['-H','Cookie: '+'; '.join([f'espn_s2={s2}']+([f'SWID={sw}'] if sw else []))]   # espn_s2 alone is enough
         subprocess.run(cmd,check=True)
     return json.load(open(f))
 
@@ -200,7 +200,7 @@ def main():
     league=json.load(open(os.path.join(root,'data','league.json')))
     # build.py adds the 2016/2017/2026 trades from emails; reuse its list so trade ids match the site
     ns={'league':league};src=open(os.path.join(here,'build.py')).read()
-    exec(src[src.index('TEAM_OWNER='):src.index('flags={}')],ns)
+    exec(src[src.index('TEAM_OWNER='):src.index('flags=dict(EFLAG)')],ns)
     trades=league['trades']
     for tr in trades:
         for s in (tr['a'],tr['b']):
