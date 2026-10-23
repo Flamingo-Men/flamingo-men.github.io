@@ -583,6 +583,7 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
   <p>Regular season records and points from the league stats sheet, 2016 to 2025, plus completed trades from the 2016, 2017 and 2019 to 2025 emails. Click a column to sort.</p></div>
   <div class="tablebox"><table id="allTime"></table></div>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled so the first pick is 0 and the last pick is 10 (works for 8, 10 and 12-team years). Hover a value to see each year.</p>
   <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Played in 2016 or 2017, but that season's record wasn't saved, so it counts as a season and nothing else. The only 2016 and 2017 records on file are Charles's 2016 (12-1), and Kyle's and Jack's 2017.</p>
   <div class="block">
     <div class="block-head"><h2>Season standings</h2>
@@ -1082,16 +1083,19 @@ function renderTopRosters(){
 
 /* ---------- STATS ---------- */
 let sortKey="titles",sortDir=-1,seasonSel=2025;
+// first-round slot on each draft board, scaled so the first pick is 0 and the last is 10 (8, 10 and 12-team years)
+function draftSpot(o){const l=Object.entries(DRAFTS).map(([y,D])=>{const c=D.teams.findIndex(t=>t[1]===o);return c<0?null:[y,c+1,D.teams.length]}).filter(Boolean);
+  return l.length?{dspot:l.reduce((a,[,c,n])=>a+(c-1)/(n-1)*10,0)/l.length,dn:l.length,dlist:l.map(([y,c])=>`${y} #${c}`).join(", ")}:{dspot:null,dn:0}}
 function renderStats(){
-  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["trades","Trades"]];
-  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o)}));
+  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["trades","Trades"],["dspot","Avg draft spot"]];
+  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o),...draftSpot(o)}));
   rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
   $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
    <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span>${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span></div></td>
      <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
      <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
-     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num">${r.trades||"–"}</td></tr>`).join("")}</tbody>`;
-  $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"?1:-1);sortKey=k;renderStats()};
+     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num">${r.trades||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
+  $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"||k==="dspot"?1:-1);sortKey=k;renderStats()};
   $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
   const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
