@@ -103,7 +103,12 @@ for m in MV['moves']:
 for m in MV['moves']:
     if m.get('add') and m['y']<2026 and m['o']: wv[m['o']]['n']+=1; wv[m['o']]['yrs'].add(m['y'])
 out['waiver']=sorted([dict(o=o,score=round(r['val']/len(r['yrs']),1),seasons=len(r['yrs']),total=round(r['val'],1),adds=r['n'],hits=r['hits'],best=r['best']) for o,r in wv.items() if len(r['yrs'])>=3],key=lambda r:-r['score'])
+# trader, waiver and drafter rankings come from skill.py (lineup impact, luck vs skill, uncertainty) when it has been run
+if os.path.exists(D('data','skill.json')):
+    SK=json.load(open(D('data','skill.json')))
+    for k in ('trade','waiver','draft'): out[k]=SK[k];out[k+'Info']=SK[k+'Info']
 json.dump(out,open(D('data','rankings.json'),'w'),separators=(',',':'))
 for k,v in out.items():
+    if k.endswith('Info'): continue
     rr=v['rows'] if isinstance(v,dict) else v
     print(k,[(r['o'],r['score']) for r in rr])
