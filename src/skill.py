@@ -6,6 +6,8 @@
 #   Scored two ways and averaged: with what players actually scored (results) and with ESPN's projection for the week of
 #   the trade times the weeks left (the decision, judged on what was known at the time). Bench depth that would never
 #   start adds nothing, so 3-for-1 consolidation trades aren't punished for the depth they give up.
+#   Each trade is capped at the league's 10th/90th percentile so one freak deal can't define a trader, and the score is the
+#   shrunk per-trade edge times the square root of trade count (volume counts, but less than quality).
 # Waivers (2018-2025): points over a replacement starter from pickups while they were in the lineup, per season,
 #   measured against that season's league average.
 # Drafts (2016-2025): every QB/RB/WR/TE pick's season value over replacement, as a percentile against picks taken
@@ -102,7 +104,19 @@ def trade_extra(o):
     l=TD[o];b=max(l,key=lambda x:x[1]);w=min(l,key=lambda x:x[1])
     return dict(real=round(st.mean(x[5] for x in l),1),proj=round(st.mean(x[6] for x in l),1),won=sum(x[1]>0 for x in l),best=b,worst=w)
 out={}
-out['trade'],out['tradeInfo']=ranked(TV,5,trade_extra)
+# One freak trade (a star tearing an ACL the next week) shouldn't define a trader: every trade is capped at the league's
+# 10th and 90th percentile. Each owner's average is then shrunk toward the league average as if he had made 10 more
+# average trades, and the score multiplies that per-trade edge by the square root of his trade count, so a good trader
+# who deals often ranks above one with a couple of lucky deals, without volume swamping quality.
+allv=sorted(x for v in TV.values() for x in v);CAP=(allv[int(.1*(len(allv)-1))],allv[int(.9*(len(allv)-1))])
+TW={o:[min(CAP[1],max(CAP[0],x)) for x in v] for o,v in TV.items()};TG=st.mean(x for v in TW.values() for x in v);TK=10
+rows=[]
+for o,v in TW.items():
+    if len(v)<5: continue
+    n=len(v);per=(st.mean(v)-TG)*n/(n+TK);lo,hi=boot(v)
+    rows.append(dict(o=o,score=round(per*n**.5,1),per=round(per,1),raw=round(st.mean(v)-TG,1),lo=round(lo-TG,1),hi=round(hi-TG,1),n=n,
+                     capped=sum(x!=y for x,y in zip(v,TV[o])),**trade_extra(o)))
+out['trade']=sorted(rows,key=lambda r:-r['score']);out['tradeInfo']=dict(mean=round(TG,1),k=TK,cap=[round(c,1) for c in CAP])
 
 # ---- waivers ----
 WS=collections.defaultdict(lambda:collections.defaultdict(float));seasons=collections.defaultdict(set);adds=collections.Counter();hits=collections.Counter();bestp={}
