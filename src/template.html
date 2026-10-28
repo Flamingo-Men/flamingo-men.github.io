@@ -583,7 +583,7 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
   <p>Regular season records and points from the league stats sheet, 2016 to 2025, plus completed trades from the 2016, 2017 and 2019 to 2025 emails. Click a column to sort.</p></div>
   <div class="tablebox"><table id="allTime"></table></div>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs). Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
   <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Played in 2016 or 2017, but that season's record wasn't saved, so it counts as a season and nothing else. The only 2016 and 2017 records on file are Charles's 2016 (12-1), and Kyle's and Jack's 2017.</p>
   <div class="block">
     <div class="block-head"><h2>Season standings</h2>
@@ -1027,6 +1027,10 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
     card("Closest game",fmt(R.closest.m),[R.closest],`${fmt(R.closest.p)} to ${fmt(R.closest.vsp)} over ${esc(short(R.closest.vs))}, ${wk(R.closest.y,R.closest.w)}`),
     card("Longest win streak",R.winStreak.n,[R.winStreak],`Regular-season games, ${wk(...R.winStreak.start)} to ${wk(...R.winStreak.end)}`),
     card("Longest losing streak",R.loseStreak.n,[R.loseStreak],`Regular-season games, ${wk(...R.loseStreak.start)} to ${wk(...R.loseStreak.end)}`),
+    (()=>{const PL=RANK.playoffs||{},a=Object.entries(PL).filter(([o])=>OWNERS[o]).map(([o,r])=>({o,...r}));const d=top(a,x=>x.drought),yr=x=>x.dfrom===x.dto?`${x.dfrom}`:`${x.dfrom} to ${String(x.dto).slice(2)}`;
+      return card("Longest playoff drought",`${d[0].drought} seasons`,d,d.map(x=>`${short(x.o)} ${yr(x)}${x.cur===x.drought?(x.po?" (still going)":" (never made it)"):""}`).join("; ")+(d.some(x=>x.dto-x.dfrom+1>x.drought)?". Seasons sat out don't count":""))})(),
+    (()=>{const PL=RANK.playoffs||{},a=Object.entries(PL).filter(([o])=>OWNERS[o]).map(([o,r])=>({o,...r}));const m=top(a,x=>x.po);
+      return card("Most playoff trips",m[0].po,m,m.map(x=>`${x.po} of ${x.seasons} seasons`).join("; "))})(),
     card("Best player week",fmt(R.player.p),[R.player],`${pn(R.player.n)} (${R.player.pos}) for ${tn(R.player)}, ${wk(R.player.y,R.player.w)}`),
     card("Most points in a loss",fmt(R.unluckiest.p),[R.unluckiest],`Lost to ${esc(short(R.unluckiest.vs))}'s ${fmt(R.unluckiest.vsp)}, ${wk(R.unluckiest.y,R.unluckiest.w)}`),
     card("Most points left on the bench",fmt(R.bench.bench),[R.bench],`${tn(R.bench)}, ${wk(R.bench.y,R.bench.w)}`),
@@ -1087,14 +1091,14 @@ let sortKey="titles",sortDir=-1,seasonSel=2025;
 function draftSpot(o){const l=Object.entries(DRAFTS).map(([y,D])=>{const c=D.teams.findIndex(t=>t[1]===o);return c<0?null:[y,c+1,D.teams.length]}).filter(Boolean);
   return l.length?{dspot:l.reduce((a,[,c,n])=>a+c/n*10,0)/l.length,dn:l.length,dlist:l.map(([y,c])=>`${y} #${c}`).join(", ")}:{dspot:null,dn:0}}
 function renderStats(){
-  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["trades","Trades"],["dspot","Avg draft spot"]];
-  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o),...draftSpot(o)}));
+  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["po","Playoffs"],["trades","Trades"],["dspot","Avg draft spot"]];
+  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o),...draftSpot(o),po:RANK.playoffs?.[o]?.po??null,poOf:RANK.playoffs?.[o]?.seasons}));
   rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
   $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
    <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span>${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span></div></td>
      <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
      <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
-     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num">${r.trades||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
+     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num" title="${r.po!=null?`${r.po} playoff trips in ${r.poOf} seasons, 2016 to 2025`:""}">${r.po!=null?r.po:"–"}</td><td class="num">${r.trades||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
   $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"||k==="dspot"?1:-1);sortKey=k;renderStats()};
   $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};

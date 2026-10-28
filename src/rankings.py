@@ -107,8 +107,19 @@ out['waiver']=sorted([dict(o=o,score=round(r['val']/len(r['yrs']),1),seasons=len
 if os.path.exists(D('data','skill.json')):
     SK=json.load(open(D('data','skill.json')))
     for k in ('trade','waiver','draft'): out[k]=SK[k];out[k+'Info']=SK[k+'Info']
+# ---- playoff appearances and droughts, 2016-2025 (seasons an owner sat out are skipped, not counted) ----
+pl={}
+for o,v in S.items():
+    seas=[y for y in range(2016,2026) if str(y) in v['seasons'] or o in DRAFT_YEARS.get(y,())]
+    if not seas: continue
+    made=[y for y in seas if o in PLAYOFF.get(y,())];run=[];best=[]
+    for y in seas:
+        run=[] if y in made else run+[y]
+        if len(run)>len(best): best=list(run)
+    pl[o]=dict(po=len(made),seasons=len(seas),years=made,drought=len(best),dfrom=best[0] if best else None,dto=best[-1] if best else None,cur=len(run),last=made[-1] if made else None)
+out['playoffs']=pl
 json.dump(out,open(D('data','rankings.json'),'w'),separators=(',',':'))
 for k,v in out.items():
-    if k.endswith('Info'): continue
+    if k.endswith('Info') or k=='playoffs': continue
     rr=v['rows'] if isinstance(v,dict) else v
     print(k,[(r['o'],r['score']) for r in rr])
