@@ -161,7 +161,7 @@ for y in range(2018,2027):
 
 # 2016 and 2017: no weekly results saved
 MAN={2016:{'charles':"Charles went 12-1 with a super team and beat Peanut in the first round, then lost the two-week final to Duane, 242 to 190.",
-           'duane':"The Emmustangs went 7-6, then beat Squirm in the first round and then Charles in the two-week final, 242 to 190, to win the first title.",
+           'duane':"The Emmustangs went 7-6, beat Squirm in the first round, then beat Charles in the two-week final, 242 to 190, to win the first title.",
            'peanut':"Made the playoffs and lost to Charles in the first round.",'squirm':"Made the playoffs and lost to Duane in the first round.",
            'fluff':"Finished last and took the league's first Sacko."},
      2017:{'kyle':"The NYC Klugeys went 10-2, beat Charles in the first round and won the title.",'charles':"Made the playoffs and lost to Kyle in the first round.",
