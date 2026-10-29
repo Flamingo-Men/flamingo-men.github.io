@@ -53,6 +53,10 @@ EARLY=[
  ('2026-09-25',('THE MONGLERS','kyle',['Trey McBride|TE','Garrett Wilson|WR','Christian Watson|WR','Omarion Hampton|RB','Jonathan Taylor|RB']),("Sal's 4 Chickens",'charles',['Kenyon Sadiq|TE']),'vetoed'),
  ('2026-10-01',('THE MONGLERS','kyle',['Ravens D/ST|D/ST']),("Sal's 4 Chickens",'charles',['Jadarian Price|RB','Packers D/ST|D/ST'])),
  ('2026-10-13',('THE MONGLERS','kyle',['Omarion Hampton|RB','Jacory Croskey-Merritt|RB']),("Quincy Jonesin' for a TD",'quincy',['Josh Downs|WR','Bhayshul Tuten|RB']),'completed','Four veto votes; it went through'),
+('2026-10-20',('THE MONGLERS','kyle',['Jordan Love|QB']),('Chicago Tiddysquashers','jerry',['Khalil Shakir|WR'])),
+('2026-10-20',('Galaxy Liberators','jordan',['DJ Moore|WR']),('Chicago Tiddysquashers','jerry',['Jordan Love|QB','Jameson Williams|WR'])),
+('2026-10-22',('THE MONGLERS','kyle',['Tyjae Spears|RB','Garrett Wilson|WR']),("Vick's Vet Clinic",'ghost',['Aaron Jones Sr.|RB','Jalen Coker|WR'])),
+('2026-10-27',('Galaxy Liberators','jordan',['Amon-Ra St. Brown|WR']),('New York Noses','dilapi',['Ashton Jeanty|RB','Omar Cooper Jr.|WR','Bucky Irving|RB'])),
 ]
 EFLAG={}
 for e in EARLY:
