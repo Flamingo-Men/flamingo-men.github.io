@@ -7,6 +7,8 @@ league=json.load(open(os.path.join(root,'data','league.json')))
 league['stats']['charles']['seasons'].setdefault('2016',dict(w=12,l=1,pts=None))
 # Kyle, 2026-10-29: Duane went 7-6 in 2016, the year he won
 league['stats']['duane']['seasons'].setdefault('2016',dict(w=7,l=6,pts=None))
+# Kyle, 2026-10-30: his own 2016 ESPN team page shows 6-7, 7th of 8
+league['stats']['kyle']['seasons'].setdefault('2016',dict(w=6,l=7,pts=None))
 
 # Team name -> owner, from Kyle (2026-09-28) or by elimination against the stats sheet
 TEAM_OWNER={

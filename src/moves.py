@@ -277,6 +277,7 @@ def main():
     for y,v in CH.items(): SNAP[y][champs[y]]=(v['rosterNote'],v['roster'])
     for y,v in SK.items(): SNAP[y][sackos[y]]=(v['rosterNote'],v['roster'])
     SNAP[2016]['charles']=('Week 17 roster from a screenshot of Little Bills.',[['QB','Philip Rivers'],['RB',"Le'Veon Bell"],['RB','LeSean McCoy'],['WR','Antonio Brown'],['WR','Julio Jones'],['TE','Greg Olsen'],['FLX','Melvin Gordon'],['BE','A.J. Green'],['BE','Mike Evans'],['BE','Carlos Hyde'],['BE','Mark Ingram'],['BE','Jameis Winston'],['BE','Jordan Howard'],['BE','Michael Thomas'],['BE','Seahawks']])
+    SNAP[2016]['kyle']=('Week 17 roster from a screenshot of The Salty Andres.',[['QB','Tom Brady'],['RB','Devonta Freeman'],['RB','Spencer Ware'],['WR','Amari Cooper'],['WR','Doug Baldwin'],['TE','Martellus Bennett'],['FLX','Kenny Britt'],['D/ST','Chiefs'],['K','Matt Bryant'],['BE','Jordan Reed'],['BE','Dak Prescott'],['BE','Tyrell Williams'],['BE','Thomas Rawls'],['BE','A.J. Green'],['BE','Mike Wallace'],['BE','Darren Sproles']])
     SNAP[2017]['charles']=('Week 3 roster from the Sensitive Lesbians box score.',[['QB','Marcus Mariota'],['RB','Ezekiel Elliott'],['RB','Kareem Hunt'],['WR','Demaryius Thomas'],['WR','Golden Tate'],['TE','Delanie Walker'],['FLX','Jay Ajayi'],['D/ST','Dolphins'],['K','Jake Elliott'],['BE','DeMarco Murray'],['BE','Joe Mixon'],['BE','Pierre Garcon'],['BE','Doug Martin'],['BE','Andrew Luck'],['BE','Javorius Allen'],['BE','T.Y. Hilton']])
     for y,snaps in SNAP.items():
         if y in E: continue
