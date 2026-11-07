@@ -61,6 +61,8 @@ EARLY=[
 ('2026-10-20',('Galaxy Liberators','jordan',['DJ Moore|WR']),('Chicago Tiddysquashers','jerry',['Jordan Love|QB','Jameson Williams|WR'])),
 ('2026-10-22',('THE MONGLERS','kyle',['Tyjae Spears|RB','Garrett Wilson|WR']),("Vick's Vet Clinic",'ghost',['Aaron Jones Sr.|RB','Jalen Coker|WR'])),
 ('2026-10-27',('Galaxy Liberators','jordan',['Amon-Ra St. Brown|WR']),('New York Noses','dilapi',['Ashton Jeanty|RB','Omar Cooper Jr.|WR','Bucky Irving|RB'])),
+# 2026-11-07 refresh: ESPN shows only the accept and uphold; players inferred from roster changes since week 8
+('2026-11-06',('#dicksoutfor Dolan','squirm',['Rico Dowdle|RB']),("Sal's 4 Chickens",'charles',['Dylan Sampson|RB'])),
 ]
 EFLAG={}
 for e in EARLY:

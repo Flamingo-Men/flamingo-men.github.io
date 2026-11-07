@@ -20,24 +20,72 @@ for y in range(2016,2026):
 out={}
 norm=lambda vals:(lambda lo,hi:{k:(v-lo)/(hi-lo) if hi>lo else .5 for k,v in vals.items()})(min(vals.values()),max(vals.values()))
 
-# ---- current power ranking (2026, completed weeks only) ----
+# ---- current power ranking (2026): playoff odds + current roster strength (Kyle, 2026-11-06) ----
+# Usage: python3 rankings.py [CACHE_DIR]. Needs CACHE_DIR's full_2026.json (rosters) and newest box_2026_N.json (schedule).
+import sys,random,statistics as st,glob
 W=json.load(open(D('data','weeks','2026.json')));T=W['teams'];cur=W.get('cur') or 99
 done=[w for w in W['weeks'] if int(w)<cur]
-rec=collections.defaultdict(lambda:dict(w=0,l=0,pf=0.0,ap_w=0,ap_l=0,last=[]))
+rec=collections.defaultdict(lambda:dict(w=0,l=0,pf=0.0,last=[]))
 for w in sorted(done,key=int):
-    scores=[]
     for g in W['weeks'][w]:
         if g['tier']: continue
         for me,op in ((g['a'],g['b']),(g['b'],g['a'])):
             o=T[str(me['t'])][0];r=rec[o];r['pf']+=me['p'];r['last'].append(me['p'])
-            r['w' if me['p']>op['p'] else 'l']+=1;scores.append((o,me['p']))
-    for o,p in scores:
-        rec[o]['ap_w']+=sum(1 for x,q in scores if x!=o and p>q);rec[o]['ap_l']+=sum(1 for x,q in scores if x!=o and p<q)
-if rec:
-    wp={o:r['w']/max(1,r['w']+r['l']) for o,r in rec.items()};ap={o:r['ap_w']/max(1,r['ap_w']+r['ap_l']) for o,r in rec.items()}
-    pf=norm({o:r['pf'] for o,r in rec.items()});rc=norm({o:r['last'][-1] for o,r in rec.items()})
-    sc={o:round(100*(.3*wp[o]+.35*ap[o]+.2*pf[o]+.15*rc[o]),1) for o in rec}
-    out['current']=dict(weeks=len(done),rows=[dict(o=o,score=sc[o],team=next(v[1] for v in T.values() if v[0]==o),rec=f"{r['w']}-{r['l']}",pf=round(r['pf'],2),ap=f"{r['ap_w']}-{r['ap_l']}",lastw=round(r['last'][-1],2)) for o,r in sorted(rec.items(),key=lambda x:-sc[x[0]])])
+            r['w' if me['p']>op['p'] else 'l']+=1
+CACHE=sys.argv[1] if len(sys.argv)>1 else None
+if rec and CACHE:
+    full=json.load(open(os.path.join(CACHE,'full_2026.json')))
+    boxes=sorted(glob.glob(os.path.join(CACHE,'box_2026_*.json')),key=lambda f:int(f.rsplit('_',1)[1][:-5]))
+    sched=json.load(open(boxes[-1]))['schedule']
+    owner={int(k):v[0] for k,v in T.items()}
+    div={t['id']:t.get('divisionId',0) for t in full['teams']}
+    POS={1:'QB',2:'RB',3:'WR',4:'TE',5:'K',16:'D/ST'}
+    def val(p,inj):
+        a=pr=None
+        for x in p.get('stats',[]):
+            if x.get('seasonId')==2026 and x.get('scoringPeriodId')==0 and x.get('statSplitTypeId')==0:
+                if x.get('statSourceId')==0 and x.get('appliedAverage') is not None and x.get('appliedTotal',0)>0: a=x['appliedAverage']
+                if x.get('statSourceId')==1 and x.get('appliedAverage') is not None: pr=x['appliedAverage']
+        v=(a+pr)/2 if a is not None and pr is not None else (pr if pr is not None else (a or 0))
+        if inj in('INJURY_RESERVE','SUSPENSION'): v=0
+        elif inj=='OUT': v*=.5
+        return v
+    strength={};lineup={}
+    for t in full['teams']:
+        by=collections.defaultdict(list)
+        for e in t.get('roster',{}).get('entries',[]):
+            p=e['playerPoolEntry']['player'];pos=POS.get(p['defaultPositionId'])
+            if pos: by[pos].append((val(p,p.get('injuryStatus') or e.get('injuryStatus')),p['fullName'],pos))
+        for k in by: by[k].sort(reverse=True)
+        pick=by['QB'][:1]+by['RB'][:2]+by['WR'][:2]+by['TE'][:1]+by['K'][:1]+by['D/ST'][:1]
+        flex=sorted(by['RB'][2:]+by['WR'][2:]+by['TE'][1:],reverse=True)[:2]
+        pick+=flex;o=owner[t['id']]
+        strength[o]=sum(x[0] for x in pick);lineup[o]=[x[1] for x in sorted(pick,reverse=True)[:3]]
+    # each sim game: mean blends roster strength (60%) with points per game so far (40%); spread from this season's scores
+    avg={o:r['pf']/max(1,len(r['last'])) for o,r in rec.items()}
+    mu={o:.6*strength[o]+.4*avg[o] for o in rec}
+    sd=st.pstdev([p-avg[o] for o,r in rec.items() for p in r['last']]) or 25
+    REG=full['settings']['scheduleSettings'].get('matchupPeriodCount',14)
+    left=[(m['home']['teamId'],m['away']['teamId']) for m in sched if m['matchupPeriodId']>=cur and m['matchupPeriodId']<=REG and m.get('away')]
+    random.seed(2026);N=20000;made=collections.Counter()
+    for _ in range(N):
+        w={o:r['w'] for o,r in rec.items()};pf={o:r['pf'] for o,r in rec.items()}
+        for h,a in left:
+            oh,oa=owner[h],owner[a];ph=random.gauss(mu[oh],sd);pa=random.gauss(mu[oa],sd)
+            pf[oh]+=ph;pf[oa]+=pa;w[oh if ph>pa else oa]+=1
+        key=lambda o:(w[o],pf[o])
+        ids={owner[k]:k for k in owner}
+        dw=[max((o for o in rec if div[ids[o]]==d),key=key) for d in (0,1)]
+        rest=sorted((o for o in rec if o not in dw),key=key,reverse=True)[:4]
+        for o in dw+rest: made[o]+=1
+    odds={o:100*made[o]/N for o in rec}
+    rs=norm(strength)
+    sc={o:round(.5*odds[o]+50*rs[o],1) for o in rec}
+    out['current']=dict(weeks=len(done),left=len({m['matchupPeriodId'] for m in sched if cur<=m['matchupPeriodId']<=REG}),rows=[dict(o=o,score=sc[o],team=next(v[1] for v in T.values() if v[0]==o),rec=f"{r['w']}-{r['l']}",pf=round(r['pf'],2),odds=round(odds[o],1),str=round(strength[o],1),top=lineup[o]) for o,r in sorted(rec.items(),key=lambda x:-sc[x[0]])])
+elif rec: print('rankings.py: no CACHE_DIR given, 2026 power ranking not rebuilt')
+if 'current' not in out:
+    try: out['current']=json.load(open(D('data','rankings.json')))['current']
+    except Exception: pass
 
 # ---- all-time power ranking ----
 rows={}
