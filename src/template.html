@@ -80,6 +80,19 @@ section.hall.on{display:block}
 .tile h3{font-size:1.4rem}
 .tile p{margin:0;color:var(--muted);font-size:.95rem}
 .block{margin-top:44px}
+.story-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:12px}
+.story{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px;align-content:start}
+.story.motw{border-color:var(--gold);border-top:3px solid var(--gold)}
+.story .tag.motw{background:var(--gold);color:#15203b}
+.story-vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:center}
+.story-vs .tm{display:flex;align-items:center;gap:8px;min-width:0}
+.story-vs .tm>div{min-width:0}
+.story-vs .tm.r{flex-direction:row-reverse;text-align:right}
+.story-vs .av{width:40px;height:40px;font-size:.9rem;border-width:1px}
+.story-vs b{display:block;font-size:.92rem;overflow-wrap:break-word;hyphens:auto}
+.story-vs small{font-family:var(--f-data);font-size:.72rem;color:var(--muted)}
+.story-vs .v{font-family:var(--f-display);color:var(--gold)}
+.story p{margin:0;font-size:1rem}
 .block-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
 
 .champ-strip{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:8px}
@@ -535,6 +548,10 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   </div>
   <div class="meander" aria-hidden="true"></div>
   <div class="wrap">
+    <div class="block" id="storyBlock">
+      <div class="block-head"><h2 id="storyHead">Storylines of the week</h2><a href="#history">Weekly matchups</a></div>
+      <div class="story-list" id="storyList"></div>
+    </div>
     <div class="block">
       <div class="block-head"><h2>Enter the temple</h2></div>
       <div class="tiles">
@@ -896,7 +913,22 @@ function tradeHTML(t,extra=""){if(TRI_OF[t.id])return triHTML(TRI_OF[t.id],extra
     <div class="sides">${side(t.a)}<div class="swap" aria-hidden="true">⇄</div>${side(t.b)}</div>${lore(t.id)}</article>`}
 
 /* ---------- HOME ---------- */
+// Storylines for the coming week, written by hand each week (Kyle's style). a/b are owners; records come from the live 2026 standings.
+const STORYLINES={week:10,games:[
+  {"a": "fluff", "b": "jordan", "motw": true, "q": "The No. 1 seeds in each division. Floof brings a seven-game win streak, and Jordan has dropped two straight. Can Jordan stop the slide and hold on to the top of his division?"},
+  {"a": "kyle", "b": "rod", "q": "Can Kyle finally solve the RodFather? Rod is 3-1 against him all-time and is coming off a win."},
+  {"a": "squirm", "b": "ghost", "q": "Squirm finally got his first win last week. Can he make it two in a row against Ghost in their first-ever meeting?"},
+  {"a": "lucas", "b": "quincy", "q": "Sal has won three straight. Can Quincy play spoiler again like he did in Week 10 last year? He leads the all-time series 5-4."},
+  {"a": "charles", "b": "dilapi", "q": "Can Charles and Chris keep their playoff hopes alive? Charles is 4-5 with about a 55% shot at the playoffs, and Chris is 3-6 at 13%, so the loser is on life support. Charles is 7-3 against Chris all-time."},
+  {"a": "jerry", "b": "dylan", "q": "Jerry has lost three straight and is sliding out of the playoff picture. Can he snap the skid against Dylan?"}
+]};
+function renderStories(){const g=STORYLINES.games||[];if(!g.length){$("#storyBlock").hidden=true;return}
+  $("#storyHead").textContent=`Storylines entering Week ${STORYLINES.week}`;
+  const rec=o=>{const r=S[o]?.seasons?.[2026];return r?`${r.w}-${r.l}`:""};
+  const tm=(o,cls)=>`<div class="tm ${cls}">${av(o)}<div><b>${esc(LIVE[o]?.team||short(o))}</b><small>${esc(short(o))} · ${rec(o)}</small></div></div>`;
+  $("#storyList").innerHTML=g.map(x=>`<article class="story${x.motw?" motw":""}">${x.motw?'<div><span class="tag motw">Matchup of the week</span></div>':""}<div class="story-vs">${tm(x.a,"")}<span class="v">vs</span>${tm(x.b,"r")}</div><p>${esc(x.q)}</p></article>`).join("")}
 function renderHome(){
+  renderStories();
   const done=uniqT(TR.filter(t=>t.st==="completed")).length, vet=TR.filter(t=>t.st==="vetoed").length;
   $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
   $("#champStrip").innerHTML=ALL_YEARS.map(y=>{const c=CHAMPS[y];return c?`<a class="cyear" href="#champions" style="text-decoration:none;color:inherit"><div class="y">${y}</div><div class="n">${esc(c.team.split(" / ")[0])}</div></a>`:`<div class="cyear tbd"><div class="y">${y}</div><div class="n">${y===2026?"In progress":"To confirm"}</div></div>`}).join("");
