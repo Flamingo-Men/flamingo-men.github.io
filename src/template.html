@@ -461,6 +461,59 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   .flap{transform-origin:50% 90%;animation:sway 6s ease-in-out infinite}
   @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
 }
+/* WRAPPED: Spotify Wrapped style season recaps on team pages (src/wrapped.py -> data/wrapped.json) */
+.wr-banner{display:flex;align-items:center;gap:14px;width:100%;text-align:left;border:0;cursor:pointer;margin:0 0 12px;padding:14px 16px;border-radius:14px;color:#fff;
+  background:linear-gradient(120deg,#1db954 0%,#0f7a5c 45%,#191414 100%);box-shadow:0 6px 20px -10px rgba(0,0,0,.6);transition:transform .15s}
+.wr-banner:hover{transform:translateY(-1px)}
+.wr-banner .av{width:46px;height:46px;flex:none;border:2px solid rgba(255,255,255,.8)}
+.wr-banner b{display:block;font-size:1.15rem;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+.wr-banner small{opacity:.85;font-size:.85rem}
+.wr-banner .wr-play{margin-left:auto;flex:none;width:42px;height:42px;border-radius:50%;background:#fff;color:#191414;display:grid;place-items:center;font-size:1rem}
+.wrdlg{padding:0;border:0;background:transparent;max-width:none;max-height:none;width:100%;height:100%}
+.wrdlg::backdrop{background:rgba(5,5,10,.85)}
+.wr-stage{position:relative;margin:0 auto;height:min(100dvh,860px);max-width:460px;width:100%;top:50%;transform:translateY(-50%);border-radius:18px;overflow:hidden;color:#fff;font-family:var(--f-body);user-select:none;-webkit-user-select:none}
+@media (max-width:500px){.wr-stage{border-radius:0;height:100dvh}}
+.wr-bars{position:absolute;top:10px;left:12px;right:12px;display:flex;gap:4px;z-index:3}
+.wr-bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}
+.wr-bars i.on{background:#fff}
+.wr-x{position:absolute;top:20px;right:10px;z-index:4;background:none;border:0;color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;padding:6px 10px}
+.wr-slide{position:absolute;inset:0;padding:64px 28px 56px;display:flex;flex-direction:column;justify-content:center;gap:14px;overflow:hidden}
+.wr-slide>*{position:relative;z-index:1}
+.wr-slide::before,.wr-slide::after{content:"";position:absolute;border-radius:50%;z-index:0;filter:blur(2px);opacity:.55}
+.wr-slide::before{width:380px;height:380px;right:-140px;top:-120px;background:var(--wa)}
+.wr-slide::after{width:300px;height:300px;left:-120px;bottom:-110px;background:var(--wb)}
+.wr-k{font-family:var(--f-data);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;opacity:.9}
+.wr-big{font-size:clamp(2.6rem,12vw,4.4rem);font-weight:800;line-height:.95;letter-spacing:-.03em;overflow-wrap:anywhere}
+.wr-big.long{font-size:clamp(2rem,9vw,3.2rem)}
+.wr-sub{font-size:1.1rem;font-weight:700;opacity:.92}
+.wr-t{font-size:1.08rem;line-height:1.45;max-width:36ch;margin:0}
+.wr-note{font-size:.95rem;background:rgba(0,0,0,.25);border-radius:10px;padding:10px 12px;margin:0}
+.wr-list{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:8px}
+.wr-list li{display:flex;align-items:baseline;gap:12px;font-size:1.1rem;font-weight:700}
+.wr-list li span:first-child{font-size:1.6rem;font-weight:800;width:1.2em;opacity:.8}
+.wr-list li small{margin-left:auto;font-family:var(--f-data);font-weight:400;font-size:.85rem;opacity:.85}
+.wr-stats{display:grid;gap:14px}
+.wr-stats div b{display:block;font-size:2.2rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+.wr-stats div span{font-weight:700}
+.wr-stats div small{display:block;opacity:.85;font-size:.9rem}
+.wr-faces{display:grid;gap:16px}
+.wr-faces div{display:flex;align-items:center;gap:14px}
+.wr-faces .av{width:72px;height:72px;border:3px solid #fff}
+.wr-faces b{display:block;font-size:1.6rem;font-weight:800;line-height:1.05}
+.wr-faces small{font-family:var(--f-data);text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;opacity:.9}
+.wr-sum{background:rgba(0,0,0,.28);border-radius:16px;padding:18px;display:grid;gap:12px}
+.wr-sum .wr-head{display:flex;align-items:center;gap:12px}
+.wr-sum .av{width:58px;height:58px;border:2px solid #fff}
+.wr-sum dl{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:0}
+.wr-sum dt{font-family:var(--f-data);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+.wr-sum dd{margin:0;font-weight:800;font-size:1.05rem;line-height:1.2;overflow-wrap:anywhere}
+.wr-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;font-size:.8rem;opacity:.7;z-index:2}
+.wr-nav{position:absolute;top:0;bottom:0;width:35%;z-index:2;background:none;border:0;cursor:pointer}
+.wr-nav.prev{left:0}.wr-nav.next{right:0;width:65%}
+.wr-in>*{animation:wrUp .5s cubic-bezier(.2,.8,.2,1) both}
+.wr-in>*:nth-child(2){animation-delay:.08s}.wr-in>*:nth-child(3){animation-delay:.16s}.wr-in>*:nth-child(4){animation-delay:.24s}.wr-in>*:nth-child(5){animation-delay:.32s}.wr-in>*:nth-child(6){animation-delay:.4s}
+@keyframes wrUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wr-in>*{animation:none}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1228,12 +1281,48 @@ function renderSeasonDetail(){
     body=pk.length?pickupTable(pk.slice().reverse(),false):`<p class="muted">${espn?`No pickups in ${y}.`:`ESPN has no waiver history for ${y}.`}</p>`;
   } else body=`<div class="trades-list">${tr.slice().reverse().map(t=>tradeHTML(t,tradeScore(t))).join("")||`<p class="muted">No trades on record for ${y}.</p>`}</div>`;
   const story=STORIES[o]?.[y];
-  $("#seasonDetail").innerHTML=`${story?`<div class="story"><div class="eyebrow">How ${y} went</div><p>${esc(story)}</p></div>`:""}<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):(R?.team?esc(R.team):"–"))}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}${espn?fact("Pickups",pk.length):""}${fact("Trades",tr.filter(t=>t.st==="completed").length)}</div>
+  $("#seasonDetail").innerHTML=`<div id="wrBanner"></div>${story?`<div class="story"><div class="eyebrow">How ${y} went</div><p>${esc(story)}</p></div>`:""}<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):(R?.team?esc(R.team):"–"))}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}${espn?fact("Pickups",pk.length):""}${fact("Trades",tr.filter(t=>t.st==="completed").length)}</div>
    ${CHAMP_DETAIL[y]&&CHAMPS[y]?.o===o?`<div class="note">Title season. See the <a href="#champions">Hall of Champions</a> for the full roster.</div>`:""}
    <div class="seg" role="group" aria-label="Show">${[["roster","Roster"],["pickups","Waiver pickups"],["trades","Trades"]].map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===teamView}">${l}</button>`).join("")}</div>
    ${body}`;
   $("#seasonDetail .seg").onclick=e=>{const b=e.target.closest("[data-v]");if(!b)return;teamView=b.dataset.v;renderSeasonDetail()};
+  wrBanner(o,y);
 }
+
+/* ---------- WRAPPED ---------- */
+// Spotify Wrapped style recap per owner and finished season, from data/wrapped.json (src/wrapped.py)
+let WR=null,wrS=[],wrI=0,wrO=null;
+const WR_THEME={intro:["#1db954","#0b3d2e","#ff5ea8"],top:["#7b2ff7","#f107a3","#ffd23f"],boom:["#ff4e00","#ec9f05","#7b2ff7"],numbers:["#0052d4","#4364f7","#6fb1fc"],
+  weeks:["#c31432","#240b36","#ff9a3c"],luck:["#11998e","#38ef7d","#0b486b"],bench:["#3a1c71","#d76d77","#ffaf7b"],waivers:["#f857a6","#ff5858","#ffd23f"],
+  trades:["#00467f","#a5cc82","#1db954"],draft:["#e65c00","#f9d423","#c31432"],rivals:["#8e0e00","#1f1c18","#ff5e62"],champ:["#b8860b","#191414","#ffd700"],
+  sacko:["#3e2723","#191414","#8d6e63"],playoffs:["#0f2027","#2c5364","#e0517a"],missed:["#232526","#414345","#e0517a"],aura:["#ff0099","#493240","#00dbde"],summary:["#1db954","#191414","#e0517a"]};
+function loadWrapped(){if(WR)return Promise.resolve(WR);return fetch("data/wrapped.json").then(r=>r.ok?r.json():{}).catch(()=>({})).then(d=>WR=d)}
+function wrBanner(o,y){const el=$("#wrBanner");if(!el)return;
+  loadWrapped().then(d=>{if(current!==o||teamYear!==y||!$("#wrBanner"))return;const s=d[o]?.[y];if(!s){el.innerHTML="";return}
+    el.innerHTML=`<button type="button" class="wr-banner">${av(o)}<span><b>${esc(short(o))}'s ${y} Wrapped</b><small>Top players, luck, bench points, rivals and your fantasy aura</small></span><span class="wr-play" aria-hidden="true">▶</span></button>`;
+    el.firstChild.onclick=()=>openWrapped(o,y)})}
+function wrSlide(s){const t=WR_THEME[s.k]||WR_THEME.intro,B=s.big||"";
+  const big=B?`<div class="wr-big${B.length>11?" long":""}">${esc(B)}</div>`:"";
+  let body="";
+  if(s.k==="intro")body=`${av(wrO)}`;
+  if(s.list)body+=`<ol class="wr-list">${s.list.map((p,i)=>`<li><span>${i+1}</span><span>${esc(p[0])}</span><small>${esc(p[1])} · ${fmt(p[2])}</small></li>`).join("")}</ol>`;
+  if(s.stats&&s.k!=="summary")body+=`<div class="wr-stats">${s.stats.map(x=>`<div><b>${esc(x[0])}</b><span>${esc(x[1])}</span>${x[2]?`<small>${esc(x[2])}</small>`:""}</div>`).join("")}</div>`;
+  if(s.faces)body+=`<div class="wr-faces">${s.faces.map(f=>`<div>${av(f[3])}<span><small>${esc(f[1])}</small><b>${esc(f[0])}</b>${esc(f[2])}</span></div>`).join("")}</div>`;
+  if(s.k==="summary")return `<div class="wr-slide wr-in" style="background:linear-gradient(160deg,${t[0]},${t[1]});--wa:${t[2]};--wb:${t[0]}"><div class="wr-sum"><div class="wr-head">${av(wrO)}<div><div class="wr-k">${esc(s.kicker)}</div><b style="font-size:1.2rem">${esc(s.sub||"")}</b></div></div><dl>${s.stats.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(x[1])}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">That's a wrap on ${esc(short(wrO))}'s season.</p></div>`;
+  return `<div class="wr-slide wr-in" style="background:linear-gradient(160deg,${t[0]},${t[1]});--wa:${t[2]};--wb:${t[0]}">${s.k==="intro"?body:""}<div class="wr-k">${esc(s.kicker)}</div>${big}${s.sub?`<div class="wr-sub">${esc(s.sub)}</div>`:""}${s.k!=="intro"?body:""}${s.text?`<p class="wr-t">${esc(s.text)}</p>`:""}${s.note?`<p class="wr-note">${esc(s.note)}</p>`:""}</div>`}
+function wrShow(){const st=$("#wrStage");st.querySelector(".wr-bars").innerHTML=wrS.map((_,i)=>`<i class="${i<=wrI?"on":""}"></i>`).join("");
+  st.querySelector(".wr-body").innerHTML=wrSlide(wrS[wrI]);st.querySelector(".wr-hint").textContent=wrI<wrS.length-1?"Tap to continue":"Tap to close"}
+function wrStep(d){const n=wrI+d;if(n<0)return;if(n>=wrS.length){$("#wrDlg").close();return}wrI=n;wrShow()}
+function openWrapped(o,y){let dlg=$("#wrDlg");
+  if(!dlg){dlg=document.createElement("dialog");dlg.id="wrDlg";dlg.className="wrdlg";dlg.setAttribute("aria-label","Season Wrapped");
+    dlg.innerHTML=`<div class="wr-stage" id="wrStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
+    document.body.appendChild(dlg);
+    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>wrStep(-1);dlg.querySelector(".next").onclick=()=>wrStep(1);
+    dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+    dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();wrStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();wrStep(-1)}});
+    let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+    dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();wrStep(dx<0?1:-1)}})}
+  wrO=o;wrS=WR[o][y];wrI=0;wrShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()}
 
 /* ---------- MOVES ---------- */
 let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
