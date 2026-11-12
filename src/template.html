@@ -514,6 +514,119 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
 .wr-in>*:nth-child(2){animation-delay:.08s}.wr-in>*:nth-child(3){animation-delay:.16s}.wr-in>*:nth-child(4){animation-delay:.24s}.wr-in>*:nth-child(5){animation-delay:.32s}.wr-in>*:nth-child(6){animation-delay:.4s}
 @keyframes wrUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.wr-in>*{animation:none}}
+/* DASHBOARD (home) */
+.hero .wrap{padding-block:30px 24px}
+.hero .pediment{max-width:290px}
+.dash{padding-bottom:40px}
+.dash-status{font-family:var(--f-data);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.dash-status .livedot{width:8px;height:8px;border-radius:50%;background:var(--bad);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.dash-status .livedot{animation:none}}
+.dblock{margin-top:22px;background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:0 16px}
+.dblock>summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;gap:6px 12px;flex-wrap:wrap;padding:12px 0;position:relative;padding-right:24px}
+.dblock>summary::-webkit-details-marker{display:none}
+.dblock>summary::after{content:"";position:absolute;right:4px;top:20px;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+.dblock:not([open])>summary::after{transform:rotate(-45deg)}
+.dblock>summary h2{font-size:1.3rem}
+.dsub{font-family:var(--f-data);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.dblock[open]{padding-bottom:16px}
+.dgrid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px;align-items:start}
+.dnote{font-size:.8rem;color:var(--muted);margin:10px 0 0}
+/* scoreboard */
+.mu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:10px;align-items:start}
+.mu.open{grid-column:1/-1}
+.mu{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;display:grid;gap:6px;cursor:pointer;background:var(--marble);align-content:start}
+.mu:hover{border-color:var(--flamingo)}
+.mu.motw{border-color:var(--gold);box-shadow:inset 0 3px 0 var(--gold)}
+.mrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center}
+.mrow .av{width:32px;height:32px;font-size:.75rem;border-width:1px}
+.mrow b{display:block;font-size:.9rem;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mrow small{font-family:var(--f-data);font-size:.68rem;color:var(--muted)}
+.mrow .sc{font-family:var(--f-data);font-variant-numeric:tabular-nums;font-size:1.15rem;text-align:right;line-height:1.1}
+.mrow .sc small{display:block}
+.mrow.win .sc{color:var(--good);font-weight:600}
+.wp{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-family:var(--f-data);font-size:.64rem;color:var(--muted)}
+.wp .bar{height:4px;border-radius:2px;background:var(--stone);overflow:hidden;display:flex}
+.wp .bar i{display:block;height:100%;background:var(--aegean)}
+.wp .bar i+i{background:var(--flamingo);margin-left:2px}
+.mq{margin:2px 0 0;font-size:.86rem;line-height:1.35;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mu.open .mq{-webkit-line-clamp:unset}
+.mu .tag.motw{background:var(--gold);color:#15203b;justify-self:start}
+.mlu{display:none;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;font-size:.78rem}
+.mu.open .mlu{display:grid}
+.mlu table{width:100%;border-collapse:collapse}
+.mlu td{padding:2px 0;border-top:1px solid var(--line);vertical-align:top}
+.mlu td.s{font-family:var(--f-data);font-size:.62rem;color:var(--muted);width:3.2em}
+.mlu td.p{font-family:var(--f-data);text-align:right;white-space:nowrap}
+.mlu tr.be{opacity:.55}
+/* awards */
+.aw-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.aw{border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 8px;align-items:center;background:var(--marble)}
+.aw .av{width:34px;height:34px;font-size:.75rem;border-width:1px;grid-row:span 2}
+.aw .k{font-family:var(--f-data);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--flamingo)}
+.aw .v{font-family:var(--f-data);font-size:1rem;font-variant-numeric:tabular-nums}
+.aw .v span{font-family:var(--f-body);font-size:.8rem;color:var(--muted)}
+.aw p{grid-column:1/-1;margin:2px 0 0;font-size:.78rem;line-height:1.3;color:var(--muted)}
+/* odds chart */
+.odds-wrap{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:start}
+.odds-chart{position:relative;min-width:0}
+.odds-chart svg{width:100%;height:auto;display:block;overflow:visible}
+.odds-chart .grid line{stroke:var(--line);stroke-width:1}
+.odds-chart text{font-family:var(--f-data);font-size:10px;fill:var(--muted)}
+.odds-chart .ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round;transition:opacity .15s}
+.odds-chart .dot{stroke:var(--slab);stroke-width:2}
+.odds-chart.iso .ln,.odds-chart.iso .dot{opacity:.12}
+.odds-chart.iso .on{opacity:1;stroke-width:3}
+.odds-chart .xh{stroke:var(--muted);stroke-width:1;stroke-dasharray:3 3}
+.otip{position:absolute;pointer-events:none;background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:6px 8px;font-size:.74rem;box-shadow:0 4px 14px rgba(0,0,0,.12);min-width:150px;z-index:2}
+.otip b{font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px}
+.otip div{display:flex;gap:6px;align-items:center;justify-content:space-between}
+.otip i,.odds-leg i{width:10px;height:3px;border-radius:2px;flex:none;display:inline-block}
+.odds-leg{list-style:none;margin:0;padding:0;display:grid;gap:1px;font-size:.8rem}
+.odds-leg li{display:grid;grid-template-columns:10px 20px minmax(0,1fr) auto;gap:6px;align-items:center;padding:2px 4px;border-radius:4px;cursor:default}
+.odds-leg li:hover,.odds-leg li.on{background:var(--stone)}
+.odds-leg .av{width:20px;height:20px;font-size:.5rem;border-width:1px}
+.odds-leg span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.odds-leg small{font-family:var(--f-data);font-size:.7rem;color:var(--muted)}
+.odds-leg b{font-family:var(--f-data);font-weight:500;font-size:.78rem;text-align:right}
+/* bracket */
+.bracket-live{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:center}
+.brl-col{display:grid;gap:8px}
+.brl-col h4{margin:0;font-family:var(--f-data);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.brl-m{border:1px solid var(--line);border-radius:var(--r);background:var(--marble);overflow:hidden}
+.brl-s{display:grid;grid-template-columns:16px 22px minmax(0,1fr) auto;gap:5px;align-items:center;padding:4px 6px;font-size:.78rem}
+.brl-s+.brl-s{border-top:1px solid var(--line)}
+.brl-s .sd{font-family:var(--f-data);font-size:.66rem;color:var(--muted);text-align:right}
+.brl-s .av{width:22px;height:22px;font-size:.5rem;border-width:1px}
+.brl-s span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.brl-s small{font-family:var(--f-data);font-size:.66rem;color:var(--muted)}
+.brl-s.tbd{color:var(--muted);font-style:italic}
+.brl-s.w{font-weight:600}
+.brl-bub{grid-column:1/-1;font-size:.78rem;color:var(--muted);margin-top:4px}
+/* season storylines + trade tracker */
+.ss-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ss-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:6px 0;border-top:1px solid var(--line)}
+.ss-list li:first-child{border-top:0}
+.ss-faces{display:flex}
+.ss-faces .av{width:30px;height:30px;font-size:.6rem;border-width:1px}
+.ss-faces .av+.av{margin-left:-10px}
+.ss-list .tag{margin-right:6px;background:var(--flamingo-soft);color:var(--flamingo)}
+.ss-list p{margin:0;font-size:.9rem;line-height:1.35}
+.ss-more{margin-top:8px;background:none;border:1px solid var(--line);border-radius:99px;padding:3px 12px;font-family:var(--f-data);font-size:.7rem;cursor:pointer;color:var(--muted)}
+.tt-list{display:grid;gap:8px}
+.tt{border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;background:var(--marble);font-size:.8rem}
+.tt-top{display:flex;justify-content:space-between;font-family:var(--f-data);font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tt-sides{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:4px}
+.tt-side{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 6px;align-items:center}
+.tt-side .av{width:24px;height:24px;font-size:.55rem;border-width:1px}
+.tt-side .g{grid-column:1/-1;color:var(--muted);line-height:1.3}
+.tt-side .pts{font-family:var(--f-data)}
+.tt-side.up .pts{color:var(--good);font-weight:600}
+.tt-bar{display:flex;height:4px;gap:2px;margin-top:6px}
+.tt-bar i{display:block;border-radius:2px;background:var(--aegean)}
+.tt-bar i+i{background:var(--flamingo)}
+@media (max-width:860px){.dgrid2{grid-template-columns:minmax(0,1fr)}.aw-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.odds-wrap{grid-template-columns:minmax(0,1fr)}.odds-leg{grid-template-columns:1fr 1fr}.bracket-live{grid-template-columns:minmax(0,1fr)}.mlu{grid-template-columns:minmax(0,1fr)}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -600,33 +713,24 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
     </div>
   </div>
   <div class="meander" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="block" id="storyBlock">
-      <div class="block-head"><h2 id="storyHead">Storylines of the week</h2><a href="#history">Weekly matchups</a></div>
-      <div class="story-list" id="storyList"></div>
+  <div class="wrap dash">
+    <div class="dash-status" id="dashStatus" aria-live="polite">Loading this week…</div>
+    <details class="dblock" data-k="score" open><summary><h2 id="scoreHead">This week</h2><span class="dsub" id="scoreSub"></span></summary>
+      <div class="mu-grid" id="scoreGrid"></div></details>
+    <details class="dblock" data-k="awards" open><summary><h2 id="awardHead">Weekly awards</h2><span class="dsub">From the last completed week</span></summary>
+      <div class="aw-grid" id="awardGrid"></div></details>
+    <div class="dgrid2">
+      <details class="dblock" data-k="odds" open><summary><h2>Playoff odds</h2><span class="dsub">After each completed week</span></summary>
+        <div class="odds-wrap"><div class="odds-chart" id="oddsChart"></div><ol class="odds-leg" id="oddsLeg"></ol></div>
+        <p class="dnote">20,000 simulations of the rest of the regular season after every week. Two division winners plus the next four by record, then points, make it. The latest week also weighs current roster strength, same as the Rankings tab. Hover a team to isolate its line.</p></details>
+      <details class="dblock" data-k="bracket" open><summary><h2>Playoff bracket</h2><span class="dsub" id="brSub">If the season ended today</span></summary>
+        <div class="bracket-live" id="bracketLive"></div></details>
     </div>
-    <div class="block">
-      <div class="block-head"><h2>Enter the temple</h2></div>
-      <div class="tiles">
-        <a class="tile" href="#stats"><span class="eyebrow">Standings</span><h3>League Stats</h3><p>All-time wins, points, titles and Sackos for every owner.</p></a>
-        <a class="tile" href="#champions"><span class="eyebrow">Champions</span><h3>Champions & Sackos</h3><p>Every title roster, every last place, and the moves behind both.</p></a>
-        <a class="tile" href="#history"><span class="eyebrow">Chronicle</span><h3>League History</h3><p>Year by year: controversies, rule changes, political fallout.</p></a>
-        <a class="tile" href="#drafts"><span class="eyebrow">The Draft</span><h3>Past Drafts</h3><p>The boards, sticker by sticker.</p></a>
-        <a class="tile" href="#records"><span class="eyebrow">The Agora</span><h3>Records</h3><p>Top trade rapes, pickups and rosters of all time, plus every trade and waiver pickup.</p></a>
-        <a class="tile" href="#teams"><span class="eyebrow">Profiles</span><h3>Team Profiles</h3><p>Records, favorite players and every season for each owner.</p></a>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block-head"><h2>Champions by year</h2><a href="#champions">Hall of Champions</a></div>
-      <div class="champ-strip" id="champStrip"></div>
-    </div>
-    <div class="block">
-      <div class="block-head"><h2>Latest from the Agora</h2><a href="#records">All moves</a></div>
-      <div class="trades-list" id="latestTrades"></div>
-    </div>
-    <div class="block">
-      <div class="block-head"><h2>The owners</h2><a href="#teams">Team profiles</a></div>
-      <div class="owners-row" id="ownersRow"></div>
+    <div class="dgrid2">
+      <details class="dblock" data-k="season" open><summary><h2>Season storylines</h2><span class="dsub" id="seasonSub"></span></summary>
+        <ul class="ss-list" id="seasonList"></ul></details>
+      <details class="dblock" data-k="trades"><summary><h2>Trade tracker</h2><span class="dsub">Is it paying off? Starting points since the deal</span></summary>
+        <div class="tt-list" id="tradeTrack"></div></details>
     </div>
   </div>
 </section>
@@ -966,7 +1070,7 @@ function tradeHTML(t,extra=""){if(TRI_OF[t.id])return triHTML(TRI_OF[t.id],extra
     <div class="sides">${side(t.a)}<div class="swap" aria-hidden="true">⇄</div>${side(t.b)}</div>${lore(t.id)}</article>`}
 
 /* ---------- HOME ---------- */
-// Storylines for the coming week, written by hand each week (Kyle's style). a/b are owners; records come from the live 2026 standings.
+// Storylines for the coming week, written by hand each week (Kyle's style). a/b are owners. Each question shows under its game on the home scoreboard.
 const STORYLINES={week:10,games:[
   {"a": "fluff", "b": "jordan", "motw": true, "q": "The No. 1 seeds in each division. Floof brings a seven-game win streak, and Jordan has dropped two straight. Can Jordan stop the slide and hold on to the top of his division?"},
   {"a": "kyle", "b": "rod", "q": "Can Kyle finally solve the RodFather? Rod is 3-1 against him all-time and is coming off a win."},
@@ -975,19 +1079,93 @@ const STORYLINES={week:10,games:[
   {"a": "charles", "b": "dilapi", "q": "Can Charles and Chris keep their playoff hopes alive? Charles is 4-5 with about a 55% shot at the playoffs, and Chris is 3-6 at 13%, so the loser is on life support. Charles is 7-3 against Chris all-time."},
   {"a": "jerry", "b": "dylan", "q": "Jerry has lost three straight and is sliding out of the playoff picture. Can he snap the skid against Dylan?"}
 ]};
-function renderStories(){const g=STORYLINES.games||[];if(!g.length){$("#storyBlock").hidden=true;return}
-  $("#storyHead").textContent=`Storylines entering Week ${STORYLINES.week}`;
-  const rec=o=>{const r=S[o]?.seasons?.[2026];return r?`${r.w}-${r.l}`:""};
-  const tm=(o,cls)=>`<div class="tm ${cls}">${av(o)}<div><b>${esc(LIVE[o]?.team||short(o))}</b><small>${esc(short(o))} · ${rec(o)}</small></div></div>`;
-  $("#storyList").innerHTML=g.map(x=>`<article class="story${x.motw?" motw":""}">${x.motw?'<div><span class="tag motw">Matchup of the week</span></div>':""}<div class="story-vs">${tm(x.a,"")}<span class="v">vs</span>${tm(x.b,"r")}</div><p>${esc(x.q)}</p></article>`).join("")}
+/* ---------- DASHBOARD (home) ---------- */
+// data/dashboard.json comes from src/dashboard.py (ESPN, completed weeks only for odds, awards and storylines)
+let DASH=null,dashTimer=null;const muOpen=new Set();
+const DCOL={kyle:"#2a78d6",charles:"#eb6834",fluff:"#1baf7a",squirm:"#eda100",dilapi:"#e87ba4",quincy:"#008300",lucas:"#6250d6",rod:"#e34948",jerry:"#8a5a2b",dylan:"#0f8a9e",jordan:"#5f6b7a",ghost:"#a3a300"};
+const dcol=o=>DCOL[o]||"#888";
+const nm=o=>esc(short(o));
+function loadDash(){fetch("data/dashboard.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{DASH=d;renderDash()})
+  .catch(()=>{$("#dashStatus").textContent="The weekly dashboard could not be loaded."})}
+function dashPrefs(){let p={};try{p=JSON.parse(localStorage.getItem("fm-dash")||"{}")}catch(e){}
+  document.querySelectorAll(".dblock[data-k]").forEach(d=>{if(p[d.dataset.k]!=null)d.open=p[d.dataset.k];
+    d.ontoggle=()=>{p[d.dataset.k]=d.open;try{localStorage.setItem("fm-dash",JSON.stringify(p))}catch(e){}}})}
+function renderDash(){const d=DASH;if(!d)return;
+  const up=new Date(d.updated),when=up.toLocaleString(undefined,{weekday:"short",hour:"numeric",minute:"2-digit"});
+  const po=d.week>d.reg;
+  $("#dashStatus").innerHTML=`${d.started?'<span class="livedot" aria-hidden="true"></span>Week '+d.week+' in progress':`Week ${d.week} ${po?"(playoffs) ":""}hasn't kicked off`} · Updated ${esc(when)}`;
+  renderScoreboard();renderAwards();renderOdds();renderBracketLive();renderSeason();renderTradeTrack()}
+function renderScoreboard(){const d=DASH,st=(typeof STORYLINES!=="undefined"&&STORYLINES.week===d.week)?STORYLINES.games:[];
+  $("#scoreHead").textContent=d.week>d.reg?`Week ${d.week} playoffs`:`Week ${d.week} scoreboard`;
+  $("#scoreSub").textContent=d.started?"Live scores · click a game for lineups":"Projected scores · click a game for lineups";
+  const rec=o=>(d.standings.find(r=>r.o===o)||{}).rec||"";
+  const q=(a,b)=>st.find(x=>(x.a===a&&x.b===b)||(x.a===b&&x.b===a));
+  const games=d.live.map((g,i)=>({g,i,s:q(g[0].o,g[1].o)})).sort((x,y)=>(y.s?.motw?1:0)-(x.s?.motw?1:0));
+  $("#scoreGrid").innerHTML=games.map(({g,i,s})=>{const[a,b]=g,val=x=>d.started?x.p:x.proj,lead=val(a)>val(b)?0:val(b)>val(a)?1:-1;
+    const row=(x,k)=>`<div class="mrow${d.started&&lead===k?" win":""}">${av(x.o)}<div><b>${esc(x.team)}</b><small>${nm(x.o)} · ${rec(x.o)}</small></div><div class="sc">${fmt(val(x))}${d.started?`<small>proj ${fmt(x.proj)}</small>`:"<small>proj</small>"}</div></div>`;
+    const wa=a.wp!=null?Math.round(a.wp*100):null;
+    const lu=x=>`<table><tbody>${x.r.map(r=>`<tr${r[2]==="BE"?' class="be"':""}><td class="s">${esc(r[2])}</td><td>${pn(r[0])}</td><td class="p">${d.started?fmt(r[3]):fmt(r[4])}</td></tr>`).join("")}</tbody></table>`;
+    return `<article class="mu${s?.motw?" motw":""}${muOpen.has(i)?" open":""}" data-mu="${i}">${s?.motw?'<span class="tag motw">Matchup of the week</span>':""}${row(a,0)}
+      ${wa!=null?`<div class="wp"><span>${wa}%</span><div class="bar"><i style="width:${wa}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div><span>${100-wa}%</span></div>`:""}
+      ${row(b,1)}${s?`<p class="mq">${esc(s.q)}</p>`:""}<div class="mlu">${lu(a)}${lu(b)}</div></article>`}).join("");
+  $("#scoreGrid").onclick=e=>{if(e.target.closest(".pl"))return;const m=e.target.closest("[data-mu]");if(!m)return;const i=+m.dataset.mu;muOpen.has(i)?muOpen.delete(i):muOpen.add(i);m.classList.toggle("open")}}
+function renderAwards(){const d=DASH;$("#awardHead").textContent=`Week ${d.last} awards`;
+  $("#awardGrid").innerHTML=d.awards.map(a=>{const[v,...rest]=String(a.v).split(" ");
+    return `<div class="aw">${av(a.o)}<div class="k">${esc(a.k)}</div><div class="v">${esc(v)} <span>${esc(rest.join(" ")||short(a.o))}</span></div><p>${esc(a.t)}</p></div>`}).join("")}
+function renderOdds(){const d=DASH,W=d.odds.weeks,S_=d.odds.series;if(!W.length){$("#oddsChart").innerHTML='<p class="muted">Odds start after week 1.</p>';return}
+  const w=400,h=230,L=34,R=10,T=10,B=26,x=i=>L+(W.length===1?0:(i*(w-L-R))/(W.length-1)),y=v=>T+(100-v)*(h-T-B)/100;
+  const own=Object.keys(S_).sort((a,b)=>S_[b].at(-1)-S_[a].at(-1));
+  let g=`<g class="grid">${[0,25,50,75,100].map(v=>`<line x1="${L}" x2="${w-R}" y1="${y(v)}" y2="${y(v)}"/><text x="${L-6}" y="${y(v)+3}" text-anchor="end">${v}%</text>`).join("")}</g>`;
+  g+=W.map((wk,i)=>`<text x="${x(i)}" y="${h-8}" text-anchor="middle">Wk ${wk}</text>`).join("");
+  g+=own.slice().reverse().map(o=>`<polyline class="ln" data-o="${o}" stroke="${dcol(o)}" points="${S_[o].map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ")}"/><circle class="dot" data-o="${o}" cx="${x(W.length-1)}" cy="${y(S_[o].at(-1))}" r="4" fill="${dcol(o)}"/>`).join("");
+  g+=`<line class="xh" y1="${T}" y2="${h-B}" x1="-10" x2="-10" id="oddsXh"/><rect x="${L}" y="${T}" width="${w-L-R}" height="${h-T-B}" fill="transparent" id="oddsHit"/>`;
+  const box=$("#oddsChart");box.innerHTML=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Playoff odds by week for every team">${g}</svg><div class="otip" id="oddsTip" hidden></div>`;
+  const rec=o=>(d.standings.find(r=>r.o===o)||{}).rec||"";
+  $("#oddsLeg").innerHTML=own.map(o=>`<li data-o="${o}"><i style="background:${dcol(o)}"></i>${av(o)}<span>${nm(o)} <small>${rec(o)}</small></span><b>${S_[o].at(-1)>=99.5?">99%":S_[o].at(-1)<0.5?"<1%":S_[o].at(-1).toFixed(0)+"%"}</b></li>`).join("");
+  const iso=o=>{box.classList.toggle("iso",!!o);box.querySelectorAll("[data-o]").forEach(e=>e.classList.toggle("on",e.dataset.o===o));document.querySelectorAll("#oddsLeg li").forEach(e=>e.classList.toggle("on",e.dataset.o===o))};
+  $("#oddsLeg").onmouseover=e=>{const li=e.target.closest("li");iso(li?.dataset.o)};$("#oddsLeg").onmouseleave=()=>iso(null);
+  $("#oddsLeg").onclick=e=>{const li=e.target.closest("li");if(li)iso(box.classList.contains("iso")&&li.classList.contains("on")?null:li.dataset.o)};
+  const svg=box.querySelector("svg"),tip=$("#oddsTip"),xh=$("#oddsXh");
+  const move=ev=>{const r=svg.getBoundingClientRect(),px=(ev.clientX-r.left)*w/r.width;let i=W.length===1?0:Math.round((px-L)/((w-L-R)/(W.length-1)));i=Math.max(0,Math.min(W.length-1,i));
+    xh.setAttribute("x1",x(i));xh.setAttribute("x2",x(i));
+    const rows=own.slice().sort((a,b)=>S_[b][i]-S_[a][i]);
+    tip.innerHTML=`<b>After week ${W[i]}</b>${rows.map(o=>`<div><span><i style="background:${dcol(o)}"></i> ${nm(o)}</span><span class="num">${S_[o][i].toFixed(1)}%</span></div>`).join("")}`;
+    tip.hidden=false;const left=x(i)*r.width/w;tip.style.top="0px";tip.style.left=(left>r.width/2?left-tip.offsetWidth-12:left+12)+"px"};
+  $("#oddsHit").onmousemove=move;$("#oddsHit").onmouseleave=()=>{tip.hidden=true;xh.setAttribute("x1",-10);xh.setAttribute("x2",-10)}}
+function renderBracketLive(){const d=DASH,B_=d.bracket,sd={};B_.seeds.forEach(s=>sd[s.seed]=s);const act=B_.actual||{},real=Object.keys(act).length>0;
+  $("#brSub").textContent=real?"Live playoff bracket":`If the season ended today · ${d.reg-d.last} weeks left`;
+  const pct=s=>s.odds==null?"":s.odds>=99.5?">99%":`${s.odds.toFixed(0)}%`;
+  const side=(s,extra="",win=false)=>s?`<div class="brl-s${win?" w":""}"><span class="sd">${s.seed||""}</span>${av(s.o)}<span title="${esc(s.team||"")} ${s.rec||""}">${nm(s.o)}</span><small>${extra}</small></div>`:`<div class="brl-s tbd"><span class="sd"></span><span></span><span>${esc(extra)}</span><small></small></div>`;
+  const m=(a,b,ea,eb,wa,wb)=>`<div class="brl-m">${side(a,ea,wa)}${side(b,eb,wb)}</div>`;
+  let r1,r2,r3;
+  if(real){const ks=Object.keys(act).sort(),bySeed=o=>B_.seeds.find(s=>s.o===o)||{o,seed:""};
+    const col=k=>(act[k]||[]).map(g=>m(bySeed(g.a.o),g.b?bySeed(g.b.o):null,fmt(g.a.pts),g.b?fmt(g.b.pts):"Bye",g.win==="a",g.win==="b")).join("");
+    r1=col(ks[0]);r2=ks[1]?col(ks[1]):m(sd[1],null,"Bye","Winner of 4 v 5")+m(sd[2],null,"Bye","Winner of 3 v 6");r3=ks[2]?col(ks[2]):m(null,null,"","Semi winners")}
+  else{r1=m(sd[3],sd[6],pct(sd[3]),pct(sd[6]))+m(sd[4],sd[5],pct(sd[4]),pct(sd[5]));
+    r2=m(sd[1],null,`Bye ${sd[1]?.bye!=null?sd[1].bye.toFixed(0)+"%":""}`,"Winner of 4 v 5")+m(sd[2],null,`Bye ${sd[2]?.bye!=null?sd[2].bye.toFixed(0)+"%":""}`,"Winner of 3 v 6");
+    r3=`<div class="brl-m"><div class="brl-s tbd"><span class="sd"></span><span></span><span>Semi winners</span><small></small></div></div>`}
+  const[w1,w2,w3]=B_.weeks;
+  $("#bracketLive").innerHTML=`<div class="brl-col"><h4>Round 1 · Wk ${w1}</h4>${r1}</div><div class="brl-col"><h4>Semifinals · Wk ${w2}</h4>${r2}</div><div class="brl-col"><h4>Final · Wk ${w3}</h4>${r3}</div>
+    ${!real&&B_.bubble.length?`<p class="brl-bub">First ones out: ${B_.bubble.map(s=>`${nm(s.o)} (${s.rec}, ${pct(s)})`).join(", ")}. Percentages are playoff odds; byes go to the two division winners${sd[1]?.div&&sd[2]?.div?` (${esc(sd[1].div)} and ${esc(sd[2].div)})`:""}.</p>`:""}`}
+let ssAll=false;
+function renderSeason(){const L_=DASH.stories,n=ssAll?L_.length:Math.min(6,L_.length);
+  $("#seasonSub").textContent=`Through week ${DASH.last}`;
+  $("#seasonList").innerHTML=L_.slice(0,n).map(s=>`<li><div class="ss-faces">${s.o.slice(0,2).map(o=>av(o)).join("")}</div><p><span class="tag">${esc(s.tag)}</span>${esc(s.t)}</p></li>`).join("")
+    +(L_.length>6?`<li style="border:0;display:block"><button class="ss-more" id="ssMore">${ssAll?"Show fewer":`Show ${L_.length-6} more`}</button></li>`:"");
+  const b=$("#ssMore");if(b)b.onclick=()=>{ssAll=!ssAll;renderSeason()}}
+function renderTradeTrack(){const T_=DASH.trades;if(!T_.length){$("#tradeTrack").innerHTML='<p class="muted">No 2026 trades yet.</p>';return}
+  $("#tradeTrack").innerHTML=T_.map(t=>{const[a,b]=t.sides,tot=a.pts+b.pts||1,dt=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric"});
+    const diff=Math.abs(a.pts-b.pts),lead=a.pts>b.pts?a:b.pts>a.pts?b:null;
+    const side=s=>`<div class="tt-side${lead===s?" up":""}">${av(s.o)}<span><b>${nm(s.o)}</b> <span class="pts">${fmt(s.pts)}</span> <small class="muted">${s.starts} start${s.starts===1?"":"s"}</small></span><div class="g">Got ${s.got.map(p=>pn(p)).join(", ")||"nothing"}</div></div>`;
+    return `<div class="tt"><div class="tt-top"><span>${dt} · from week ${t.w}</span><span>${lead&&diff>=1?`${nm(lead.o)} +${fmt(Math.round(diff*10)/10)}`:"Even so far"}</span></div><div class="tt-sides">${side(a)}${side(b)}</div>
+      <div class="tt-bar" aria-hidden="true"><i style="width:${100*a.pts/tot}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div></div>`}).join("")}
 function renderHome(){
-  renderStories();
   const done=uniqT(TR.filter(t=>t.st==="completed")).length, vet=TR.filter(t=>t.st==="vetoed").length;
   $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
-  $("#champStrip").innerHTML=ALL_YEARS.map(y=>{const c=CHAMPS[y];return c?`<a class="cyear" href="#champions" style="text-decoration:none;color:inherit"><div class="y">${y}</div><div class="n">${esc(c.team.split(" / ")[0])}</div></a>`:`<div class="cyear tbd"><div class="y">${y}</div><div class="n">${y===2026?"In progress":"To confirm"}</div></div>`}).join("");
-  $("#latestTrades").innerHTML=uniqT(TR.filter(t=>t.st==="completed")).sort((a,b)=>a.d.localeCompare(b.d)||a.id-b.id).slice(-3).reverse().map(t=>tradeHTML(t)).join("");
-  $("#ownersRow").innerHTML=ORDER.filter(o=>S[o]).map(o=>`<a class="owner-pill" href="#teams" data-o="${o}">${av(o)}<span>${esc(short(o))}</span></a>`).join("");
-  $("#ownersRow").onclick=e=>{const a=e.target.closest("[data-o]");if(a)current=a.dataset.o};
+  if(!dashTimer){dashPrefs();loadDash();
+    // re-pull every two minutes while a week is being played and the home page is open
+    dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
+  else renderDash();
 }
 
 /* ---------- HISTORY ---------- */

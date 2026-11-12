@@ -1,0 +1,34 @@
+# Refreshes data/dashboard.json (home page scoreboard, odds, awards) from ESPN every 10 minutes during NFL game windows.
+# Needs a repository secret named ESPN_S2 (Settings > Secrets and variables > Actions). Without it, the job skips quietly.
+name: Live dashboard
+on:
+  schedule:
+    - cron: '*/10 0-4 * * 5'      # Thursday night games (ET evening = UTC early Friday)
+    - cron: '*/10 13-23 * * 0'    # Sunday
+    - cron: '*/10 0-4 * * 1'      # Sunday night
+    - cron: '*/10 0-4 * * 2'      # Monday night
+    - cron: '0 12 * * 2,3'        # Tuesday/Wednesday morning: lock in final scores and the new week
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: live-dashboard, cancel-in-progress: false }
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for ESPN cookie
+        id: s
+        env: { ESPN_S2: '${{ secrets.ESPN_S2 }}' }
+        run: if [ -n "$ESPN_S2" ]; then echo ok=1 >> "$GITHUB_OUTPUT"; else echo "ESPN_S2 secret not set; skipping"; fi
+      - uses: actions/checkout@v4
+        if: steps.s.outputs.ok == '1'
+      - name: Rebuild dashboard.json
+        if: steps.s.outputs.ok == '1'
+        env: { ESPN_S2: '${{ secrets.ESPN_S2 }}', ESPN_SWID: '${{ secrets.ESPN_SWID }}' }
+        run: python3 src/dashboard.py "$RUNNER_TEMP/espn"
+      - name: Commit if changed
+        if: steps.s.outputs.ok == '1'
+        run: |
+          git diff --quiet data/dashboard.json && exit 0
+          git config user.name "flamingo-bot"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/dashboard.json && git commit -m "Refresh live dashboard" && git push
