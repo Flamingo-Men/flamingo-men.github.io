@@ -1,16 +1,16 @@
 # Builds ../data/skill.json: the trader, waiver and drafter rankings, scored to separate skill from luck.
 # Usage: python3 skill.py CACHE_DIR   (ESPN cache from moves.py; run after moves.py, weeks.py, build.py and players.py; rankings.py reads the output)
 #
-# Trades (2018-2025): a trade's value to a team is how many points it added to that team's best possible lineup,
+# Trades (2018 on, the current season through its last finished week): a trade's value to a team is how many points it added to that team's best possible lineup,
 #   week by week (the roster that week vs the same roster with the trade undone), until a received player is traded again.
 #   Scored two ways and averaged: with what players actually scored (results) and with ESPN's projection for the week of
 #   the trade times the weeks left (the decision, judged on what was known at the time). Bench depth that would never
 #   start adds nothing, so 3-for-1 consolidation trades aren't punished for the depth they give up.
 #   Each trade is capped at the league's 10th/90th percentile so one freak deal can't define a trader, and the score is the
 #   shrunk per-trade edge times the square root of trade count (volume counts, but less than quality).
-# Waivers (2018-2025): points over a replacement starter from pickups while they were in the lineup, per season,
+# Waivers (2018 on, including the current season so far): points over a replacement starter from pickups while they were in the lineup, per season,
 #   measured against that season's league average.
-# Drafts (2016-2025): every QB/RB/WR/TE pick's season value over replacement, as a percentile against picks taken
+# Drafts (2016 on): every QB/RB/WR/TE pick's season value over replacement (the season in progress is scaled up to 17 games), as a percentile against picks taken
 #   within four spots of it across every draft; the owner's average percentile minus 50.
 # Every owner's average is shrunk toward the league average by empirical Bayes (how much depends on how noisy that
 # measure is and how many trades/seasons/picks the owner has), and a 90% bootstrap range is reported.
@@ -36,7 +36,7 @@ def proj(y):
         for p in json.load(open(os.path.join(M.CACHE,f'pl_{y}.json'))):
             w={}
             for s in p.get('stats',[]):
-                if s['seasonId']==y and s['statSourceId']==1 and s['statSplitTypeId']==1 and s['scoringPeriodId']>0 and 'stats' in s: w[s['scoringPeriodId']]=M.ppr(s['stats'],1)
+                if s['seasonId']==y and s['statSourceId']==1 and s['statSplitTypeId']==1 and s['scoringPeriodId']>0 and 'stats' in s: w[s['scoringPeriodId']]=M.ppr(s['stats'],0.5 if y>=2026 else 1)
             out[p['id']]=w
         PROJ[y]=out
     return PROJ[y]
@@ -45,6 +45,7 @@ def rosters(y):
     if y not in WEEKS:
         W=json.load(open(D('data','weeks',f'{y}.json')));T=W['teams'];out=collections.defaultdict(dict)
         for w,gs in W['weeks'].items():
+            if W.get('cur') and int(w)>=W['cur']: continue   # never count a week still being played
             for g in gs:
                 for s in 'ab': out[T[str(g[s]['t'])][0]][int(w)]=[(M.find(y,r[0],r[1]),r[1],r[3]) for r in g[s]['r']]
         WEEKS[y]=out
@@ -68,7 +69,7 @@ def ranked(groups,minn,extra):
 
 # ---- trades ----
 wkof=lambda t:M.week_of(t['s'],t['d']) if t['d'][5:7] not in('01','02','03','04','05','06','07','08') else 1
-done=sorted([t for t in L['trades'] if t['st']=='completed' and 2018<=t['s']<=2025],key=lambda t:(t['d'],t['id']))
+done=sorted([t for t in L['trades'] if t['st']=='completed' and 2018<=t['s']<=max(M.LEAGUE)],key=lambda t:(t['d'],t['id']))
 def pinfo(y,g):
     nm,_,pos=g.partition('|')
     if pos in('Pick','Secret'): return None
@@ -121,7 +122,7 @@ out['trade']=sorted(rows,key=lambda r:-r['score']);out['tradeInfo']=dict(mean=ro
 # ---- waivers ----
 WS=collections.defaultdict(lambda:collections.defaultdict(float));seasons=collections.defaultdict(set);adds=collections.Counter();hits=collections.Counter();bestp={}
 for m in MV['moves']:
-    if m['y']>=2026 or not m.get('o'): continue
+    if not m.get('o'): continue
     seasons[m['o']].add(m['y'])
     if m.get('add'): adds[m['o']]+=1
     if not m.get('add') or m.get('again') or m['add'][1] not in('QB','RB','WR','TE') or not m.get('st'): continue
@@ -134,12 +135,13 @@ out['waiver'],out['waiverInfo']=ranked(WG,3,lambda o:dict(seasons=len(seasons[o]
 
 # ---- drafts ----
 picks=[]
-for y in range(2016,2026):
+for y in range(2016,max(M.LEAGUE)+1):
+    G=M.GAMES(y)
     for p in M.board_picks(y):
         if not p['pid'] or not p['o']: continue
         P=M.players(y)[p['pid']]
         if P['pos'] not in('QB','RB','WR','TE'): continue
-        picks.append(dict(y=y,o=p['o'],pick=p['pick'],v=max(0.0,P['tot']-17*M.repl(y,P['pos'])),n=P['n'],pos=P['pos']))
+        picks.append(dict(y=y,o=p['o'],pick=p['pick'],v=max(0.0,P['tot']-G*M.repl(y,P['pos']))*17/G,n=P['n'],pos=P['pos']))
 by=collections.defaultdict(list)
 for p in picks: by[p['pick']].append(p['v'])
 for p in picks:

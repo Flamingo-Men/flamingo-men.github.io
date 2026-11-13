@@ -80,11 +80,16 @@ def find(y,name,pos=None):
 
 # replacement level: weekly average of the QB12, RB30, WR30, TE12 that season
 REPL={}
+# weeks of season totals so far: 17 for a finished season, the completed weeks for the one in progress (a week ends Monday night)
+def GAMES(y):
+    if y<max(LEAGUE): return 17
+    d=(datetime.date.today()-datetime.date.fromisoformat(KICKOFF[y])).days
+    return max(1,min(17,(d+2)//7))
 def repl(y,pos):
     if y not in REPL:
         by=collections.defaultdict(list)
         for p in players(y).values(): by[p['pos']].append(p['tot'])
-        REPL[y]={k:sorted(by[k],reverse=True)[n-1]/17 for k,n in (('QB',12),('RB',30),('WR',30),('TE',12))}
+        REPL[y]={k:sorted(by[k],reverse=True)[n-1]/GAMES(y) for k,n in (('QB',12),('RB',30),('WR',30),('TE',12))}
     return REPL[y].get(pos,0)
 
 # positional finish, QB/RB/WR/TE only
@@ -121,6 +126,7 @@ def espn(y):
                     pe=e['playerPoolEntry']
                     st=[x for x in pe['player'].get('stats',[]) if x.get('scoringPeriodId')==w and x.get('statSourceId')==0]
                     box[(s['teamId'],w)][e['playerId']]=(e['lineupSlotId'],round(st[0]['appliedTotal'],2) if st else 0.0,pe['player']['fullName'],POS.get(pe['player'].get('defaultPositionId'),''))
+    last=min(last,GAMES(y))   # count only finished weeks; the week being played never counts (Kyle)
     def stint(tid,pid,w0):
         # only the stretch right after the add, until the player leaves this roster (dropped or traded);
         # a later re-acquisition by trade or a second add is not credited to this pickup

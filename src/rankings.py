@@ -90,8 +90,11 @@ if 'current' not in out:
 # ---- all-time power ranking ----
 rows={}
 for o,v in S.items():
-    seas=[y for y in range(2016,2026) if str(y) in v['seasons'] or o in DRAFT_YEARS.get(y,())]
-    if len(seas)<3: continue
+    # record and points include the season in progress (completed weeks only); title, final, playoff and Sacko
+    # rates use finished seasons, since 2026 hasn't decided any of them yet
+    seas=[y for y in range(2016,2027) if str(y) in v['seasons'] or o in DRAFT_YEARS.get(y,())]
+    fin=[y for y in seas if y<2026]
+    if len(fin)<3: continue
     w=sum(v['seasons'][str(y)]['w'] for y in seas if str(y) in v['seasons']);l=sum(v['seasons'][str(y)]['l'] for y in seas if str(y) in v['seasons'])
     pidx=[]
     for y in seas:
@@ -99,16 +102,16 @@ for o,v in S.items():
         if not r or r.get('pts') is None: continue
         lg=[x['seasons'][str(y)]['pts'] for x in S.values() if str(y) in x['seasons'] and x['seasons'][str(y)].get('pts')]
         pidx.append(r['pts']/(sum(lg)/len(lg)))
-    rows[o]=dict(o=o,seasons=len(seas),rec=f"{w}-{l}",pct=w/max(1,w+l),pidx=sum(pidx)/len(pidx) if pidx else 1,
+    rows[o]=dict(o=o,seasons=len(seas),fin=len(fin),rec=f"{w}-{l}",pct=w/max(1,w+l),pidx=sum(pidx)/len(pidx) if pidx else 1,
         titles=sum(1 for y in seas if CHAMPS.get(y)==o),finals=sum(1 for y in seas if o in FINAL.get(y,())),
-        po=sum(1 for y in seas if o in PLAYOFF.get(y,())),sackos=sum(1 for y in seas if SACKOS.get(y)==o))
+        po=sum(1 for y in fin if o in PLAYOFF.get(y,())),sackos=sum(1 for y in fin if SACKOS.get(y)==o))
 k=4
 P=norm({o:(r['pct']*r['seasons']+.5*k)/(r['seasons']+k) for o,r in rows.items()});X=norm({o:r['pidx'] for o,r in rows.items()})
 # titles and finals count in total (a title is a title); playoff and Sacko rates are shrunk toward the league
 # average with four phantom seasons so a three-year owner can't top the list on a small sample
-k=4;mpo=sum(r['po'] for r in rows.values())/sum(r['seasons'] for r in rows.values());msk=sum(r['sackos'] for r in rows.values())/sum(r['seasons'] for r in rows.values())
+k=4;mpo=sum(r['po'] for r in rows.values())/sum(r['fin'] for r in rows.values());msk=sum(r['sackos'] for r in rows.values())/sum(r['fin'] for r in rows.values())
 Tt=norm({o:r['titles'] for o,r in rows.items()});F=norm({o:r['finals'] for o,r in rows.items()})
-Po=norm({o:(r['po']+k*mpo)/(r['seasons']+k) for o,r in rows.items()});Sk=norm({o:(r['sackos']+k*msk)/(r['seasons']+k) for o,r in rows.items()})
+Po=norm({o:(r['po']+k*mpo)/(r['fin']+k) for o,r in rows.items()});Sk=norm({o:(r['sackos']+k*msk)/(r['fin']+k) for o,r in rows.items()})
 for o,r in rows.items():
     r['score']=round(100*(.25*P[o]+.1*X[o]+.3*Tt[o]+.1*F[o]+.2*Po[o]+.05*(1-Sk[o])),1);r['pct']=round(r['pct']*100,1);r['pidx']=round(r['pidx']*100,1)
 out['alltime']=sorted(rows.values(),key=lambda r:-r['score'])
@@ -143,13 +146,13 @@ out['trade']=sorted([dict(o=o,score=round(r['net'],1),n=r['n'],won=r['won'],avg=
 # ---- waivers (ESPN 2018 on): points over a replacement starter while the pickup was in the lineup ----
 wv=collections.defaultdict(lambda:dict(val=0.0,n=0,hits=0,best=None,yrs=set()))
 for m in MV['moves']:
-    if not m.get('add') or m.get('again') or m['y']>=2026 or m['add'][1] not in('QB','RB','WR','TE') or not m.get('st'): continue
+    if not m.get('add') or m.get('again') or m['add'][1] not in('QB','RB','WR','TE') or not m.get('st'): continue
     rp=MV['repl'][str(m['y'])][m['add'][1]];v=max(0.0,m['pts']-m['st']*rp)
     r=wv[m['o']];r['val']+=v;r['yrs'].add(m['y'])
     if m['st']>=3 and v>=20: r['hits']+=1
     if not r['best'] or v>r['best'][1]: r['best']=[m['add'][0],round(v,1),m['y'],m['st'],m['pts']]
 for m in MV['moves']:
-    if m.get('add') and m['y']<2026 and m['o']: wv[m['o']]['n']+=1; wv[m['o']]['yrs'].add(m['y'])
+    if m.get('add') and m['o']: wv[m['o']]['n']+=1; wv[m['o']]['yrs'].add(m['y'])
 out['waiver']=sorted([dict(o=o,score=round(r['val']/len(r['yrs']),1),seasons=len(r['yrs']),total=round(r['val'],1),adds=r['n'],hits=r['hits'],best=r['best']) for o,r in wv.items() if len(r['yrs'])>=3],key=lambda r:-r['score'])
 # trader, waiver and drafter rankings come from skill.py (lineup impact, luck vs skill, uncertainty) when it has been run
 if os.path.exists(D('data','skill.json')):

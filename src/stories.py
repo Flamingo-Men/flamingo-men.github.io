@@ -83,6 +83,7 @@ for y in range(2018,2027):
     n=len(T);pc=(PO.get(str(y)) or {}).get('teams') or 4;live=y==2026
     games=collections.defaultdict(list)   # o -> [(w,pts,opp,oppPts,win)]
     for w,gs in sorted(W['weeks'].items(),key=lambda x:int(x[0])):
+        if W.get('cur') and int(w)>=W['cur']: continue   # never count a week still being played
         for g in gs:
             if g['tier']: continue
             a,b=g['a'],g['b'];ao,bo=T[str(a['t'])][0],T[str(b['t'])][0]
