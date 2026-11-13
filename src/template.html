@@ -486,6 +486,17 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
 /* WRAPPED: Spotify Wrapped style season recaps on team pages (src/wrapped.py -> data/wrapped.json) */
 .wr-pick{margin-top:22px;border-radius:14px;padding:14px 16px;color:#fff;background:linear-gradient(120deg,#1db954 0%,#0f7a5c 45%,#191414 100%);box-shadow:0 6px 20px -10px rgba(0,0,0,.6);display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
 .wr-pick[hidden]{display:none}
+dialog.wrpdlg{border:0;border-radius:16px;padding:0;width:min(420px,calc(100vw - 32px));max-height:min(80dvh,640px);background:#191414;color:#fff;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:auto}
+dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
+.wrp-h{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(120deg,#1db954,#0f7a5c);position:sticky;top:0}
+.wrp-h b{font-size:1.1rem}
+.wrp-x{border:0;background:none;color:#fff;font-size:1.6rem;line-height:1;cursor:pointer;padding:0 4px}
+.wrp-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px}
+.wrp-list button{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;align-items:center;text-align:left;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;border-radius:12px;padding:8px 10px;cursor:pointer;font:inherit}
+.wrp-list button:hover,.wrp-list button:focus-visible{background:rgba(29,185,84,.25);border-color:#1db954}
+.wrp-list .av{width:40px;height:40px;grid-row:span 2;border-width:2px}
+.wrp-list span{font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wrp-list small{color:rgba(255,255,255,.65);font-size:.72rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .wr-pick-h{display:flex;gap:12px;align-items:center}
 .wr-pick-h b{display:block;font-size:1.1rem}
 .wr-pick-h small{color:rgba(255,255,255,.8);font-size:.85rem}
@@ -1658,12 +1669,19 @@ function wrBanner(o,y){const el=$("#wrBanner");if(!el)return;
     el.firstChild.onclick=()=>openWrapped(o,y)})}
 function wrPicker(){const box=$("#wrPick");if(!box||box.dataset.ready)return;box.dataset.ready=1;
   loadWrapped().then(d=>{const os=Object.keys(d).filter(o=>Object.keys(d[o]||{}).length&&OWNERS[o]).sort((a,b)=>short(a).localeCompare(short(b)));if(!os.length)return;
-    let last={};try{last=JSON.parse(localStorage.getItem("fm-wr")||"{}")}catch(e){}
-    const so=$("#wrPickO"),sy=$("#wrPickY");
-    so.innerHTML=os.map(o=>`<option value="${o}">${esc(short(o))}</option>`).join("");so.value=os.includes(last.o)?last.o:(os.includes("kyle")?"kyle":os[0]);
-    const years=()=>{const ys=Object.keys(d[so.value]).sort((a,b)=>b-a);sy.innerHTML=ys.map(y=>`<option>${y}</option>`).join("");const ls=String(new Date().getFullYear()-1);sy.value=ys.includes(ls)?ls:ys[0]};
+    const so=$("#wrPickO"),sy=$("#wrPickY"),ls=String(new Date().getFullYear()-1);
+    so.innerHTML=`<option value="">Pick a team</option>`+os.map(o=>`<option value="${o}">${esc(short(o))}</option>`).join("");so.value="";
+    // with no team picked the season list covers every season that has a Wrapped
+    const years=()=>{const keep=sy.value,ys=[...new Set((so.value?[so.value]:os).flatMap(o=>Object.keys(d[o])))].sort((a,b)=>b-a);
+      sy.innerHTML=ys.map(y=>`<option>${y}</option>`).join("");sy.value=ys.includes(keep)?keep:ys.includes(ls)?ls:ys[0]};
     years();so.onchange=years;
-    $("#wrPickGo").onclick=()=>{last={o:so.value};try{localStorage.setItem("fm-wr",JSON.stringify(last))}catch(e){}openWrapped(so.value,sy.value)};
+    const play=o=>{so.value=o;years();openWrapped(o,sy.value)};
+    $("#wrPickGo").onclick=()=>{if(so.value)return play(so.value);
+      let dlg=$("#wrPickDlg");if(!dlg){dlg=document.createElement("dialog");dlg.id="wrPickDlg";dlg.className="wrpdlg";dlg.setAttribute("aria-label","Pick a team");document.body.appendChild(dlg);
+        dlg.addEventListener("click",e=>{const b=e.target.closest("[data-wo]");if(b){dlg.close();play(b.dataset.wo)}else if(e.target===dlg||e.target.closest(".wrp-x"))dlg.close()})}
+      const y=sy.value,has=os.filter(o=>d[o][y]);
+      dlg.innerHTML=`<div class="wrp-h"><b>Whose ${esc(y)} Wrapped?</b><button type="button" class="wrp-x" aria-label="Close">×</button></div><div class="wrp-list">${has.map(o=>`<button type="button" data-wo="${o}">${av(o)}<span>${esc(short(o))}</span><small>${esc(OWNERS[o].name)}</small></button>`).join("")}</div>`;
+      dlg.showModal()};
     box.hidden=false})}
 function wrSlide(s){const t=WR_THEME[s.k]||WR_THEME.intro,B=s.big||"";
   const big=B?`<div class="wr-big${B.length>11?" long":""}">${esc(B)}</div>`:"";
