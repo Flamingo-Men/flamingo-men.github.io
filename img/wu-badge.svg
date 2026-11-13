@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 150">
+  <!-- Hand-drawn winged W in the Wu-Tang spirit, for the 2015 Wu-Tang League banner -->
+  <path d="M4 14 L70 14 L84 52 L110 8 L136 52 L150 14 L216 14
+           C206 44 182 78 146 138 L128 102 L110 132 L92 102 L74 138
+           C38 78 14 44 4 14 Z" fill="#f7c600" stroke="#111" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M30 28 L62 28 L80 76 L110 30 L140 76 L158 28 L190 28" fill="none" stroke="#111" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity=".55"/>
+</svg>
