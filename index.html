@@ -631,19 +631,35 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 .odds-leg small{font-family:var(--f-data);font-size:.7rem;color:var(--muted)}
 .odds-leg b{font-family:var(--f-data);font-weight:500;font-size:.78rem;text-align:right}
 /* bracket */
-.bracket-live{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-items:center}
-.brl-col{display:grid;gap:8px}
-.brl-col h4{margin:0;font-family:var(--f-data);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500}
-.brl-m{border:1px solid var(--line);border-radius:var(--r);background:var(--marble);overflow:hidden}
-.brl-s{display:grid;grid-template-columns:16px 22px minmax(0,1fr) auto;gap:5px;align-items:center;padding:4px 6px;font-size:.78rem}
+.bracket-live{display:block}
+.brl-scroll{overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+.brl-tree{display:grid;grid-template-columns:minmax(132px,1fr) minmax(170px,1.3fr) minmax(132px,1fr);gap:0 22px;min-width:0}
+.brl-col{display:grid;grid-template-rows:auto 1fr;gap:6px}
+.brl-col h4{margin:0;font-family:var(--f-data);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:500;white-space:nowrap}
+.brl-games{display:flex;flex-direction:column;justify-content:space-around;gap:12px;position:relative}
+.brl-m{border:1px solid var(--line);border-radius:var(--r);background:var(--marble);position:relative}
+.brl-col.j-str .brl-m::after,.brl-col.j-pair .brl-m::after{content:"";position:absolute;left:100%;top:50%;width:11px;border-top:2px solid var(--line)}
+.brl-col.j-str .brl-m::after{width:22px}
+.brl-col.j-pair .brl-games::after{content:"";position:absolute;left:calc(100% + 11px);top:25%;bottom:25%;width:11px;border:2px solid var(--line);border-left:0;border-radius:0 4px 4px 0}
+.brl-col.j-pair .brl-games:has(.brl-m:nth-child(3))::after{display:none}
+.brl-lab{font-family:var(--f-data);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:3px 6px 0}
+.brl-s{display:grid;grid-template-columns:16px 22px minmax(0,1fr) auto;gap:5px;align-items:center;padding:5px 6px;font-size:.8rem}
 .brl-s+.brl-s{border-top:1px solid var(--line)}
 .brl-s .sd{font-family:var(--f-data);font-size:.66rem;color:var(--muted);text-align:right}
 .brl-s .av{width:22px;height:22px;font-size:.5rem;border-width:1px}
 .brl-s span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .brl-s small{font-family:var(--f-data);font-size:.66rem;color:var(--muted)}
-.brl-s.tbd{color:var(--muted);font-style:italic}
+.brl-s.tbd{color:var(--muted);font-style:italic;grid-template-columns:16px minmax(0,1fr)}
+.brl-s.tbd>span:nth-child(2),.brl-s.tbd small{display:none}
 .brl-s.w{font-weight:600}
-.brl-bub{grid-column:1/-1;font-size:.78rem;color:var(--muted);margin-top:4px}
+.brl-m.sk{border-color:color-mix(in srgb,var(--flamingo) 35%,var(--line))}
+.brl-m.sk .brl-s.w{font-weight:400;color:var(--muted)}
+.brl-m.sk .brl-s.l{font-weight:600;color:var(--flamingo)}
+.brl-sk-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:22px 0 8px;padding-top:14px;border-top:1px solid var(--line)}
+.brl-sk-h h3{font-size:1.1rem}
+.brl-bub{font-size:.78rem;color:var(--muted);margin:8px 0 0}
+.brl-swipe{display:none}
+@media (max-width:640px){.brl-scroll{margin-inline:-14px;padding:0 14px 6px}.brl-tree{grid-template-columns:repeat(3,172px)}.brl-swipe{display:block}}
 /* season storylines + trade tracker */
 .ss-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .ss-list li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:6px 0;border-top:1px solid var(--line)}
@@ -667,7 +683,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 .tt-bar i{display:block;border-radius:2px;background:var(--aegean)}
 .tt-bar i+i{background:var(--flamingo)}
 @media (max-width:860px){.dgrid2{grid-template-columns:minmax(0,1fr)}.aw-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:560px){.odds-wrap{grid-template-columns:minmax(0,1fr)}.odds-leg{grid-template-columns:1fr 1fr}.bracket-live{grid-template-columns:minmax(0,1fr)}.mlu{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.odds-wrap{grid-template-columns:minmax(0,1fr)}.odds-leg{grid-template-columns:1fr 1fr}.mlu{grid-template-columns:minmax(0,1fr)}}
 /* iPhone: swipeable scoreboard (one row) and awards (two rows); compact header; no sideways page scroll */
 @media (max-width:640px){
   .mu-grid,.aw-grid{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:14px;margin-inline:-14px;padding:2px 14px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -1252,21 +1268,33 @@ function renderOdds(){const d=DASH,W=d.odds.weeks,S_=d.odds.series;if(!W.length)
     tip.innerHTML=`<b>After week ${W[i]}</b>${rows.map(o=>`<div><span><i style="background:${dcol(o)}"></i> ${nm(o)}</span><span class="num">${S_[o][i].toFixed(1)}%</span></div>`).join("")}`;
     tip.hidden=false;const left=x(i)*r.width/w;tip.style.top="0px";tip.style.left=(left>r.width/2?left-tip.offsetWidth-12:left+12)+"px"};
   $("#oddsHit").onpointermove=move;$("#oddsHit").onpointerdown=move;$("#oddsHit").onpointerleave=ev=>{if(ev.pointerType!=="mouse")return;tip.hidden=true;xh.setAttribute("x1",-10);xh.setAttribute("x2",-10)}}
-function renderBracketLive(){const d=DASH,B_=d.bracket,sd={};B_.seeds.forEach(s=>sd[s.seed]=s);const act=B_.actual||{},real=Object.keys(act).length>0;
+function renderBracketLive(){const d=DASH,B_=d.bracket,sd={};(d.standings||[]).forEach(s=>{if(s.seed)sd[s.seed]=s});B_.seeds.forEach(s=>sd[s.seed]={...sd[s.seed],...s});
+  const act=B_.actual||{},real=Object.keys(act).length>0,sact=B_.sacko||{},sreal=Object.keys(sact).length>0;
   $("#brSub").textContent=real?"Live playoff bracket":`If the season ended today · ${d.reg-d.last} weeks left`;
   const pct=s=>s.odds==null?"":s.odds>=99.5?">99%":`${s.odds.toFixed(0)}%`;
-  const side=(s,extra="",win=false)=>s?`<div class="brl-s${win?" w":""}"><span class="sd">${s.seed||""}</span>${av(s.o)}<span title="${esc(s.team||"")} ${s.rec||""}">${nm(s.o)}</span><small>${extra}</small></div>`:`<div class="brl-s tbd"><span class="sd"></span><span></span><span>${esc(extra)}</span><small></small></div>`;
-  const m=(a,b,ea,eb,wa,wb)=>`<div class="brl-m">${side(a,ea,wa)}${side(b,eb,wb)}</div>`;
-  let r1,r2,r3;
-  if(real){const ks=Object.keys(act).sort(),bySeed=o=>B_.seeds.find(s=>s.o===o)||{o,seed:""};
-    const col=k=>(act[k]||[]).map(g=>m(bySeed(g.a.o),g.b?bySeed(g.b.o):null,fmt(g.a.pts),g.b?fmt(g.b.pts):"Bye",g.win==="a",g.win==="b")).join("");
-    r1=col(ks[0]);r2=ks[1]?col(ks[1]):m(sd[1],null,"Bye","Winner of 4 v 5")+m(sd[2],null,"Bye","Winner of 3 v 6");r3=ks[2]?col(ks[2]):m(null,null,"","Semi winners")}
-  else{r1=m(sd[3],sd[6],pct(sd[3]),pct(sd[6]))+m(sd[4],sd[5],pct(sd[4]),pct(sd[5]));
-    r2=m(sd[1],null,`Bye ${sd[1]?.bye!=null?sd[1].bye.toFixed(0)+"%":""}`,"Winner of 4 v 5")+m(sd[2],null,`Bye ${sd[2]?.bye!=null?sd[2].bye.toFixed(0)+"%":""}`,"Winner of 3 v 6");
-    r3=`<div class="brl-m"><div class="brl-s tbd"><span class="sd"></span><span></span><span>Semi winners</span><small></small></div></div>`}
-  const[w1,w2,w3]=B_.weeks;
-  $("#bracketLive").innerHTML=`<div class="brl-col"><h4>Round 1 · Wk ${w1}</h4>${r1}</div><div class="brl-col"><h4>Semifinals · Wk ${w2}</h4>${r2}</div><div class="brl-col"><h4>Final · Wk ${w3}</h4>${r3}</div>
-    ${!real&&B_.bubble.length?`<p class="brl-bub">First ones out: ${B_.bubble.map(s=>`${nm(s.o)} (${s.rec}, ${pct(s)})`).join(", ")}. Percentages are playoff odds; byes go to the two division winners${sd[1]?.div&&sd[2]?.div?` (${esc(sd[1].div)} and ${esc(sd[2].div)})`:""}.</p>`:""}`}
+  const side=(s,extra="",win=false,lose=false)=>s?`<div class="brl-s${win?" w":""}${lose?" l":""}"><span class="sd">${s.seed||""}</span>${av(s.o)}<span title="${esc(s.team||"")} ${s.rec||""}">${nm(s.o)}</span><small>${extra}</small></div>`:`<div class="brl-s tbd"><span class="sd"></span><span></span><span>${esc(extra)}</span><small></small></div>`;
+  const m=(a,b,ea,eb,wa,wb,lab="",cls="")=>`<div class="brl-m${cls}">${lab?`<div class="brl-lab">${esc(lab)}</div>`:""}${side(a,ea,wa,wb&&cls)}${side(b,eb,wb,wa&&cls)}</div>`;
+  const bySeed=o=>Object.values(sd).find(s=>s.o===o)||{o,seed:""};
+  const realCols=(A,sacko)=>Object.keys(A).sort((a,b)=>a-b).map(k=>(A[k]||[]).map(g=>m(bySeed(g.a.o),g.b?bySeed(g.b.o):null,fmt(g.a.pts),g.b?fmt(g.b.pts):"Bye",g.win==="a",g.win==="b","",sacko?" sk":"")));
+  const tree=(cols,heads)=>`<div class="brl-scroll"><div class="brl-tree">${cols.map((c,i)=>{const nx=cols[i+1],j=!nx?"":nx.length===c.length?" j-str":nx.length*2===c.length?" j-pair":"";
+    return `<div class="brl-col${j}"><h4>${heads[i]||""}</h4><div class="brl-games">${c.join("")}</div></div>`}).join("")}</div></div>`;
+  const[w1,w2,w3]=B_.weeks,H=[`Round 1 · Wk ${w1}`,`Semifinals · Wk ${w2}`,`Final · Wk ${w3}`];
+  let cols;
+  if(real){cols=realCols(act);if(cols.length<2)cols.push([m(sd[1],null,"Bye","Winner of 4 v 5"),m(sd[2],null,"Bye","Winner of 3 v 6")]);if(cols.length<3)cols.push([m(null,null,"","Semi winners")])}
+  else cols=[[m(sd[4],sd[5],pct(sd[4]),pct(sd[5])),m(sd[3],sd[6],pct(sd[3]),pct(sd[6]))],
+    [m(sd[1],null,`Bye ${sd[1]?.bye!=null?sd[1].bye.toFixed(0)+"%":""}`,"Winner of 4 v 5"),m(sd[2],null,`Bye ${sd[2]?.bye!=null?sd[2].bye.toFixed(0)+"%":""}`,"Winner of 3 v 6")],
+    [m(null,null,"","Semi winners","","","Championship")]];
+  // Sacko bracket (Kyle): 12 and 11 get byes, 10 v 7 and 8 v 9 in round 1, the LOSER advances; the last loser takes the Sacko
+  const n=Object.keys(sd).length,S=k=>sd[k],r=s=>s?.rec||"";
+  let scols;
+  if(sreal){scols=realCols(sact,true);if(scols.length<3)scols.push([m(null,null,"","Semi losers","","","Sacko game"," sk")])}
+  else scols=n>=12?[[m(S(10),S(7),r(S(10)),r(S(7)),0,0,"Loser advances"," sk"),m(S(8),S(9),r(S(8)),r(S(9)),0,0,"Loser advances"," sk")],
+    [m(S(12),null,r(S(12)),"Loser of 10 v 7",0,0,"Bye in round 1"," sk"),m(S(11),null,r(S(11)),"Loser of 8 v 9",0,0,"Bye in round 1"," sk")],
+    [m(null,null,"","Semi losers",0,0,"Loser takes the Sacko"," sk")]]:null;
+  $("#bracketLive").innerHTML=tree(cols,H)
+    +(!real&&B_.bubble.length?`<p class="brl-bub">First ones out: ${B_.bubble.map(s=>`${nm(s.o)} (${s.rec}, ${pct(s)})`).join(", ")}. Percentages are playoff odds; byes go to the two division winners${sd[1]?.div&&sd[2]?.div?` (${esc(sd[1].div)} and ${esc(sd[2].div)})`:""}.</p>`:"")
+    +(scols?`<div class="brl-sk-h"><img class="sk-ic" src="img/sacko.png" alt=""><h3>Sacko bracket</h3><span class="dsub">${sreal?"Loser advances":"Loser advances · if the season ended today"}</span></div>${tree(scols,[`Round 1 · Wk ${w1}`,`Round 2 · Wk ${w2}`,`Sacko game · Wk ${w3}`])}`:"")
+    +'<p class="brl-bub brl-swipe">Swipe sideways to see every round.</p>'}
 let ssAll=false;
 function renderSeason(){const L_=DASH.stories,n=ssAll?L_.length:Math.min(6,L_.length);
   $("#seasonSub").textContent=`Through week ${DASH.last}`;

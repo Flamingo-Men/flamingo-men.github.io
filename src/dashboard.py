@@ -272,7 +272,11 @@ po=[m for m in SCHED if m.get('playoffTierType')=='WINNERS_BRACKET']
 actual={}
 for m in po:
     actual.setdefault(m['matchupPeriodId'],[]).append(dict(a=dict(o=OW[m['home']['teamId']],pts=score(m,'home')),b=dict(o=OW[m['away']['teamId']],pts=score(m,'away')) if 'away' in m else None,win={'HOME':'a','AWAY':'b'}.get(m.get('winner'))))
-bracket=dict(seeds=seeds[:NPO],bubble=seeds[NPO:NPO+2],actual={str(k):v for k,v in sorted(actual.items())},weeks=[REG+1,REG+2,REG+3])
+# Sacko bracket (loser advances): ESPN's losers ladder games, once the playoffs start
+sacko={}
+for m in [m for m in SCHED if m.get('playoffTierType')=='LOSERS_CONSOLATION_LADDER']:
+    sacko.setdefault(m['matchupPeriodId'],[]).append(dict(a=dict(o=OW[m['home']['teamId']],pts=score(m,'home')),b=dict(o=OW[m['away']['teamId']],pts=score(m,'away')) if 'away' in m else None,win={'HOME':'a','AWAY':'b'}.get(m.get('winner'))))
+bracket=dict(seeds=seeds[:NPO],bubble=seeds[NPO:NPO+2],actual={str(k):v for k,v in sorted(actual.items())},sacko={str(k):v for k,v in sorted(sacko.items())},weeks=[REG+1,REG+2,REG+3])
 
 out=dict(updated=datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),year=Y,week=CUR,last=last,reg=REG,started=started,
     live=live,awards=awards,stories=stories,trades=trades,
