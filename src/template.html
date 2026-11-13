@@ -54,7 +54,7 @@ header.site{background:var(--slab);border-bottom:1px solid var(--line);position:
 header.site .wrap{display:flex;align-items:center;gap:16px;padding-block:10px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
 .brand b{font-family:var(--f-display);font-weight:400;font-size:1.25rem;letter-spacing:.06em}
-.brand svg{width:34px;height:34px}
+.brand svg{width:40px;height:40px}
 nav.main{display:flex;gap:2px;flex-wrap:wrap}
 nav.main a{font-family:var(--f-data);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:var(--ink);padding:8px 10px;border-radius:var(--r)}
 nav.main a:hover{background:var(--stone)}
@@ -742,7 +742,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
   .topbar span{font-size:.62rem}
   header.site .wrap{gap:8px 10px;padding-block:8px 0}
   .brand{margin-right:0;flex:none}
-  .brand svg{width:28px;height:28px}
+  .brand svg{width:32px;height:32px}
   .brand b{font-size:1.05rem}
   .search{order:0;flex:1 1 0;min-width:0}
   .search input{font-size:16px;padding:6px 10px 6px 30px}
@@ -771,6 +771,29 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <symbol id="flamingoBall" viewBox="96 54 146 174">
+  
+  <path d="M160 172 L162 200 L160 222" fill="none" stroke="#f48fb1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 222 L170 222" stroke="#f48fb1" stroke-width="6" stroke-linecap="round"/>
+  <path d="M168 172 L182 194 L164 190" fill="none" stroke="#f48fb1" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <path d="M126 150 L104 140 L111 152 L100 157 L122 161 Z" fill="#e0517a"/>
+  <ellipse cx="158" cy="154" rx="42" ry="25" fill="#ff7fa0" transform="rotate(-12 158 154)"/>
+  
+  <path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="206" cy="68" r="11" fill="#ff7fa0"/>
+  <path d="M214 62 L236 70 Q237 78 230 88 Q224 78 213 76 Z" fill="#fff3f6" stroke="#e0517a" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M228 68 L236 70 Q237 78 230 88 L225 80 Z" fill="var(--night)"/>
+  <circle cx="205" cy="65" r="2.6" fill="var(--night)"/>
+  
+  <g transform="rotate(-28 192 158)">
+    <ellipse cx="192" cy="158" rx="27" ry="16" fill="#8b4a2b" stroke="#5e2f18" stroke-width="2"/>
+    <path d="M179 158 H205" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="M184 154 V162 M190 154 V162 M196 154 V162 M202 154 V162" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+  
+  <path d="M132 146 C148 130 176 132 192 148 C186 164 172 170 158 168 C146 166 136 158 132 146 Z" fill="#f06292"/>
+    </symbol>
     <symbol id="flamingo" viewBox="0 0 64 64">
       <path d="M40 8c-5 0-8 4-7 8 1 5 6 7 6 12 0 4-4 6-9 6-8 0-15 5-15 11 0 5 5 8 12 8 3 0 6-1 8-2l-4 12M32 51l5 1" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       <path d="M17 45c0-6 7-11 15-11 5 0 9-2 9-6l3 9c1 7-6 14-16 14-6 0-11-2-11-6z" fill="currentColor"/>
@@ -792,7 +815,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 
 <div class="topbar"><div class="wrap"><span>Flamingo Men Fantasy Football · Est. 2016</span><span id="yearline">Year 11 · 2026 season</span></div></div>
 <header class="site"><div class="wrap">
-  <a class="brand" href="#home"><svg style="color:var(--flamingo)"><use href="#flamingo"/></svg><b>The Flamingo Men</b></a>
+  <a class="brand" href="#home"><svg aria-hidden="true"><use href="#flamingoBall"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
     <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
   </nav>
