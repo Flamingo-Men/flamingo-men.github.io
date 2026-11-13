@@ -198,10 +198,12 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .chronicle p{margin:0;max-width:68ch}
 .era-ph{position:relative;margin:-24px -24px 4px;border-radius:var(--r) var(--r) 0 0;overflow:hidden;background:var(--night);aspect-ratio:2/1}
 .era-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.era-ph img.era-inset{position:absolute;right:4%;top:8%;width:30%;height:auto;aspect-ratio:394/365;object-fit:cover;border:8px solid #fff;border-bottom-width:26px;border-radius:3px;transform:rotate(4deg);box-shadow:0 14px 30px rgba(0,0,0,.45);z-index:1}
+.era-ph:has(.era-inset) figcaption{padding-right:38%}
 .era-ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 20px 14px;background:linear-gradient(transparent,rgba(6,10,20,.82));color:#fff;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
 .era-ph figcaption b{font-family:var(--f-display);font-weight:400;font-size:1.5rem;letter-spacing:.02em}
 .era-ph figcaption span{font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#e8c574}
-@media (max-width:640px){.chronicle{padding:18px 16px}.era-ph{margin:-18px -16px 2px;aspect-ratio:4/3}.era-ph img{object-position:50% 50%!important}.era-ph figcaption{padding:28px 14px 10px}.era-ph figcaption b{font-size:1.15rem}}
+@media (max-width:640px){.chronicle{padding:18px 16px}.era-ph{margin:-18px -16px 2px;aspect-ratio:4/3}.era-ph img{object-position:50% 50%!important}.era-ph figcaption{padding:28px 14px 10px}.era-ph img.era-inset{width:40%;right:3%;top:6%;border-width:5px;border-bottom-width:16px}.era-ph:has(.era-inset) figcaption{padding-right:14px}.era-ph figcaption b{font-size:1.15rem}}
 .chronicle h3{color:var(--aegean)}
 .years{display:flex;gap:6px;flex-wrap:wrap;margin:24px 0 14px}
 .years button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:6px 14px;cursor:pointer;font-family:var(--f-data);font-size:.85rem}
@@ -1358,7 +1360,7 @@ function renderHome(){
 /* ---------- HISTORY ---------- */
 const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
 // Era group photos (Kyle, 2026-11-13), keyed by ERAS index; pos = object-position for the wide desktop crop
-const ERA_PHOTO={0:{src:"img/era-2015.jpg",pos:"50% 22%",alt:"The #Squad boxing in 2015"},2:{src:"img/era-2022.jpg",pos:"50% 78%",alt:"The league at the bar in 2022"},
+const ERA_PHOTO={0:{src:"img/era-2015.jpg",pos:"50% 22%",alt:"The #Squad boxing in 2015",inset:{src:"img/era-2015b.jpg",alt:"The #Squad flexing in 2015"}},2:{src:"img/era-2022.jpg",pos:"50% 78%",alt:"The league at the bar in 2022"},
   3:{src:"img/era-2023.jpg",pos:"50% 62%",alt:"The league in the cabin in 2023"},4:{src:"img/era-2026.jpg",pos:"50% 25%",alt:"The league out together in 2026"}};
 const YEAR_BIO={
   2015:"The unofficial prequel. Charles won a league so full of cheating and tampering that nobody counts it.",
@@ -1409,7 +1411,7 @@ function renderHistory(){
   $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2][e[2].length-1];histWeek=null;openGame=null;renderHistory()};
   const [h0,p0]=CHRONICLE[era[3]];
   const ph=ERA_PHOTO[era[3]];
-  $("#chronicle").innerHTML=`${ph?`<figure class="era-ph"><img src="${ph.src}" alt="${esc(ph.alt)}" style="object-position:${ph.pos}" loading="lazy" decoding="async"><figcaption><b>${esc(era[0])}</b><span>${esc(era[1])}</span></figcaption></figure>`:""}<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
+  $("#chronicle").innerHTML=`${ph?`<figure class="era-ph"><img src="${ph.src}" alt="${esc(ph.alt)}" style="object-position:${ph.pos}" loading="lazy" decoding="async">${ph.inset?`<img class="era-inset" src="${ph.inset.src}" alt="${esc(ph.inset.alt)}" loading="lazy" decoding="async">`:""}<figcaption><b>${esc(era[0])}</b><span>${esc(era[1])}</span></figcaption></figure>`:""}<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
   renderWeeks();
   $("#yearPills").innerHTML=era[2].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
   $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;histWeek=null;openGame=null;renderHistory()};
