@@ -1304,7 +1304,9 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
     card("Most points in a loss",fmt(R.unluckiest.p),[R.unluckiest],`Lost to ${esc(short(R.unluckiest.vs))}'s ${fmt(R.unluckiest.vsp)}, ${wk(R.unluckiest.y,R.unluckiest.w)}`),
     card("Most points left on the bench",fmt(R.bench.bench),[R.bench],`${tn(R.bench)}, ${wk(R.bench.y,R.bench.w)}`),
     card("Most trades, all time",mTr[0].trades,mTr,"Completed trades on record")];
-  const g=$("#recGrid");g.innerHTML=c.join("");
+  // most important first (Kyle): career wins and losses, career win rate, titles and Sackos, playoffs, season records, streaks, single games
+  const ORDER=[6,7,10,11,8,9,17,16,4,5,2,3,14,15,0,1,12,13,18,19,20,21];
+  const g=$("#recGrid");g.innerHTML=ORDER.map(i=>c[i]).join("");
   const wrap=g.parentElement,pv=wrap.querySelector(".prev"),nx=wrap.querySelector(".next");
   const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
   pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
