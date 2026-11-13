@@ -196,7 +196,7 @@ if last:
     else:
         who=[h for h in hist if h[0]==hb]
         same=', '.join(f"his own {y} start" if o==top else f"{nk(o)} in {y}" for _,y,o in who[:3])
-        if R[top]['w']>=hb: story('Best start ever',[top],f"{nk(top)} is {rec(top)}, the best start through {last} weeks since the league moved to ESPN in 2018"+(f" (matching {same})" if R[top]['w']==hb else "")+". "+("Is this the year Floof finally gets ring number two?" if top=='fluff' else "Can anyone catch him?"),95)
+        if R[top]['w']>=hb: story('Hot start',[top],f"{nk(top)} is {rec(top)}, the best start through {last} weeks since the league moved to ESPN in 2018"+(f" (matching {same})" if R[top]['w']==hb else "")+". "+("Is this the year Floof finally gets ring number two?" if top=='fluff' else "Can anyone catch him?"),95)
         else: story('Top seed',[top],f"{nk(top)} leads the league at {rec(top)}.",60)
     bot=min(OWN,key=lambda o:(R[o]['w'],R[o]['pf']))
     if R[bot]['w']==0: story('Winless watch',[bot],f"{nk(bot)} is {rec(bot)}. Is the first winless season in league history on the table?",98)
