@@ -192,10 +192,15 @@ for y in range(2018,2027):
             slides.append(dict(k='missed',kicker='How it ended',big=f'{ord_(srank[o])} place',sub='missed the playoffs',text=f"{w}-{l} and on the outside looking in. "+("So close." if srank[o]==5 else "Next year.")))
         # archetype: the trait where this owner stood out most
         cand=[]
+        rk=lambda d,hi=True:pct_rank(d[o],list(d.values()),hi)
         if champ: cand.append((9,'The Closer','Won the whole thing. Nothing else matters.'))
-        if sacko: cand.append((3,'The Sacko','Somebody had to.'))
+        if sacko: cand.append((4.7,'The Sacko','Somebody had to.'))   # beats the softer tags (Clutch, Heartbreak Kid) so a Sacko year doesn't read like a good one
         if luck>=2: cand.append((5+luck,'The Lucky Charm','Your record beat your scores. Do not question it.'))
-        if luck<=-2: cand.append((5-luck,'Snakebitten','You scored like a contender and got paid like a rebuilder.'))
+        top_half=rk(pf)<=len(owners)//2
+        # Snakebitten only for teams that actually scored well (Kyle: Jordan 2025 had the fewest points and was tagged Snakebitten)
+        if luck<=-2 and top_half: cand.append((5-luck,'Snakebitten','You scored like a contender and got paid like a rebuilder.'))
+        elif luck<=-2: cand.append((4.3,'Snakebitten',f"Your scores were worth about {round(-luck)} more wins than you got. Not good, but not that bad either."))
+        if rk(pf)==len(owners): cand.append((6.2,'Rock Bottom','The fewest points in the league. The lineup never got going.'))
         if arank==1 and len(A_)>=15: cand.append((6,'The Tinkerer','Lived on the waiver wire. The most adds in the league.'))
         if len(tl)>=4 and len(tl)==max(len(v) for v in trades.values()): cand.append((6.5,'The Dealer','Nobody worked the phones harder.'))
         if pct_rank(eff[o],list(eff.values()))==1: cand.append((6,'The Lineup Whisperer','The fewest points left on the bench in the league.'))
@@ -203,7 +208,6 @@ for y in range(2018,2027):
         if pct_rank(pf[o],list(pf.values()))==1: cand.append((7,'The Juggernaut','Scored more than anyone.'))
         if top and top[0][1]/totp>=.2: cand.append((5,'One-Man Band',f"{top[0][0]} did a fifth of the work."))
         if not tl and len(A_)<=8: cand.append((4.5,'Set and Forget','Barely touched the roster. Drafted it and let it ride.'))
-        rk=lambda d,hi=True:pct_rank(d[o],list(d.values()),hi)
         if rk(pf)==2: cand.append((4.2,'The Contender','Second-most points in the league. Built to win.'))
         if rk(pa)==1: cand.append((4.4,'The Punching Bag','Nobody had more points scored against them. Every week was somebody\'s best week.'))
         if rk(pa)==len(owners): cand.append((4.1,'The Easy Schedule','Faced the fewest points in the league. Opponents went quiet against you.'))
@@ -212,7 +216,7 @@ for y in range(2018,2027):
         if close and cw>=3 and len(close)-cw<=1: cand.append((4.6,'Clutch',f"{cw} wins by under 10 points. Ice in the veins."))
         sd={q:(sum((r[1]-pf[q]/len(reg[q]))**2 for r in reg[q])/len(reg[q]))**.5 for q in owners}
         if rk(sd)==1: cand.append((3.8,'Boom or Bust','The wildest week-to-week swings in the league.'))
-        if rk(sd)==len(owners): cand.append((3.8,'Mr. Consistent','The steadiest scorer in the league. You always knew what you were getting.'))
+        if rk(sd)==len(owners): cand.append((3.8,'Mr. Consistent','The steadiest scorer in the league. You always knew what you were getting.') if top_half else (3.8,'Stuck in Neutral','The steadiest scorer in the league, just not at a level that wins.'))
         if top and top[0][1]/totp>=.15 and not any(c[1]=='One-Man Band' for c in cand): cand.append((3.5,'One-Man Band',f"{top[0][0]} carried {round(100*top[0][1]/totp)}% of the load."))
         if not cand: cand.append((1,'The Grinder','No gimmicks. Just showed up every week.'))
         a=max(cand)
