@@ -179,8 +179,14 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 12px;cursor:pointer;font-family:var(--f-data);font-size:.8rem;color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
-.toproster{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px}
-.toproster .hd{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.toproster{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:block}
+.toproster .hd{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px;align-items:center;list-style:none;cursor:pointer;position:relative;padding-right:26px}
+.toproster .hd::-webkit-details-marker{display:none}
+.toproster .hd::after{content:"";position:absolute;right:4px;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .15s}
+.toproster:not([open]) .hd::after{transform:translateY(-50%) rotate(-45deg)}
+.toproster:not([open]){padding-block:10px}
+.toproster>.tablebox{margin:10px 0}
+@media (max-width:560px){.toproster{padding:10px 12px}.toproster .hd{gap:8px}.toproster .hd .av{width:40px;height:40px}.toproster .hd h3{font-size:1rem}.toproster .hd .muted{font-size:.8rem}.toproster .hd>div:last-of-type b{font-size:1.15rem!important}.toproster .hd .eyebrow{font-size:.56rem;letter-spacing:.06em}}
 
 /* history */
 .chronicle{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:grid;gap:14px}
@@ -1503,9 +1509,9 @@ function renderRankings(){
   $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
-  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<article class="toproster"><div class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></div>
+  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></summary>
     <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th>${r.y+1} draft pick</th><th class="num">Score</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num nw">${pickLabel(r.y,p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
-    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></article>`).join("");
+    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></details>`).join("");
 }
 
 /* ---------- STATS ---------- */
