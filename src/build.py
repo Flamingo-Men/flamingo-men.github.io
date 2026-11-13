@@ -9,6 +9,17 @@ league['stats']['charles']['seasons'].setdefault('2016',dict(w=12,l=1,pts=None))
 league['stats']['duane']['seasons'].setdefault('2016',dict(w=7,l=6,pts=None))
 # Kyle, 2026-10-30: his own 2016 ESPN team page shows 6-7, 7th of 8
 league['stats']['kyle']['seasons'].setdefault('2016',dict(w=6,l=7,pts=None))
+# Kyle, 2026-11-13: estimate the missing 2016 and 2017 records from the saved ones (est=True; rk = regular-season finish).
+# Worked out from: every game has a winner (2016: 8 teams x 13 games = 52 wins; 2017: 10 x 12 = 60), the playoff
+# brackets (1 v 4, 2 v 3), Kyle first out in 2016, Fluff 9-3 and out of the 2017 playoffs, and the Sacko coming from the losers' bracket (any non-playoff team).
+# Each owner gets his most likely win total given those limits (every team equally good going in).
+EST={'2016':{'charles':(12,1,1),'duane':(7,6,2),'squirm':(7,6,3),'peanut':(6,7,4),'kyle':(6,7,5),'lucas':(5,8,6),'dilapi':(5,8,7),'fluff':(5,8,8)},
+     '2017':{'kyle':(10,2,1),'vicente':(9,3,2),'squirm':(9,3,3),'charles':(9,3,4),'fluff':(9,3,5),'lucas':(4,8,6),'rod':(3,9,7),'dilapi':(3,9,8),'peanut':(3,9,9),'keeves':(1,11,10)}}   # Kyle 2026-11-13: Keeves about 1 win, Peanut 3 (he finished below 6th); the spare win went to Lucas, a guess
+for y,T in EST.items():
+    for o,(w,l,rk) in T.items():
+        S=league['stats'].setdefault(o,{'seasons':{},'titles':0,'sackos':0})['seasons']
+        if y in S: S[y]['rk']=rk
+        else: S[y]=dict(w=w,l=l,pts=None,est=True,rk=rk)
 
 # Team name -> owner, from Kyle (2026-09-28) or by elimination against the stats sheet
 TEAM_OWNER={

@@ -83,6 +83,7 @@ for y in range(2018,2027):
     n=len(T);pc=(PO.get(str(y)) or {}).get('teams') or 4;live=y==2026
     games=collections.defaultdict(list)   # o -> [(w,pts,opp,oppPts,win)]
     for w,gs in sorted(W['weeks'].items(),key=lambda x:int(x[0])):
+        if W.get('cur') and int(w)>=W['cur']: continue   # never count a week still being played
         for g in gs:
             if g['tier']: continue
             a,b=g['a'],g['b'];ao,bo=T[str(a['t'])][0],T[str(b['t'])][0]
@@ -163,11 +164,11 @@ for y in range(2018,2027):
 MAN={2016:{'charles':"Charles went 12-1 with a super team and beat Peanut in the first round, then lost the two-week final to Duane, 242 to 190.",
            'duane':"The Emmustangs went 7-6, beat Squirm in the first round, then beat Charles in the two-week final, 242 to 190, to win the first title.",
            'peanut':"Made the playoffs and lost to Charles in the first round.",'squirm':"Made the playoffs and lost to Duane in the first round.",
-           'fluff':"Finished last and took the league's first Sacko.",
+           'fluff':"Lost the losers' bracket and took the league's first Sacko.",
            'kyle':"The Salty Andres went 6-7 and finished 7th of 8, with 52 pickups and 4 trades on ESPN (the three-team deal with Fluff and Charles went in as two ESPN trades)."},
      2017:{'kyle':"The NYC Klugeys went 10-2, beat Charles in the first round and won the title.",'charles':"Made the playoffs and lost to Kyle in the first round.",
            'vicente':"Made the playoffs in his only season and played Squirm in the first round.",'squirm':"Made the playoffs and played Vicente in the first round.",
-           'peanut':"Finished last and took the Sacko.",
+           'peanut':"Lost the losers' bracket and took the Sacko.",
            'fluff':"Duane Bernard Jr went 9-3, with David Johnson, Jordy Nelson and Cam Newton on the roster."}}
 for y in (2016,2017):
     owners={o for o in (MV['rosters'].get(str(y)) or {})}|set(MAN[y])

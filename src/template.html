@@ -669,7 +669,7 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   <div class="hero">
     <div class="wrap">
       <div>
-        <div class="eyebrow">Year 11 of the republic · 12 teams · 2026 season underway</div>
+        <div class="eyebrow" id="heroLine">Year 11 of the republic · 12 teams · 2026 season underway</div>
         <h1>The <em>Flamingo</em><br>Men</h1>
         <p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
         <div class="hero-stats" id="heroStats"></div>
@@ -755,10 +755,10 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
 <!-- STATS -->
 <section class="hall" id="hall-stats"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
-  <p>Regular season records and points from the league stats sheet, 2016 to 2025, plus completed trades from the 2016, 2017 and 2019 to 2025 emails. Click a column to sort.</p></div>
+  <p>Regular season records and points from 2016 through the current season. 2026 counts every completed week, so the totals move each week. Trades include every completed trade on record, 2026 included. Click a column to sort.</p></div>
   <div class="tablebox"><table id="allTime"></table></div>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs). Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Played in 2016 or 2017, but that season's record wasn't saved, so it counts as a season and nothing else. The only 2016 and 2017 records on file are Charles's 2016 (12-1), and Kyle's and Jack's 2017.</p>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg pts / season averages finished seasons only, so a half-played 2026 doesn't drag it down. Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs); 2026 joins once its playoffs are set. Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Includes an estimated 2016 or 2017 record. Only Charles's, Duane's and Kyle's 2016 records and Kyle's and Fluff's 2017 records were saved. The rest are worked out from those and the playoff brackets (every game has a winner), so they add up but aren't exact. Points from those two seasons weren't saved.</p>
   <div class="block">
     <div class="block-head"><h2>Season standings</h2>
       <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
@@ -788,7 +788,7 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   <p>The all-time lists, plus every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
   <div class="block" style="margin-top:0"><div class="block-head"><h2>League records</h2></div>
     <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous records">‹</button><div class="recgrid" id="recGrid" tabindex="0" aria-label="League records"></div><button type="button" class="recnav next" aria-label="More records">›</button></div>
-    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records use the stats sheet, 2016 to 2025, and leave out the 2026 season in progress.</p>
+    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
   </div>
   <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
@@ -1036,11 +1036,12 @@ function short(o){if(!o)return "Unconfirmed";const x=OWNERS[o];return x.short||(
 // 2016 and 2017: owners on the draft boards whose records weren't saved
 const NOREC={};[2016,2017].forEach(y=>(DRAFTS[y]?.teams||[]).forEach(([,o])=>{if(o&&!S[o]?.seasons?.[y])(NOREC[o]??=[]).push(y)}));
 function totals(o){const s=S[o]||(NOREC[o]?{seasons:{},titles:0,sackos:0}:null);if(!s)return null;let w=0,l=0,p=0,n=0,best=null;
-  for(const y in s.seasons){const r=s.seasons[y];if(r.live)continue;w+=r.w;l+=r.l;if(r.pts!=null){p+=r.pts;n++}
-    if(!best||r.w/(r.w+r.l)>best.w/(best.w+best.l))best={...r,y}}
-  return {w,l,pct:w+l?w/(w+l):0,pts:p,avg:n?p/n:null,seasons:Object.values(s.seasons).filter(r=>!r.live).length+(NOREC[o]?.length||0),norec:NOREC[o]||[],titles:s.titles,sackos:s.sackos,best}}
+  let fp=0;// the season in progress counts toward record, points and seasons (completed weeks only); avg per season uses finished seasons
+  for(const y in s.seasons){const r=s.seasons[y];w+=r.w;l+=r.l;if(r.pts!=null){p+=r.pts;if(!r.live){fp+=r.pts;n++}}
+    if(!r.live&&(!best||r.w/(r.w+r.l)>best.w/(best.w+best.l)))best={...r,y}}
+  return {w,l,pct:w+l?w/(w+l):0,pts:p,avg:n?fp/n:null,seasons:Object.values(s.seasons).length+(NOREC[o]?.length||0),norec:NOREC[o]||[],est:Object.keys(s.seasons).filter(y=>s.seasons[y].est),titles:s.titles,sackos:s.sackos,best}}
 function standings(y){const rows=[];for(const o in S){const r=S[o].seasons[y];if(r)rows.push({o,...r})}
-  rows.sort((a,b)=>b.w-a.w||(b.pts||0)-(a.pts||0));return rows}
+  rows.sort((a,b)=>(a.rk&&b.rk?a.rk-b.rk:0)||b.w-a.w||(b.pts||0)-(a.pts||0));return rows}
 function teamNames(o){const m={};if(LIVE[o])(m[2026]??=new Set()).add(LIVE[o].team);TR.forEach(t=>{[t.a,t.b].forEach(s=>{if(s.o===o){(m[t.s]??=new Set()).add(s.team)}})});
   for(const y in EXTRA_NAMES){if(EXTRA_NAMES[y][o])(m[y]??=new Set()).add(EXTRA_NAMES[y][o])}
   return m}
@@ -1161,7 +1162,9 @@ function renderTradeTrack(){const T_=DASH.trades;if(!T_.length){$("#tradeTrack")
       <div class="tt-bar" aria-hidden="true"><i style="width:${100*a.pts/tot}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div></div>`}).join("")}
 function renderHome(){
   const done=uniqT(TR.filter(t=>t.st==="completed")).length, vet=TR.filter(t=>t.st==="vetoed").length;
-  $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  {const cy=ALL_YEARS[ALL_YEARS.length-1],yn=cy-2015,nt=Object.keys(LIVE).length||12;   // always the current season
+   $("#yearline").textContent=`Year ${yn} · ${cy} season`;$("#heroLine").textContent=`Year ${yn} of the republic · ${nt} teams · ${cy} season underway`}
+  $("#heroStats").innerHTML=[[ALL_YEARS.length,"Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
   if(!dashTimer){dashPrefs();loadDash();
     // re-pull every two minutes while a week is being played and the home page is open
     dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
@@ -1198,8 +1201,8 @@ function histStandings(y){if(y===2015)return "";
   const tag=o=>res[o]==="Champion"?'<span class="crown" style="font-size:.95rem">♛ Champion</span>':res[o]==="Runner-up"?'<span class="tag">Runner-up</span>':res[o]?'<span class="tag">Semifinal</span>':"";
   const anyPts=st.some(r=>r.pts!=null),anySeed=Object.keys(seed).length;
   const names=o=>{const n=teamNames(o)[y];return n?[...n].slice(-1)[0]:(MV.rosters[y]?.[o]?.team||"")};
-  return `<div style="min-width:0"><div class="eyebrow" style="margin-bottom:8px">Final standings${y===2026?" (in progress)":""}</div><div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>
-  <p class="muted bnote">${y<2018?"Only some records from "+y+" were saved. Owners without one are listed from the draft board.":y===2026?"Standings so far this season.":"Ranked by regular-season wins, then points. Seeds are ESPN's playoff seeds."}</p></div>`}
+  return `<div style="min-width:0"><div class="eyebrow" style="margin-bottom:8px">Final standings${y===2026?" (in progress)":""}</div><div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>
+  <p class="muted bnote">${y<2018?`Only ${y===2016?"Charles's, Duane's and Kyle's":"Kyle's and Fluff's"} ${y} records were saved. The rest (marked est.) are estimates worked out from those, and the playoff bracket, since every game has a winner.`:y===2026?"Standings so far this season.":"Ranked by regular-season wins, then points. Seeds are ESPN's playoff seeds."}</p></div>`}
 function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
   if(y===2015)return "";
   if(!P||!P.rounds||!P.rounds.length)return `<div><div class="eyebrow">Playoff bracket</div><p class="muted" style="margin:4px 0 0">${y===2026?"The playoffs haven't started. Six of the twelve teams get in.":"No bracket on file."}</p></div>`;
@@ -1211,12 +1214,12 @@ function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
     <div class="col"><div class="rh">Final</div>${mu(f)}</div><div class="join one"></div>
     <div class="champ-slot"><span class="eyebrow">♛ Champion</span><b>${w?esc(w.team||short(w.o)):"TBD"}</b>${w&&w.o&&w.team?`<span class="muted" style="font-size:.85rem">${esc(OWNERS[w.o].name)}</span>`:""}</div></div>
     ${P.note?`<p class="muted bnote">${esc(P.note)}</p>`:y>=2018?`<p class="muted bnote">Each playoff round ran two weeks, and the score is the two-week total. Seeds are from ESPN.</p>`:""}</div>`}
-let histYear=2025;
+let histYear=ALL_YEARS[ALL_YEARS.length-1];   // History opens on the current season
 function renderHistory(){
   $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
   const era=ERAS.find(e=>e[2].includes(histYear));
   $("#eraTabs").innerHTML=ERAS.map((e,i)=>`<button type="button" role="tab" data-e="${i}" aria-selected="${e===era}"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></button>`).join("");
-  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2].includes(2025)?2025:e[2][e[2].length-1];histWeek=null;openGame=null;renderHistory()};
+  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2][e[2].length-1];histWeek=null;openGame=null;renderHistory()};
   const [h0,p0]=CHRONICLE[era[3]];
   $("#chronicle").innerHTML=`<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
   renderWeeks();
@@ -1264,7 +1267,7 @@ function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
   $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
 }
 function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
-  const seas=[];for(const o in S)for(const y in S[o].seasons){const r=S[o].seasons[y];if(!r.live&&OWNERS[o])seas.push({o,y:+y,...r})}
+  const seas=[];for(const o in S)for(const y in S[o].seasons){const r=S[o].seasons[y];if(OWNERS[o])seas.push({o,y:+y,...r})}
   const T=Object.keys(S).filter(o=>OWNERS[o]).map(o=>({o,...totals(o),trades:tradeCount(o)}));
   const top=(arr,f,dir=-1)=>{const v=arr.map(f).filter(x=>x!=null);const b=dir<0?Math.max(...v):Math.min(...v);return arr.filter(x=>f(x)===b)};
   const names=a=>a.map(x=>short(x.o)).join(" and ");
@@ -1272,21 +1275,21 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
     const face=os.length===1?cutout(os[0]).replace(/<svg[^>]*>.*?<\/svg>/,""):`<div class="multi">${os.map(o=>av(o)).join("")}</div>`;
     return `<article class="rec">${face}<div class="rt"><span class="eyebrow">${label}</span><span class="rv">${val}</span><span class="rw">${esc(os.map(short).join(" & "))}</span></div>${ctx?`<span class="rc">${ctx}</span>`:""}</article>`};
   const tn=x=>esc(x.team||"");
-  const withPts=seas.filter(r=>r.pts!=null),pct=r=>r.w/(r.w+r.l);
-  const hiS=top(withPts,r=>r.pts),loS=top(withPts,r=>r.pts,1),bestR=top(seas,pct),worstR=top(seas,pct,1);
+  const withPts=seas.filter(r=>r.pts!=null),pct=r=>r.w/(r.w+r.l),yl=r=>r.live?`${r.y} so far`:r.y;
+  const hiS=top(withPts,r=>r.pts),loS=top(withPts.filter(r=>!r.live),r=>r.pts,1),bestR=top(seas,pct),worstR=top(seas,pct,1);
   const mW=top(T,x=>x.w),mL=top(T,x=>x.l),mT=top(T,x=>x.titles),mS=top(T,x=>x.sackos),mTr=top(T,x=>x.trades);
   const car=T.filter(x=>x.w+x.l>=36),bP=top(car,x=>x.pct),wP=top(car,x=>x.pct,1);
   const c=[
     card("Most points, one week",fmt(R.weekHigh.p),[R.weekHigh],`${tn(R.weekHigh)} vs ${esc(short(R.weekHigh.vs))}, ${wk(R.weekHigh.y,R.weekHigh.w)}`),
     card("Fewest points, one week",fmt(R.weekLow.p),[R.weekLow],`${tn(R.weekLow)} vs ${esc(short(R.weekLow.vs))}, ${wk(R.weekLow.y,R.weekLow.w)}`),
-    card("Most points, one season",fmt(hiS[0].pts),hiS,hiS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
+    card("Most points, one season",fmt(hiS[0].pts),hiS,hiS.map(r=>`${yl(r)}, ${r.w}-${r.l}`).join("; ")),
     card("Fewest points, one season",fmt(loS[0].pts),loS,loS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
-    card("Best record, one season",`${bestR[0].w}-${bestR[0].l}`,bestR,bestR.map(r=>r.y).join(", ")),
-    card("Worst record, one season",`${worstR[0].w}-${worstR[0].l}`,worstR,worstR.map(r=>r.y).join(", ")),
+    card("Best record, one season",`${bestR[0].w}-${bestR[0].l}`,bestR,bestR.map(yl).join(", ")),
+    card("Worst record, one season",`${worstR[0].w}-${worstR[0].l}`,worstR,worstR.map(yl).join(", ")),
     card("Most wins, all time",mW[0].w,mW,`${mW.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
     card("Most losses, all time",mL[0].l,mL,`${mL.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
     card("Most titles",mT[0].titles,mT,"Championships"),
-    card("Most Sackos",mS[0].sackos,mS,"Last-place finishes"),
+    card("Most Sackos",mS[0].sackos,mS,"Losers' bracket losses"),
     card("Best career win rate",(bP[0].pct*100).toFixed(1)+"%",bP,`${bP[0].w}-${bP[0].l}, at least 36 games`),
     card("Worst career win rate",(wP[0].pct*100).toFixed(1)+"%",wP,`${wP[0].w}-${wP[0].l}, at least 36 games`),
     card("Biggest blowout",fmt(R.blowout.m),[R.blowout],`${fmt(R.blowout.p)} to ${fmt(R.blowout.vsp)} over ${esc(short(R.blowout.vs))}, ${wk(R.blowout.y,R.blowout.w)}`),
@@ -1330,13 +1333,13 @@ function renderRankings(){
   const B={
     current:{l:"Power ranking (2026)",rows:R.current?.rows||[],unit:"power",how:`Through ${R.current?.weeks||0} completed week${R.current?.weeks===1?"":"s"} of 2026, with ${R.current?.left??0} regular-season week${R.current?.left===1?"":"s"} left. Score out of 100: half is the team's odds of making the playoffs, half is the strength of its current roster. Roster strength is the best legal lineup from today's roster (QB, 2 RB, 2 WR, TE, 2 flex, K, D/ST), valuing each player at the average of his 2026 points per game and ESPN's rest-of-season projection; injured reserve counts as zero and players listed out count half. Playoff odds come from 20,000 simulations of the remaining schedule, where each team's weekly score is centered on a 60/40 mix of roster strength and points per game so far. Six teams make it: both division winners plus the next four by record, with points as the tiebreaker.`,
       meta:r=>`${esc(r.team)} · ${r.rec}, ${fmt(r.pf)} points · playoff odds ${r.odds>=99.95?"over 99.9":r.odds<0.05?"under 0.1":r.odds.toFixed(1)}% · roster strength ${fmt(r.str)} pts/week${r.top?.length?` (${r.top.map(pn).join(", ")})`:""}`},
-    alltime:{l:"All-time power",rows:R.alltime||[],unit:"score",how:"Owners with 3+ seasons. Score out of 100: 30% titles, 25% career win rate, 20% playoff rate, 10% finals reached, 10% points versus the league average, 5% avoiding the Sacko. Rates are pulled toward the league average for short careers so a three-year run can't top the list on a small sample.",
+    alltime:{l:"All-time power",rows:R.alltime||[],unit:"score",how:"Owners with 3+ finished seasons. Record and points include 2026 through its last completed week; titles, finals, playoff trips and Sackos count finished seasons only. Score out of 100: 30% titles, 25% career win rate, 20% playoff rate, 10% finals reached, 10% points versus the league average, 5% avoiding the Sacko. Rates are pulled toward the league average for short careers so a three-year run can't top the list on a small sample.",
       meta:r=>`${r.seasons} seasons · ${r.rec} (${r.pct}%) · ${r.titles} title${r.titles===1?"":"s"}, ${r.finals} final${r.finals===1?"":"s"}, ${r.po} playoff trip${r.po===1?"":"s"}${r.sackos?` · ${r.sackos} Sacko${r.sackos>1?"s":""}`:""} · scores ${r.pidx}% of league average`},
-    draft:{l:"Best drafter",rows:R.draft||[],unit:"pctile pts",signed:true,how:"Every QB, RB, WR and TE pick from 2016 to 2025 is ranked as a percentile against every pick taken within four spots of it in any of our drafts, by season points over a replacement starter. 50 is a typical pick for that slot. The score is how many percentile points above 50 the owner's picks land on average, for owners with 3+ drafts. Drafting is mostly luck: the gaps here are small, and the statistical test can't tell most owners apart, so treat the order loosely. The order also accounts for sample size, so an owner with only three drafts sits below his raw number. Kickers and defenses don't count.",
+    draft:{l:"Best drafter",rows:R.draft||[],unit:"pctile pts",signed:true,how:"Every QB, RB, WR and TE pick from 2016 through 2026 is ranked (2026 picks are judged on their points so far, scaled to a full season) as a percentile against every pick taken within four spots of it in any of our drafts, by season points over a replacement starter. 50 is a typical pick for that slot. The score is how many percentile points above 50 the owner's picks land on average, for owners with 3+ drafts. Drafting is mostly luck: the gaps here are small, and the statistical test can't tell most owners apart, so treat the order loosely. The order also accounts for sample size, so an owner with only three drafts sits below his raw number. Kickers and defenses don't count.",
       meta:r=>`${r.n} picks over ${r.drafts} drafts · 90% range ${rng(r)}${r.early!=null?` · first 30 picks ${sg(0,r.early)}`:""}${r.steal?` · best late pick: ${pn(r.steal[0])} at #${r.steal[1]} in ${r.steal[3]}`:""}`},
-    trade:{l:"Best trader",rows:R.trade||[],unit:"trade score",signed:true,how:`Scored from 2018 to 2025, where ESPN has weekly lineups and projections. A trade's value to a team is how many points it added to that team's best possible lineup each week, compared with the same roster if the trade had never happened, until a player from it was traded again. Bench depth that would never have started adds nothing, so 3-for-1 consolidation trades aren't punished for the depth they give up. Each trade is judged on results (what players actually scored) and on the decision (ESPN's projections at the time of the trade), and the two are averaged. One freak trade shouldn't define a trader, so every trade is capped between ${R.tradeInfo?.cap?.[0]??"–"} and +${R.tradeInfo?.cap?.[1]??"–"} points (the league's 10th and 90th percentile). The edge per trade is the owner's average against the league average, pulled toward zero as if he'd made ${R.tradeInfo?.k??10} more average trades. The score multiplies that edge by the square root of his trade count, so a good trader who deals often ranks above one with a couple of lucky deals. Owners with 5+ trades.`,
+    trade:{l:"Best trader",rows:R.trade||[],unit:"trade score",signed:true,how:`Scored from 2018 through the last completed week of 2026, where ESPN has weekly lineups and projections. A trade's value to a team is how many points it added to that team's best possible lineup each week, compared with the same roster if the trade had never happened, until a player from it was traded again. Bench depth that would never have started adds nothing, so 3-for-1 consolidation trades aren't punished for the depth they give up. Each trade is judged on results (what players actually scored) and on the decision (ESPN's projections at the time of the trade), and the two are averaged. One freak trade shouldn't define a trader, so every trade is capped between ${R.tradeInfo?.cap?.[0]??"–"} and +${R.tradeInfo?.cap?.[1]??"–"} points (the league's 10th and 90th percentile). The edge per trade is the owner's average against the league average, pulled toward zero as if he'd made ${R.tradeInfo?.k??10} more average trades. The score multiplies that edge by the square root of his trade count, so a good trader who deals often ranks above one with a couple of lucky deals. Owners with 5+ trades.`,
       meta:r=>`${r.n} trades, ${r.won} helped · ${sg(0,r.per)} per trade vs average · 90% range ${rng(r)}${r.capped?` · ${r.capped} outlier${r.capped>1?"s":""} capped`:""}${r.best?` · best: got ${r.best[3].map(pn).join(" and ")} from ${oname(r.best[4])} in ${r.best[2]}`:""}${r.worst&&r.worst[1]<0?` · worst: got ${r.worst[3].map(pn).join(" and ")||"nothing"} from ${oname(r.worst[4])} in ${r.worst[2]}`:""}`},
-    waiver:{l:"Best on waivers",rows:R.waiver||[],unit:"pts per season",signed:true,how:"From ESPN's transaction logs, 2018 to 2025. A pickup only counts for the weeks right after it was made, while the player stayed on that roster and was in the starting lineup, and each start is worth the points above a replacement starter at his position. Each season is compared with that season's league average, so busy waiver years don't dominate, and the score is the owner's average per season, shrunk toward average for owners with fewer seasons. Owners with 3+ ESPN seasons. Kickers and defenses don't count.",
+    waiver:{l:"Best on waivers",rows:R.waiver||[],unit:"pts per season",signed:true,how:"From ESPN's transaction logs, 2018 through the last completed week of 2026. A pickup only counts for the weeks right after it was made, while the player stayed on that roster and was in the starting lineup, and each start is worth the points above a replacement starter at his position. Each season is compared with that season's league average, so busy waiver years don't dominate, and the score is the owner's average per season, shrunk toward average for owners with fewer seasons. Owners with 3+ ESPN seasons. Kickers and defenses don't count.",
       meta:r=>`${r.seasons} seasons, ${r.adds} adds, ${r.hits} that started 3+ games and gave 20+ points over replacement · ${fmt(r.perSeason)} pts per season · 90% range ${rng(r)}${r.best?` · best: ${pn(r.best[0])} in ${r.best[2]}, ${r.best[3]} starts`:""}`}};
   $("#rankSeg").innerHTML=Object.entries(B).map(([k,b])=>`<button type="button" data-k="${k}" aria-pressed="${k===rankKey}">${b.l}</button>`).join("");
   $("#rankSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;rankKey=b.dataset.k;renderRankings()};
@@ -1352,7 +1355,7 @@ function renderTopRosters(){
 }
 
 /* ---------- STATS ---------- */
-let sortKey="titles",sortDir=-1,seasonSel=2025;
+let sortKey="titles",sortDir=-1,seasonSel=2026;
 // first-round slot on each draft board as a share of the league size, times 10: 7th of 10 is 7.0, 6th of 12 is 5.0, last pick is always 10
 function draftSpot(o){const l=Object.entries(DRAFTS).map(([y,D])=>{const c=D.teams.findIndex(t=>t[1]===o);return c<0?null:[y,c+1,D.teams.length]}).filter(Boolean);
   return l.length?{dspot:l.reduce((a,[,c,n])=>a+c/n*10,0)/l.length,dn:l.length,dlist:l.map(([y,c])=>`${y} #${c}`).join(", ")}:{dspot:null,dn:0}}
@@ -1362,15 +1365,15 @@ function renderStats(){
   rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
   $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
    <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span>${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span></div></td>
-     <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
+     <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:r.est.length?`<sup title="${r.est.join(" and ")} record estimated">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
      <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
      <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num" title="${r.po!=null?`${r.po} playoff trips in ${r.poOf} seasons, 2016 to 2025`:""}">${r.po!=null?r.po:"–"}</td><td class="num">${r.trades||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
   $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"||k==="dspot"?1:-1);sortKey=k;renderStats()};
   $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
   const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
-  $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${fmt(r.pts)}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
-  $("#seasonNote").textContent=seasonSel===2026?"2026 standings so far, from ESPN's weekly results (completed weeks only). Divisions: Lex and Bhavi. Moves counts every waiver and free-agent add.":seasonSel===2016?"Only Charles's 2016 record (12-1) was saved. Points and the other records from 2016 were not.":seasonSel===2017?"Only Kyle's and Fluff's 2017 records are in the stats sheet.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
+  $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}</td><td class="num">${fmt(r.pts)}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
+  $("#seasonNote").textContent=seasonSel===2026?"2026 standings so far, from ESPN's weekly results (completed weeks only). Divisions: Lex and Bhavi. Moves counts every waiver and free-agent add.":seasonSel===2016?"Saved 2016 records: Charles 12-1, Duane 7-6 and Kyle 6-7 (first team out of the playoffs). The rest are estimates (est.): 52 games means 52 wins, the bracket puts Peanut and Squirm in the top four, and Kyle was the first team out. That leaves 15 wins for Lucas, DiLapi and Fluff. The Sacko is decided in the losers' bracket, so Fluff's Sacko doesn't mean he had the worst record. Points weren't saved.":seasonSel===2017?"Saved 2017 records: Kyle 10-2 and Fluff 9-3. The rest are estimates (est.): Fluff missed the playoffs at 9-3, so Charles, Vicente and Squirm had to be 9-3 or better, which leaves 14 wins for the other five. Kyle remembers Keeves with about 1 win and Peanut with 3, which leaves 10 wins for Lucas, Rod and DiLapi (which of them got the fourth is a guess). The Sacko is decided in the losers' bracket, which is how Peanut took it at 3-9 instead of Keeves.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
 }
 
 /* ---------- DRAFTS ---------- */
