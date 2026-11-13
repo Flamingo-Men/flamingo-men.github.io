@@ -669,7 +669,7 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
   <div class="hero">
     <div class="wrap">
       <div>
-        <div class="eyebrow">Year 11 of the republic · 12 teams · 2026 season underway</div>
+        <div class="eyebrow" id="heroLine">Year 11 of the republic · 12 teams · 2026 season underway</div>
         <h1>The <em>Flamingo</em><br>Men</h1>
         <p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
         <div class="hero-stats" id="heroStats"></div>
@@ -1162,7 +1162,9 @@ function renderTradeTrack(){const T_=DASH.trades;if(!T_.length){$("#tradeTrack")
       <div class="tt-bar" aria-hidden="true"><i style="width:${100*a.pts/tot}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div></div>`}).join("")}
 function renderHome(){
   const done=uniqT(TR.filter(t=>t.st==="completed")).length, vet=TR.filter(t=>t.st==="vetoed").length;
-  $("#heroStats").innerHTML=[["10","Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
+  {const cy=ALL_YEARS[ALL_YEARS.length-1],yn=cy-2015,nt=Object.keys(LIVE).length||12;   // always the current season
+   $("#yearline").textContent=`Year ${yn} · ${cy} season`;$("#heroLine").textContent=`Year ${yn} of the republic · ${nt} teams · ${cy} season underway`}
+  $("#heroStats").innerHTML=[[ALL_YEARS.length,"Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
   if(!dashTimer){dashPrefs();loadDash();
     // re-pull every two minutes while a week is being played and the home page is open
     dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
