@@ -35,7 +35,7 @@ TEAM_OWNER={
  'Bishop Sycamore JV':'jordan',"Kelce's Kiddies":'jordan','Galaxy Liberators':'jordan',
  "Drake Maye's Aura":'quincy','FLOOFS RED TAINT':'peanut','RED ZONE':'peanut','THE LAND DOWN UNDER':'peanut','THE SOUTH':'peanut',
 }
-RENAME={'THE MGNLRS':'THE MNGLRS','The Virgin Chucks':'The Monglers','busty hips chunky chips':'The Yogurtlechefts','The Neurotic yogurtlechafts':'The Yogurtlechefts','Texas A and M Aggies':"Sal's 12 Chickens",'Sal’s 12 Chickens':"Sal's 12 Chickens",'Taylor Top Kyle Bottom':"Sal's 12 Chickens",'Pinky Sized Kyle':'The Yogurtlechefts'}
+RENAME={'RodFather Marias lover':'RodFather','THE MGNLRS':'THE MNGLRS','The Virgin Chucks':'The Monglers','busty hips chunky chips':'The Yogurtlechefts','The Neurotic yogurtlechafts':'The Yogurtlechefts','Texas A and M Aggies':"Sal's 12 Chickens",'Sal’s 12 Chickens':"Sal's 12 Chickens",'Taylor Top Kyle Bottom':"Sal's 12 Chickens",'Pinky Sized Kyle':'The Yogurtlechefts'}
 STATUS={22:('completed','Veto overturned by league vote')}   # Kyle: vetoed, then overturned by a league vote
 # 2016 (ESPN "The LI League") and 2017 trade emails, forwarded by Charles on 2026-09-28
 EARLY=[
