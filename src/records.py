@@ -45,5 +45,19 @@ def streak(win):
             if run and (not best or run>best['n']): best=dict(o=o,n=run,start=start,end=(y,w))
     return best
 out['winStreak']=streak(True);out['loseStreak']=streak(False)
+# luck (Kyle made it an official stat, 2026-11-13): actual regular-season wins minus expected wins, where a week's
+# expected wins is the share of the other teams you outscored that week (your record if you'd played everyone)
+import collections
+wk=collections.defaultdict(list)
+for x in tm:
+    if x['reg']: wk[(x['y'],x['w'])].append(x)
+L=collections.defaultdict(lambda:[0.0,0.0,0])   # (o,y) -> [wins, expected, games]
+for (y,w),xs in wk.items():
+    for x in xs:
+        others=[z['p'] for z in xs if z is not x]
+        e=(sum(x['p']>q for q in others)+.5*sum(x['p']==q for q in others))/len(others)
+        r=L[(x['o'],y)];r[0]+=1 if x['p']>x['vsp'] else .5 if x['p']==x['vsp'] else 0;r[1]+=e;r[2]+=1
+out['luck']={}
+for (o,y),(wn,e,g) in L.items(): out['luck'].setdefault(o,{})[str(y)]=dict(luck=round(wn-e,2),exp=round(e,2),w=wn,g=g)
 json.dump(out,open(os.path.join(root,'data','records.json'),'w'),separators=(',',':'))
 for k,v in out.items(): print(k,v)
