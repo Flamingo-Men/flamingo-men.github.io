@@ -113,6 +113,68 @@ section.hall.on{display:block}
 .av{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--flamingo-soft);display:grid;place-items:center;font-family:var(--f-display);color:var(--flamingo);font-size:1.3rem;flex:none}
 .owner-pill[aria-pressed="true"] .av{border-color:var(--flamingo);box-shadow:0 0 0 3px var(--flamingo-soft)}
 
+/* rules page */
+.commish-now{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:'a h' 'a p';gap:4px 20px;align-items:center;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:20px 22px}
+.commish-now .av{grid-area:a;width:104px;height:104px;font-size:2rem;border-width:3px}
+.commish-now .hd{grid-area:h;align-self:end}
+.commish-now h3{font-size:clamp(1.4rem,3vw,1.9rem)}
+.commish-now p{grid-area:p;align-self:start;margin:4px 0 0;max-width:62ch}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px}
+.rcard{background:var(--slab);border:1px solid var(--line);border-top:3px solid var(--aegean);border-radius:var(--r);padding:16px 18px}
+.rcard h4{font-family:var(--f-display);font-weight:400;font-size:1.2rem;margin:0 0 10px;letter-spacing:.02em}
+.rcard dl{margin:0;display:grid;grid-template-columns:minmax(96px,38%) minmax(0,1fr);gap:0;font-size:.95rem}
+.rcard dt,.rcard dd{padding:7px 0;border-bottom:1px solid var(--line)}
+.rcard dt{color:var(--muted);padding-right:12px}
+.rcard dd{margin:0;font-weight:600}
+.rcard dl>:nth-last-child(-n+2){border-bottom:0}
+.rcard dd .tag{margin-left:6px;vertical-align:1px}
+a.tag.new,.tag.new{background:var(--flamingo-soft);color:var(--flamingo);text-decoration:none;font-weight:600}
+#rulesYears td.chg{color:var(--flamingo);font-weight:700}
+#rulesYears tr.est td{color:var(--muted)}
+.ctl{list-style:none;margin:0;padding:0;background:var(--slab);border:1px solid var(--line);border-radius:var(--r)}
+.ctl li{display:grid;grid-template-columns:104px auto minmax(0,1fr);align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.ctl li:last-child{border-bottom:0}
+.ctl .yrs{font-family:var(--f-data);font-size:.9rem;color:var(--muted)}
+.ctl .faces{display:flex}
+.ctl .faces .av{width:44px;height:44px;font-size:.9rem;border-width:2px}
+.ctl .faces .av+.av{margin-left:-12px}
+.ctl .nm{font-weight:700}
+.ctl .nm small{display:block;font-weight:400;color:var(--muted);font-size:.85rem}
+.ctl li.now{background:var(--flamingo-soft)}
+.votes{display:grid;gap:14px}
+.vote,#votes,.rcard{scroll-margin-top:130px}
+.vyear{font-family:var(--f-display);font-size:1.5rem;color:var(--gold);margin:14px 0 -2px}
+.vyear:first-child{margin-top:0}
+.vote{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.vote-top{display:flex;justify-content:space-between;align-items:center;gap:6px 10px;flex-wrap:wrap;font-family:var(--f-data);font-size:.75rem;color:var(--muted);letter-spacing:.04em}
+.vote-top>span{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.vote h4{font-family:var(--f-display);font-weight:400;font-size:1.25rem;margin:8px 0 0;letter-spacing:.02em}
+.vote .q{margin:2px 0 0;color:var(--muted);font-style:italic}
+.vopts{display:grid;gap:10px;margin-top:12px}
+.vopt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:baseline}
+.vopt .lbl{font-size:.97rem}
+.vopt .n{font-family:var(--f-data);font-size:.85rem;color:var(--muted);white-space:nowrap}
+.vopt .bar{grid-column:1/-1;position:relative;height:10px;background:var(--stone);border-radius:99px}
+.vopt .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:var(--muted);opacity:.45}
+.vopt.win .bar i{background:var(--flamingo);opacity:1}
+.vopt.win .lbl{font-weight:700}
+.vopt.win .n{color:var(--ink);font-weight:600}
+.vopt .bar b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:1px}
+.vote .vnote{margin:12px 0 0;font-size:.95rem;max-width:68ch}
+.vote .vfoot{margin:8px 0 0;font-size:.82rem;color:var(--muted)}
+.vote .trades-list{margin-top:12px}
+.tag.pass{background:var(--good);color:var(--slab)}
+.tag.fail{background:var(--bad);color:var(--slab)}
+@media (max-width:560px){
+  .commish-now{grid-template-columns:72px minmax(0,1fr);grid-template-areas:'a h' 'p p';gap:12px 14px;padding:16px}
+  .commish-now .hd{align-self:center}
+  .commish-now .av{width:72px;height:72px;font-size:1.4rem}
+  .ctl li{grid-template-columns:auto minmax(0,1fr);gap:4px 12px;padding:12px 14px}
+  .ctl .yrs{grid-column:1/-1}
+  .rcard{padding:14px}
+  .vote{padding:14px}
+}
+
 /* tables */
 .tablebox{overflow-x:auto;background:var(--slab);border:1px solid var(--line);border-radius:var(--r)}
 table{border-collapse:collapse;width:100%;font-size:.95rem}
@@ -817,7 +879,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 <header class="site"><div class="wrap">
   <a class="brand" href="#home"><svg aria-hidden="true"><use href="#flamingoBall"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
-    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a>
+    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a>
   </nav>
   <div class="search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="Search players, teams, pages" autocomplete="off" aria-label="Search the site" aria-controls="sres" aria-expanded="false">
@@ -998,6 +1060,16 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 </div></section>
 
 <!-- CHAMPIONS -->
+<section class="hall" id="hall-rules"><div class="wrap">
+  <div class="hall-head"><span class="eyebrow">The Constitution</span><h2>League rules</h2>
+  <p>How the league runs in 2026, who holds the gavel, and every league vote on record.</p></div>
+  <div id="commishNow"></div>
+  <div class="block"><div class="block-head"><h3>2026 rules</h3><span class="muted" style="font-size:.9rem">From the ESPN league settings</span></div><div class="rules-grid" id="rulesGrid"></div></div>
+  <div class="block"><div class="block-head"><h3>How the format changed</h3></div><div class="tablebox" id="rulesYears"></div>
+  <p class="muted" style="font-size:.85rem;margin:8px 0 0">2016 and 2017 were played in old ESPN leagues that no longer exist, so only the team count, scoring and records are known.</p></div>
+  <div class="block"><div class="block-head"><h3>Commissioners</h3></div><ol class="ctl" id="commishTl"></ol></div>
+  <div class="block" id="votes"><div class="block-head"><h3>League votes on record</h3><span class="muted" style="font-size:.9rem" id="voteCount"></span></div><div class="votes" id="voteList"></div></div>
+</div></section>
 <section class="hall" id="hall-sackos"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">Hall of Shame</span><h2>Sacko winners</h2>
   <p>Every last-place finish since 2016, with the season that earned it.</p></div>
@@ -1013,7 +1085,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 
 <div class="meander" aria-hidden="true"></div>
 <footer><div class="wrap">
-  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a></nav>
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a></nav>
   <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
 </div></footer>
 
@@ -1838,6 +1910,72 @@ function renderSackos(){
     </div></article>`}).join("");
 }
 
+/* ---------- RULES ---------- */
+// 2026 rules come from the ESPN league settings (pulled 2026-11-13). n = new in 2026, linked to the vote that made it.
+const RULES_NOW=[
+  {h:"Format",rows:[["Teams","12, in two divisions (Lex and Bhavi)","v-teams"],["Matchups","Head to head, total points"],["Regular season","14 weeks, weeks 1 to 14","v-po"],["Playoffs","6 teams, weeks 15 to 17","v-po"],["Who gets in","Both division winners, then the next four by record"],["Seeding ties","Broken by total points"],["Playoff rounds","One week each, top two seeds get a bye","v-po"]]},
+  {h:"Roster",rows:[["Starters","QB, 2 RB, 2 WR, TE, 2 FLEX, D/ST, K","v-flex"],["FLEX","Any RB, WR or TE"],["Bench","6 spots","v-bench"],["IR","1 spot"],["Position caps","4 QB, 8 RB, 9 WR, 3 TE, 3 K, 3 D/ST"],["Lineup lock","Each player locks at his own kickoff"]]},
+  {h:"Scoring",rows:[["Receptions","Half a point (half PPR)","v-ppr"],["Passing","1 point per 25 yards, 4 per TD, minus 2 per INT"],["Rushing and receiving","1 point per 10 yards, 6 per TD"],["Two-point conversions","2 points"],["Fumbles lost","Minus 2"],["Kickers","FG 3 under 40 yards, 4 from 40 to 49, 5 from 50 to 59, 6 from 60+. PAT 1, missed FG minus 1"],["D/ST","Sack 1. INT, fumble recovery, safety or blocked kick 2. Any TD 6"],["D/ST points allowed","Plus 5 for a shutout, down to minus 5 for 46 or more"],["D/ST yards allowed","Plus 5 under 100, down to minus 7 for 550 or more"]]},
+  {h:"Trades and waivers",rows:[["Trades","Unlimited"],["Review period","24 hours after a trade is accepted"],["Veto","7 of the 12 teams must vote it down","votes"],["Trade deadline","December 7, 2026"],["Waivers","Traditional priority order, no FAAB"],["Waiver period","24 hours after a player is dropped"],["Pickups","Unlimited"]]},
+  {h:"Draft",rows:[["Type","Live and in person, entered into ESPN as an offline draft"],["Keepers","None. Every roster starts from scratch"],["2026 draft","August 26, 2026"],["Pick trades","Allowed. Dylan and DiLapi swapped No. 4 and No. 9 before the 2026 draft"]]}
+];
+// Per-season format, 2018 on from each season's ESPN settings. 2023 was its own ESPN league.
+const RULE_YEARS=[
+  [2016,8,"Full PPR","–","–","13 games","4 teams","–"],
+  [2017,10,"Full PPR","–","–","12 games","4 teams","–"],
+  [2018,8,"Full PPR",1,7,"12 weeks","4 teams, 2-week rounds","4 of 8"],
+  [2019,10,"Full PPR",1,7,"12 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2020,10,"Full PPR",1,7,"12 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2021,10,"Full PPR",1,7,"13 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2022,10,"Full PPR",1,7,"13 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2023,10,"Full PPR",1,6,"13 weeks","4 teams, 2-week rounds","4 of 10"],
+  [2024,10,"Full PPR",1,7,"13 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2025,10,"Full PPR",1,7,"13 weeks","4 teams, 2-week rounds","7 of 10"],
+  [2026,12,"Half PPR",2,6,"14 weeks","6 teams, 1-week rounds","7 of 12"]
+];
+// League votes on record, newest first. opts: [label, votes]; win = index of the winning option.
+// veto: {n: votes to veto, need: votes required}. trades: trade ids (shown as trade boxes).
+const VOTES=[
+  {y:2026,d:"2026-10-13",k:"Veto vote",t:"Kyle and Quincy's Omarion Hampton trade",veto:{n:4,need:7},trades:[159],res:["Went through","pass"],note:"Four teams voted to veto Kyle sending Omarion Hampton and Jacory Croskey-Merritt to Quincy for Josh Downs and Bhayshul Tuten. It takes seven, so the trade stood."},
+  {y:2026,d:"2026-09-25",k:"Proposal",t:"Every trade goes to a league vote",by:"quincy",res:["Shot down","fail"],note:"After Kyle traded Hunter Henry and Sam Darnold to Jordan for Romeo Doubs, Quincy proposed that every trade go to a league vote. The rest of the league called it a dumb idea, it never made it to a ballot, and Quincy said he felt minimized."},
+  {y:2026,id:"v-ppr",d:"2026-08-14",k:"Rule change",t:"Half PPR or full PPR",q:"Should the league have a scoring format of Half or Full PPR?",by:"charles",opts:[["Half PPR",7],["Full PPR",3]],win:0,res:["Passed","pass"],note:"Ten years of full PPR end. A catch is worth half a point starting in 2026."},
+  {y:2026,id:"v-flex",d:"2026-08-14",k:"Rule change",t:"Single flex or double flex",by:"charles",opts:[["Single flex",4],["Double flex",6]],win:1,res:["Passed","pass"],note:"A second FLEX spot (RB, WR or TE) joins the starting lineup."},
+  {y:2026,id:"v-bench",d:"2026-08-14",k:"Rule change",t:"Bench spot",q:"Should the league remove 1 bench spot?",by:"charles",opts:[["Yes",6],["No",3]],win:0,res:["Passed","pass"],note:"The bench goes from seven spots to six."},
+  {y:2026,id:"v-po",d:null,k:"Rule change",t:"Playoff format",opts:[["Three rounds, one game each",6],["Three rounds, with a two-game final",2],["Every round two games, after a one-game wild-card round",1]],win:0,res:["Passed","pass"],note:"Six teams make it and every round is a single week, weeks 15 to 17. From 2018 to 2025 four teams made it and every round lasted two weeks."},
+  {y:2023,d:"2023-11-24",k:"Veto vote",t:"Ja'Marr Chase for Kamara and Kupp, twice",trades:[121,122],res:["Vetoed","veto"],note:"Dr. Kakofonus A. Dischord tried twice in one evening to buy Ja'Marr Chase from Floof with Alvin Kamara and Cooper Kupp. The league voted both down. Fluff was so angry about it that he sat out the 2024 season."},
+  {y:2019,d:"2019-10-09",k:"Veto vote",t:"Kyle and Skelly's Zeke trade",trades:[22],res:["Veto overturned","pass"],note:"Kyle sent Joe Mixon, Tyler Boyd and Zach Ertz to Skelly for Ezekiel Elliott, Kenny Golladay and Devin Singletary. The trade was vetoed, then a league vote overturned the veto and it went through."},
+  {y:2018,d:"2018-09-21",k:"Veto vote",t:"DiLapi's Mahomes trade with Charles",veto:{n:3,need:4},trades:[149],res:["Went through","pass"],note:"DiLapi sent Patrick Mahomes and Kareem Hunt to Charles for James Conner and Matt Breida. Three teams voted to veto. It took four, so the deal stood."}
+];
+const fmtD=s=>new Date(s+"T12:00:00").toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
+function renderRules(){
+  const now=COMMISH[2026]||[],o=now[0];
+  const terms=[];ALL_YEARS.forEach(y=>{const k=(COMMISH[y]||[]).join("+");const last=terms[terms.length-1];if(last&&last.k===k&&last.y2===y-1)last.y2=y;else terms.push({k,os:COMMISH[y]||[],y1:y,y2:y})});
+  const past=terms.filter(x=>x.os.includes(o)&&x.y2<2026).map(x=>x.y1===x.y2?x.y1:`${x.y1} and ${x.y2}`);
+  $("#commishNow").innerHTML=o?`<div class="commish-now">${av(o)}<div class="hd"><span class="eyebrow">Commissioner · 2026 season</span><h3>${esc(OWNERS[o].name)}</h3></div>
+    <p>${past.length?`The founding commissioner in ${past.join(", ")}, back in the chair ten years later. `:""}He runs the ESPN league settings for the first 12-team season.</p></div>`:"";
+  const ids=new Set(VOTES.map(v=>v.id).filter(Boolean));
+  $("#rulesGrid").innerHTML=RULES_NOW.map(c=>`<article class="rcard"><h4>${esc(c.h)}</h4><dl>${c.rows.map(([a,b,n])=>`<dt>${esc(a)}</dt><dd>${esc(b)}${n&&ids.has(n)?` <a class="tag new" href="#${n}" data-vote="${n}">New</a>`:n==="votes"?` <a class="tag new" href="#votes" data-vote="votes">Votes</a>`:""}</dd>`).join("")}</dl></article>`).join("");
+  const prev=i=>RULE_YEARS[i-1];
+  $("#rulesYears").innerHTML=`<table><thead><tr><th>Season</th><th class="num">Teams</th><th>Scoring</th><th class="num">Flex</th><th class="num">Bench</th><th>Regular season</th><th>Playoffs</th><th>Votes to veto</th></tr></thead><tbody>${RULE_YEARS.slice().reverse().map(r=>{const i=RULE_YEARS.indexOf(r),p=prev(i);
+    const td=(j,cls="")=>`<td class="${cls}${p&&i>2&&String(p[j])!==String(r[j])?" chg":""}">${esc(r[j])}</td>`;
+    return `<tr class="${r[0]<2018?"est":""}"><td class="num" style="text-align:left">${r[0]}</td>${td(1,"num")}${td(2)}${td(3,"num")}${td(4,"num")}${td(5)}${td(6)}${td(7)}</tr>`}).join("")}</tbody></table>`;
+  $("#commishTl").innerHTML=terms.slice().reverse().map(x=>`<li class="${x.y2===2026?"now":""}"><span class="yrs">${x.y1===x.y2?x.y1:`${x.y1} to ${x.y2}`}</span><span class="faces">${x.os.map(o=>av(o)).join("")}</span>
+    <span class="nm">${x.os.map(o=>esc(OWNERS[o].name)).join(" and ")}<small>${x.y2===2026?"Current commissioner":x.os.length>1?"Co-commissioners":"Commissioner"}${x.y2-x.y1?` · ${x.y2-x.y1+1} seasons`:""}</small></span></li>`).join("");
+  let yr=null;
+  $("#voteCount").textContent=`${VOTES.length} on record`;
+  $("#voteList").innerHTML=VOTES.map(v=>{const head=v.y!==yr?`<div class="vyear">${(yr=v.y)}</div>`:"";
+    const tot=v.opts?v.opts.reduce((s,x)=>s+x[1],0):0,mx=v.opts?Math.max(...v.opts.map(x=>x[1])):0;
+    const opts=v.opts?`<div class="vopts">${v.opts.map((x,i)=>`<div class="vopt${i===v.win?" win":""}"><span class="lbl">${i===v.win?"✓ ":""}${esc(x[0])}</span><span class="n">${x[1]} vote${x[1]===1?"":"s"} · ${Math.round(100*x[1]/tot)}%</span><div class="bar" role="img" aria-label="${x[1]} of ${tot} votes"><i style="width:${100*x[1]/tot}%"></i></div></div>`).join("")}</div>`:"";
+    const veto=v.veto?`<div class="vopts"><div class="vopt"><span class="lbl">Votes to veto</span><span class="n">${v.veto.n} of ${v.veto.need} needed</span><div class="bar" role="img" aria-label="${v.veto.n} veto votes, ${v.veto.need} needed"><i style="width:${100*v.veto.n/RULE_YEARS.find(r=>r[0]===v.y)[1]}%"></i><b style="left:calc(${100*v.veto.need/RULE_YEARS.find(r=>r[0]===v.y)[1]}% - 1px)" title="Needed to veto"></b></div></div></div>`:"";
+    const trs=(v.trades||[]).map(id=>TR.find(t=>t.id===id)).filter(Boolean);
+    const foot=[tot?`${tot} votes, one per team`:"",v.by&&v.opts?`Poll posted by ${esc(short(v.by))} on the ESPN message board`:""].filter(Boolean).join(" · ");
+    return head+`<article class="vote"${v.id?` id="${v.id}"`:""}><div class="vote-top"><span>${v.d?fmtD(v.d):`Before the ${v.y} season`}<span class="tag">${esc(v.k)}</span></span><span class="tag ${v.res[1]}">${esc(v.res[0])}</span></div>
+      <h4>${esc(v.t)}</h4>${v.q?`<p class="q">“${esc(v.q)}”</p>`:""}${opts}${veto}
+      ${v.note?`<p class="vnote">${esc(v.note)}</p>`:""}${foot?`<p class="vfoot">${foot}</p>`:""}
+      ${trs.length?`<div class="trades-list">${trs.map(t=>tradeHTML(t)).join("")}</div>`:""}</article>`}).join("");
+  $("#hall-rules").onclick=e=>{const a=e.target.closest("[data-vote]");if(!a)return;e.preventDefault();const el=document.getElementById(a.dataset.vote);if(el){el.scrollIntoView({behavior:"smooth",block:"start"});el.animate?.([{boxShadow:"0 0 0 3px var(--flamingo)"},{boxShadow:"0 0 0 0 transparent"}],{duration:1600})}};
+}
+
 /* ---------- router & lightbox ---------- */
 /* ---------- PLAYER CARDS ---------- */
 let PLAYERS=null,plLoad=null,plCur=null,plYear="all";
@@ -1905,7 +2043,7 @@ function renderPlayer(){const r=PLAYERS.p[plCur],ys=Object.keys(r.y).map(Number)
   $("#plBody").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;plYear=b.dataset.y==="all"?"all":+b.dataset.y;renderPlayer();$("#plDlg").scrollTop=0}}
 
 /* ---------- SEARCH ---------- */
-const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, standings, weekly matchups"],["Stats","#stats","Career and season stats"],["Drafts","#drafts","Every draft board"],["Teams","#teams","Owner profiles"],["Records","#records","League records, trade rapes, pickups, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"]];
+const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, standings, weekly matchups"],["Stats","#stats","Career and season stats"],["Drafts","#drafts","Every draft board"],["Teams","#teams","Owner profiles"],["Records","#records","League records, trade rapes, pickups, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
 let sSel=0,sItems=[];
 function goTeam(o){current=o;teamYear=null;if(location.hash==="#teams")route();else location.hash="#teams"}
 function goYear(y){histYear=y;histWeek=null;openGame=null;if(location.hash==="#history")route();else location.hash="#history"}
@@ -1931,7 +2069,7 @@ $("#q").addEventListener("keydown",e=>{const bs=[...$("#sres").querySelectorAll(
 $("#sres").addEventListener("mousedown",e=>{const b=e.target.closest("[data-i]");if(!b)return;e.preventDefault();searchPick(+b.dataset.i)});
 document.addEventListener("click",e=>{if(!e.target.closest(".search"))$("#sres").hidden=true});
 
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},rankings:renderRankings,champions:renderChamps,sackos:renderSackos};
+const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},rankings:renderRankings,champions:renderChamps,sackos:renderSackos,rules:renderRules};
 function route(){let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="moves")h="records";if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h){a.setAttribute("aria-current","page");const n=a.parentElement;if(n.scrollWidth>n.clientWidth)n.scrollTo({left:a.offsetLeft-n.clientWidth/2+a.offsetWidth/2,behavior:"smooth"})}else a.removeAttribute("aria-current")});
