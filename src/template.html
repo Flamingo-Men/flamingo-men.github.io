@@ -300,6 +300,37 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .board .cap{padding:12px 14px;display:grid;gap:2px}
 .board.missing{border-style:dashed;place-items:center;min-height:150px;text-align:center;padding:16px;color:var(--muted)}
 .years button.dim{opacity:.55}
+/* history timeline: eras as blocks spanning their seasons, seasons as stops underneath (Kyle 2026-11-16) */
+.tl-scroll{overflow-x:auto;margin:0 0 18px;padding-bottom:4px}
+.timeline{display:grid;grid-template-columns:minmax(84px,1.3fr) repeat(10,minmax(60px,1fr)) minmax(112px,1.7fr);gap:6px 6px;min-width:820px;position:relative}
+.tl-era{grid-row:1;border:1px solid var(--line);border-radius:var(--r);background:var(--slab);color:var(--ink);font:inherit;text-align:left;padding:10px 12px;cursor:pointer;display:grid;align-content:space-between;gap:6px;min-height:92px;min-width:0;border-top:4px solid var(--c,var(--gold))}
+.tl-era b{font-family:var(--f-display);font-weight:400;font-size:1.02rem;line-height:1.15;overflow-wrap:break-word}
+.tl-era.one{padding:8px 7px}
+.tl-era.one b{font-size:.8rem;overflow-wrap:break-word}
+.tl-era.one span{font-size:.6rem;letter-spacing:0}
+.tl-era span{font-family:var(--f-data);font-size:.68rem;letter-spacing:.06em;color:var(--muted)}
+.tl-era:hover{border-color:var(--c,var(--gold))}
+.tl-era[aria-pressed="true"]{background:var(--c,var(--gold));border-color:var(--c,var(--gold));color:#fff}
+.tl-era[aria-pressed="true"] span{color:rgba(255,255,255,.85)}
+.tl-era.in{box-shadow:inset 0 0 0 2px var(--c,var(--gold))}
+.tl-line{grid-row:2;grid-column:1/-1;height:3px;background:var(--line);border-radius:2px;margin:6px 0 0;align-self:center}
+.tl-year{grid-row:3;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:var(--ink);display:grid;justify-items:center;gap:4px;min-width:0;margin-top:-14px}
+.tl-year i{width:14px;height:14px;border-radius:50%;background:var(--slab);border:3px solid var(--c,var(--gold));display:block}
+.tl-year b{font-family:var(--f-data);font-size:.85rem;font-weight:600}
+.tl-year small{font-size:.72rem;color:var(--muted);line-height:1.2;text-align:center;overflow-wrap:anywhere}
+.tl-year:hover i{background:var(--c,var(--gold))}
+.tl-year[aria-pressed="true"] i{background:var(--c,var(--gold));transform:scale(1.3)}
+.tl-year[aria-pressed="true"] b{color:var(--c,var(--gold))}
+.tl-crumb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;font-family:var(--f-data);font-size:.8rem;color:var(--muted)}
+.tl-crumb button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 12px;cursor:pointer;font:inherit;color:var(--ink)}
+.tl-crumb button:hover{border-color:var(--flamingo)}
+.era-seasons{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,190px),1fr));gap:10px;margin:14px 0 0}
+.era-seasons button{text-align:left;border:1px solid var(--line);background:var(--slab);border-radius:var(--r);padding:12px 14px;cursor:pointer;font:inherit;color:var(--ink);display:grid;gap:4px}
+.era-seasons button:hover{border-color:var(--flamingo)}
+.era-seasons b{font-family:var(--f-display);font-weight:400;font-size:1.3rem}
+.era-seasons span{font-size:.88rem}
+.era-seasons small{font-family:var(--f-data);font-size:.7rem;letter-spacing:.06em;color:var(--flamingo)}
+[hidden]{display:none!important}
 .eras{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:0 0 14px}
 .eras button{text-align:left;border:1px solid var(--line);background:var(--slab);border-radius:var(--r);padding:10px 14px;cursor:pointer;display:grid;gap:2px;color:var(--ink);font:inherit}
 .eras button b{font-family:var(--f-display);font-weight:400;font-size:1.05rem;line-height:1.2}
@@ -966,9 +997,10 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
 <section class="hall" id="hall-history"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">League History</span><h2>The Chronicle of the Flamingo Republic</h2>
   <p>A short first draft. It is built from the trade emails, the stats sheet and the 2016, 2017 and 2023 screenshots, so the political record will grow as more files come in.</p></div>
-  <div class="eras" id="eraTabs" role="tablist" aria-label="Era"></div>
+  <div class="tl-scroll"><div class="timeline" id="timeline" role="group" aria-label="League timeline: pick an era or a season"></div></div>
+  <div class="tl-crumb" id="histCrumb"></div>
   <div class="chronicle" id="chronicle"></div>
-  <div class="years" id="yearPills" role="group" aria-label="Season"></div>
+  <div class="era-seasons" id="eraSeasons"></div>
   <div class="yearcard" id="yearCard"></div>
   <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="block" id="weeksBlock">
@@ -1247,6 +1279,11 @@ const SACKO_DETAIL = {
 
 const DRAFTS = /*DRAFTS*/;
 const MV = /*MOVES*/;
+// extra draft-night photos, shown under that year's board (Kyle 2026-11-16)
+const DRAFT_EXTRA = [
+  {year:2016,img:"draft-2016-scene.jpg",cap:"Draft night 2016, with owners dialing in on the laptop and FaceTime."},
+  {year:2017,img:"draft-2017-scene.jpg",cap:"The 2017 draft crew at Vicente's house."},
+];
 const BOARDS = [
   {year:2016,img:"draft-2016.jpg",cap:"The 2016 sticker board at Sal's office. Columns include Patcher's (Lucas), NY Lorenzos (Charles, with Le'Veon Bell, Antonio Brown and A.J. Green) and DAB (Duane, with David Johnson, Jordy Nelson, T.Y. Hilton and Kelce)."},
   {year:2017,img:"draft-2017.jpg",cap:"Live draft, August 6, 2017. Owners on the board include Fluff, Squirm, Patrick and Klugz."},
@@ -1500,17 +1537,32 @@ function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
     <div class="champ-slot"><span class="eyebrow">♛ Champion</span><b>${w?esc(w.team||short(w.o)):"TBD"}</b>${w&&w.o&&w.team?`<span class="muted" style="font-size:.85rem">${esc(OWNERS[w.o].name)}</span>`:""}</div></div>
     ${P.note?`<p class="muted bnote">${esc(P.note)}</p>`:y>=2018?`<p class="muted bnote">Each playoff round ran two weeks, and the score is the two-week total. Seeds are from ESPN.</p>`:""}</div>`}
 let histYear=ALL_YEARS[ALL_YEARS.length-1];   // History opens on the current season
+let histMode="year";   // "era" shows an era's story and its seasons; "year" opens one season
+const ERA_COLOR=["#7a6a9e","#c08a2e","#d9577c","#2f8f83","#3f6fb5"];
+const TL_YEARS=[2015,...ALL_YEARS];
 function renderHistory(){
   $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
-  const era=ERAS.find(e=>e[2].includes(histYear));
-  $("#eraTabs").innerHTML=ERAS.map((e,i)=>`<button type="button" role="tab" data-e="${i}" aria-selected="${e===era}"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></button>`).join("");
-  $("#eraTabs").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;const e=ERAS[+b.dataset.e];histYear=e[2][e[2].length-1];histWeek=null;openGame=null;renderHistory()};
+  const era=ERAS.find(e=>e[2].includes(histYear)),eraMode=histMode==="era";
+  const col=y=>TL_YEARS.indexOf(y)+1;
+  const champ=y=>y===2015?"Charles*":CHAMPS[y]?"♛ "+short(CHAMPS[y].o):y===2026?"In progress":"";
+  $("#timeline").innerHTML=ERAS.map((e,i)=>`<button type="button" class="tl-era${e[2].length===1?" one":""}${!eraMode&&e===era?" in":""}" style="grid-column:${col(e[2][0])}/span ${e[2].length};--c:${ERA_COLOR[i]}" data-e="${i}" aria-pressed="${eraMode&&e===era}"><b>${esc(e[0])}</b><span>${esc(e[1])}</span></button>`).join("")
+    +`<div class="tl-line" aria-hidden="true"></div>`
+    +TL_YEARS.map(y=>{const i=ERAS.findIndex(e=>e[2].includes(y));return `<button type="button" class="tl-year" style="grid-column:${col(y)};--c:${ERA_COLOR[i]}" data-y="${y}" aria-pressed="${!eraMode&&y===histYear}" aria-label="Open ${y}"><i aria-hidden="true"></i><b>${y}</b><small>${esc(champ(y))}</small></button>`}).join("");
+  $("#timeline").onclick=ev=>{const b=ev.target.closest("[data-e],[data-y]");if(!b)return;
+    if(b.dataset.e!=null){const e=ERAS[+b.dataset.e];histMode="era";if(!e[2].includes(histYear))histYear=e[2][e[2].length-1]}
+    else{histMode="year";histYear=+b.dataset.y}
+    histWeek=null;openGame=null;renderHistory();$("#histCrumb").scrollIntoView({block:"nearest",behavior:"smooth"})};
+  const eIdx=ERAS.indexOf(era);
+  $("#histCrumb").innerHTML=eraMode?`<span>${esc(era[0])} · ${era[2].length===1?"1 season":era[2].length+" seasons"}. Pick a season to open it.</span>`
+    :`<button type="button" data-e="${eIdx}">← ${esc(era[0])}</button><span>${histYear}</span>`;
+  $("#histCrumb").onclick=ev=>{const b=ev.target.closest("[data-e]");if(!b)return;histMode="era";renderHistory()};
+  $("#chronicle").hidden=!eraMode;$("#eraSeasons").hidden=!eraMode;$("#yearCard").hidden=eraMode;$("#weeksBlock").hidden=eraMode;
+  $("#eraSeasons").innerHTML=eraMode?era[2].map(y=>{const c=CHAMPS[y],sk=SACKOS[y];return `<button type="button" data-y="${y}"><small>Open season</small><b>${y}</b><span>${y===2015?"Charles won (not counted)":c?`♛ ${esc(short(c.o))}, ${esc(c.team)}`:y===2026?"In progress":"Champion not saved"}</span>${sk?`<span class="muted">Sacko: ${esc(short(sk.o))}</span>`:""}</button>`}).join(""):"";
+  $("#eraSeasons").onclick=ev=>{const b=ev.target.closest("[data-y]");if(!b)return;histMode="year";histYear=+b.dataset.y;histWeek=null;openGame=null;renderHistory();$("#histCrumb").scrollIntoView({block:"nearest",behavior:"smooth"})};
   const [h0,p0]=CHRONICLE[era[3]];
   const ph=ERA_PHOTO[era[3]];
   $("#chronicle").innerHTML=`${ph?`<figure class="era-ph"><img src="${ph.src}" alt="${esc(ph.alt)}" style="object-position:${ph.pos}" loading="lazy" decoding="async">${ph.badge?`<img class="era-badge" src="${ph.badge}" alt="Wu-Tang Clan logo">`:""}${ph.inset?`<img class="era-inset" src="${ph.inset.src}" alt="${esc(ph.inset.alt)}" loading="lazy" decoding="async">`:""}<figcaption><b>${esc(era[0])}</b><span>${esc(era[1])}</span></figcaption></figure>`:""}<div><h3>${esc(h0)}</h3><p>${esc(p0)}</p>${histTrades(CHRON_TRADES[h0])}</div>`;
   renderWeeks();
-  $("#yearPills").innerHTML=era[2].map(y=>`<button type="button" data-y="${y}" aria-pressed="${y===histYear}">${y}</button>`).join("");
-  $("#yearPills").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;histYear=+b.dataset.y;histWeek=null;openGame=null;renderHistory()};
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
   const nT=uniqT(TR.filter(t=>t.s===histYear&&t.st==="completed")).length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
@@ -1678,8 +1730,10 @@ function renderDrafts(){
   $("#draftYears").innerHTML=ALL_YEARS.map(y=>{const has=DRAFTS[y]||BOARDS.find(b=>b.year===y);return `<button type="button" data-y="${y}" aria-pressed="${y===draftYear}"${has?"":' class="dim"'}>${y}</button>`}).join("");
   $("#draftYears").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;draftYear=+b.dataset.y;renderDrafts()};
   const D=DRAFTS[draftYear],B=BOARDS.find(b=>b.year===draftYear);
-  const photo=B?`<figure class="board" style="margin:22px 0 0;max-width:820px"><button type="button" data-full="img/${B.img}"><img src="img/${B.img}" alt="${draftYear} draft board" loading="lazy"></button><figcaption class="cap"><h3>The ${draftYear} board</h3><span class="muted" style="font-size:.9rem">${esc(B.cap)}</span></figcaption></figure>`:"";
-  if(!D){$("#draftBody").innerHTML=`<div class="board missing" style="min-height:180px"><div><h3>${draftYear} draft</h3><span style="font-size:.95rem">No draft sheet for this year yet.</span></div></div>${photo}`;return}
+  const photo=B?`<figure class="board" style="margin:22px 0 0;max-width:820px"><button type="button" data-full="img/${B.img}"><img src="img/${B.img}" alt="${draftYear} draft board" loading="lazy"></button><figcaption class="cap"><h3>The ${draftYear} board</h3><span class="muted" style="font-size:.9rem">${esc(B.cap)}</span></figcaption></figure>`:""
+  const extra=DRAFT_EXTRA.filter(x=>x.year===draftYear).map(x=>`<figure class="board" style="margin:22px 0 0;max-width:620px"><button type="button" data-full="img/${x.img}"><img src="img/${x.img}" alt="${draftYear} draft night" loading="lazy"></button><figcaption class="cap"><h3>Draft night ${draftYear}</h3><span class="muted" style="font-size:.9rem">${esc(x.cap)}</span></figcaption></figure>`).join("");
+  const photos=photo+extra;
+  if(!D){$("#draftBody").innerHTML=`<div class="board missing" style="min-height:180px"><div><h3>${draftYear} draft</h3><span style="font-size:.95rem">No draft sheet for this year yet.</span></div></div>${photos}`;return}
   const rounds=Math.max(...D.cols.map(c=>c.length));
   const key=(r,c)=>r+"-"+c;
   const mark={};D.steals.forEach(s=>mark[key(s[1],s[2])]="steal");D.busts.forEach(s=>mark[key(s[1],s[2])]="bust");(D.inj||[]).forEach(([r,c,g])=>mark[key(r,c)]="inj");const gpOf={};(D.inj||[]).forEach(([r,c,g])=>gpOf[key(r,c)]=g);
@@ -1693,7 +1747,7 @@ function renderDrafts(){
     <p class="muted" style="font-size:.85rem;margin:8px 0 0">${esc(D.source)}</p>
     ${D.steals.length?`<div class="pickcards">${card("Steals of the draft",D.steals,"good")}${card("Worst picks",D.busts,"bad")}</div>`:`<div class="note" style="margin-top:14px">The season is still being played. Steals and worst picks get called once it ends.</div>`}
     ${D.odd?`<div class="note" style="margin-top:14px">${esc(D.odd)}</div>`:""}
-    ${photo}`;
+    ${photos}`;
 }
 
 /* ---------- TEAMS ---------- */
@@ -2049,7 +2103,7 @@ function renderPlayer(){const r=PLAYERS.p[plCur],ys=Object.keys(r.y).map(Number)
 const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, standings, weekly matchups"],["Stats","#stats","Career and season stats"],["Drafts","#drafts","Every draft board"],["Teams","#teams","Owner profiles"],["Records","#records","League records, trade rapes, pickups, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
 let sSel=0,sItems=[];
 function goTeam(o){current=o;teamYear=null;if(location.hash==="#teams")route();else location.hash="#teams"}
-function goYear(y){histYear=y;histWeek=null;openGame=null;if(location.hash==="#history")route();else location.hash="#history"}
+function goYear(y){histYear=y;histMode="year";histWeek=null;openGame=null;if(location.hash==="#history")route();else location.hash="#history"}
 function searchRun(){const q=pnorm($("#q").value),raw=$("#q").value.trim().toLowerCase(),box=$("#sres");
   if(!raw){box.hidden=true;$("#q").setAttribute("aria-expanded","false");return}
   const hit=t=>pnorm(t).includes(q)||String(t).toLowerCase().includes(raw);
