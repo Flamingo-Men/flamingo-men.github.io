@@ -1353,6 +1353,7 @@ function av(o,cls="av"){const p=IMG[o];const n=OWNERS[o]?.name||"?";
 function sackoIcons(n){if(!n)return "–";return IMG.sacko?Array.from({length:n},()=>`<img class="sk-ic" src="${IMG.sacko}" alt="Sacko">`).join(""):`<span class="sacko">${n}</span>`}
 function cutout(o){return CUT[o]?`<svg class="bgflam" aria-hidden="true"><use href="#flamingoBig"/></svg><img class="cut" src="${CUT[o]}" alt="${esc(OWNERS[o]?.name||"")}" loading="lazy">`:av(o,"big")}
 function sackoMark(){return IMG.sacko?`<img class="sk-ic" src="${IMG.sacko}" alt="">`:""}
+function pickupCount(o){return MV.moves.filter(m=>m.o===o&&m.add).length}
 function tradeCount(o){return uniqT(TR.filter(t=>t.st==="completed"&&(t.a.o===o||t.b.o===o))).length}
 function short(o){if(!o)return "Unconfirmed";const x=OWNERS[o];return x.short||(x.nick?x.nick.split(" / ")[0]:x.name.split(" ")[0])}
 // 2016 and 2017: owners on the draft boards whose records weren't saved
@@ -1689,9 +1690,11 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
       const hi=top(ls,x=>x.luck),lo=top(ls,x=>x.luck,1),cl=Object.keys(LUCK).filter(o=>OWNERS[o]).map(o=>({o,luck:careerLuck(o)})),chi=top(cl,x=>x.luck),clo=top(cl,x=>x.luck,1);
       const yl2=x=>`${x.y}${+x.y===2026?" so far":""}, ${x.w}-${x.g-x.w} with scores worth ${x.exp.toFixed(1)} wins`;
       return [card("Luckiest season",lk(hi[0].luck)+" wins",hi,hi.map(yl2).join("; ")),card("Unluckiest season",lk(lo[0].luck)+" wins",lo,lo.map(yl2).join("; ")),
-        card("Luckiest career",lk(chi[0].luck)+" wins",chi,"Wins above what his scores earned, 2018 on"),card("Unluckiest career",lk(clo[0].luck)+" wins",clo,"Wins below what his scores earned, 2018 on")]})()];
+        card("Luckiest career",lk(chi[0].luck)+" wins",chi,"Wins above what his scores earned, 2018 on"),card("Unluckiest career",lk(clo[0].luck)+" wins",clo,"Wins below what his scores earned, 2018 on")]})(),
+    (()=>{const a=Object.keys(OWNERS).map(o=>({o,n:pickupCount(o)})).filter(x=>x.n);const m=top(a,x=>x.n);const tot=a.reduce((t,x)=>t+x.n,0);
+      return card("Most waiver pickups, all time",m[0].n,m,`Waiver and free-agent adds, 2018 on. The league has made ${tot.toLocaleString()} in all`)})()];
   // most important first (Kyle): career wins and losses, career win rate, titles and Sackos, playoffs, season records, streaks, single games
-  const ORDER=[6,7,10,11,8,9,17,16,4,5,2,3,22,23,24,25,14,15,0,1,12,13,18,19,20,21].filter(i=>i<c.length);
+  const ORDER=[6,7,10,11,8,9,17,16,4,5,2,3,22,23,24,25,14,15,0,1,12,13,18,19,20,21,26].filter(i=>i<c.length);
   const g=$("#recGrid");g.innerHTML=ORDER.map(i=>c[i]).join("");
   const wrap=g.parentElement,pv=wrap.querySelector(".prev"),nx=wrap.querySelector(".next");
   const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
@@ -1748,14 +1751,14 @@ let sortKey="titles",sortDir=-1,seasonSel=2026;
 function draftSpot(o){const l=Object.entries(DRAFTS).map(([y,D])=>{const c=D.teams.findIndex(t=>t[1]===o);return c<0?null:[y,c+1,D.teams.length]}).filter(Boolean);
   return l.length?{dspot:l.reduce((a,[,c,n])=>a+c/n*10,0)/l.length,dn:l.length,dlist:l.map(([y,c])=>`${y} #${c}`).join(", ")}:{dspot:null,dn:0}}
 function renderStats(){
-  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["po","Playoffs"],["luck","Luck"],["trades","Trades"],["dspot","Avg draft spot"]];
-  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o),luck:careerLuck(o),...draftSpot(o),po:RANK.playoffs?.[o]?.po??null,poOf:RANK.playoffs?.[o]?.seasons}));
+  const cols=[["owner","Owner"],["seasons","Seasons"],["w","W"],["l","L"],["pct","Win %"],["pts","Total pts"],["avg","Avg pts / season"],["titles","Titles"],["sackos","Sackos"],["po","Playoffs"],["luck","Luck"],["trades","Trades"],["pickups","Pickups"],["dspot","Avg draft spot"]];
+  const rows=[...new Set([...Object.keys(S),...Object.keys(NOREC)])].filter(o=>OWNERS[o]&&(totals(o).seasons||totals(o).titles||totals(o).sackos)).map(o=>({o,owner:OWNERS[o].name,...totals(o),trades:tradeCount(o),pickups:pickupCount(o),luck:careerLuck(o),...draftSpot(o),po:RANK.playoffs?.[o]?.po??null,poOf:RANK.playoffs?.[o]?.seasons}));
   rows.sort((a,b)=>{const x=a[sortKey],y=b[sortKey];if(typeof x==="string")return sortDir*x.localeCompare(y);return sortDir*((x??-1)-(y??-1))||(b.pct-a.pct)});
   $("#allTime").innerHTML=`<thead><tr>${cols.map(([k,l])=>`<th class="${k==="owner"?"":"num"}" ${k===sortKey?`aria-sort="${sortDir<0?"descending":"ascending"}"`:""}><button type="button" data-k="${k}">${l}${k===sortKey?(sortDir<0?" ↓":" ↑"):""}</button></th>`).join("")}</tr></thead>
    <tbody>${rows.map(r=>`<tr><td><div class="who">${av(r.o)}<span class="nm-full">${esc(r.owner)}${OWNERS[r.o].nick?` <span class="muted">(${esc(OWNERS[r.o].nick)})</span>`:""}</span><span class="nm-short">${esc(short(r.o))}</span></div></td>
      <td class="num">${r.seasons||"–"}${r.norec.length?`<sup title="${r.norec.join(" and ")} record not saved">*</sup>`:r.est.length?`<sup title="${r.est.join(" and ")} record estimated">*</sup>`:""}</td><td class="num">${r.w+r.l?r.w:"–"}</td><td class="num">${r.w+r.l?r.l:"–"}</td><td class="num">${r.w+r.l?(r.pct).toFixed(3).replace(/^0/,""):"–"}</td>
      <td class="num">${r.pts?fmt(r.pts):"–"}</td><td class="num">${r.avg?fmt(r.avg):"–"}</td>
-     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num" title="${r.po!=null?`${r.po} playoff trips in ${r.poOf} seasons, 2016 to 2025`:""}">${r.po!=null?r.po:"–"}</td><td class="num" title="Wins above or below what the weekly scores earned">${lk(r.luck)}</td><td class="num">${r.trades||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
+     <td class="num">${r.titles?`<span class="crown">${"♛".repeat(r.titles)}</span>`:"–"}</td><td class="num">${sackoIcons(r.sackos)}</td><td class="num" title="${r.po!=null?`${r.po} playoff trips in ${r.poOf} seasons, 2016 to 2025`:""}">${r.po!=null?r.po:"–"}</td><td class="num" title="Wins above or below what the weekly scores earned">${lk(r.luck)}</td><td class="num">${r.trades||"–"}</td><td class="num" title="Waiver and free-agent adds, 2018 on, including this season">${r.pickups||"–"}</td><td class="num" title="${r.dn?`${r.dn} drafts: ${r.dlist}`:""}">${r.dspot!=null?r.dspot.toFixed(1):"–"}</td></tr>`).join("")}</tbody>`;
   $("#allTime").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;const k=b.dataset.k;sortDir=k===sortKey?-sortDir:(k==="owner"||k==="l"||k==="sackos"||k==="dspot"?1:-1);sortKey=k;renderStats()};
   $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
