@@ -1297,7 +1297,15 @@ const MV = /*MOVES*/;
 // extra draft-night photos, shown under that year's board (Kyle 2026-11-16)
 const DRAFT_EXTRA = [
   {year:2016,img:"draft-2016-scene.jpg",cap:"Draft night 2016, with owners dialing in on the laptop and FaceTime."},
+  {year:2016,img:"draft-2016-mongled1.jpg",t:"Floof gets mongled",cap:"Floof getting mongled on the carpet by Chris at the 2016 draft. Both of them are grinning."},
+  {year:2016,img:"draft-2016-mongled2.jpg",t:"Still mongling",cap:"Round two: Chris keeps Floof pinned by the radiator while the draft goes on without them."},
   {year:2017,img:"draft-2017-scene.jpg",cap:"The 2017 draft crew at Vicente's house."},
+  {year:2023,img:"draft-2023-board1.jpg",t:"Sacko punishment",cap:"Lucas in his Sacko punishment costume, zebra ears and tutu, presenting the 2023 board. The note on it says \"Long live Chattles.\""},
+  {year:2023,img:"draft-2023-board2.jpg",t:"Hand on hip",cap:"Lucas, still in the Sacko costume, giving the board one more pose."},
+  {year:2023,img:"draft-2023-tutu.jpg",t:"The tutu",cap:"Lucas settling into the 2023 draft in his Sacko punishment tutu and zebra ears."},
+  {year:2023,img:"draft-2023-review.jpg",t:"Mateus's review",cap:"Lucas, in costume, reading a review from Mateus out loud to the room."},
+  {year:2023,img:"draft-2023-facetime.jpg",t:"FaceTime",cap:"Jerry and Dylan drafting from the TV over FaceTime."},
+  {year:2023,img:"draft-2023-binder.jpg",t:"Trump Trust Leases",cap:"Spotted on Sal's shelf during the draft: a binder labeled \"Trump Trust Leases,\" proof of Sal's elusive connections to the Trump family."},
 ];
 // photos for each season's gallery on History (Kyle 2026-11-16)
 const YEAR_PHOTOS = {
@@ -1310,7 +1318,7 @@ const YEAR_PHOTOS = {
 function yearPhotos(y){
   const b=BOARDS.find(x=>x.year===y),out=[];
   if(b)out.push({src:"img/"+b.img,t:"Draft board",cap:b.cap});
-  DRAFT_EXTRA.filter(x=>x.year===y).forEach(x=>out.push({src:"img/"+x.img,t:"Draft night",cap:x.cap}));
+  DRAFT_EXTRA.filter(x=>x.year===y).forEach(x=>out.push({src:"img/"+x.img,t:x.t||"Draft night",cap:x.cap}));
   return out.concat(YEAR_PHOTOS[y]||[]);
 }
 function galleryHTML(y){const ph=yearPhotos(y);if(!ph.length)return"";
@@ -1763,7 +1771,7 @@ function renderDrafts(){
   $("#draftYears").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;draftYear=+b.dataset.y;renderDrafts()};
   const D=DRAFTS[draftYear],B=BOARDS.find(b=>b.year===draftYear);
   const photo=B?`<figure class="board" style="margin:22px 0 0;max-width:820px"><button type="button" data-full="img/${B.img}"><img src="img/${B.img}" alt="${draftYear} draft board" loading="lazy"></button><figcaption class="cap"><h3>The ${draftYear} board</h3><span class="muted" style="font-size:.9rem">${esc(B.cap)}</span></figcaption></figure>`:""
-  const extra=DRAFT_EXTRA.filter(x=>x.year===draftYear).map(x=>`<figure class="board" style="margin:22px 0 0;max-width:620px"><button type="button" data-full="img/${x.img}"><img src="img/${x.img}" alt="${draftYear} draft night" loading="lazy"></button><figcaption class="cap"><h3>Draft night ${draftYear}</h3><span class="muted" style="font-size:.9rem">${esc(x.cap)}</span></figcaption></figure>`).join("");
+  const extra=DRAFT_EXTRA.filter(x=>x.year===draftYear).map(x=>`<figure class="board" style="margin:22px 0 0;max-width:620px"><button type="button" data-full="img/${x.img}"><img src="img/${x.img}" alt="${draftYear} draft night" loading="lazy"></button><figcaption class="cap"><h3>${esc(x.t||"Draft night "+draftYear)}</h3><span class="muted" style="font-size:.9rem">${esc(x.cap)}</span></figcaption></figure>`).join("");
   const photos=photo+extra;
   if(!D){$("#draftBody").innerHTML=`<div class="board missing" style="min-height:180px"><div><h3>${draftYear} draft</h3><span style="font-size:.95rem">No draft sheet for this year yet.</span></div></div>${photos}`;return}
   const rounds=Math.max(...D.cols.map(c=>c.length));
