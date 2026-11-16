@@ -472,6 +472,19 @@ td.pk.empty{--pc:var(--line);color:var(--muted);font-size:.75rem}
 @media (max-width:560px){.pickcards{grid-template-columns:1fr}}
 .lightbox{position:fixed;inset:0;background:rgba(8,12,24,.92);display:grid;place-items:center;z-index:50;padding:16px;cursor:zoom-out}
 .lightbox img{max-width:100%;max-height:92vh;border-radius:var(--r)}
+.lightbox figure{margin:0;display:grid;justify-items:center;gap:10px;max-width:min(1100px,100%)}
+.lightbox figure img{max-height:calc(100vh - 150px);cursor:default}
+.lightbox figcaption{color:#e9ecf3;font-size:.92rem;line-height:1.45;text-align:center;max-width:62ch;cursor:default}
+.lightbox figcaption small{display:block;color:#9aa3b8;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;margin-top:4px}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(8,12,24,.55);color:#fff;font-size:1.4rem;line-height:1;cursor:pointer;display:grid;place-items:center}
+.lb-nav.prev{left:12px}.lb-nav.next{right:12px}
+.lb-x{position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.3rem;cursor:pointer}
+.gallery{display:grid;grid-auto-flow:column;grid-auto-columns:168px;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}
+.gallery button{all:unset;cursor:zoom-in;scroll-snap-align:start;display:grid;gap:4px}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block;background:var(--line)}
+.gallery span{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gallery button:focus-visible img{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:640px){.gallery{grid-auto-columns:calc((100% - 16px)/3)}}
 .champs{display:grid;gap:16px}
 .champ{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px}
 .champ.won{display:block;padding:0;overflow:hidden}
@@ -1286,6 +1299,23 @@ const DRAFT_EXTRA = [
   {year:2016,img:"draft-2016-scene.jpg",cap:"Draft night 2016, with owners dialing in on the laptop and FaceTime."},
   {year:2017,img:"draft-2017-scene.jpg",cap:"The 2017 draft crew at Vicente's house."},
 ];
+// photos for each season's gallery on History (Kyle 2026-11-16)
+const YEAR_PHOTOS = {
+  2015:[{src:"img/era-2015.jpg",t:"The #Squad",cap:"The #Squad boxing in 2015, the year of the unofficial Wu-Tang league."},{src:"img/wutang-2015-trade.jpg",t:"Wu-Tang trade",cap:"The ESPN Wu-Tang league page showing the Jamaal Charles trade."}],
+  2017:[{src:"img/roster-2017.jpg",t:"Kyle's roster",cap:"Kyle's New York Klugeys at 9-2 in 2017, with Cousins, Fournette, McCoy, Evans, Thomas, Kelce and Landry."}],
+  2018:[{src:"img/era-2018.jpg?v=2",t:"The couch",cap:"The Founding Era crew on the couch in 2018, the last eight-team season."}],
+  2022:[{src:"img/era-2022.jpg",t:"At the bar",cap:"The league at the bar in 2022."}],
+  2023:[{src:"img/era-2023.jpg",t:"The cabin",cap:"The league in the cabin in 2023."}],
+  2026:[{src:"img/era-2026.jpg",t:"Out together",cap:"The league out together in 2026, the first 12-team year."}],
+};
+function yearPhotos(y){
+  const b=BOARDS.find(x=>x.year===y),out=[];
+  if(b)out.push({src:"img/"+b.img,t:"Draft board",cap:b.cap});
+  DRAFT_EXTRA.filter(x=>x.year===y).forEach(x=>out.push({src:"img/"+x.img,t:"Draft night",cap:x.cap}));
+  return out.concat(YEAR_PHOTOS[y]||[]);
+}
+function galleryHTML(y){const ph=yearPhotos(y);if(!ph.length)return"";
+  return `<div><div class="eyebrow" style="margin-bottom:8px">${y} in photos · ${ph.length}</div><div class="gallery">${ph.map(p=>`<button type="button" data-full="${p.src}" data-cap="${esc(p.cap)}" data-t="${esc(y+" · "+p.t)}" data-gal="y${y}"><img src="${p.src}" alt="${esc(p.t)}" loading="lazy" decoding="async"><span>${esc(p.t)}</span></button>`).join("")}</div></div>`}
 const BOARDS = [
   {year:2016,img:"draft-2016.jpg",cap:"The 2016 sticker board at Sal's office. Columns include Patcher's (Lucas), NY Lorenzos (Charles, with Le'Veon Bell, Antonio Brown and A.J. Green) and DAB (Duane, with David Johnson, Jordy Nelson, T.Y. Hilton and Kelce)."},
   {year:2017,img:"draft-2017.jpg",cap:"Live draft, August 6, 2017. Owners on the board include Fluff, Squirm, Patrick and Klugz."},
@@ -1568,8 +1598,9 @@ function renderHistory(){
   const h=HISTORY[histYear],st=standings(histYear),c=CHAMPS[histYear],sk=SACKOS[histYear];
   const nT=uniqT(TR.filter(t=>t.s===histYear&&t.st==="completed")).length,nV=TR.filter(t=>t.s===histYear&&t.st==="vetoed").length;
   const fact=(l,v)=>`<div class="fact"><span class="eyebrow">${l}</span><b>${v}</b></div>`;
-  $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p><div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>${wuTrade()}`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
+  $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p>${galleryHTML(2015)}<div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>${wuTrade()}`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
    <p class="yearbio">${esc(YEAR_BIO[histYear]||"")}</p>
+   ${galleryHTML(histYear)}
    ${bracketHTML(histYear)}
    ${histStandings(histYear)}
    <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
@@ -2134,8 +2165,18 @@ function route(){let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="m
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h){a.setAttribute("aria-current","page");const n=a.parentElement;if(n.scrollWidth>n.clientWidth)n.scrollTo({left:a.offsetLeft-n.clientWidth/2+a.offsetWidth/2,behavior:"smooth"})}else a.removeAttribute("aria-current")});
   ROUTES[h]();window.scrollTo(0,0)}
 window.addEventListener("hashchange",route);
-document.addEventListener("click",e=>{const b=e.target.closest("[data-full]");if(!b)return;
-  const lb=document.createElement("div");lb.className="lightbox";lb.innerHTML=`<img src="${b.dataset.full}" alt="">`;lb.onclick=()=>lb.remove();document.body.appendChild(lb)});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelector(".lightbox")?.remove()});
+function openLightbox(b){
+  document.querySelector(".lightbox")?.remove();
+  const set=b.dataset.gal?[...document.querySelectorAll(`[data-gal="${b.dataset.gal}"]`)]:[b];let i=set.indexOf(b);
+  const lb=document.createElement("div");lb.className="lightbox";document.body.appendChild(lb);
+  const show=()=>{const c=set[i],cap=c.dataset.cap;
+    lb.innerHTML=`<figure><img src="${c.dataset.full}" alt="${esc(cap||"")}">${cap?`<figcaption>${esc(cap)}${c.dataset.t?`<small>${esc(c.dataset.t)}${set.length>1?` · ${i+1} of ${set.length}`:""}</small>`:""}</figcaption>`:""}</figure>${set.length>1?`<button class="lb-nav prev" type="button" aria-label="Previous photo">‹</button><button class="lb-nav next" type="button" aria-label="Next photo">›</button>`:""}<button class="lb-x" type="button" aria-label="Close">×</button>`};
+  lb.step=d=>{if(set.length<2)return;i=(i+d+set.length)%set.length;show()};
+  lb.onclick=e=>{if(e.target.closest(".prev"))lb.step(-1);else if(e.target.closest(".next"))lb.step(1);else if(e.target.closest("figure img,figcaption"))return;else lb.remove()};
+  let x0=null;lb.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+  lb.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>45)lb.step(dx<0?1:-1)});
+  show()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-full]");if(b)openLightbox(b)});
+document.addEventListener("keydown",e=>{const lb=document.querySelector(".lightbox");if(!lb)return;if(e.key==="Escape")lb.remove();else if(e.key==="ArrowRight")lb.step(1);else if(e.key==="ArrowLeft")lb.step(-1)});
 route();
 </script>
