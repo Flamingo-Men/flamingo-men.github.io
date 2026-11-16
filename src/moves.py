@@ -92,6 +92,23 @@ def repl(y,pos):
         REPL[y]={k:sorted(by[k],reverse=True)[n-1]/GAMES(y) for k,n in (('QB',12),('RB',30),('WR',30),('TE',12))}
     return REPL[y].get(pos,0)
 
+# league-size replacement (Kyle 2026-11-16): the first player past the last starter at his position, given how many teams
+# that season had and how many starting slots (FLEX split 45% RB, 50% WR, 5% TE). 8 teams -> QB9/RB21/WR21/TE9,
+# 10 teams -> QB11/RB26/WR26/TE12, 12 teams with two FLEX (2026) -> QB13/RB36/WR37/TE14.
+NTEAMS={}
+def slots(y):
+    fx=2 if y>=2026 else 1
+    return {'QB':1,'RB':2+.45*fx,'WR':2+.5*fx,'TE':1+.05*fx,'K':1,'D/ST':1}
+REPLN={}
+def repl_n(y,pos,season=False):
+    if y not in REPLN:
+        by=collections.defaultdict(list)
+        for p in players(y).values(): by[p['pos']].append(p['tot'])
+        n=NTEAMS.get(y,10)
+        REPLN[y]={k:sorted(by[k],reverse=True)[int(n*v+.5)] for k,v in slots(y).items()}
+    t=REPLN[y].get(pos,0)
+    return t if season else t/(min(GAMES(y),16) if y<=2020 else GAMES(y))   # NFL seasons were 16 games through 2020
+
 # positional finish, QB/RB/WR/TE only
 FIN={}
 def finish(y,pid):
@@ -212,6 +229,8 @@ def main():
         for s in (tr['a'],tr['b']):
             if s['team'] in ns['TEAM_OWNER']: s['o']=ns['TEAM_OWNER'][s['team']]
     E={y:espn(y) for y in LEAGUE}
+    for y in ALL:
+        NTEAMS[y]=len(E[y]['team']) if y in E else len((DR.get(str(y)) or {}).get('teams') or []) or 10
     out=dict(seasons={},rosters={},moves=[],trades={},drafts={})
     for y in ALL:
         out['seasons'][y]='espn' if y in E else 'rebuilt'
@@ -223,24 +242,78 @@ def main():
         for t in done:
             if t['s']==tr['s'] and (t['d'],t['id'])>(tr['d'],tr['id']) and any(g.partition('|')[0]==nm for s in('a','b') for g in t[s]['gave']): return wk(t)-1
         return LASTWK(tr['s'])
+    # Trade value (Kyle 2026-11-16): fantasy WAR. For every week from the trade to the end of the season, a player
+    # the team received counts only if he was in its starting lineup, and only in games that mattered (the regular
+    # season, plus playoff weeks while the team was still alive in the winners bracket). His edge that week is his
+    # points minus a replacement starter at his position for that season's league size (repl_n). The edge becomes
+    # wins with the league's weekly scoring spread: win chance = Phi(edge / (sd * sqrt 2)) - 0.5, where sd is the
+    # standard deviation of that season's weekly team scores. 2016-2017 have no lineups, so every week a player beat
+    # replacement counts as a start (estimated).
+    import math
+    PHI=lambda z:0.5*(1+math.erf(z/math.sqrt(2)))
+    SD={};TIER={}
+    for yy in E:
+        try: wj=json.load(open(os.path.join(root,'data','weeks',f'{yy}.json')))
+        except FileNotFoundError: continue
+        sc=[]
+        for w,ms in wj['weeks'].items():
+            for m in ms:
+                for k in('a','b'):
+                    if m.get(k) is None: continue
+                    TIER[(yy,m[k]['t'],int(w))]=m['tier']
+                    if not m['tier'] and m[k]['p'] is not None: sc.append(m[k]['p'])
+        if len(sc)>20:
+            mu=sum(sc)/len(sc);SD[yy]=math.sqrt(sum((v-mu)**2 for v in sc)/(len(sc)-1))
+    sd0=sum(SD.values())/len(SD)
+    tid_of={yy:{v['o']:k for k,v in e['team'].items()} for yy,e in E.items()}
+    # kickers and defenses: our stat model has no kicking or defense scoring, so their replacement is the
+    # average started K or D/ST that season (both are streamed off waivers every week)
+    KREP={}
+    for yy,e in E.items():
+        acc=collections.defaultdict(list)
+        for (t,w),b in e['box'].items():
+            for v in b.values():
+                if v[0]==17: acc['K'].append(v[1])
+                elif v[0]==16: acc['D/ST'].append(v[1])
+        KREP[yy]={k:sum(l)/len(l) for k,l in acc.items() if l}
     for tr in trades:
         if tr['st']!='completed': continue
-        y=tr['s'];w0=wk(tr)
+        y=tr['s'];w0=wk(tr);sd=SD.get(y,sd0)
         res={};ok=True
         for side,other in(('a','b'),('b','a')):
-            got=tr[other]['gave'];tot=0;det=[]
+            got=tr[other]['gave'];tot=0;war=0;det=[]
+            tid=tid_of.get(y,{}).get(tr[side]['o'])
             for g in got:
                 nm,_,ps=g.partition('|')
                 if ps in('Pick','Secret'): ok=False;continue
                 pid=find(y,nm,ps)
                 if pid is None: det.append([nm,ps,None]);continue
-                P=players(y)[pid];end=until(tr,nm);wks=max(0,end-w0+1)
-                if P['wk']: pts=sum(v for w,v in P['wk'].items() if w0<=w<=end)
-                else: pts=P['tot']*wks/17       # 2016-2017: season total, prorated
-                par=max(0,pts-repl(y,P['pos'])*wks)
-                tot+=par;det.append([nm,ps,round(pts,1),round(par,1)])
-            res[side]=dict(par=round(tot,1),got=det)
-        if ok: out['trades'][tr['id']]=dict(w=w0,est=y<2018,**res)
+                P=players(y)[pid];end=until(tr,nm);rw=KREP.get(y,{}).get(P['pos'],0) if P['pos'] in('K','D/ST') else repl_n(y,P['pos'])
+                t_=tid
+                if y in E and (t_ is None or not any(pid in E[y]['box'].get((t_,w),{}) for w in range(w0,end+1))):
+                    # owner not mapped for this team name: use the team that rostered him right after the deal
+                    giver=tid_of.get(y,{}).get(tr[other]['o'])
+                    t_=next((k[0] for w in range(w0,end+1) for k,b in E[y]['box'].items() if k[1]==w and k[0]!=giver and pid in b),None)
+                pts=0.0;par=0.0;wins=0.0;st=0
+                for w in range(w0,end+1):
+                    if y in E:
+                        if t_ is None: break
+                        b=E[y]['box'].get((t_,w),{})
+                        if pid not in b or b[pid][0] in(20,21): continue          # benched, on IR or not on the roster
+                        tier=TIER.get((y,t_,w))
+                        if tier=='Consolation' or tier is None and w>GAMES(y): continue
+                        v=b[pid][1]
+                    else:
+                        v=P['wk'].get(w)
+                        if v is None:
+                            if P['wk'] or w>16: continue
+                            v=P['tot']/16                                      # no weekly stats: season average
+                        if v<=rw: continue                                     # 2016-17 guess: he only started when he helped
+                    st+=1;pts+=v;par+=v-rw;wins+=PHI((v-rw)/(sd*math.sqrt(2)))-0.5
+                par=max(0.0,par);wins=max(0.0,wins)
+                tot+=par;war+=wins;det.append([nm,ps,round(pts,1),round(par,1),round(wins,2),st])
+            res[side]=dict(par=round(tot,1),war=round(war,2),got=det)
+        if ok: out['trades'][tr['id']]=dict(w=w0,est=y<2018,sd=round(sd,1),**res)
     # moves + rosters
     for y,e in E.items():
         out['moves']+= [{k:v for k,v in m.items()} for m in e['moves']]
@@ -311,17 +384,18 @@ def main():
             pl=r['snap']['players'] if 'snap' in r else (r['players'] if r['src']=='espn' else None)
             if not pl: continue
             if 'snap' in r and y==2016 and o=='duane': pass
+            # roster score (Kyle 2026-11-16): the best lineup's season points over a replacement starter for that
+            # season's league size, so a stacked 8-team roster isn't compared with a 12-team one on raw finish
             rows=[];score=0
             for p in pl:
                 slot,nm,pos,_,_,fin=p[:6]
                 if pos in('K','D/ST') or slot in('K','D/ST'): continue
-                fv=0
-                if fin:
-                    fp,rk=fin; fv=max(0,25-rk) if fp in('RB','WR') else max(0,13-rk)*2
-                nx=nextpick(y,nm); dv=max(0,25-nx/4) if nx else 0
-                rows.append([nm,fin[0]+str(fin[1]) if fin else pos,nx,round(fv+dv,1),fin[0] if fin else pos])
+                pid=find(y,nm,pos if pos in('QB','RB','WR','TE') else None)
+                P=players(y).get(pid) if pid else None
+                pos_=P['pos'] if P else pos
+                v=max(0.0,P['tot']-repl_n(y,pos_,True)) if P and pos_ in('QB','RB','WR','TE') else 0.0
+                rows.append([nm,fin[0]+str(fin[1]) if fin else pos,round(P['tot'],1) if P else None,round(v,1),fin[0] if fin else pos])
             rows.sort(key=lambda r:-r[3])
-            # score the best possible lineup: QB, 2 RB, 2 WR, TE, FLEX
             need={'QB':1,'RB':2,'WR':2,'TE':1};flex=1
             for r_ in rows:
                 p_=r_[4]
@@ -329,7 +403,8 @@ def main():
                 elif flex and p_ in('RB','WR','TE'): flex=0;r_.append(1);score+=r_[3]
                 else: r_.append(0)
             rows=[r_[:4]+[r_[5]] for r_ in rows]
-            cands.append(dict(y=y,o=o,team=r['team'],score=round(score,1),src='snap' if 'snap' in r else 'espn',note=r['snap']['note'] if 'snap' in r else 'Final ESPN roster',players=rows))
+            score*=17/16 if y<=2020 else 1       # 16-game seasons through 2020, scaled to 17
+            cands.append(dict(y=y,o=o,team=r['team'],score=round(score,1),n=NTEAMS.get(y),src='snap' if 'snap' in r else 'espn',note=r['snap']['note'] if 'snap' in r else 'Final ESPN roster',players=rows))
     cands.sort(key=lambda c:-c['score'])
     out['rosterRank']=cands
     # pickups: points the player scored in the lineup of the team that grabbed him
@@ -356,7 +431,7 @@ def main():
             x=out['trades'].get(tr['id']) or out['trades'].get(str(tr['id']))
             for side,other in(('a','b'),('b','a')):
                 if tr[side]['o']==o:
-                    res.append(dict(id=tr['id'],got=[g.partition('|')[0] for g in tr[other]['gave']],gave=[g.partition('|')[0] for g in tr[side]['gave']],par=x[side]['par'],opp=x[other]['par']))
+                    res.append(dict(id=tr['id'],got=[g.partition('|')[0] for g in tr[other]['gave']],gave=[g.partition('|')[0] for g in tr[side]['gave']],par=x[side]['war'],opp=x[other]['war']))   # wins added (WAR)
         return res
     out['champBuilt']={};out['sackoNotes']={}
     for y,o in champs.items():
@@ -371,7 +446,7 @@ def main():
     for y,o in sackos.items():
         d=[p for p in drafted(y,o) if p['rd']<=5 and p['fin'] and not good(p['fin'])]
         d.sort(key=lambda p:p['rd'])
-        tr=sorted([t for t in trades_of(y,o) if t['opp']-t['par']>=30],key=lambda t:t['par']-t['opp'])[:2]
+        tr=sorted([t for t in trades_of(y,o) if t['opp']-t['par']>=0.3],key=lambda t:t['par']-t['opp'])[:2]
         out['sackoNotes'][y]=dict(draft=d[:2],trades=tr)
     for m in out['moves']: m.pop('pid',None)
     # team name overrides from build.py (e.g. Pinky Sized Kyle -> The Yogurtlechefts), matched ignoring case and spacing

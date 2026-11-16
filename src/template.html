@@ -1019,7 +1019,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
     <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
   </div>
   <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the gap between what each side got. A player's value is the PPR points he scored for the rest of that season, until he was traded again, minus what a replacement-level waiver player (QB12, RB30, WR30, TE12) would have scored in the same weeks. 2016 and 2017 use prorated season totals.</p>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by wins above replacement (WAR), the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.</p>
     <div class="top5" id="top5rapes"></div>
   </details>
   <details class="fold block"><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
@@ -1028,7 +1028,7 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
     <div class="top5" id="top5pickups"></div>
   </details>
   <details class="fold block"><summary><h2>Top 10 rosters of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX). A player earns up to 24 points for his positional finish that season (QB1 and TE1 get 24, dropping 2 a spot to 12th; RB1 and WR1 get 24, dropping 1 a spot to 24th) and up to 25 for where he went in our draft the next year (pick 1 gets 24.75, dropping a quarter point a pick to 0 at pick 100). Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX): every starter's season points over a replacement starter for that year's league size. In an 8-team league that's the QB9, RB21, WR21 and TE9; in a 10-team league it's the QB11, RB26, WR26 and TE12. A small league has a deeper waiver wire, so a stacked 8-team roster has to clear a higher bar. Seasons before 2021 had 16 games and are scaled up to 17. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
     <div class="top5" id="topRosters"></div>
   </details>
   <div class="block">
@@ -1303,8 +1303,8 @@ function triHTML(g,extra){const legs=g.map(id=>TR[id]),t0=legs[0],S={};
   const d=new Date(t0.d+"T12:00:00");
   return `<article class="trade">${extra}<div class="trade-top"><span>${d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})}</span><span>${FLAGS[t0.id]?`<span class="tag flag">${FLAGS[t0.id]}</span>`:""}</span></div>
     <div class="sides three">${Object.values(S).map(s=>`<div class="side"><h4>${esc(s.team)}</h4><div class="o">${esc(OWNERS[s.o].name)}</div><div class="eyebrow" style="margin-top:6px">Sends</div><ul>${s.out.length?s.out.map(([p,to])=>{const[n,pos]=p.split("|");return `<li>${pn(n)}<span class="pos">${esc(pos)}</span> <span class="muted" style="font-size:.85em">→ ${esc(short(to))}</span></li>`}).join(""):'<li class="muted">Nothing</li>'}</ul></div>`).join("")}</div>${lore(t0.id)}</article>`}
-function triScore(g){const P={};g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;["a","b"].forEach(m=>{const r=(P[t[m].o]??={team:t[m].team,par:0,got:[]});r.par+=x[m].par;r.got.push(...x[m].got)})});
-  return `<p class="score">Points over replacement, rest of season (estimated): ${Object.values(P).map(r=>`<b>${esc(r.team)}</b> got ${fmt(r.par)}${r.got.length?` <span class="muted">(${r.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`).join(" · ")}</p>`}
+function triScore(g){const P={};g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;["a","b"].forEach(m=>{const r=(P[t[m].o]??={team:t[m].team,war:0,got:[]});r.war+=x[m].war;r.got.push(...x[m].got)})});
+  return `<p class="score">Wins added the rest of that season (estimated): ${Object.values(P).map(r=>`<b>${esc(r.team)}</b> ${wf(r.war)}${r.got.length?` <span class="muted">(${r.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":wf(p[4]||0)}`).join(", ")})</span>`:""}`).join(" · ")}</p>`}
 const TRADE_LORE={157:"The backstory: a joke trade. Quincy was upset that nobody was putting Kyle and Jordan's Doubs trade up for a veto vote, so Kyle sent this one to mess with him. Quincy said it made him feel undermined and belittled.",2:"The backstory: this deal was struck on a trip to Central Park, where Kyle and Charles deceptively encouraged Peanut to accept it, knowing full well it was a horrible trade.",
   12:"The backstory: right after Charles fleeced Peanut for DeAndre Hopkins, Kyle called Peanut to tell him it wasn't right what Charles did to him, wined and dined him, and then made this trade with him."};
 const lore=id=>TRADE_LORE[id]?`<p class="lore">${esc(TRADE_LORE[id])}</p>`:"";
@@ -1642,8 +1642,8 @@ function renderRankings(){
   $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 function renderTopRosters(){
-  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">Roster score</div></div></summary>
-    <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th>${r.y+1} draft pick</th><th class="num">Score</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num nw">${pickLabel(r.y,p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
+  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">${r.n}-team league</div></div></summary>
+    <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th class="num">${r.y} pts</th><th class="num">Over repl.</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num">${p[2]==null?"–":fmt(p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
     <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></details>`).join("");
 }
 
@@ -1818,16 +1818,19 @@ function openWrapped(o,y){let dlg=$("#wrDlg");
 let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
 const MOVE_SEASONS=Object.entries(MV.seasons).filter(([,v])=>v==="espn").map(([y])=>+y);
 function tradeScore(t){if(TRI_OF[t.id])return triScore(TRI_OF[t.id]);const x=MV.trades[t.id];if(!x)return "";
-  const side=(s,g)=>`<b>${esc(s.team)}</b> got ${fmt(g.par)}${g.got.length?` <span class="muted">(${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":fmt(p[3])}`).join(", ")})</span>`:""}`;
-  return `<p class="score">Points over replacement, rest of season${x.est?" (estimated)":""}: ${side(t.a,x.a)} · ${side(t.b,x.b)}</p>`}
+  const side=(s,g)=>`<b>${esc(s.team)}</b> ${wf(g.war)} wins (${fmt(g.par)} pts over replacement)${g.got.length?` <span class="muted">· ${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":`${wf(p[4]||0)} in ${p[5]??0} start${p[5]===1?"":"s"}`}`).join(", ")}</span>`:""}`;
+  return `<p class="score">Wins added the rest of that season${x.est?" (estimated)":""}: ${side(t.a,x.a)} · ${side(t.b,x.b)}</p>`}
+// wins above replacement, e.g. +1.35
+const wf=(v,sign=true)=>(sign&&v>=0?"+":v<0?"−":"")+Math.abs(v).toFixed(2);
+const warP=g=>g[2]==null?"":wf(g[4]||0);
 function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
   return `<tr><td class="nw num">${d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}</td>${withTeam?`<td>${esc(m.team)} <span class="muted">${esc(short(m.o))}</span></td>`:""}<td><b>${esc(m.add[0])}</b> <span class="muted">${esc(m.add[1])}</span></td><td>${m.drop?`${pn(m.drop[0])} <span class="muted">${esc(m.drop[1])}</span>`:'<span class="muted">–</span>'}</td><td class="nw">${m.k}</td><td class="num">${m.pts?fmt(m.pts):"–"}</td></tr>`}
 function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
 function renderTrades(){
-  const margin=x=>Math.abs(x.a.par-x.b.par);
+  const margin=x=>Math.abs(x.a.war-x.b.war);
   const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
-  $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.par>=x.b.par?"a":"b",l=w==="a"?"b":"a";
-    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${fmt(margin(x))} points over replacement in ${t.s}. ${esc(t[l].team)} (${esc(short(t[l].o))}) got ${fmt(x[l].par)}.</p></div>${tradeScore(t)}`)}).join("");
+  $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
+    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${wf(margin(x),false)} wins in ${t.s}: ${wf(x[w].war,false)} wins added to ${wf(x[l].war,false)} for ${esc(t[l].team)} (${esc(short(t[l].o))}).</p></div>${tradeScore(t)}`)}).join("");
   $("#pickPos").innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
   $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTrades()};
   const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
@@ -1878,7 +1881,7 @@ function builtHTML(y,d){const b=MV.champBuilt[y];if(!b)return "";const li=[];
   if(b.pickups.length)li.push(`<b>Pickups:</b> ${b.pickups.map(p=>`${pn(p.n)} (${p.pos}, week ${p.w}, ${fmt(p.pts)} lineup pts)`).join(", ")}.`);
   else if(y<2018)li.push(`<b>Pickups:</b> no waiver records for ${y}.`);
   const extra=d&&d.moves&&y<2018?d.moves.filter(m=>!/not on file/.test(m)):[];
-  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>${b.trades.length?`<div class="eyebrow" style="margin-top:10px">Key trades <span class="muted" style="text-transform:none;letter-spacing:0">· rest-of-season points over replacement</span></div><div class="tboxes">${b.trades.map(t=>tradeBox(t.id,CHAMPS[y].o)).join("")}</div>`:""}</div>`}
+  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>${b.trades.length?`<div class="eyebrow" style="margin-top:10px">Key trades <span class="muted" style="text-transform:none;letter-spacing:0">· wins added the rest of that season</span></div><div class="tboxes">${b.trades.map(t=>tradeBox(t.id,CHAMPS[y].o)).join("")}</div>`:""}</div>`}
 function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trades.length))return "";const bits=[];
   if(n.draft.length)bits.push(`Drafted ${n.draft.map(p=>`${pn(p.n)} in ${rdS(p.rd)} (finished ${finS(p.fin)})`).join(" and ")}.`);
   if(n.trades.length)bits.push(`And ${n.trades.length===1?"a trade that backfired":"trades that backfired"}:`);
@@ -1886,16 +1889,16 @@ function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trade
 
 function triBox(g,o){const got=[],gave=[],with_=new Set();let d0;
   g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;d0??=t.d;["a","b"].forEach(m=>{const op=m==="a"?"b":"a";if(t[m].o!==o)return;with_.add(t[op].o);got.push(...x[m].got);gave.push(...x[op].got)})});
-  const sum=l=>l.reduce((s,g)=>s+(g[3]||0),0),win=sum(got)>=sum(gave);
-  const list=(l,label)=>`<div><div class="eyebrow">${label}</div><ul>${l.length?l.map(g=>`<li><span>${pn(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(sum(l))}</span></div></div>`;
+  const sum=l=>l.reduce((s,g)=>s+(g[4]||0),0),win=sum(got)>=sum(gave);
+  const list=(l,label)=>`<div><div class="eyebrow">${label}</div><ul>${l.length?l.map(g=>`<li><span>${pn(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${warP(g)}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Wins added</span><span>${wf(sum(l))}</span></div></div>`;
   const d=new Date(d0+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
-  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">three-team trade with ${[...with_].map(x=>esc(short(x))).join(" and ")}</span></span><span class="res">${win?"Won":"Lost"} by ${fmt(Math.abs(sum(got)-sum(gave)))}</span></div>
+  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">three-team trade with ${[...with_].map(x=>esc(short(x))).join(" and ")}</span></span><span class="res">${win?"Won":"Lost"} by ${wf(Math.abs(sum(got)-sum(gave)),false)} wins</span></div>
     <div class="tbox-sides">${list(got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(gave,"Gave")}</div>${lore(g[0])}</article>`}
 function tradeBox(id,o){if(TRI_OF[id])return triBox(TRI_OF[id],o);const t=TR.find(t=>t.id===id),x=MV.trades[id];if(!t||!x)return "";
-  const me=t.a.o===o?"a":"b",op=me==="a"?"b":"a",win=x[me].par>=x[op].par;
+  const me=t.a.o===o?"a":"b",op=me==="a"?"b":"a",win=x[me].war>=x[op].war;
   const d=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
-  const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${pn(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${g[3]==null?"":"+"+fmt(g[3])}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Value</span><span>${fmt(got.reduce((s,g)=>s+(g[3]||0),0))}</span></div></div>`;
-  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">with ${esc(t[op].team)} (${esc(short(t[op].o))})</span></span><span class="res">${win?"Won":"Lost"} by ${fmt(Math.abs(x[me].par-x[op].par))}</span></div>
+  const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${pn(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${warP(g)}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Wins added</span><span>${wf(got.reduce((s,g)=>s+(g[4]||0),0))}</span></div></div>`;
+  return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">with ${esc(t[op].team)} (${esc(short(t[op].o))})</span></span><span class="res">${win?"Won":"Lost"} by ${wf(Math.abs(x[me].war-x[op].war),false)} wins</span></div>
     <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div>${lore(id)}</article>`}
 
 /* ---------- SACKOS ---------- */
