@@ -846,14 +846,25 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .mlu tr.be{opacity:.55}
 dialog.mudlg{border:0;padding:0;margin:auto 0 0;width:100%;max-width:100%;max-height:92dvh;border-radius:16px 16px 0 0;background:var(--slab);color:var(--ink);box-shadow:0 -10px 40px rgba(0,0,0,.35)}
 dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
-.story-btn{display:none}
-@media (max-width:640px){
-  .story-btn:not([hidden]){display:flex;align-items:center;gap:10px;width:100%;margin:0 0 12px;padding:12px 14px;border:1px solid var(--gold);border-radius:var(--r);background:var(--slab);color:var(--ink);font:inherit;text-align:left;cursor:pointer;box-shadow:inset 3px 0 0 var(--gold)}
-  .story-btn b{font-family:var(--f-display);font-size:1.05rem;font-weight:400}
-  .story-btn small{display:block;color:var(--muted);font-size:.74rem;margin-top:1px}
-  .story-btn .ar{margin-left:auto;font-size:1.2rem;color:var(--gold)}
-}
-dialog.stdlg{max-height:98dvh;font-size:15px}
+/* week card (Kyle 2026-11-17): the play circle plays the story, the rest opens the week page */
+.story-btn[hidden]{display:none}
+.story-btn{display:flex;align-items:stretch;margin:0 0 14px;border:1px solid var(--gold);border-radius:var(--r);background:var(--slab);box-shadow:inset 3px 0 0 var(--gold);overflow:hidden}
+.story-btn .sb-open{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:12px 14px;border:0;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.story-btn b{font-family:var(--f-display);font-size:1.05rem;font-weight:400;display:block}
+.story-btn small{display:block;color:var(--muted);font-size:.74rem;margin-top:1px}
+.story-btn .ar{margin-left:auto;font-size:1.2rem;color:var(--gold)}
+.story-btn .sb-play{flex:none;align-self:center;margin:0 12px 0 0;width:46px;height:46px;border-radius:50%;border:0;background:linear-gradient(135deg,#ff5ea8,#7b2ff7);color:#fff;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 12px rgba(123,47,247,.35);display:grid;place-items:center;padding-left:3px}
+.story-btn .sb-play:hover{transform:scale(1.06)}
+dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15px;overflow-y:auto}
+@media (min-width:641px){dialog.stdlg{max-width:760px;margin:auto;height:auto;max-height:92dvh;border-radius:16px}}
+.stdlg .sth .play{font-size:.85rem;color:#fff;background:linear-gradient(135deg,#ff5ea8,#7b2ff7);border-radius:99px;padding:6px 12px;margin-left:auto;margin-right:6px}
+.stdlg h4{margin:12px 12px 6px;font-family:var(--f-data);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--flamingo);font-weight:400}
+.stdlg .aw-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-flow:row;grid-template-rows:none;grid-auto-columns:auto;scroll-snap-type:none;gap:6px;padding:0 8px;overflow:visible;margin:0}
+.stdlg .aw .v{font-size:.92rem}.stdlg .aw .v span{font-size:.74rem}
+@media (min-width:641px){.stdlg .aw-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.stdlg .aw{padding:6px 8px}
+.stdlg .aw .av{width:28px;height:28px}
+.stdlg .aw p{font-size:.74rem}
 .stdlg .sth{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 4px;position:sticky;top:0;background:var(--slab)}
 .stdlg .sth h3{margin:0;font-size:1.05rem}
 .stdlg .sth button{border:0;background:none;color:var(--muted);font-size:1.4rem;line-height:1;cursor:pointer;padding:4px 6px}
@@ -1130,11 +1141,9 @@ dialog.stdlg{max-height:98dvh;font-size:15px}
   <div class="meander" aria-hidden="true"></div>
   <div class="wrap dash">
     <div class="dash-status" id="dashStatus" aria-live="polite">Loading this week…</div>
-    <button type="button" class="story-btn" id="storyBtn" hidden></button>
+    <div class="story-btn" id="storyBtn" hidden></div>
     <details class="dblock" data-k="score" open><summary><h2 id="scoreHead">This week</h2><span class="dsub" id="scoreSub"></span></summary>
       <div class="mu-grid" id="scoreGrid"></div></details>
-    <details class="dblock" data-k="awards" open><summary><h2 id="awardHead">Weekly awards</h2><span class="dsub">From the last completed week</span></summary>
-      <div class="aw-grid" id="awardGrid"></div></details>
     <div class="wr-pick" id="wrPick" hidden><div class="wr-pick-h"><span class="wr-play" aria-hidden="true">▶</span><div><b>Season Wrapped</b><small>Pick a team and a year to replay it</small></div></div>
       <div class="wr-pick-f"><label>Team<select id="wrPickO"></select></label><label>Season<select id="wrPickY"></select></label><button type="button" id="wrPickGo">Play</button></div></div>
     <div class="dgrid2">
@@ -1569,7 +1578,7 @@ function renderDash(){const d=DASH;if(!d)return;
   const up=new Date(d.updated),when=up.toLocaleString(undefined,{weekday:"short",hour:"numeric",minute:"2-digit"});
   const po=d.week>d.reg;
   $("#dashStatus").innerHTML=`${d.started?'<span class="livedot" aria-hidden="true"></span>Week '+d.week+' in progress':`Week ${d.week} ${po?"(playoffs) ":""}hasn't kicked off`} · Updated ${esc(when)}`;
-  renderScoreboard();if($("#muDlg")?.open&&muCur!=null)openMatchup(muCur);renderAwards();renderOdds();renderBracketLive();renderSeason();renderTradeTrack()}
+  renderScoreboard();if($("#muDlg")?.open&&muCur!=null)openMatchup(muCur);renderOdds();renderBracketLive();renderSeason();renderTradeTrack()}
 function renderScoreboard(){const d=DASH,st=(typeof STORYLINES!=="undefined"&&STORYLINES.week===d.week)?STORYLINES.games:[];
   $("#scoreHead").textContent=d.week>d.reg?`Week ${d.week} playoffs`:`Week ${d.week} scoreboard`;
   const tap=matchMedia("(hover:none)").matches?"tap":"click",sw=matchMedia("(max-width:640px)").matches?" · swipe for more":"";
@@ -1585,7 +1594,9 @@ function renderScoreboard(){const d=DASH,st=(typeof STORYLINES!=="undefined"&&ST
       ${wa!=null?`<div class="wp"><span>${wa}%</span><div class="bar"><i style="width:${wa}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div><span>${100-wa}%</span></div>`:""}
       ${row(b,1)}${s?`<p class="mq">${esc(s.q)}</p>`:""}<div class="mlu">${lu(a)}${lu(b)}</div></article>`}).join("");
   const sb=$("#storyBtn");sb.hidden=!st.length;
-  if(st.length){sb.innerHTML=`<span aria-hidden="true">▶</span><span><b>Week ${d.week} story</b><small>Week ${d.last} recap and this week's storylines</small></span><span class="ar" aria-hidden="true">›</span>`;sb.onclick=()=>openWeekStory(games.filter(x=>x.s))}
+  if(st.length){const lst=()=>games.filter(x=>x.s);
+    sb.innerHTML=`<button type="button" class="sb-open"><span><b>Week ${d.week} storylines</b><small>Week ${d.last} awards and this week's matchups</small></span><span class="ar" aria-hidden="true">›</span></button><button type="button" class="sb-play" aria-label="Play the Week ${d.week} story">▶</button>`;
+    sb.querySelector(".sb-open").onclick=()=>openStories(lst());sb.querySelector(".sb-play").onclick=()=>openWeekStory(lst())}
   $("#scoreGrid").onclick=e=>{if(e.target.closest(".pl"))return;const m=e.target.closest("[data-mu]");if(!m)return;const i=+m.dataset.mu;
     if(matchMedia("(max-width:640px)").matches){openMatchup(i);return}muOpen.has(i)?muOpen.delete(i):muOpen.add(i);m.classList.toggle("open");if(m.classList.contains("open"))m.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}}
 // Weekly story (Kyle 2026-11-17): tap-through recap of last week, then next week's storylines.
@@ -1681,11 +1692,10 @@ function openWeekStory(list){let dlg=$("#wsDlg");
 // all of the week's storylines on one phone screen (Kyle 2026-11-17); tap one for that matchup's lineups
 function openStories(list){const d=DASH,rec=o=>(d.standings.find(r=>r.o===o)||{}).rec||"";let dlg=$("#stDlg");
   if(!dlg){dlg=document.createElement("dialog");dlg.id="stDlg";dlg.className="mudlg stdlg";dlg.setAttribute("aria-label","This week's storylines");document.body.appendChild(dlg);
-    dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest(".stx")){dlg.close();return}const li=e.target.closest("[data-mu]");if(li){dlg.close();openMatchup(+li.dataset.mu)}})}
-  dlg.innerHTML=`<div class="sth"><h3>Week ${d.week} storylines</h3><button type="button" class="stx" aria-label="Close">×</button></div><ol>${list.map(({g,i,s})=>`<li class="${s.motw?"motw":""}" data-mu="${i}"><div class="vs">${av(g[0].o)}${nm(g[0].o)} <small>${rec(g[0].o)}</small> <small>vs</small> ${av(g[1].o)}${nm(g[1].o)} <small>${rec(g[1].o)}</small>${s.motw?'<span class="tag">Matchup of the week</span>':""}</div><p>${esc(s.q)}</p></li>`).join("")}</ol>`;
-  dlg.style.fontSize="";dlg.showModal();dlg.scrollTop=0;
-  // shrink the text until all of the week fits on one screen
-  for(let f=15;f>11&&dlg.scrollHeight>dlg.clientHeight+1;f-=0.5)dlg.style.fontSize=f+"px"}
+    dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest(".stx")){dlg.close();return}if(e.target.closest(".play")){dlg.close();openWeekStory(dlg._list);return}const li=e.target.closest("[data-mu]");if(li){dlg.close();openMatchup(+li.dataset.mu)}})}
+  dlg._list=list;
+  dlg.innerHTML=`<div class="sth"><h3>Week ${d.week}</h3><button type="button" class="play">▶ Play story</button><button type="button" class="stx" aria-label="Close">×</button></div><h4>Week ${d.last} awards</h4><div class="aw-grid">${awardsHTML()}</div><h4>Week ${d.week} storylines</h4><ol>${list.map(({g,i,s})=>`<li class="${s.motw?"motw":""}" data-mu="${i}"><div class="vs">${av(g[0].o)}${nm(g[0].o)} <small>${rec(g[0].o)}</small> <small>vs</small> ${av(g[1].o)}${nm(g[1].o)} <small>${rec(g[1].o)}</small>${s.motw?'<span class="tag">Matchup of the week</span>':""}</div><p>${esc(s.q)}</p></li>`).join("")}</ol>`;
+  dlg.showModal();dlg.scrollTop=0}
 // ESPN-app style matchup sheet on phones: both lineups side by side, slot by slot
 const abbr=n=>{const w=String(n).split(" ");return /D\/ST$/.test(n)||w.length<2?n:w[0][0]+". "+w.slice(1).join(" ")};
 let muCur=null;
@@ -1708,8 +1718,8 @@ function openMatchup(i){const d=DASH,g=d.live[i];if(!g)return;muCur=i;const[a,b]
     <tbody class="be"><tr><th colspan="5">Bench</th></tr>${rows(be(a),be(b),"BE")}</tbody></table>
     <p class="dnote">${live?"Big number is points so far, small is ESPN's projection.":"ESPN projected points."} Tap a player for his card.</p></div></div>`;
   if(!dlg.open)dlg.showModal()}
-function renderAwards(){const d=DASH;$("#awardHead").textContent=`Week ${d.last} awards`;
-  $("#awardGrid").innerHTML=d.awards.map(a=>{const[v,...rest]=String(a.v).split(" ");
+function awardsHTML(){const d=DASH;
+  return d.awards.map(a=>{const[v,...rest]=String(a.v).split(" ");
     return `<div class="aw">${av(a.o)}<div class="k">${esc(a.k)}</div><div class="v">${esc(v)} <span>${esc(rest.join(" ")||short(a.o))}</span></div><p>${esc(a.t)}</p></div>`}).join("")}
 function renderOdds(){const d=DASH,W=d.odds.weeks,S_=d.odds.series;if(!W.length){$("#oddsChart").innerHTML='<p class="muted">Odds start after week 1.</p>';return}
   const w=400,h=230,L=34,R=10,T=10,B=26,x=i=>L+(W.length===1?0:(i*(w-L-R))/(W.length-1)),y=v=>T+(100-v)*(h-T-B)/100;
