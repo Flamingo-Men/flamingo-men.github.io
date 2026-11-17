@@ -246,7 +246,8 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 12px;cursor:pointer;font-family:var(--f-data);font-size:.8rem;color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
-.toproster{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:block}
+.top5:has(.toproster){grid-template-columns:minmax(0,1fr)}
+.toproster{min-width:0;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:block}
 .toproster .hd{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px;align-items:center;list-style:none;cursor:pointer;position:relative;padding-right:26px}
 .toproster .hd::-webkit-details-marker{display:none}
 .toproster .hd::after{content:"";position:absolute;right:4px;top:50%;width:8px;height:8px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);transition:transform .15s}
@@ -473,6 +474,10 @@ td.pk.empty{--pc:var(--line);color:var(--muted);font-size:.75rem}
 @media (max-width:560px){.pickcards{grid-template-columns:1fr}}
 .lightbox{position:fixed;inset:0;background:rgba(8,12,24,.92);display:grid;place-items:center;z-index:50;padding:16px;cursor:zoom-out}
 .lightbox img{max-width:100%;max-height:92vh;border-radius:var(--r)}
+.hs-parts{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.hs-part{border:1px solid var(--line);border-radius:8px;padding:6px 10px;display:grid;gap:1px;min-width:92px}
+.hs-part span{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hs-part b{font-size:1.1rem}
 .lightbox figure{margin:0;display:grid;justify-items:center;gap:10px;max-width:min(1100px,100%)}
 .lightbox figure img,.lightbox figure video{max-width:100%;max-height:calc(100vh - 150px);cursor:default;border-radius:var(--r)}
 .gallery .is-vid{position:relative}
@@ -1083,8 +1088,8 @@ dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
     <div class="top5" id="top5pickups"></div>
   </details>
-  <details class="fold block"><summary><h2>Top 10 rosters of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Each roster is scored on its best lineup (QB, 2 RB, 2 WR, TE, FLEX): every starter's season points over a replacement starter for that year's league size. In an 8-team league that's the QB9, RB21, WR21 and TE9; in a 10-team league it's the QB11, RB26, WR26 and TE12. A small league has a deeper waiver wire, so a stacked 8-team roster has to clear a higher bar. Seasons before 2021 had 16 games and are scaled up to 17. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Kickers and defenses don't count.</p>
+  <details class="fold block"><summary><h2>Top 10 seasons of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup’s season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, ×0.90 for 8 teams, ×0.95 for 10 and ×1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Open a season to see the breakdown and the lineup.</p>
     <div class="top5" id="topRosters"></div>
   </details>
   <div class="block">
@@ -1752,11 +1757,33 @@ function renderRankings(){
   $("#rankList").innerHTML=b.rows.length?b.rows.map((r,i)=>`<li class="rk"><span class="n">${i+1}</span>${av(r.o)}<div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3><div class="bar${r.score<0?" neg":""}"><i style="width:${Math.max(2,Math.abs(r.score)/mx*100)}%"></i></div><div class="meta">${b.meta(r)}</div></div><div class="sc">${b.signed?sg(0,r.score):fmt(r.score)}<small>${b.unit}</small></div></li>`).join(""):`<li class="muted">No data yet.</li>`;
   $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
+// best seasons of all time (Kyle 2026-11-17): a holistic score out of 100, not just roster points.
+// record 30, playoffs 30 (title 30, final 18, semifinal 10), roster strength 25 (lineup points over
+// league-size replacement, against the best ever), points scored 15 (rank in that season's league),
+// then the whole thing x0.90 for 8 teams, x0.95 for 10, x1.00 for 12, since a bigger league is harder to win.
+const PO_PTS={Champion:30,"Runner-up":18,Semifinal:10};
+function playoffResult(y,o){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];let r=null;
+  if(P&&P.rounds&&P.rounds.length){P.rounds[0].forEach(m=>[m.a,m.b].forEach(x=>{if(x.o===o)r="Semifinal"}));
+    const f=P.rounds[P.rounds.length-1][0];[f.a,f.b].forEach(x=>{if(x.o===o)r="Runner-up"});if(f.win&&f[f.win].o===o)r="Champion"}
+  if(CHAMPS[y]?.o===o)r="Champion";return r}
+function bestSeasons(){const max=Math.max(...MV.rosterRank.map(r=>r.score));
+  return MV.rosterRank.map(r=>{const st=standings(r.y),me=st.find(x=>x.o===r.o);if(!me||me.w==null)return null;
+    const n=r.n||st.length,g=me.w+me.l,pct=g?me.w/g:0,res=playoffResult(r.y,r.o);
+    const pf=st.filter(x=>x.pts!=null).sort((a,b)=>b.pts-a.pts),pfRank=me.pts!=null?pf.findIndex(x=>x.o===r.o)+1:null;
+    const c={rec:30*pct,po:PO_PTS[res]||0,ros:25*r.score/max,pts:pfRank?15*(pf.length-pfRank)/(pf.length-1):7.5};
+    const mult=0.9+0.1*(n-8)/4,total=(c.rec+c.po+c.ros+c.pts)*mult;
+    return {...r,w:me.w,l:me.l,est:me.est,res,pfRank,pfN:pf.length,pf:me.pts,n,c,mult,total}}).filter(Boolean).sort((a,b)=>b.total-a.total)}
 function renderTopRosters(){
-  $("#topRosters").innerHTML=MV.rosterRank.slice(0,10).map((r,i)=>`<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${CHAMPS[r.y]?.o===r.o?' · <span class="crown" style="font-size:1rem">♛</span> Champion':""}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${fmt(r.score)}</b><div class="eyebrow">${r.n}-team league</div></div></summary>
+  const B=bestSeasons();
+  $("#topRosters").innerHTML=B.slice(0,10).map((r,i)=>{const resTag=r.res==="Champion"?'<span class="crown" style="font-size:1rem">♛</span> Champion':r.res==="Runner-up"?"Runner-up":r.res==="Semifinal"?"Lost in the semis":"Missed the playoffs";
+    const facts=[`${r.w}-${r.l}${r.est?" (est.)":""}`,resTag,r.pfRank?`${fmt(r.pf)} pts, ${r.pfRank===1?"most":ordinal(r.pfRank)} of ${r.pfN}`:null,`${fmt(r.score)} lineup pts over replacement`].filter(Boolean).join(" · ");
+    const bar=(l,v,m)=>`<div class="hs-part"><span>${l}</span><b class="num">${v.toFixed(1)}</b><small class="muted">/ ${m}</small></div>`;
+    return `<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(r.o)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span><div style="font-size:.88rem;margin-top:4px">${facts}</div></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${r.total.toFixed(1)}</b><div class="eyebrow">${r.n}-team league</div></div></summary>
+    <div class="hs-parts">${bar("Record",r.c.rec,30)}${bar("Playoffs",r.c.po,30)}${bar("Roster",r.c.ros,25)}${bar("Points",r.c.pts,15)}<div class="hs-part"><span>League size</span><b class="num">×${r.mult.toFixed(2)}</b><small class="muted">${r.n} teams</small></div></div>
     <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th class="num">${r.y} pts</th><th class="num">Over repl.</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num">${p[2]==null?"–":fmt(p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
-    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count.</p></details>`).join("");
+    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count toward the roster score.</p></details>`}).join("");
 }
+const ordinal=n=>n+(["th","st","nd","rd"][(n%100-20)%10]||["th","st","nd","rd"][n%100]||"th");
 
 /* ---------- STATS ---------- */
 let sortKey="titles",sortDir=-1,seasonSel=2026;

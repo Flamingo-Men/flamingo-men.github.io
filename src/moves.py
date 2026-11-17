@@ -456,7 +456,7 @@ def main():
     for R in out['rosters'].values():
         for r in R.values(): r['team']=fix(r['team'])
     for c in out['rosterRank']: c['team']=fix(c['team'])
-    out['rosterRank']=out['rosterRank'][:25]
+    pass  # keep every team-season; the site ranks them holistically (Kyle 2026-11-17)
     for m in out['topPickups']+list(out['pickupOfYear'].values()): m['team']=fix(m['team'])
     # draft value: each pick's season points over a replacement starter, against what that draft slot usually returns
     def pval(y,pid):
