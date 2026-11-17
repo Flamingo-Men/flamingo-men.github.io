@@ -1414,13 +1414,13 @@ function tradeHTML(t,extra=""){if(TRI_OF[t.id])return triHTML(TRI_OF[t.id],extra
 
 /* ---------- HOME ---------- */
 // Storylines for the coming week, written by hand each week (Kyle's style). a/b are owners. Each question shows under its game on the home scoreboard.
-const STORYLINES={week:10,games:[
-  {"a": "fluff", "b": "jordan", "motw": true, "q": "The No. 1 seeds in each division. Floof brings a seven-game win streak, and Jordan has dropped two straight. Can Jordan stop the slide and hold on to the top of his division?"},
-  {"a": "kyle", "b": "rod", "q": "Can Kyle finally solve the RodFather? Rod is 3-1 against him all-time and is coming off a win."},
-  {"a": "squirm", "b": "ghost", "q": "Squirm finally got his first win last week. Can he make it two in a row against Ghost in their first-ever meeting?"},
-  {"a": "lucas", "b": "quincy", "q": "Sal has won three straight. Can Quincy play spoiler again like he did in Week 10 last year? He leads the all-time series 5-4."},
-  {"a": "charles", "b": "dilapi", "q": "Can Charles and Chris keep their playoff hopes alive? Charles is 4-5 with about a 55% shot at the playoffs, and Chris is 3-6 at 13%, so the loser is on life support. Charles is 7-3 against Chris all-time."},
-  {"a": "jerry", "b": "dylan", "q": "Jerry has lost three straight and is sliding out of the playoff picture. Can he snap the skid against Dylan?"}
+const STORYLINES={week:11,games:[
+  {"a": "jordan", "b": "jerry", "motw": true, "q": "Jordan has dropped three straight but is still on top of his division. Jerry just snapped a three-game skid and is back in the playoff hunt. Can Jordan stop the bleeding? Jerry leads the all-time series 2-1."},
+  {"a": "dilapi", "b": "fluff", "q": "Floof has won eight straight and is 9-1. Can Chris play spoiler and save his season at 3-7? He beat Floof in Week 11 last year."},
+  {"a": "dylan", "b": "kyle", "q": "Dylan has lost two straight and his playoff odds dropped to 35%. Can Kyle bounce back against him? Dylan is 4-1 against Kyle all-time, but Kyle won last year's meeting by 0.16."},
+  {"a": "rod", "b": "squirm", "q": "Squirm has won two straight after starting 0-8. Can he make it three against the RodFather? Rod is 3-1 against him all-time."},
+  {"a": "ghost", "b": "lucas", "q": "Sal has won four straight and leads the league in points. Can Ghost slow him down in their first-ever meeting? Ghost has dropped two straight and is down to an 8.5% shot at the playoffs."},
+  {"a": "quincy", "b": "charles", "q": "Charles has won two straight and is up to a 90% shot at the playoffs. Can Quincy play spoiler again? He beat Charles in Week 9 last year, and Charles leads the series 8-6."}
 ]};
 /* ---------- DASHBOARD (home) ---------- */
 // data/dashboard.json comes from src/dashboard.py (ESPN, completed weeks only for odds, awards and storylines)

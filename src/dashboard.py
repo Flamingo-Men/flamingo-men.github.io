@@ -34,11 +34,14 @@ for t in L['teams']:
 OW={k:v['o'] for k,v in T.items()};TEAM={v['o']:v['team'] for v in T.values()}
 SS=L['settings']['scheduleSettings'];REG=SS.get('matchupPeriodCount',14);NPO=SS.get('playoffTeamCount',6)
 DIVS={d['id']:d['name'] for d in SS.get('divisions',[])}
-CUR=L['status']['currentMatchupPeriod'];SCHED=L['schedule']
+# FM_CUR lets a refresh move on once every game of the week is final, before ESPN rolls over on Tuesday
+CUR=max(L['status']['currentMatchupPeriod'],int(os.environ.get('FM_CUR') or 0));SCHED=L['schedule']
 def score(m,k):return m[k].get('totalPoints') if k in m else None
 # a week counts as completed only once ESPN has moved on to the next matchup period (never an in-progress week)
 done=sorted({m['matchupPeriodId'] for m in SCHED if m['matchupPeriodId']<CUR and m['matchupPeriodId']<=REG})
-games={w:[(OW[m['home']['teamId']],OW[m['away']['teamId']],m['home']['totalPoints'],m['away']['totalPoints']) for m in SCHED if m['matchupPeriodId']==w and 'away' in m] for w in done}
+# a just-finished week (FM_CUR) still has its points in totalPointsLive until ESPN rolls over
+tp=lambda s:s.get('totalPoints') or s.get('totalPointsLive') or 0
+games={w:[(OW[m['home']['teamId']],OW[m['away']['teamId']],tp(m['home']),tp(m['away'])) for m in SCHED if m['matchupPeriodId']==w and 'away' in m] for w in done}
 future=lambda k:[(OW[m['home']['teamId']],OW[m['away']['teamId']]) for m in SCHED if k<m['matchupPeriodId']<=REG and 'away' in m]
 OWN=list(TEAM)
 
