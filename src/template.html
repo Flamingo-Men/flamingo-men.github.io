@@ -688,6 +688,117 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .wr-in>*:nth-child(2){animation-delay:.08s}.wr-in>*:nth-child(3){animation-delay:.16s}.wr-in>*:nth-child(4){animation-delay:.24s}.wr-in>*:nth-child(5){animation-delay:.32s}.wr-in>*:nth-child(6){animation-delay:.4s}
 @keyframes wrUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.wr-in>*{animation:none}}
+/* WEEKLY STORY (Kyle 2026-11-17): Wrapped-style recap of last week + next week's storylines, gags rotate by week */
+.ws{justify-content:center;gap:12px;padding:58px 22px 46px}
+.ws .wr-big{font-size:clamp(2.1rem,10vw,3.4rem)}
+.ws .wr-t{font-size:1rem;line-height:1.4}
+.ws-f{display:inline-block;width:var(--fs,84px);aspect-ratio:1;flex:none;position:relative}
+.ws-f .av{width:100%;height:100%;border:3px solid #fff;font-size:1.6rem;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.ws-art{position:relative;width:min(60vw,236px);aspect-ratio:200/200;margin:0 auto;flex:none}
+@media (max-height:700px){.ws-art{width:min(50vw,190px)}.ws{gap:9px}}
+.ws-art>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ws-art>.ws-f{position:absolute;left:50%;top:50%;width:34%;transform:translate(-50%,-50%)}
+.ws-herc>.ws-f{top:17%;width:27%;animation:wsGlow 2s ease-in-out infinite}
+.ws-herc svg .arm{transform-origin:50% 40%;animation:wsFlex 1.2s ease-in-out infinite alternate}
+@keyframes wsFlex{to{transform:scale(1.04)}}
+@keyframes wsGlow{50%{filter:drop-shadow(0 0 14px #ffd23f)}}
+.ws-fire>.ws-f{top:56%;width:40%}
+.ws-fire i{position:absolute;bottom:18%;width:30%;height:58%;border-radius:50% 50% 45% 45%/60% 60% 40% 40%;background:radial-gradient(ellipse at 50% 85%,#fff3b0 0,#ffd23f 25%,#ff7b00 55%,rgba(255,40,0,0) 72%);filter:blur(1px);animation:wsFlick .5s ease-in-out infinite alternate;transform-origin:50% 100%}
+.ws-fire i:nth-child(1){left:12%;height:46%;animation-delay:.15s}.ws-fire i:nth-child(2){left:35%;height:70%;bottom:22%}.ws-fire i:nth-child(3){left:58%;height:50%;animation-delay:.3s}
+@keyframes wsFlick{to{transform:scaleY(1.15) skewX(4deg);opacity:.85}}
+.ws-rocket{animation:wsBob 1.4s ease-in-out infinite alternate}
+.ws-rocket>.ws-f{top:42%;width:28%}
+.ws-rocket .flame{transform-origin:100px 168px;animation:wsFlick .18s linear infinite alternate}
+@keyframes wsBob{from{transform:translateY(6px)}to{transform:translateY(-10px)}}
+.ws-mtn>.ws-f{width:22%;animation:wsRoll 3.4s cubic-bezier(.5,0,.8,.6) infinite}
+@keyframes wsRoll{0%,14%{left:47%;top:5%;transform:translate(-50%,-50%) rotate(0)}78%{left:88%;top:80%;transform:translate(-50%,-50%) rotate(800deg)}84%{left:91%;top:74%}90%,100%{left:93%;top:82%;transform:translate(-50%,-50%) rotate(840deg)}}
+.ws-mtn .boom{opacity:0;animation:wsBoom 3.4s infinite}
+@keyframes wsBoom{0%,76%{opacity:0;transform:scale(.4)}82%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.3)}}
+.ws-mtn .boom{transform-box:fill-box;transform-origin:center}
+.ws-ship .boat{animation:wsSink 4.2s ease-in infinite;transform-box:view-box;transform-origin:100px 120px}
+.ws-ship>.ws-f{top:38%;width:24%;animation:wsSinkF 4.2s ease-in infinite}
+@keyframes wsSink{0%,10%{transform:none}70%{transform:translateY(28px) rotate(-14deg)}100%{transform:translateY(70px) rotate(-26deg)}}
+@keyframes wsSinkF{0%,10%{transform:translate(-50%,-50%)}70%{transform:translate(-62%,-28%) rotate(-14deg)}100%{transform:translate(-80%,0) rotate(-26deg);opacity:.15}}
+.ws-ship .wave{animation:wsWave 2s ease-in-out infinite alternate}
+@keyframes wsWave{to{transform:translateX(-12px)}}
+.ws-ship .front{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.ws-ice>.ws-f{width:42%}
+.ws-ice>.ws-f .av{filter:saturate(.3) hue-rotate(170deg) brightness(1.1)}
+.ws-ice .cube{position:absolute;inset:16%;border-radius:18px;background:linear-gradient(135deg,rgba(220,245,255,.55),rgba(140,200,255,.25));border:2px solid rgba(255,255,255,.8);box-shadow:inset 0 0 24px rgba(255,255,255,.7);z-index:2;animation:wsShiver .12s linear infinite alternate}
+@keyframes wsShiver{to{transform:translateX(2px)}}
+.ws-crown>.ws-f{top:58%;width:42%}
+.ws-crown .rays{position:absolute;inset:-4%;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.28) 0 10deg,transparent 10deg 20deg);animation:wsSpin 12s linear infinite;-webkit-mask:radial-gradient(circle,#000 35%,transparent 70%);mask:radial-gradient(circle,#000 35%,transparent 70%)}
+@keyframes wsSpin{to{transform:rotate(1turn)}}
+.ws-crown svg{z-index:2}.ws-crown svg .cr{animation:wsBob 1s ease-in-out infinite alternate}
+.ws-trophy>.ws-f{top:30%;width:30%}
+.ws-trash>.ws-f{top:30%;width:30%;animation:wsPeek 2.6s ease-in-out infinite;z-index:1}
+.ws-trash svg.can{z-index:2}
+@keyframes wsPeek{0%,20%{top:44%}45%,80%{top:28%}100%{top:44%}}
+.ws-trash .fly{animation:wsSpin 1.6s linear infinite;transform-box:view-box;transform-origin:100px 40px}
+.ws-dunce>.ws-f{top:62%;width:42%}
+.ws-dunce svg .cone{transform-box:view-box;transform-origin:100px 100px;animation:wsTilt 1.6s ease-in-out infinite alternate}
+@keyframes wsTilt{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.ws-roll{width:min(76vw,300px);aspect-ratio:300/200}
+.ws-roll .ws-f.l{left:78%;top:80%;width:24%;transform:translate(-50%,-50%) scaleY(.3)}
+.ws-roll .ws-f.w{left:32%;top:24%;width:24%}
+.ws-roll .rig{animation:wsDrive 2.4s ease-in-out infinite alternate}
+.ws-roll .ws-f.w{animation:wsDriveF 2.4s ease-in-out infinite alternate}
+@keyframes wsDrive{from{transform:translateX(-14px)}to{transform:translateX(8px)}}
+@keyframes wsDriveF{from{transform:translate(calc(-50% - 14px),-50%)}to{transform:translate(calc(-50% + 8px),-50%)}}
+.ws-ko{width:min(76vw,300px);aspect-ratio:300/200}
+.ws-ko .ws-f.w{left:28%;top:45%;width:30%;animation:wsPunch .9s ease-in-out infinite alternate}
+.ws-ko .ws-f.l{left:74%;top:58%;width:28%;transform:translate(-50%,-50%) rotate(28deg);filter:grayscale(.4)}
+.ws-ko .stars{transform-box:view-box;transform-origin:222px 70px;animation:wsSpin 1.4s linear infinite}
+@keyframes wsPunch{from{transform:translate(-50%,-50%)}to{transform:translate(-30%,-50%)}}
+.ws-ekg{width:min(80vw,320px);aspect-ratio:320/150}
+.ws-ekg .ws-f{position:absolute;top:50%;width:22%;transform:translateY(-50%)}
+.ws-ekg .ws-f.a{left:0}.ws-ekg .ws-f.b{right:0}
+.ws-ekg path{stroke-dasharray:420;stroke-dashoffset:420;animation:wsDraw 2.2s linear infinite}
+@keyframes wsDraw{to{stroke-dashoffset:0}}
+.ws-luck>.ws-f{width:38%}
+.ws-luck .orb{position:absolute;inset:0;animation:wsSpin 6s linear infinite}
+.ws-luck .orb span{position:absolute;font-size:clamp(1.4rem,7vw,2rem)}
+.ws-heart>.ws-f{width:36%;z-index:2}
+.ws-heart svg .l{animation:wsSplitL 2.4s ease-in-out infinite;transform-box:view-box;transform-origin:100px 170px}
+.ws-heart svg .r{animation:wsSplitR 2.4s ease-in-out infinite;transform-box:view-box;transform-origin:100px 170px}
+@keyframes wsSplitL{0%,30%{transform:none}60%,100%{transform:rotate(-12deg) translateX(-8px)}}
+@keyframes wsSplitR{0%,30%{transform:none}60%,100%{transform:rotate(12deg) translateX(8px)}}
+.ws-bench{width:min(78vw,300px);aspect-ratio:300/180}
+.ws-bench>.ws-f{left:50%;top:30%;width:22%}
+.ws-vs{display:flex;align-items:center;justify-content:center;gap:10px}
+.ws-vs>div{display:grid;justify-items:center;gap:4px;text-align:center;min-width:0;flex:1}
+.ws-vs b{font-size:1.05rem;line-height:1.1;overflow-wrap:anywhere}
+.ws-vs small{font-family:var(--f-data);font-size:.7rem;letter-spacing:.06em;opacity:.9}
+.ws-vs .x{font-weight:800;font-size:1.3rem;opacity:.8;flex:none}
+.ws-tag{align-self:flex-start;background:#ffd23f;color:#15203b;border-radius:99px;padding:3px 10px;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+.ws-odds{display:grid;gap:6px}
+.ws-odds div{display:grid;grid-template-columns:4.6em 1fr 3em;align-items:center;gap:8px;font-size:.82rem;font-weight:700}
+.ws-odds div span:last-child{text-align:right;font-family:var(--f-data)}
+.ws-odds i{display:block;height:10px;border-radius:5px;background:rgba(255,255,255,.22);overflow:hidden;position:relative}
+.ws-odds i b{position:absolute;inset:0 auto 0 0;background:#fff;border-radius:5px;animation:wsGrow 1s .3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes wsGrow{from{width:0!important}}
+.ws-sb{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.ws-sb li{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto minmax(0,1fr) auto;align-items:center;gap:6px;background:rgba(0,0,0,.22);border-radius:10px;padding:6px 8px;font-size:.8rem}
+.ws-sb .ws-f{--fs:26px}.ws-sb .ws-f .av{border-width:2px;font-size:.6rem;box-shadow:none}
+.ws-sb span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ws-sb .p{font-family:var(--f-data);font-weight:700}
+.ws-sb .lo{opacity:.55}
+.ws-sb li>span:nth-child(5){text-align:right}
+.ws-st{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.ws-st li{display:grid;grid-template-columns:1.4em auto minmax(0,1fr) auto 3.2em;align-items:center;gap:7px;font-size:.8rem;padding:2px 4px;border-radius:6px}
+.ws-st li.cut{border-bottom:2px dashed rgba(255,255,255,.7);padding-bottom:5px;margin-bottom:3px}
+.ws-st li.sk{background:rgba(0,0,0,.28)}
+.ws-st .ws-f{--fs:22px}.ws-st .ws-f .av{border-width:2px;font-size:.55rem;box-shadow:none}
+.ws-st span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ws-st small{font-family:var(--f-data);opacity:.85;text-align:right}
+.ws-move{display:grid;gap:12px}
+.ws-move>div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
+.ws-move .ws-f{--fs:58px;grid-row:span 2}
+.ws-move b{font-size:1.1rem}
+.ws-move .ar{font-family:var(--f-data);font-size:.9rem}
+.ws-end{position:relative;z-index:5;align-self:center;border:0;border-radius:99px;background:#fff;color:#191414;font-weight:800;padding:11px 20px;font-size:.95rem;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.ws *{animation:none!important}}
+
 /* DASHBOARD (home) */
 .hero .wrap{padding-block:30px 24px}
 .hero .pediment{max-width:290px}
@@ -1474,9 +1585,99 @@ function renderScoreboard(){const d=DASH,st=(typeof STORYLINES!=="undefined"&&ST
       ${wa!=null?`<div class="wp"><span>${wa}%</span><div class="bar"><i style="width:${wa}%;background:${dcol(a.o)}"></i><i style="flex:1;background:${dcol(b.o)}"></i></div><span>${100-wa}%</span></div>`:""}
       ${row(b,1)}${s?`<p class="mq">${esc(s.q)}</p>`:""}<div class="mlu">${lu(a)}${lu(b)}</div></article>`}).join("");
   const sb=$("#storyBtn");sb.hidden=!st.length;
-  if(st.length){sb.innerHTML=`<span aria-hidden="true">📰</span><span><b>Week ${d.week} storylines</b><small>All ${st.length} matchups on one screen</small></span><span class="ar" aria-hidden="true">›</span>`;sb.onclick=()=>openStories(games.filter(x=>x.s))}
+  if(st.length){sb.innerHTML=`<span aria-hidden="true">▶</span><span><b>Week ${d.week} story</b><small>Week ${d.last} recap and this week's storylines</small></span><span class="ar" aria-hidden="true">›</span>`;sb.onclick=()=>openWeekStory(games.filter(x=>x.s))}
   $("#scoreGrid").onclick=e=>{if(e.target.closest(".pl"))return;const m=e.target.closest("[data-mu]");if(!m)return;const i=+m.dataset.mu;
     if(matchMedia("(max-width:640px)").matches){openMatchup(i);return}muOpen.has(i)?muOpen.delete(i):muOpen.add(i);m.classList.toggle("open");if(m.classList.contains("open"))m.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}}
+// Weekly story (Kyle 2026-11-17): tap-through recap of last week, then next week's storylines.
+// Gags are driven by the data and each one has variants picked by the week number, so it looks different every week.
+let wsS=[],wsI=0;
+const wsF=(o,c="")=>`<span class="ws-f ${c}">${av(o)}</span>`;
+const wsH=t=>{let h=7;for(const c of t)h=(h*31+c.charCodeAt(0))>>>0;return h};
+const WS_OFF={top:1,bot:1,bl:0,hot:0,cold:0};const wsV=(key,n)=>(((DASH.week-11+(WS_OFF[key]??wsH(key)))%n)+n)%n;
+const WS_TH=[["#ff5ea8","#3a0ca3","#ffd23f"],["#ff4e00","#7b2ff7","#ffd23f"],["#0052d4","#0b1a3d","#6fb1fc"],["#11998e","#0b486b","#38ef7d"],["#c31432","#240b36","#ff9a3c"],["#3a1c71","#d76d77","#ffaf7b"],["#00467f","#0f2027","#a5cc82"],["#b8860b","#191414","#ffd700"],["#232526","#414345","#e0517a"],["#f857a6","#7b2ff7","#ffd23f"],["#e65c00","#3e1c00","#f9d423"],["#0f2027","#2c5364","#e0517a"]];
+const MARBLE=`<defs><linearGradient id="wsMb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset="1" stop-color="#c9c1ae"/></linearGradient></defs>`;
+const WS_ART={
+  herc:o=>`<div class="ws-art ws-herc"><svg viewBox="0 0 200 200">${MARBLE}<rect x="40" y="170" width="120" height="8" fill="#e9e3d3"/><rect x="48" y="177" width="104" height="22" rx="2" fill="url(#wsMb)"/><path d="M62 177v22M80 177v22M100 177v22M120 177v22M138 177v22" stroke="#b9b09b"/>
+    <path d="M80 170l6-46h12l-2 46zM104 170l-2-46h12l6 46z" fill="url(#wsMb)"/><path d="M72 64q28-10 56 0l-8 62H80z" fill="url(#wsMb)"/><path d="M100 76v46M86 92h28M88 106h24" stroke="#b9b09b" stroke-width="2" fill="none"/>
+    <g class="arm"><path d="M74 66q-26 2-34-14-4-20 6-30 9-4 13 4-4 12 2 22 10 6 22 8z" fill="url(#wsMb)"/><circle cx="48" cy="48" r="11" fill="url(#wsMb)"/>
+    <path d="M126 66q26 2 34-14 4-20-6-30-9-4-13 4 4 12-2 22-10 6-22 8z" fill="url(#wsMb)"/><circle cx="152" cy="48" r="11" fill="url(#wsMb)"/></g>
+    <path d="M80 122h40l-6 22H86z" fill="#ffd23f"/><path d="M70 22q30-22 60 0" stroke="#3c8d2f" stroke-width="5" fill="none" stroke-dasharray="7 4"/></svg>${wsF(o)}</div>`,
+  fire:o=>`<div class="ws-art ws-fire"><i></i><i></i><i></i>${wsF(o)}</div>`,
+  rocket:o=>`<div class="ws-art ws-rocket"><svg viewBox="0 0 200 200"><path class="flame" d="M86 160q14 40 14 40t14-40z" fill="#ffd23f"/><path d="M100 4q34 30 34 96v58H66v-58q0-66 34-96z" fill="#f4f4f4"/><path d="M66 120l-24 34v12l24-10zM134 120l24 34v12l-24-10z" fill="#e0517a"/><path d="M100 4q16 14 24 34H76q8-20 24-34z" fill="#e0517a"/><circle cx="100" cy="84" r="31" fill="#2c5364" stroke="#ccc" stroke-width="5"/></svg>${wsF(o)}</div>`,
+  mtn:o=>`<div class="ws-art ws-mtn"><svg viewBox="0 0 200 200"><defs><linearGradient id="wsMt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa0b8"/><stop offset="1" stop-color="#3b4a5e"/></linearGradient></defs><path d="M0 196L94 22l106 174z" fill="url(#wsMt)"/><path d="M94 22l-20 38 10-4 10 10 10-10 12 6z" fill="#fff"/><path d="M94 22V4l16 6-16 6" stroke="#fff" stroke-width="2" fill="#e0517a"/><g class="boom"><path d="M186 176l6-14 4 12 10-6-6 12 10 4-12 4 4 10-10-6-6 10-2-12-12 2 8-8-8-8z" fill="#ffd23f"/></g></svg>${wsF(o)}</div>`,
+  ship:o=>`<div class="ws-art ws-ship"><svg viewBox="0 0 200 200"><g class="boat"><path d="M40 120h120l-18 34H58z" fill="#7a4a2a"/><path d="M98 120V50l40 56H98z" fill="#fff"/><path d="M98 50v70" stroke="#4a2e1a" stroke-width="3"/></g></svg>${wsF(o)}<svg class="front" viewBox="0 0 200 200"><path class="wave" d="M-20 150q15-10 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0V210H-20z" fill="#1c4f8c" opacity=".92"/><path class="wave" d="M-30 168q15-8 30 0t30 0 30 0 30 0 30 0 30 0 30 0 30 0V210H-30z" fill="#0b2e5c" style="animation-delay:-1s"/></svg></div>`,
+  ice:o=>`<div class="ws-art ws-ice">${wsF(o)}<div class="cube"></div><svg viewBox="0 0 200 200" style="z-index:3"><text x="18" y="40" font-size="26">❄️</text><text x="160" y="58" font-size="20">❄️</text><text x="150" y="190" font-size="24">❄️</text><text x="22" y="186" font-size="18">❄️</text></svg></div>`,
+  crown:o=>`<div class="ws-art ws-crown"><div class="rays"></div>${wsF(o)}<svg viewBox="0 0 200 200"><g class="cr"><path d="M58 70l10-44 22 26 10-34 10 34 22-26 10 44z" fill="#ffd23f" stroke="#b8860b" stroke-width="3"/><circle cx="100" cy="56" r="5" fill="#e0517a"/><circle cx="76" cy="60" r="4" fill="#38ef7d"/><circle cx="124" cy="60" r="4" fill="#6fb1fc"/></g></svg></div>`,
+  trophy:o=>`<div class="ws-art ws-trophy"><svg viewBox="0 0 200 200"><path d="M50 22h100v30q0 52-50 62-50-10-50-62z" fill="#ffd23f" stroke="#b8860b" stroke-width="3"/><path d="M50 34H26q0 34 30 40M150 34h24q0 34-30 40" stroke="#ffd23f" stroke-width="8" fill="none"/><rect x="90" y="112" width="20" height="34" fill="#e2b13c"/><rect x="62" y="146" width="76" height="16" rx="3" fill="#b8860b"/><rect x="52" y="162" width="96" height="22" rx="3" fill="#3b2a0b"/><text x="100" y="178" text-anchor="middle" fill="#ffd23f" font-size="11" font-weight="700" font-family="sans-serif">WEEK ${DASH.last} TOP DOG</text></svg>${wsF(o)}</div>`,
+  trash:o=>`<div class="ws-art ws-trash">${wsF(o)}<svg class="can" viewBox="0 0 200 200"><path d="M52 70l-6-16 102-26 6 16z" fill="#8a949f" stroke="#5c6670" stroke-width="3"/><path d="M58 76h84l-10 112H68z" fill="#9aa4ae" stroke="#5c6670" stroke-width="3"/><path d="M80 90v86M100 90v86M120 90v86" stroke="#6f7983" stroke-width="4"/><g class="fly"><circle cx="150" cy="40" r="3" fill="#191414"/><circle cx="62" cy="30" r="2.5" fill="#191414"/></g></svg></div>`,
+  dunce:o=>`<div class="ws-art ws-dunce">${wsF(o)}<svg viewBox="0 0 200 200"><g class="cone"><path d="M100 0l34 88H66z" fill="#f4f4f4" stroke="#191414" stroke-width="3"/><text x="100" y="74" text-anchor="middle" font-size="22" font-weight="900" font-family="sans-serif" fill="#191414">D</text></g></svg></div>`,
+  roll:(w,l)=>`<div class="ws-art ws-roll"><svg viewBox="0 0 300 200"><g class="rig"><rect x="56" y="70" width="80" height="60" rx="6" fill="#ffd23f" stroke="#191414" stroke-width="3"/><rect x="40" y="128" width="140" height="18" fill="#3b3b3b"/><circle cx="170" cy="158" r="34" fill="#9aa4ae" stroke="#191414" stroke-width="4"/><circle cx="70" cy="166" r="22" fill="#191414"/></g><path d="M0 194h300" stroke="#fff" stroke-width="3"/></svg>${wsF(w,"w")}${wsF(l,"l")}</div>`,
+  ko:(w,l)=>`<div class="ws-art ws-ko"><svg viewBox="0 0 300 200"><path d="M10 190h280" stroke="#fff" stroke-width="3"/><g class="stars"><text x="190" y="62" font-size="20">⭐</text><text x="236" y="52" font-size="16">⭐</text><text x="214" y="92" font-size="14">⭐</text></g><text x="120" y="70" font-size="34">🥊</text></svg>${wsF(w,"w")}${wsF(l,"l")}</div>`,
+  ekg:(a,b)=>`<div class="ws-art ws-ekg"><svg viewBox="0 0 320 150"><path d="M70 75h50l10-30 14 70 14-90 12 80 10-30h70" stroke="#38ef7d" stroke-width="5" fill="none" stroke-linejoin="round"/></svg>${wsF(a,"a")}${wsF(b,"b")}</div>`,
+  luck:o=>`<div class="ws-art ws-luck"><div class="orb"><span style="left:42%;top:0">🍀</span><span style="right:0;top:42%">🐎</span><span style="left:42%;bottom:0">🎲</span><span style="left:0;top:42%">🍀</span></div>${wsF(o)}</div>`,
+  heart:o=>`<div class="ws-art ws-heart"><svg viewBox="0 0 200 200"><path class="l" d="M100 170L28 96Q4 64 30 40q30-24 70 10l-12 30 16 20-10 26z" fill="#e0517a"/><path class="r" d="M100 170l72-74q24-32-2-56-30-24-70 10l-12 30 16 20-10 26z" fill="#c31432"/></svg>${wsF(o)}</div>`,
+  bench:(o,pl,pts)=>`<div class="ws-art ws-bench"><svg viewBox="0 0 300 180"><rect x="40" y="96" width="220" height="14" rx="3" fill="#8a5a2b"/><rect x="40" y="66" width="220" height="12" rx="3" fill="#8a5a2b"/><path d="M60 110v52M240 110v52M54 162h14M234 162h14" stroke="#3b3b3b" stroke-width="6"/><rect x="96" y="120" width="108" height="40" rx="4" fill="#fff"/><text x="150" y="137" text-anchor="middle" font-size="12" font-weight="800" fill="#191414" font-family="sans-serif">${esc(pl.length>16?pl.split(" ").slice(-1)[0]:pl)}</text><text x="150" y="153" text-anchor="middle" font-size="12" fill="#c31432" font-weight="800" font-family="sans-serif">${esc(pts)} on the pine</text></svg>${wsF(o)}</div>`
+};
+function wsBuild(W,list){const d=DASH,L=d.last,N=d.week,A=Object.fromEntries(d.awards.map(a=>[a.k,a])),S=Object.fromEntries(d.standings.map(r=>[r.o,r]));
+  const n=o=>esc(short(o)),out=[];let ti=N*5;const add=(html,th)=>out.push({html,th:th||WS_TH[ti++%WS_TH.length]});
+  const rec=o=>S[o]?.rec||"";
+  add(`<div class="wr-k">Flamingo Men · ${d.year}</div><div class="wr-big">Week ${L}<br>is in the books.</div><p class="wr-t">Here's what happened, who's hot, who's falling down a mountain, and what to watch in Week ${N}.</p><p class="wr-t" style="opacity:.75">Tap to start →</p>`,WS_TH[0]);
+  // every result from last week
+  const wk=W?.weeks?.[L];
+  if(wk){const tm=t=>W.teams[t]?.[0];
+    add(`<div class="wr-k">Week ${L} scoreboard</div><ol class="ws-sb">${wk.map(g=>{const a=tm(g.a.t),b=tm(g.b.t),aw=g.a.p>=g.b.p;
+      return `<li>${wsF(a)}<span class="${aw?"":"lo"}">${n(a)}</span><span class="p ${aw?"":"lo"}">${fmt(g.a.p)}</span><span class="p ${aw?"lo":""}">${fmt(g.b.p)}</span><span class="${aw?"lo":""}">${n(b)}</span>${wsF(b)}</li>`}).join("")}</ol>`)}
+  const top=A["Top dog"];if(top){const v=wsV("top",2);
+    add(`<div class="wr-k">Top dog</div>${(v?WS_ART.trophy:WS_ART.crown)(top.o)}<div class="wr-big">${esc(top.v)}</div><p class="wr-t"><b>${n(top.o)}</b> ${v?"takes home the weekly hardware.":"is king of the week."} ${esc(top.t)}.</p>`)}
+  const bot=A["Basement"];if(bot){const v=wsV("bot",2);
+    add(`<div class="wr-k">The basement</div>${(v?WS_ART.dunce:WS_ART.trash)(bot.o)}<div class="wr-big">${esc(bot.v)}</div><p class="wr-t"><b>${n(bot.o)}</b> ${v?"has to sit in the corner and think about what happened.":"put up the trash score of the week."} Lowest score in the league.</p>`)}
+  const bl=A["Blowout"];if(bl){const v=wsV("bl",2);
+    add(`<div class="wr-k">${v?"Knockout":"Blowout"} of the week</div>${(v?WS_ART.ko:WS_ART.roll)(bl.o,bl.o2)}<div class="wr-big">${esc(bl.v)}</div><p class="wr-t">${esc(bl.t)}. ${v?`${n(bl.o2)} is still seeing stars.`:`${n(bl.o2)} is now a pancake.`}</p>`)}
+  const nb=A["Nail-biter"];if(nb)add(`<div class="wr-k">Nail-biter</div>${WS_ART.ekg(nb.o,nb.o2)}<div class="wr-big">${esc(nb.v)}</div><p class="wr-t">${esc(nb.t)}. That's the margin. Somebody check on ${n(nb.o2)}'s blood pressure.</p>`);
+  const lk=A["Luckiest win"],hb=A["Heartbreaker"];
+  if(lk)add(`<div class="wr-k">Luckiest win</div>${WS_ART.luck(lk.o)}<div class="wr-big">${esc(lk.v)}</div><p class="wr-t"><b>${n(lk.o)}</b>: ${esc(lk.t.charAt(0).toLowerCase()+lk.t.slice(1))}. Buy a lottery ticket.</p>`);
+  if(hb)add(`<div class="wr-k">Heartbreaker</div>${WS_ART.heart(hb.o)}<div class="wr-big">${esc(hb.v)}</div><p class="wr-t"><b>${n(hb.o)}</b> ${esc(hb.t.charAt(0).toLowerCase()+hb.t.slice(1))}. Wrong week, wrong opponent.</p>`);
+  const mvp=A["MVP"],bb=A["Bench blunder"];
+  if(mvp)add(`<div class="wr-k">Player of the week</div>${wsF(mvp.o,"")}<div class="wr-big long">${esc(mvp.pl)}</div><div class="wr-sub">${esc(mvp.v)} points</div><p class="wr-t">${esc(mvp.t)}.</p>`);
+  if(bb)add(`<div class="wr-k">Bench blunder</div>${WS_ART.bench(bb.o,bb.pl,bb.t.match(/([\d.]+)$/)?.[1]||"")}<div class="wr-big">${esc(bb.v)}</div><p class="wr-t"><b>${n(bb.o)}</b>: ${esc(bb.t)}.</p>`);
+  // streaks: the hottest and coldest team, each with a rotating gag
+  const stk=d.standings.map(r=>({o:r.o,t:r.streak[0],k:+r.streak.slice(1)}));
+  const hot=stk.filter(x=>x.t==="W"&&x.k>=3).sort((a,b)=>b.k-a.k)[0],cold=stk.filter(x=>x.t==="L"&&x.k>=3).sort((a,b)=>b.k-a.k)[0];
+  if(hot){const v=wsV("hot",3),art=[WS_ART.herc,WS_ART.fire,WS_ART.rocket][v],cap=[`${n(hot.o)} has been carved into marble and placed among the Flamingo gods.`,`Somebody call the fire department. ${n(hot.o)} hasn't lost since Week ${L-hot.k}.`,`${n(hot.o)} has left the atmosphere and is still climbing.`][v];
+    add(`<div class="wr-k">Hottest team in the league</div>${art(hot.o)}<div class="wr-big">${hot.k} straight W's</div><p class="wr-t">${cap} Now ${rec(hot.o)}.</p>`,WS_TH[7])}
+  if(cold){const v=wsV("cold",3),art=[WS_ART.mtn,WS_ART.ship,WS_ART.ice][v],cap=[`${n(cold.o)}'s season is tumbling down the mountain.`,`Abandon ship. ${n(cold.o)} is taking on water.`,`${n(cold.o)} is ice cold. Somebody grab a blanket.`][v];
+    add(`<div class="wr-k">Ice cold</div>${art(cold.o)}<div class="wr-big">${cold.k} straight L's</div><p class="wr-t">${cap} Now ${rec(cold.o)} with a ${Math.round(S[cold.o].odds)}% shot at the playoffs.</p>`,WS_TH[2])}
+  // biggest playoff odds swings from last week's result
+  const ser=d.odds?.series||{},mv=Object.entries(ser).filter(([,v])=>v.length>1).map(([o,v])=>({o,a:v[v.length-2],b:v[v.length-1],dl:v[v.length-1]-v[v.length-2]}));
+  const up=mv.slice().sort((a,b)=>b.dl-a.dl)[0],dn=mv.slice().sort((a,b)=>a.dl-b.dl)[0];
+  if(up&&dn&&(up.dl>=5||dn.dl<=-5)){const row=(x,u)=>`<div>${wsF(x.o)}<b>${n(x.o)} ${u?"📈":"📉"}</b><span class="ar">${Math.round(x.a)}% → <b>${Math.round(x.b)}%</b> (${u?"+":""}${Math.round(x.dl)})</span></div>`;
+    add(`<div class="wr-k">Playoff odds movers</div><div class="wr-big long">Stock market report</div><div class="ws-move">${up.dl>=5?row(up,1):""}${dn.dl<=-5?row(dn,0):""}</div><p class="wr-t" style="opacity:.85">From 20,000 simulations of the rest of the season.</p>`)}
+  // standings if the season ended today
+  const sd=d.standings.slice().sort((a,b)=>(a.seed||99)-(b.seed||99)),ps=6,nT=sd.length;
+  add(`<div class="wr-k">If the season ended today</div><ol class="ws-st">${sd.map((r,i)=>`<li class="${i===ps-1?"cut":""}${i>=nT-2?" sk":""}"><span>${r.seed||i+1}</span>${wsF(r.o)}<span>${n(r.o)}</span><small>${esc(r.rec)}</small><small>${Math.round(r.odds)}%</small></li>`).join("")}</ol><p class="wr-t" style="font-size:.82rem;opacity:.85">Top ${ps} make the playoffs. Right column is playoff odds. Bottom two are on Sacko watch.</p>`);
+  // next week's matchups
+  add(`<div class="wr-k">Coming up</div><div class="wr-big">Week ${N}<br>storylines</div><p class="wr-t">${list.length} matchups. ${Math.max(0,d.reg-N+1)} regular-season weeks left, including this one.</p>`,WS_TH[0]);
+  list.sort((a,b)=>(b.s.motw?1:0)-(a.s.motw?1:0)).forEach(({g,i,s})=>{const a=g[0].o,b=g[1].o,side=o=>{const r=S[o]||{},k=+(r.streak||"").slice(1),bd=k>=3?(r.streak[0]==="W"?" 🔥":" 🧊"):"";return `<div>${wsF(o)}<b>${n(o)}${bd}</b><small>${esc(r.rec||"")}${r.streak?` · ${esc(r.streak)}`:""}</small></div>`};
+    const odd=o=>{const p=Math.round(S[o]?.odds||0);return `<div><span>${n(o)}</span><i><b style="width:${p}%;background:${dcol(o)}"></b></i><span>${p}%</span></div>`};
+    add(`${s.motw?'<span class="ws-tag">Matchup of the week</span>':`<div class="wr-k">Week ${N}</div>`}<div class="ws-vs">${side(a)}<span class="x">vs</span>${side(b)}</div><div class="ws-odds"><div class="wr-k" style="grid-template-columns:1fr;font-size:.62rem">Playoff odds</div>${odd(a)}${odd(b)}</div><p class="wr-t">${esc(s.q)}</p><button type="button" class="ws-end" data-mu="${i}">See the lineups</button>`)});
+  add(`<div class="wr-k">That's the week</div><div class="wr-big">Set your lineups.</div><p class="wr-t">Kickoff is Thursday. Don't be the bench blunder next week.</p><button type="button" class="ws-end" data-all="1">All storylines on one screen</button>`,WS_TH[0]);
+  return out}
+function wsShow(){const st=$("#wsStage"),s=wsS[wsI];st.querySelector(".wr-bars").innerHTML=wsS.map((_,i)=>`<i class="${i<=wsI?"on":""}"></i>`).join("");
+  st.querySelector(".wr-body").innerHTML=`<div class="wr-slide ws wr-in" style="background:linear-gradient(160deg,${s.th[0]},${s.th[1]});--wa:${s.th[2]};--wb:${s.th[0]}">${s.html}</div>`;
+  st.querySelector(".wr-hint").textContent=wsI<wsS.length-1?"Tap to continue":"Tap to close"}
+function wsStep(k){const n=wsI+k;if(n<0)return;if(n>=wsS.length){$("#wsDlg").close();return}wsI=n;wsShow()}
+function openWeekStory(list){let dlg=$("#wsDlg");
+  if(!dlg){dlg=document.createElement("dialog");dlg.id="wsDlg";dlg.className="wrdlg";dlg.setAttribute("aria-label","This week's story");
+    dlg.innerHTML=`<div class="wr-stage" id="wsStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
+    document.body.appendChild(dlg);
+    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>wsStep(-1);dlg.querySelector(".next").onclick=()=>wsStep(1);
+    dlg.addEventListener("click",e=>{if(e.target===dlg){dlg.close();return}const b=e.target.closest(".ws-end");if(!b)return;dlg.close();if(b.dataset.mu!=null)openMatchup(+b.dataset.mu);else openStories(dlg._list)});
+    dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();wsStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();wsStep(-1)}});
+    let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+    dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();wsStep(dx<0?1:-1)}})}
+  dlg._list=list;const y=DASH.year;
+  const go=()=>{wsS=wsBuild(WEEKS[y],list.slice());wsI=0;wsShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()};
+  if(WEEKS[y])go();else fetch(`data/weeks/${y}.json`).then(r=>r.ok?r.json():null).then(j=>{if(j)WEEKS[y]=j}).catch(()=>{}).then(go)}
 // all of the week's storylines on one phone screen (Kyle 2026-11-17); tap one for that matchup's lineups
 function openStories(list){const d=DASH,rec=o=>(d.standings.find(r=>r.o===o)||{}).rec||"";let dlg=$("#stDlg");
   if(!dlg){dlg=document.createElement("dialog");dlg.id="stDlg";dlg.className="mudlg stdlg";dlg.setAttribute("aria-label","This week's storylines");document.body.appendChild(dlg);
