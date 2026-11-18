@@ -1755,8 +1755,8 @@ function wsBuild(W,list){const d=DASH,L=d.last,N=d.week,A=Object.fromEntries(d.a
     add(`<div class="wr-k">Top dog</div>${(v?WS_ART.trophy:WS_ART.crown)(top.o)}<div class="wr-big">${esc(top.v)}</div><p class="wr-t"><b>${n(top.o)}</b> ${v?"takes home the weekly hardware.":"is king of the week."} ${esc(top.t)}.</p>`)}
   const bot=A["Basement"];if(bot){const v=wsV("bot",2);
     add(`<div class="wr-k">The basement</div>${(v?WS_ART.dunce:WS_ART.trash)(bot.o)}<div class="wr-big">${esc(bot.v)}</div><p class="wr-t"><b>${n(bot.o)}</b> ${v?"has to sit in the corner and think about what happened.":"put up the trash score of the week."} Lowest score in the league.</p>`)}
-  const bl=A["Blowout"];if(bl){const v=wsV("bl",2);
-    add(`<div class="wr-k">${v?"Knockout":"Blowout"} of the week</div>${(v?WS_ART.ko:WS_ART.roll)(bl.o,bl.o2)}<div class="wr-big">${esc(bl.v)}</div><p class="wr-t">${esc(bl.t)}. ${v?`${n(bl.o2)} is still seeing stars.`:`${n(bl.o2)} is now a pancake.`}</p>`)}
+  const bl=A["Perch Alert"]||A["Blowout"];if(bl){const v=wsV("bl",2);
+    add(`<div class="wr-k">🚨 Perch alert 🚨</div>${(v?WS_ART.ko:WS_ART.roll)(bl.o,bl.o2)}<div class="wr-big">${esc(bl.v)}</div><p class="wr-t">${esc(bl.t)}. ${n(bl.o)} is up on the top of the couch, sitting right on ${n(bl.o2)}.</p>`)}
   const nb=A["Nail-biter"];if(nb)add(`<div class="wr-k">Nail-biter</div>${WS_ART.ekg(nb.o,nb.o2)}<div class="wr-big">${esc(nb.v)}</div><p class="wr-t">${esc(nb.t)}. That's the margin. Somebody check on ${n(nb.o2)}'s blood pressure.</p>`);
   const lk=A["Luckiest win"],hb=A["Heartbreaker"];
   if(lk)add(`<div class="wr-k">Luckiest win</div>${WS_ART.luck(lk.o)}<div class="wr-big">${esc(lk.v)}</div><p class="wr-t"><b>${n(lk.o)}</b>: ${esc(lk.t.charAt(0).toLowerCase()+lk.t.slice(1))}. Buy a lottery ticket.</p>`);
