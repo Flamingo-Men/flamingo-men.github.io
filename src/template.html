@@ -2228,7 +2228,7 @@ const rvNick=v=>{const k=(OWNERS[v]?.nick||"").split(" / ")[0];return k&&k!==sho
 const rvWhen=g=>`${g.y} ${rvRound(g)}`;
 function rivalOf(o,x){const R=RIVALS[o];if(!R)return null;return R.top.o===x?R.top:R.more?.[x]||null}
 function rivalCard(o){const R=RIVALS[o];if(!R)return "";const r=R.top,x=r.o;
-  const sub=r.w+r.l===0?`${r.n} playoff bout, result not saved`:`${r.w}-${r.l} all-time${r.po?` · ${r.po} playoff bout${r.po>1?"s":""}`:""}`;
+  const sub=r.w+r.l===0?`${r.po} playoff bout${r.po>1?"s":""}`:`${r.w}-${r.l} all-time${r.po?` · ${r.po} playoff bout${r.po>1?"s":""}`:""}`;
   return `<div class="rv-sec"><div class="eyebrow" style="margin-bottom:6px">Biggest rival</div><div class="rv-row">
     <button type="button" class="rv-card" data-rv="${x}" aria-label="Watch the ${nm(o)} vs ${nm(x)} rivalry story"><span class="rv-ring">${av(x)}<i aria-hidden="true">🥊</i></span>
     <span><small class="k">Tonight's main event</small><b>vs. ${nm(x)}</b><small>${sub}</small></span><span class="wr-play" aria-hidden="true">▶</span></button>
@@ -2260,7 +2260,7 @@ function rvBuild(o,r,dash){const x=r.o,out=[];let ti=0;const add=(html,th)=>out.
     add(`<div class="wr-k">The official scorecards</div><div class="rv-score">${wsF(o)}<span class="n">${r.w}-${r.l}</span>${wsF(x)}</div>
       <div class="rv-bar"><i style="width:${pa}%;background:${dcol(o)}"></i><i style="flex:1;background:${dcol(x)}"></i></div>
       <div class="wr-big long">${lead?`${n(lead)} ${Math.abs(r.w-r.l)>=4?"owns":"leads"} the series`:"Dead even"}</div>
-      <p class="wr-t">${r.reg?`In the regular season it's ${fmt(r.pf)} points to ${fmt(r.pa)}. `:""}${r.streak>=3||r.ostreak>=3?`Longest win streak: ${r.streak>=r.ostreak?`${n(o)} with ${r.streak} straight`:`${n(x)} with ${r.ostreak} straight`}.`:r.close?`${r.close} of their games were decided by under 10 points.`:""}</p>`)}
+      <p class="wr-t">Every week they've played counts, playoffs included. ${r.reg?`In the regular season it's ${fmt(r.pf)} points to ${fmt(r.pa)}. `:""}${r.streak>=3||r.ostreak>=3?`Longest win streak: ${r.streak>=r.ostreak?`${n(o)} with ${r.streak} straight`:`${n(x)} with ${r.ostreak} straight`}.`:r.close?`${r.close} of their games were decided by under 10 points.`:""}</p>`)}
   // 4. playoff bouts
   const po=G.filter(g=>g.k!=="reg");
   if(po.length){add(`<div class="wr-k">Title fights</div><div class="wr-big long">${po.length} playoff bout${po.length>1?"s":""}</div><ol class="rv-bouts">${po.map(g=>{const w=g.win===1?o:g.win===0?x:null;

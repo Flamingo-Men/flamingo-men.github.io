@@ -34,13 +34,25 @@ for y,P in PO.items():
 for x in B:
     if 'win' not in x: x['win']=x['a'] if x['pa']>x['pb'] else x['b'] if x['pb']>x['pa'] else None
     x['m']=round(abs(x['pa']-x['pb']),2) if x['pa'] is not None and x['pb'] is not None else None
+# head-to-head record, the same way the storylines count it: every weekly matchup on file (2018 on), so each week of a
+# two-week playoff or consolation round counts as its own game. 2016-17 meetings have no weekly scores and stay out of it.
+WK=collections.Counter()
+for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
+    d=json.load(open(f));T=d['teams'];cur=d.get('cur')
+    for w,gs in d['weeks'].items():
+        if cur and int(w)>=cur: continue
+        for g in gs:
+            a,b=g['a'],g['b']
+            if a['p'] is None or b['p'] is None or a['p']==b['p']: continue
+            oa,ob=T[str(a['t'])][0],T[str(b['t'])][0]
+            WK[(oa,ob) if a['p']>b['p'] else (ob,oa)]+=1
 pairs=collections.defaultdict(list)
 for x in B: pairs[tuple(sorted((x['a'],x['b'])))].append(x)
 order=lambda x:(x['y'],x['w'] if x['w'] is not None else 30)
 def series(p,L):
     L=sorted(L,key=order);a,b=p
     reg=[x for x in L if x['k']=='reg'];po=[x for x in L if x['k']!='reg']
-    wa=sum(x['win']==a for x in L);wb=sum(x['win']==b for x in L);dec=wa+wb
+    wa=WK[(a,b)];wb=WK[(b,a)];dec=wa+wb
     close=sum(1 for x in reg if x['m'] is not None and x['m']<10)
     raw=len(reg)+close+sum(9 if x['k']=='final' else 6 for x in po)
     bal=0.7+0.3*(1-abs(wa-wb)/dec) if dec else 1
