@@ -1,6 +1,6 @@
-# Builds ../data/thrones.json: the facts behind the Game of Thrones title stories (Champions plaques) and the
-# walk-of-shame Sacko stories (Sacko toilets), Kyle 2026-11-18. One entry per finished season from 2018 on,
-# with a block for that year's champion (c) and Sacko loser (s):
+# Builds ../data/thrones.json: the facts behind the title stories (Champions plaques) and the Sacko flush stories
+# (Sacko toilets), Kyle 2026-11-18. One entry per finished season from 2018 on, with a block for that year's
+# champion (c) and, for the Sacko loser (s), just the Sacko-bracket rounds (post). Champion block:
 #   reg  [[week, opponent, points for, points against]] regular season
 #   rk   standing after each regular-season week (wins, then points), so a story can find the low point
 #   post [[kind, opponent, points for, points against, [[week, for, against], ...]]] playoff or Sacko-bracket rounds,
@@ -70,10 +70,10 @@ for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
                             if zero is None or r[3]<zero[2]: zero=[r[0],r[1],round(r[3],2),wk[0]]
         P=[post[k][:5] for k in rounds]
         return dict(reg=reg,rk=rk[o],post=P,top=[[n,pos,round(v,1),st[(n,pos)]] for (n,pos),v in top.most_common(9)],star=star,zero=zero,seed=seeds.get(o))
-    out[y]=dict(n=len(rec),c=block(CH[y]),s=block(SK[y]))
+    out[y]=dict(n=len(rec),c=block(CH[y]),s={'post':block(SK[y])['post']})
 p=os.path.join(root,'data','thrones.json')
 json.dump(out,open(p,'w'),separators=(',',':'),ensure_ascii=False)
 for y,v in out.items():
     c,s=v['c'],v['s']
-    print(y,CH[y],'seed',c['seed'],[(r[0],r[1],r[2],r[3]) for r in c['post']],'star',c['star'],'|',SK[y],[(r[0],r[1],r[2],r[3]) for r in s['post']],'zero',s['zero'],'low rk',max(s['rk']),min(c['rk']),max(c['rk']))
+    print(y,CH[y],'seed',c['seed'],[(r[0],r[1],r[2],r[3]) for r in c['post']],'star',c['star'],'|',SK[y],[(r[0],r[1],r[2],r[3]) for r in s['post']],'low rk',min(c['rk']),max(c['rk']))
 print(os.path.getsize(p),'bytes')
