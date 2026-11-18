@@ -12,7 +12,7 @@
 <meta name="description" content="Official home of the Flamingo Men fantasy football league, est. 2016.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Spline+Sans+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Marcellus+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Spline+Sans+Mono:wght@400;600&display=swap">
 <style>
 /* Layout: a marble temple. Meander-banded header, pediment hero, colonnade of section tiles, then tabbed "halls" for each sub page. */
 :root{
@@ -22,6 +22,7 @@
   --f-display:"Marcellus SC","Trajan Pro",Georgia,serif;
   --f-body:"Alegreya Sans","Gill Sans","Segoe UI",system-ui,sans-serif;
   --f-data:"Spline Sans Mono",ui-monospace,Menlo,monospace;
+  --f-got:"Cinzel","Marcellus SC","Trajan Pro",Georgia,serif;
   --r:6px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
@@ -209,8 +210,6 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .trades-list{display:grid;gap:10px}
 .tag{display:inline-block;font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--stone);color:var(--muted)}
 .tag.veto{background:var(--flamingo);color:#fff}
-.punish{border:1px dashed #8a5a2b;border-radius:12px;padding:10px 12px;background:rgba(138,90,43,.08);max-width:65ch}.punish p{margin:4px 0 0}
-.punish-ph{display:flex;gap:8px;margin-top:8px}.punish-ph button{all:unset;cursor:pointer}.punish-ph img{width:84px;height:84px;object-fit:cover;border-radius:9px;display:block}
 /* named matchups (Kyle 2026-11-18): Lucas on Halloween week = Hollow Night Bowl, Peanut vs Squirm = Cuzzie Bowl */
 .tag.bowl.hn,.ws-tag.hn,b.bowl.hn{background:#ff7a1a;color:#1a0d00}.tag.bowl.cuz,.ws-tag.cuz,b.bowl.cuz{background:#8fd3ff;color:#0b2233}
 .mu .tag.bowl{justify-self:start}.game .gmeta b.bowl{padding:0 6px;border-radius:99px;font-weight:800}
@@ -511,36 +510,7 @@ td.pk.empty{--pc:var(--line);color:var(--muted);font-size:.75rem}
 .gal-arr{position:absolute;top:calc(50% - 15px);transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--slab);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .gal-arr[hidden]{display:none}.gal-arr.l{left:4px}.gal-arr.r{right:4px}
 @media (max-width:640px){.gallery{grid-auto-columns:calc((100% - 16px)/3)}.gal-arr{display:none!important}}
-.champs{display:grid;gap:16px}
-.champ{background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:18px}
-.champ.won{display:block;padding:0;overflow:hidden}
-.champ-top{display:grid;grid-template-columns:300px minmax(0,1fr);border-bottom:1px solid var(--line)}
-.champ-head{padding:24px 26px;display:grid;gap:12px;align-content:center}
-.champ.won .champ-body{padding:20px 26px 26px;display:grid;gap:14px;align-content:start}
-.champ.won .champ-body:empty{display:none}
-.champ.won .champ-body .tboxes{grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr))}
-.champ.won .champ-top:has(+ .champ-body:empty){border-bottom:0}
-@media (max-width:700px){.champ-top{grid-template-columns:1fr}.champ-photo:has(.cut){min-height:0;aspect-ratio:4/3;border-right:0;border-bottom:1px solid var(--line)}.champ-head{padding:16px 16px 14px}.champ.won .champ-body{padding:16px 16px 20px}}
-.champ-photo{position:relative;min-height:320px;background:var(--flamingo-soft)}
-.champ-photo img,.champ-photo .big{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;border-radius:0;display:grid;place-items:center;font-family:var(--f-display);font-size:6rem;color:var(--flamingo)}
-.champ-photo:has(.cut){background:
-    radial-gradient(120% 90% at 50% 100%,var(--flamingo-soft),var(--slab) 70%);
-  border-right:1px solid var(--line)}
-.champ-photo:has(.cut)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:18px;background:var(--gold);opacity:.9;
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x bottom/24px 12px;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath d='M0 11H12V1H3V8H8V4M12 11H24' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") repeat-x bottom/24px 12px}
-.sackoed .champ-photo:has(.cut){background:
-    radial-gradient(120% 90% at 50% 100%,var(--stone),var(--slab) 70%)}
-.sackoed .champ-photo:has(.cut)::after{background:var(--muted);opacity:.5}
 .bgflam{position:absolute;right:4%;top:16px;width:auto;height:82%;aspect-ratio:142/180;color:var(--flamingo);opacity:.3;pointer-events:none;overflow:visible}
-.sackoed .bgflam{color:var(--muted);opacity:.28}
-.champ-photo img.cut{position:absolute;left:5%;right:5%;bottom:14px;top:58px;width:90%;height:calc(100% - 72px);object-fit:contain;object-position:50% 100%;border:0;border-radius:0;filter:drop-shadow(0 10px 18px rgba(0,0,0,.25))}
-.champ .champ-photo:has(.cut) .yr{top:14px;bottom:auto;color:var(--gold);text-shadow:none;font-size:2.8rem}
-.sackoed .champ-photo:has(.cut) .yr{color:var(--muted)}
-.champ .champ-photo .yr{position:absolute;left:16px;bottom:14px;font-size:3.4rem;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.55)}
-.champ-body{padding:24px 24px 24px 0;display:grid;gap:12px;align-content:start}
-.champ .yr{font-family:var(--f-display);font-size:2.2rem;color:var(--gold);line-height:1}
-.champ.tbd{border-style:dashed}
 .roster{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:4px 16px;margin:8px 0 0;padding:0;list-style:none;font-size:.95rem}
 .roster b{font-family:var(--f-data);font-size:.7rem;color:var(--muted);display:inline-block;width:38px}
 .note{background:var(--flamingo-soft);border-radius:var(--r);padding:12px 14px;font-size:.95rem}
@@ -563,11 +533,6 @@ footer small{color:#99a1b8}
   .tiles,.boards{grid-template-columns:1fr}
   .sides,.sides.three{grid-template-columns:1fr}
   .swap{padding:0;transform:rotate(90deg);justify-self:start}
-  .champ{grid-template-columns:1fr}
-  .champ-top{grid-template-columns:1fr}
-  .champ-photo{min-height:0;aspect-ratio:4/3;border-right:0!important;border-bottom:1px solid var(--line)}
-  .champ-head{padding:16px 16px 14px}
-  .champ.won .champ-body{padding:16px 16px 20px}
   nav.main a{padding:6px 7px;font-size:.68rem}
 }
 
@@ -1135,6 +1100,144 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 .cs-mv-name{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(2.2rem,11vw,3.4rem);line-height:.95;letter-spacing:-.01em;color:#fff;text-shadow:3px 3px 0 #191414,-1px -1px 0 #191414,1px -1px 0 #191414,-1px 1px 0 #191414}
 .cs-mv-tag{font-family:var(--f-data);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:#ffd23f;color:#191414;padding:4px 12px;border-radius:4px;font-weight:700;rotate:-3deg}
 .cs.cs-marvel .wr-t{max-width:34ch}
+/* ---------- Champions plaques, Sacko toilets and their Game of Thrones stories (GOT in the script, Kyle 2026-11-18) ---------- */
+.plaques{position:relative;isolation:isolate;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(44%,196px),1fr));gap:26px 14px;padding:40px 14px 30px;border-radius:14px;
+  background:radial-gradient(38% 30% at 0% 0%,rgba(255,164,60,.3),transparent 70%),radial-gradient(38% 30% at 100% 0%,rgba(255,164,60,.3),transparent 70%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='64'%3E%3Cpath d='M0 1H120M0 33H120M1 1V33M61 1V33M31 33V64M91 33V64' fill='none' stroke='%23000' stroke-opacity='.42' stroke-width='2'/%3E%3Cpath d='M4 4h54v26H4zM34 36h54v25H34z' fill='%23fff' fill-opacity='.035'/%3E%3C/svg%3E"),
+  linear-gradient(180deg,#3d3631,#24201c);box-shadow:inset 0 0 70px rgba(0,0,0,.6)}
+.plaques::before,.plaques::after{content:"";position:absolute;top:6px;width:20px;height:34px;z-index:-1;transform-origin:50% 100%;animation:gotTorch 2.6s ease-in-out infinite alternate;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 40'%3E%3Cpath d='M8 18h6l-1 20h-4z' fill='%23463a2e'/%3E%3Cpath d='M5 16h12l-2 4H7z' fill='%23302720'/%3E%3Cpath d='M11 1Q19 9 16 15Q11 19 6 15Q3 9 11 1Z' fill='%23f59e0b'/%3E%3Cpath d='M11 7Q14 11 13 14Q11 16 9 14Q8 11 11 7Z' fill='%23fde68a'/%3E%3C/svg%3E") no-repeat center/contain;filter:drop-shadow(0 0 6px rgba(245,158,11,.8))}
+.plaques::before{left:8px}.plaques::after{right:8px;animation-delay:-1.3s}
+@keyframes gotTorch{from{transform:scaleY(1);opacity:.85}to{transform:scaleY(1.06);opacity:1}}
+.plaque{all:unset;box-sizing:border-box;position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 11px 12px;border-radius:12px 12px 9px 9px;cursor:pointer;text-align:center;color:#f4e6c4;
+  background:repeating-linear-gradient(96deg,rgba(0,0,0,.07) 0 2px,transparent 2px 9px),linear-gradient(160deg,#70442a,#4b2a16 55%,#361c0c);
+  box-shadow:0 16px 24px -12px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.2),inset 0 0 0 3px #2b170a,inset 0 0 0 5px rgba(212,169,55,.5);transition:transform .18s ease}
+.plaque::before,.plaque::after{content:"";position:absolute;top:8px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff3c4,#c9a33a 45%,#6b4f10);box-shadow:0 1px 1px rgba(0,0,0,.6)}
+.plaque::before{left:9px}.plaque::after{right:9px}
+button.plaque:hover,button.plaque:focus-visible{transform:translateY(-3px)}
+button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0 0 0 3px #e8c574,0 0 0 5px #5a3a10,0 0 22px rgba(255,200,100,.45)}
+.plaque:focus-visible{outline:2px solid #ffd27a;outline-offset:4px}
+.pl-yr{font-family:var(--f-got);font-weight:900;font-size:1.65rem;line-height:1;letter-spacing:.06em;background:linear-gradient(180deg,#fff3c4,#e8c574 45%,#a67c22);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55))}
+.pl-frame{position:relative;display:block;width:80%;aspect-ratio:100/120;overflow:hidden;border-radius:50% 50% 8px 8px/34% 34% 8px 8px;
+  background:radial-gradient(90% 70% at 50% 30%,#931d2f,#4a0a14 70%,#2a050b);box-shadow:0 0 0 3px #c9a33a,0 0 0 5px #5a3a10,0 6px 12px rgba(0,0,0,.5);transition:box-shadow .18s}
+.pl-frame svg{display:block;width:100%;height:100%}
+.pl-reign{font-family:var(--f-got);font-weight:700;font-size:clamp(.54rem,2.5vw,.64rem);letter-spacing:.1em;text-transform:uppercase;color:#e8c574;white-space:nowrap}
+.pl-plate{display:grid;gap:2px;width:100%;padding:8px 7px 7px;border-radius:6px;color:#3a2706;
+  background:linear-gradient(180deg,#f8e7b0,#d6b05a 46%,#ba9234 54%,#e9cc80);box-shadow:inset 0 1px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.45)}
+.pl-name{font-family:var(--f-got);font-weight:700;font-size:.9rem;line-height:1.15;letter-spacing:.01em;overflow-wrap:anywhere}
+.pl-team{font-size:.74rem;font-style:italic;line-height:1.2;opacity:.85;overflow-wrap:anywhere}
+.pl-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:2px 10px;margin-top:2px;font-family:var(--f-data);font-size:.66rem}
+.pl-stats b{font-weight:600}
+.pl-play{margin-top:auto;font-family:var(--f-data);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#ffd27a;opacity:.85}
+.plaque.empty{cursor:default;opacity:.85;background:linear-gradient(160deg,#4a3b30,#2d241d)}
+.plaque.empty .pl-frame{background:radial-gradient(90% 70% at 50% 30%,#3a2a2d,#1c1214 70%)}
+.plaque.empty .pl-plate{filter:saturate(.5)}
+.loos{--tile1:#eef4f3;--tile2:#dde9e7;--grout:#c4d4d1;--loo-ink:#24312f;position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(44%,178px),1fr));gap:22px 14px;padding:26px 14px 0;border-radius:14px;overflow:hidden;
+  background:linear-gradient(var(--grout) 2px,transparent 2px) 0 0/30px 30px,linear-gradient(90deg,var(--grout) 2px,transparent 2px) 0 0/30px 30px,linear-gradient(180deg,var(--tile1),var(--tile2));
+  box-shadow:inset 0 0 50px rgba(0,0,0,.08),inset 0 0 0 1px var(--line)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .loos{--tile1:#22302e;--tile2:#1b2624;--grout:#2f403d;--loo-ink:#dfe9e7}}
+:root[data-theme="dark"] .loos{--tile1:#22302e;--tile2:#1b2624;--grout:#2f403d;--loo-ink:#dfe9e7}
+.loos::after{content:"";grid-column:1/-1;height:26px;margin:0 -14px;background:conic-gradient(#2b3438 25%,#eef2f3 0 50%,#2b3438 0 75%,#eef2f3 0) 0 0/26px 26px;box-shadow:inset 0 6px 8px -4px rgba(0,0,0,.35)}
+.loo{all:unset;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:8px;padding:2px 2px 4px;border-radius:12px;cursor:pointer;text-align:center;color:var(--loo-ink)}
+.loo:focus-visible{outline:2px solid var(--flamingo);outline-offset:4px}
+.loo-art{display:block;width:min(100%,168px);aspect-ratio:160/210;transform-origin:50% 100%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.2))}
+.loo-art svg{display:block;width:100%;height:100%}
+.loo:hover .loo-art,.loo:focus-visible .loo-art{animation:looWob .7s ease-in-out}
+@keyframes looWob{0%,100%{transform:rotate(0)}20%{transform:rotate(-3deg)}40%{transform:rotate(2.5deg)}60%{transform:rotate(-1.5deg)}80%{transform:rotate(1deg)}}
+.loo-plate{display:grid;gap:2px;width:100%;max-width:200px;padding:8px 7px 7px;border-radius:6px;color:#1f2a2e;
+  background:linear-gradient(180deg,#ffffff,#d5dce0 46%,#bcc6cb 54%,#eef2f4);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 rgba(0,0,0,.18),0 3px 6px rgba(0,0,0,.2)}
+.loo-yr{font-family:var(--f-data);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#7a4b1e}
+.loo-nth{font-family:var(--f-got);font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:#7a4b1e;white-space:nowrap}
+.loo-tag{margin-top:2px;font-family:var(--f-data);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:#a3122a}
+.loo .pl-play{color:var(--loo-ink);opacity:.7}
+@media (prefers-reduced-motion:reduce){.plaques::before,.plaques::after,.loo:hover .loo-art,.loo:focus-visible .loo-art{animation:none}}
+/* the stories: a crimson and gold book for the crowns, cold stone for the walks of shame */
+.cs.got{justify-content:flex-start;gap:9px;padding:48px 20px 40px;background:radial-gradient(130% 75% at 50% 0%,var(--c,#2a1d10) 0%,#0b0805 80%)}
+.cs.got::before,.cs.got::after{content:"";position:static;flex:1 0 0;min-height:0;width:auto;height:auto;margin:-4.5px 0;border-radius:0;background:none;filter:none;opacity:1}
+.cs.got-sk{background:radial-gradient(130% 75% at 50% 0%,var(--c,#26302d) 0%,#050807 80%)}
+.got .wr-k{font-family:var(--f-got);font-weight:700;font-size:.68rem;letter-spacing:.16em;color:#e8c574;opacity:1}
+.got-sk .wr-k{color:#b9cbc5}
+.got-title{font-family:var(--f-got);font-weight:700;font-size:clamp(1.3rem,6.2vw,1.85rem);line-height:1.1;letter-spacing:.03em;background:linear-gradient(180deg,#fff4cf,#e8c574 55%,#b8862a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.got-sk .got-title{background-image:linear-gradient(180deg,#f4f8f6,#bccdc7 60%,#7f978f)}
+.got .wr-t{font-size:.94rem;line-height:1.42}
+.got .cs-art{border:2px solid rgba(232,197,116,.45);border-radius:10px;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 12px 28px rgba(0,0,0,.55)}
+.got-sk .cs-art{border-color:rgba(185,203,197,.4)}
+.got .cs-art.got-sm{aspect-ratio:2/1}
+.got .cs-art.got-md{aspect-ratio:16/9}
+.cs.got-open,.cs.got-end{align-items:center;text-align:center}
+.cs.got-open .wr-t,.cs.got-end .wr-t{text-align:center}
+.got .cs-art.got-astro{width:min(56vw,224px);aspect-ratio:1;border-radius:50%;border-color:rgba(232,197,116,.6);box-shadow:0 0 0 6px rgba(232,197,116,.08),0 18px 40px rgba(0,0,0,.6)}
+.got-sk .cs-art.got-astro{border-color:rgba(185,203,197,.55);box-shadow:0 0 0 6px rgba(185,203,197,.08),0 18px 40px rgba(0,0,0,.6)}
+.ga{transform-box:view-box;transform-origin:150px 100px}
+.ga1{animation:gaSpin 90s linear infinite}.ga2{animation:gaSpin 60s linear infinite reverse}
+@keyframes gaSpin{to{transform:rotate(360deg)}}
+.got-house{font-family:var(--f-got);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#e8c574}
+.got-sk .got-house{color:#b9cbc5}
+.got-words{font-family:var(--f-got);font-style:italic;font-size:.92rem;opacity:.9}
+.got .got-sub{font-size:.86rem;opacity:.85}
+.got-kg{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.got-kg li{flex:0 0 calc((100% - 16px)/3);display:grid;justify-items:center;align-content:start;gap:2px;padding:9px 5px 13px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.13),rgba(255,255,255,.04));border:1px solid rgba(232,197,116,.45);border-radius:8px 8px 50% 50%/8px 8px 24% 24%}
+.got-kg i{font-style:normal;font-family:var(--f-data);font-size:.58rem;letter-spacing:.1em;color:#e8c574}
+.got-kg b{font-size:.78rem;line-height:1.15;overflow-wrap:anywhere}
+.got-kg span{font-family:var(--f-data);font-size:.64rem;opacity:.8}
+.got-score{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:4px 10px;padding:9px 12px;border-radius:10px;background:rgba(0,0,0,.38);border:1px solid rgba(232,197,116,.3)}
+.got-sk .got-score{border-color:rgba(185,203,197,.3)}
+.got-score i{font-family:var(--f-got);font-style:normal;font-size:.78rem;opacity:.7}
+.gsc{display:grid;justify-items:center;gap:2px;text-align:center;opacity:.72}
+.gsc.w{opacity:1}
+.gsc .av{width:34px;height:34px;font-size:.8rem;border:2px solid rgba(255,255,255,.55)}
+.gsc.w .av{border-color:#e8c574}
+.gsc b{font-size:.8rem;line-height:1.1}
+.gsc span{font-family:var(--f-data);font-size:1rem;font-weight:600}
+.gsc.w span{color:#ffd27a}
+.got-sk .gsc.w span{color:#d6ebe4}
+.gsc-legs{grid-column:1/-1;text-align:center;font-family:var(--f-data);font-size:.64rem;opacity:.75}
+.got-two .got-score{padding:6px 10px;gap:2px 10px}
+.got-two .gsc .av{width:26px;height:26px}
+.got-two .gsc span{font-size:.9rem}
+.got-scroll{position:relative;margin:6px 6px 4px;padding:10px 12px 9px;border-radius:3px;color:#3a2a14;font-size:.8rem;background:linear-gradient(180deg,#f3e6c4,#e6d2a2);box-shadow:0 8px 18px rgba(0,0,0,.45),inset 0 0 24px rgba(120,80,20,.15)}
+.got-scroll::before,.got-scroll::after{content:"";position:absolute;left:-7px;right:-7px;height:9px;border-radius:5px;background:linear-gradient(180deg,#d1ae72,#80602f)}
+.got-scroll::before{top:-5px}.got-scroll::after{bottom:-5px}
+.gs-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:2px 8px;margin-bottom:6px;font-family:var(--f-data);font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:#6b4f2a}
+.gs-res{font-weight:700}.gs-res.w{color:#1f6b3a}.gs-res.l{color:#9b1c1c}
+.gs-sides{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gs-h{margin-bottom:3px;border-bottom:1px solid rgba(58,42,20,.3);font-family:var(--f-got);font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+.got-scroll ul{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.got-scroll li{display:flex;justify-content:space-between;align-items:baseline;gap:6px;line-height:1.25}
+.got-scroll em{font-style:normal;font-family:var(--f-data);font-size:.56rem;opacity:.7}
+.got-scroll li b{font-family:var(--f-data);font-size:.64rem;font-weight:600;white-space:nowrap}
+.gs-tot{display:flex;justify-content:space-between;margin-top:4px;padding-top:3px;border-top:1px dashed rgba(58,42,20,.35);font-family:var(--f-data);font-size:.6rem}
+.gs-stamp{position:absolute;right:12px;top:52%;transform:translateY(-50%) rotate(-14deg);padding:2px 10px;border:3px solid #b00020;border-radius:6px;font-family:var(--f-got);font-weight:900;font-size:1.25rem;letter-spacing:.12em;text-transform:uppercase;color:#b00020;opacity:.82;mix-blend-mode:multiply;pointer-events:none}
+.got-style{margin:0;font-family:var(--f-got);font-size:.84rem;line-height:1.4;color:#f1d58a}
+.got-sk .got-style{color:#cfe3dc}
+.got-ph{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.got-ph figure{margin:0;aspect-ratio:3/4;overflow:hidden;border-radius:8px;border:2px solid rgba(185,203,197,.45);box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.got-ph img{display:block;width:100%;height:100%;object-fit:cover}
+.got-ledger{display:grid;gap:10px;padding:16px 16px 12px;border-radius:6px;color:#3a2a14;background:linear-gradient(180deg,#f4e8c8,#e5d1a0);box-shadow:0 14px 30px rgba(0,0,0,.55),inset 0 0 40px rgba(120,80,20,.18)}
+.got-sk .got-ledger{color:#24302d;background:linear-gradient(180deg,#eef1ec,#d6ddd4)}
+.gl-h{display:grid;gap:2px;padding-bottom:8px;border-bottom:1px solid rgba(58,42,20,.3)}
+.gl-h b{font-family:var(--f-got);font-weight:700;font-size:1.12rem;line-height:1.2}
+.gl-h span{font-family:var(--f-data);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.got-ledger p{margin:0;font-size:.88rem;line-height:1.42}
+.gl-sig{font-family:var(--f-got);font-style:italic;font-size:.7rem;text-align:right;opacity:.7}
+.got-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(68px,1fr));gap:6px}
+.got-facts div{display:grid;gap:1px;padding:6px 8px;border-radius:6px;background:rgba(58,42,20,.07);border:1px solid rgba(58,42,20,.18)}
+.got-facts small{font-family:var(--f-data);font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.got-facts b{font-family:var(--f-got);font-size:.92rem}
+@media (max-height:700px){.got .wr-t{font-size:.85rem;line-height:1.36}.got-title{font-size:1.25rem}.got .cs-art,.got .cs-art.got-md{aspect-ratio:2/1}.got .cs-art.got-sm{aspect-ratio:5/2}
+  .got .cs-art.got-astro{width:min(44vw,170px);aspect-ratio:1}.got-kg li{padding:6px 4px 10px}.got-ledger p{font-size:.82rem}.got-ph figure{aspect-ratio:1}}
+@media (prefers-reduced-motion:reduce){.ga1,.ga2{animation:none}}
+/* the team-page way in: a banner on a title or Sacko season */
+.got-bn{display:flex;align-items:center;gap:12px;width:100%;margin:0 0 12px;padding:12px 14px;border:0;border-radius:12px;cursor:pointer;text-align:left;color:#f4e6c4;
+  background:linear-gradient(120deg,#5a1a1f 0%,#2a1410 55%,#120b08 100%);box-shadow:inset 0 0 0 1px rgba(232,197,116,.45),0 6px 20px -10px rgba(0,0,0,.6);transition:transform .15s}
+.got-bn.sk{color:#e3eeea;background:linear-gradient(120deg,#2f4642 0%,#1c2a28 55%,#0e1514 100%);box-shadow:inset 0 0 0 1px rgba(185,203,197,.45),0 6px 20px -10px rgba(0,0,0,.6)}
+.got-bn:hover{transform:translateY(-1px)}
+.got-bn .gb-ic{flex:none;font-size:1.5rem;line-height:1;color:#e8c574}
+.got-bn b{display:block;font-family:var(--f-got);font-weight:700;font-size:1rem;letter-spacing:.02em;line-height:1.2}
+.got-bn small{font-size:.82rem;opacity:.85}
+.got-bn .gb-play{flex:none;display:grid;place-items:center;width:38px;height:38px;margin-left:auto;border-radius:50%;font-size:.9rem;color:#191414;background:#e8c574}
+.got-bn.sk .gb-play{background:#cfe3dc}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1379,14 +1482,14 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 </div></section>
 <section class="hall" id="hall-sackos"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">Hall of Shame</span><h2>Sacko winners</h2>
-  <p>Every last-place finish since 2016, with the season that earned it.</p></div>
-  <div class="champs" id="sackoList"></div>
+  <p>Every Sacko since 2016, each on its own throne. Tap a toilet for that season's walk of shame.</p></div>
+  <div class="loos" id="sackoList"></div>
 </div></section>
 
 <section class="hall" id="hall-champions"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">Hall of Champions</span><h2>League champions</h2>
-  <p>Title rosters and the trades or pickups that got them over the line.</p></div>
-  <div class="champs" id="champList"></div>
+  <p>Every crown since 2016. Tap a plaque for the story of that title run, told the Game of Thrones way.</p></div>
+  <div class="plaques" id="champList"></div>
 </div></section>
 </main>
 
@@ -1451,6 +1554,7 @@ const PLAYOFFS = /*PLAYOFFS*/;
 const RECW = /*RECORDS*/;
 const STORIES = /*STORIES*/;
 const RIVALS = /*RIVALS*/;
+const THRONES = /*THRONES*/;
 const RANK = /*RANKINGS*/;
 
 const HISTORY = {
@@ -1495,7 +1599,7 @@ const CHAMP_STORY = {
   2020:"Back-to-back. Charles sent Cooper Kupp and James Conner to Kyle for Tyreek Hill, then bought Kupp back three days later for Diontae Johnson and Daniel Jones. He added Aaron Rodgers for Myles Gaskin and picked up Gronk for Leonard Fournette in November.",
   2021:"#dicksoutfor Dolan made the season's biggest blockbuster, sending Aaron Jones and Tyreek Hill to Kyle for Nick Chubb, Stefon Diggs and Mike Evans. In December Squirm flipped Chubb and Diggs to El Floof for Ezekiel Elliott, Mark Ingram and Chris Godwin, and rode that roster to the title.",
   2022:"Charles made 15 trades, sent Kamara, Keenan Allen, Kareem Hunt and Brian Robinson to Jordan for Justin Jefferson and Jamaal Williams, and in November paid four players to the New York Noses for Tyreek Hill. He won a third title.",
-  2023:"Kyle went 11-2 and traded his way through the whole autumn. The full build is below.",
+  2023:"Kyle went 11-2 and traded his way through the whole autumn.",
   2024:"Sultans of Squirm won the title in only their second season. Dylan made one trade on record, and it was the right one: Brian Robinson Jr. to Kyle for Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr.",
   2025:"A third title from a 7-6 record. Kyle bought De'Von Achane in week one for Javonte Williams and Jameson Williams, cycled through Kenneth Walker III and Terry McLaurin, took Dak Prescott and Alvin Kamara from THE CENTER, and closed in late November by landing Jaylen Waddle from Quincy's Drake Maye's Aura. Quincy finished with the Sacko."
 };
@@ -1511,8 +1615,6 @@ const SACKO_STORY = {
   2024:"Lucas's second Sacko, this time as Lucas's Loud Team at 5-8. No trades on record, and a roster built on Matthew Stafford, Joe Mixon and Garrett Wilson.",
   2025:"A winning record (7-6) and still the Sacko. Quincy's one trade on record sent Jaylen Waddle to Kyle, who went on to win the title."
 };
-function seasonLine(o,y){const r=S[o]?.seasons?.[y];if(!r)return "";const st=standings(y);const byPts=st.slice().sort((a,b)=>(b.pts||0)-(a.pts||0));const pr=byPts.findIndex(x=>x.o===o)+1;
-  return `<div class="facts"><div class="fact"><span class="eyebrow">Record</span><b>${r.w}-${r.l}</b></div>${r.pts?`<div class="fact"><span class="eyebrow">Points scored</span><b>${fmt(r.pts)}</b></div><div class="fact"><span class="eyebrow">Points rank</span><b>${pr} of ${st.length}</b></div>`:""}</div>`}
 const CHAMP_DETAIL = {
   2016:{roster:[["QB","Andrew Luck"],["RB","David Johnson"],["RB","LeGarrette Blount"],["WR","Jordy Nelson"],["WR","T.Y. Hilton"],["TE","Travis Kelce"],["FLX","Bilal Powell"],["D/ST","Ravens"],["K","Matt Prater"]],
         rosterNote:"Starting lineup in the two-week final, won 242 to 190 over Charles (170 in week 16, 72 in week 17)."},
@@ -2259,7 +2361,7 @@ function renderSeasonDetail(){
   } else body=`<div class="trades-list">${tr.slice().reverse().map(t=>tradeHTML(t,tradeScore(t))).join("")||`<p class="muted">No trades on record for ${y}.</p>`}</div>`;
   const story=STORIES[o]?.[y];
   $("#seasonDetail").innerHTML=`<div id="wrBanner"></div>${story?`<div class="story"><div class="eyebrow">How ${y} went</div><p>${esc(story)}</p></div>`:""}<div class="facts">${fact("Team",nm?esc([...nm].join(" / ")):(R?.team?esc(R.team):"–"))}${fact("Record",r?`${r.w}-${r.l}`:"–")}${fact("Points",r?fmt(r.pts):"–")}${fact("Finish",finish)}${espn?fact("Pickups",pk.length):""}${fact("Trades",tr.filter(t=>t.st==="completed").length)}</div>
-   ${CHAMP_DETAIL[y]&&CHAMPS[y]?.o===o?`<div class="note">Title season. See the <a href="#champions">Hall of Champions</a> for the full roster.</div>`:""}
+   ${CHAMPS[y]?.o===o?`<button type="button" class="got-bn" data-gc="${y}"><span class="gb-ic" aria-hidden="true">♛</span><span><b>The ${y} title saga</b><small>${esc(GOT.title(y))}, told the Game of Thrones way</small></span><span class="gb-play" aria-hidden="true">▶</span></button>`:SACKOS[y]?.o===o?`<button type="button" class="got-bn sk" data-gs="${y}"><span class="gb-ic" aria-hidden="true">🚽</span><span><b>The ${y} walk of shame</b><small>${esc(GOT.title(y,1))}, told the Game of Thrones way</small></span><span class="gb-play" aria-hidden="true">▶</span></button>`:""}
    <div class="seg" role="group" aria-label="Show">${[["roster","Roster"],["pickups","Waiver pickups"],["trades","Trades"]].map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${k===teamView}">${l}</button>`).join("")}</div>
    ${body}`;
   $("#seasonDetail .seg").onclick=e=>{const b=e.target.closest("[data-v]");if(!b)return;teamView=b.dataset.v;renderSeasonDetail()};
@@ -3226,6 +3328,8 @@ const POSTER=(o,c="#3a1730",ti=0,sk=0)=>SKY(c,"#06040b")+RAYS(150,-10,"#fff",20,
   +[...Array(ti)].map((_,i)=>TROPHY(24+i*31,172,.85)).join("")+[...Array(sk)].map((_,i)=>TOILET(276-i*29,176,.8)).join("");
 const CAREER={...CA,...CB,...CC};
 function art(fn){D="";const body=fn()+VIGN();return `<svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>${D}</defs>${body}</svg>`}
+// the same with any viewBox and an optional vignette (the Champions plaques and Sacko toilets)
+function svg(fn,vb,vg){D="";const body=fn()+(vg?VIGN():"");return `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs>${D}</defs>${body}</svg>`}
 // one story: poster, a slide per scene, the career summary, then the Marvel match
 function build(o){const K=CAREER[o];if(!K)return [];const tot=totals(o)||{w:0,l:0,pct:0,seasons:0,titles:0,sackos:0},nm=esc(short(o)),out=[],c0=K.scenes[0]?.c||"#3a1730";
   const ti=tot.titles||0,sk=tot.sackos||0;
@@ -3236,7 +3340,8 @@ function build(o){const K=CAREER[o];if(!K)return [];const tot=totals(o)||{w:0,l:
   const [mn,mt,mw]=K.marvel;
   out.push({c:"cs-marvel",html:`<div class="wr-k">And in the Marvel universe, ${nm} is...</div><div class="cs-art cs-mv-art">${art(MVA[o]||(()=>""))}</div><div class="cs-mv-name">${esc(mn)}</div><span class="cs-mv-tag">${esc(mt)}</span><p class="wr-t">${esc(mw)}</p>`});
   return out}
-return {CAREER,build};
+// the art kit is shared with the Game of Thrones title stories and Sacko walks of shame (GOT, below)
+return {CAREER,build,art,svg,kit:{q,R,C,E,P,L,T,TL,G,tr,rng,LG,RG,fx,F,HW,BD,ARM,HAT,HAT2,CH,GH,SHADES,TROPHY,TOILET,BALL,SIGN,BUB,STARS,RAYS,SKY,FLOOR,SPOT,SNOW,CONF,VIGN,TABLE,CHICK,CARD,STAMP,BURST,CLIP,CLIPP,STAR,CAPE}};
 })();
 const CS_TEAMS={"charles":{"2018":"The Sal Claps On Planes","2019":"Sal's 12 Chickens","2020":"Sal's 34 Chickens","2021":"Sal's 12 Chickens","2022":"Sal's 12 Chickens","2024":"Christian Crusaders","2025":"Sal's Chickens","2026":"Sal's 4 Chickens","2016":"NY Lorenzos","2017":"Little Bills"},"fluff":{"2018":"Team Duffy","2019":"Oh My BJ","2020":"El Floof","2021":"El Floof","2022":"El Floof","2023":"Floof","2025":"SQUIRMS JUGZ 🍼","2026":"SQUIRMYS SLUTZS","2016":"Team Duffy","2017":"Duane Bernard Jr"},"dilapi":{"2018":"New York Noses","2019":"New York Noses","2020":"New York Noses","2021":"New York Noses","2022":"New York Noses","2023":"New York Noses","2024":"New York Noses","2025":"New York Noses","2026":"New York Noses","2016":"Brklyn Noses","2017":"The Brooklyn Noses"},"squirm":{"2018":"Team Woram","2019":"#dicksoutfor Dolan","2020":"#dicksoutfor Dolan","2021":"#dicksoutfor Dolan","2022":"#dicksoutfor Dolan","2023":"The Feds","2024":"#dicksoutfor Dolan","2025":"#dicksoutfor Dolan","2026":"#dicksoutfor Dolan","2016":"The Hot Mikes","2017":"Squirm"},"quincy":{"2018":"Team Quincy","2019":"Team Quincy","2020":"Team Quincy","2021":"The Hospital FÜĆKCMC","2022":"Free Ime Idoka","2023":"Team Curran","2024":"Jayson Tatums Aura","2025":"Drake Maye's Aura","2026":"Quincy Jonesin' for a TD"},"kyle":{"2018":"Dilapi aint Makingthe yoffs","2019":"Bittersweet Distract0rs","2020":"Bittersweet Distract0rs","2021":"The Monglers","2022":"THE MONGLERS","2023":"THE MNGLRS","2024":"THE MONGLERS","2025":"THE MONGLERS","2026":"THE MONGLERS","2016":"The Salty Andres","2017":"NYC Klugeys"},"peanut":{"2018":"Hempstead Cummings","2019":"The Yogurtlechefts","2020":"Pirate King","2021":"The Bengali Bhavi Bangalore","2022":"Shivakamini Somakandarkram","2023":"Dr. Kakofonus A. Dischord","2025":"THE LAND DOWN UNDER","2016":"Triggered Antonoccis","2017":"Team Peanus"},"lucas":{"2018":"Staten Island Salvatores","2019":"SAL SAL SAL SAL","2020":"Los Stogies","2021":"Los Stogies","2023":"Team Pace","2024":"Lucas's Loud Team","2025":"Lucas' Loud Team","2026":"Student Ath-o-letes","2016":"Patcher's","2017":"The 718 Pahtinis"},"skelly":{"2019":"Team Kelly","2020":"Team Kelly","2021":"Team Kelly"},"mateus":{"2019":"Team Toppin"},"jordan":{"2020":"Let Dalvin Cook","2021":"Bishop Sycamore JV","2022":"Jerry Jewdys","2024":"Galaxy Liberators","2025":"Galaxy Liberators","2026":"Galaxy Liberators"},"rod":{"2022":"RodFather","2023":"MisoTrillerBoy","2024":"Team Rod","2026":"2girls 1Kupp","2017":"The Dominican DS"},"jerry":{"2022":"Chicago Tïttysquashers","2023":"The Encino Men","2024":"The Encino Men","2026":"Chicago Tiddysquashers"},"dylan":{"2023":"Sultans of Squirm","2024":"Sultans of Squirm","2025":"Sultans of Squirm","2026":"Sultans of Squirm"},"ghost":{"2026":"Vick's Vet Clinic"},"duane":{"2016":"Emmustangs"},"vicente":{"2017":"Quleefie Beefies"},"keeves":{"2017":"Patrick"}};
 function csTeam(o,y){if(CS_TEAMS[o]?.[y])return CS_TEAMS[o][y];const m=teamNames(o)[y];if(m&&m.size)return [...m][0];const d=DRAFTS[y]?.teams?.find(t=>t[1]===o);return d?d[0]:""}
@@ -3328,35 +3433,416 @@ function renderTrades(){
   $("#vetoList").innerHTML=TR.filter(t=>t.st==="vetoed").reverse().map(t=>tradeHTML(t)).join("")+MANUAL_VETOES.map(v=>`<article class="trade"><div class="trade-top"><span>${v.y} season</span><span class="tag veto">Vetoed</span></div><p style="margin:0">${esc(v.text)} <span class="muted">Player details not on file.</span></p></article>`).join("");
 }
 
-/* ---------- CHAMPIONS ---------- */
-function renderChamps(){
-  const counts=Object.keys(S).filter(o=>S[o].titles).map(o=>`${short(o)} ${S[o].titles}`).join(", ");
-  $("#champList").innerHTML=ALL_YEARS.slice().reverse().map(y=>{const c=CHAMPS[y],d=CHAMP_DETAIL[y];
-    if(!c&&y===2026)return `<article class="champ tbd"><div class="yr">${y}</div><div><h3 class="muted">Season in progress</h3><p class="muted" style="margin:6px 0 0;font-size:.95rem">Commissioner ${esc(commish(y))}. The crown is up for grabs.</p></div></article>`;
-    if(!c)return `<article class="champ tbd"><div class="yr">${y}</div><div><h3 class="muted">Champion to confirm</h3><p class="muted" style="margin:6px 0 0;font-size:.95rem">The stats sheet has title counts (${esc(counts)}) but not the year of each one.</p></div></article>`;
-    return `<article class="champ won"><div class="champ-top"><div class="champ-photo">${cutout(c.o)}<div class="yr">${y}</div></div><div class="champ-head">
-      <div><span class="eyebrow">♛ ${y} Champion</span><h2>${esc(c.team)}</h2><span class="muted">${esc(OWNERS[c.o].name)}</span></div>
-      ${seasonLine(c.o,y)}
-      ${CHAMP_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(CHAMP_STORY[y])}</p>`:""}</div></div><div class="champ-body">
-      ${!d?builtHTML(y,{}):""}${d?`<div><div class="eyebrow">Title roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${pn(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>
-      ${builtHTML(y,d)}`:`<p class="muted" style="margin:0">No roster on file yet.</p>`}
-    </div></article>`}).join("");
-}
+/* ---------- CHAMPIONS AND SACKOS (Kyle 2026-11-18) ----------
+   The Champions tab is a stone wall of plaques (photo, name, team, record, points). Each plaque plays that title season as a
+   Game of Thrones story. The Sackos tab is a bathroom wall of toilets, with the punishment photo on the lid when there is one,
+   and each toilet plays that season's walk of shame. Both run in the career-story player (openCareer) and draw with its art kit
+   (CS.kit). Week-by-week facts come from THRONES (src/thrones.py); the words for each season are in GOT_C and GOT_S below.
+   Facts only from the data, memory or Kyle. When a season ends: add it to CHAMPS and SACKOS, run src/thrones.py, then write
+   its GOT_C and GOT_S entries (a season with no entry still gets a story built from the data). */
+// the punishment each Sacko loser served at the next draft (Kyle 2026-11-18). Add a year when Kyle gives it.
+// ph: [photo, caption, optional crop position]. lid: the photo on that year's toilet lid, [image, crop left, crop top, crop width, image width, image height] in pixels
+const SACKO_PUNISH={
+  2020:{x:"Sticker bitch at the 2021 draft, dressed as Wonder Woman: DiLapi put every pick on the board himself.",ph:[["img/draft-2021-wonder-woman1.jpg","DiLapi as Wonder Woman, sticker bitch at the 2021 draft.","0% 30%"],["img/draft-2021-wonder-woman2.jpg","DiLapi, still Wonder Woman, on a break from sticker duty."]],
+    lid:["img/draft-2021-wonder-woman1.jpg",80,96,370,1024,768]},
+  2021:{x:"Lucas sat out 2022 in London, so the punishment waited for him: he showed up to the 2023 draft in zebra ears and a tutu and presented the board in costume.",ph:[["img/draft-2023-board1.jpg","Lucas in his Sacko punishment costume at the 2023 draft.","96% 20%"],["img/draft-2023-tutu.jpg","Lucas in the tutu and zebra ears at the 2023 draft."]],
+    lid:["img/draft-2023-board1.jpg",520,110,484,1024,768]}};
+const GOT=(()=>{
+const {q,R,C,E,P,L,T,G,tr,rng,LG,RG,F,HW,BD,ARM,HAT2,CH,GH,TOILET,STARS,RAYS,SKY,FLOOR,SPOT,SNOW,CONF,TABLE,BURST,CLIPP,STAR,BUB}=CS.kit;
+const art=(fn,vb,vg)=>vb?CS.svg(fn,vb,vg):CS.art(fn);
+const RN=["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI","XVII","XVIII","XIX","XX"];
+const NTH=["","First","Second","Third","Fourth","Fifth","Sixth"];
+const ord=n=>n+(n%100>10&&n%100<14?"th":["th","st","nd","rd"][n%10]||"th");
+const f1=v=>v==null?"?":(Math.round(v*10)/10).toFixed(1);
+const nthTitle=(o,y)=>Object.keys(CHAMPS).filter(k=>+k<=y&&CHAMPS[k].o===o).length;
+const nthSacko=(o,y)=>Object.keys(SACKOS).filter(k=>+k<=y&&SACKOS[k].o===o).length;
+const ptsRank=(o,y)=>{const st=standings(y);if(!st.length||st.some(r=>r.pts==null))return null;return st.slice().sort((a,b)=>b.pts-a.pts).findIndex(r=>r.o===o)+1};
+const recS=r=>r?`${r.w}-${r.l}${r.est?" est.":""}`:"–";
+// every house that shows up in a story: sigil, field colour, sigil colour. Champions also get a house name and words.
+const SG={kyle:["ladder","#17171c","#e8c574"],charles:["chicken","#7a1520","#f2c230"],fluff:["kraken","#173038","#d9b45a"],squirm:["wyrm","#1c3f6e","#e9eef3"],
+  dylan:["sun","#9c4416","#ffd27a"],duane:["shoe","#4a1f1f","#e8c574"],lucas:["cigar","#3b2a1a","#f0a35e"],quincy:["spark","#26265a","#ffe680"],
+  peanut:["nut","#4a3420","#e8c08a"],dilapi:["nose","#22324f","#f1c7a6"],jerry:["club","#3d2b1f","#d9b38c"],rod:["rose","#1f3a2a","#e0475e"],
+  skelly:["skull","#2b2b2b","#e9e4d8"],mateus:["bolt","#1b2a4a","#7fd3ff"],jordan:["star","#1a1840","#c9b6ff"],vicente:["star","#1d2b4a","#e8c574"],keeves:["skull","#333","#ddd"],ghost:["skull","#222","#ccc"]};
+const HOUSE={duane:["House Bernard","One Season, One Crown"],kyle:["House Klugewicz","Chaos Is a Ladder"],fluff:["House Duffy","What Is Sacko'd May Never Die"],
+  charles:["House Lorenzo","Hear Me Cluck"],squirm:["House Woram","Family, Duty, Honor"],dylan:["House Olivieri","Unbowed, Unbent, Unbroken"]};
+const fld=o=>(SG[o]||[])[1]||"#2b2f36",chg=o=>(SG[o]||[])[2]||"#e8c574";
 
-const finS=f=>f?`${f[0]}${f[1]}`:"";
-const rdS=r=>`round ${r}`;
-function builtHTML(y,d){const b=MV.champBuilt[y];if(!b)return "";const li=[];
-  if(b.draft.length)li.push(`<b>Draft:</b> ${b.draft.map(p=>`${pn(p.n)} (${rdS(p.rd)}, finished ${finS(p.fin)})`).join(", ")}.`);
-  if(!b.trades.length&&(MV.seasons[y]!=="rebuilt"||y>=2018))li.push(`<b>Trades:</b> none that paid off.`);
-  if(b.pickups.length)li.push(`<b>Pickups:</b> ${b.pickups.map(p=>`${pn(p.n)} (${p.pos}, week ${p.w}, ${fmt(p.pts)} lineup pts)`).join(", ")}.`);
-  else if(y<2018)li.push(`<b>Pickups:</b> no waiver records for ${y}.`);
-  const extra=d&&d.moves&&y<2018?d.moves.filter(m=>!/not on file/.test(m)):[];
-  return `<div><div class="eyebrow">How it was built</div><ul style="margin:6px 0 0;padding-left:1.1em;display:grid;gap:4px">${li.map(x=>`<li>${x}</li>`).join("")}${extra.map(m=>`<li>${esc(m)}</li>`).join("")}</ul>${b.trades.length?`<div class="eyebrow" style="margin-top:10px">Key trades <span class="muted" style="text-transform:none;letter-spacing:0">· wins added the rest of that season</span></div><div class="tboxes">${b.trades.map(t=>tradeBox(t.id,CHAMPS[y].o)).join("")}</div>`:""}</div>`}
-function sackoNote(y){const n=MV.sackoNotes[y];if(!n||(!n.draft.length&&!n.trades.length))return "";const bits=[];
-  if(n.draft.length)bits.push(`Drafted ${n.draft.map(p=>`${pn(p.n)} in ${rdS(p.rd)} (finished ${finS(p.fin)})`).join(" and ")}.`);
-  if(n.trades.length)bits.push(`And ${n.trades.length===1?"a trade that backfired":"trades that backfired"}:`);
-  return `<div><p style="margin:0;max-width:65ch;font-size:.95rem"><span class="eyebrow" style="margin-right:6px">What went wrong</span>${bits.join(" ")}</p>${n.trades.length?`<div class="tboxes">${n.trades.map(t=>tradeBox(t.id,SACKOS[y].o)).join("")}</div>`:""}</div>`}
+/* ---- art: sigils, banners, castles, thrones, ravens, hosts (300 x 200 scenes) ---- */
+function SIG(o,x,y,s,col,bg){const k=(SG[o]||["star"])[0];col=col||chg(o);bg=bg||fld(o);
+  const sk=(d,w,c=col)=>P(d,"none",`stroke="${c}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"`);let g;
+  switch(k){
+  case "ladder":g=sk("M-9 -19V19M9 -19V19",3.6)+sk("M-9 -11H9M-9 -2H9M-9 7H9M-9 16H9",2.8);break;
+  case "chicken":g=E(-2,5,13,10,col)+C(9,-8,6.5,col)+P("M15 -9l6 2-6 2z",col)+P("M4 -14q1-6 4-3q2-5 4 0q3-3 3 2z",col)+P("M-14 2q-8-10-4-14q2 6 6 8z",col)+P("M-12 -2q-9-4-8-12q4 6 9 7z",col)+sk("M-3 14v6M3 14v6",2.4)+C(10.5,-9,1.3,bg);break;
+  case "kraken":g=E(0,-9,10,11,col)+C(-4,-9,2,bg)+C(4,-9,2,bg)+[-12,-7,-2,2,7,12].map((d,i)=>sk(`M${q(d*.6)} 0Q${q(d*1.4)} ${8+i%2*3} ${q(d*1.1)} 13Q${q(d*.7)} 20 ${q(d*1.5)} 19`,2.8)).join("");break;
+  case "wyrm":g=sk("M-13 17C-22 6 -2 4 -2 -3C-2 -11 12 -13 12 -5",5.5)+P("M10 -10l9 3-7 6z",col)+C(13,-6,1.2,bg);break;
+  case "sun":g=[...Array(12)].map((_,i)=>{const a=i*Math.PI/6;return P(`M${q(Math.cos(a-.2)*10)} ${q(Math.sin(a-.2)*10)}L${q(Math.cos(a)*19)} ${q(Math.sin(a)*19)}L${q(Math.cos(a+.2)*10)} ${q(Math.sin(a+.2)*10)}Z`,col)}).join("")+C(0,0,10,col)+L(-19,19,15,-15,bg,4.4)+L(-19,19,15,-15,col,2)+P("M12 -18l9 -3-3 9z",col);break;
+  case "shoe":g=sk("M-11 17V-1A11 11 0 0 1 11 -1V17",7)+[[-11,4],[-11,12],[11,4],[11,12],[-7,-8],[7,-8]].map(([a,b])=>C(a,b,1.3,bg)).join("");break;
+  case "cigar":g=G(R(-17,-4.5,30,9,col,'rx="4.5"')+R(4,-4.5,4,9,bg,'opacity=".55"')+C(14.5,0,3.6,"#e2572b"),'transform="rotate(-28)"')+sk("M15 -13q-4-4 0-8q4-4 0-8",1.6);break;
+  case "spark":g=P("M0 -19Q2 -2 19 0Q2 2 0 19Q-2 2 -19 0Q-2 -2 0 -19Z",col)+P("M13 -17Q14 -12 18 -11Q14 -10 13 -5Q12 -10 8 -11Q12 -12 13 -17Z",col)+P("M-13 9Q-12 13 -9 14Q-12 15 -13 19Q-14 15 -17 14Q-14 13 -13 9Z",col);break;
+  case "nut":g=P("M0 -19C9 -19 11 -11 7 -3C5 1 9 5 9 10C9 17 4 20 0 20C-4 20 -9 17 -9 10C-9 5 -5 1 -7 -3C-11 -11 -9 -19 0 -19Z",col)+[[-3,-11],[3,-8],[-4,8],[3,12],[0,2]].map(([a,b])=>C(a,b,1.1,bg,'opacity=".6"')).join("");break;
+  case "nose":g=P("M-3 -19C-3 -8 -6 0 -11 6C-15 11 -12 17 -6 17C-4 19 4 19 6 17C12 17 15 11 11 6C6 0 3 -8 3 -19Z",col)+E(-5,12,3,2,bg)+E(5,12,3,2,bg);break;
+  case "club":g=P("M-3 20L-5 0C-13 -4 -13 -16 -4 -19C6 -22 12 -12 6 -3L3 20Z",col)+C(-4,-10,1.6,bg)+C(3,-14,1.4,bg)+C(2,-6,1.2,bg);break;
+  case "rose":g=sk("M0 2V20",2.4)+P("M0 12q8-6 10 0q-6 4-10 0z",col)+C(0,-7,10,col)+sk("M-4 -8q4-6 8 0q-2 6-6 3",1.4,bg);break;
+  case "skull":g=C(0,-4,13,col)+R(-7,5,14,10,col,'rx="3"')+C(-5,-4,3.6,bg)+C(5,-4,3.6,bg)+P("M0 2l-2.4 4h4.8z",bg)+L(-3,10,-3,15,bg,1.2)+L(0,10,0,15,bg,1.2)+L(3,10,3,15,bg,1.2);break;
+  case "bolt":g=P("M5 -20L-10 2H-1L-6 20L11 -4H2L7 -20Z",col);break;
+  default:g=STAR(0,0,18,col)}
+  return G(g,tr(x,y,0,s/40))}
+// a hanging house banner, top-left corner at (x,y)
+const BAN=(o,x,y,w,h,r=0)=>G(L(-3,0,w+3,0,"#3a2a18",2.4)+P(`M0 0H${w}V${h}L${q(w/2)} ${q(h-w*.32)}L0 ${h}Z`,fld(o),`stroke="${chg(o)}" stroke-width=".8" stroke-opacity=".55"`)+SIG(o,w/2,h*.42,w*.78),tr(x,y,r));
+const CRN=(x1,x2,y,col,s=5)=>{let r="";for(let x=x1;x<x2-1;x+=s*2)r+=R(x,y-s,s,s+.5,col);return r};
+const CASTLE=(x,y,s=1,col="#1c1f26",win="#f6c25b")=>{const t=(a,b,w)=>R(a,b,w,-b+1,col)+CRN(a,a+w,b,col,w/7);
+  return G(R(-62,-46,124,47,col)+CRN(-62,62,-46,col,5)+t(-74,-82,24)+t(50,-82,24)+t(-16,-112,32)+P("M-10 1V-18A10 10 0 0 1 10 -18V1Z","#07080b")
+    +[[-64,-66],[60,-66],[-6,-96],[3,-96],[-40,-32],[32,-32]].map(([a,b])=>R(a,b,4,7,win,'rx="2" opacity=".85"')).join(""),tr(x,y,0,s))};
+const FLAME=(x,y,s=1)=>G(C(0,-5,20,RG(["#f59e0b@.35","#f59e0b@0"]))+R(-1.6,0,3.2,14,"#4a3020")+P("M0 -15Q7 -6 4 0Q0 3 -4 0Q-7 -6 0 -15Z","#f59e0b")+P("M0 -9Q3 -4 2 0Q0 1 -2 0Q-3 -4 0 -9Z","#fde68a"),tr(x,y,0,s));
+const RAVEN=(x,y,s=1,flip)=>G(P("M-14 0Q-4 -6 8 -3L15 -6L13 -1Q16 1 12 3Q2 6 -8 4L-18 8L-15 3Z","#111")+P("M-4 -3Q2 -22 14 -26Q8 -12 4 -2Z","#1b1b1b")+P("M-6 -2Q-14 -18 -26 -20Q-18 -8 -10 0Z","#161616")+C(9,-3,1.1,"#ddd")+R(-2,3,7,4,"#efe2bd",'rx="1"')+C(5,5,1.6,"#b3261e"),`transform="translate(${q(x)} ${q(y)}) scale(${flip?-s:s} ${s})"`);
+const SWORD=(x,y,len,ang,col="#d5dbe3")=>G(P(`M-1.6 0H1.6L1 ${q(-len)}L0 ${q(-len-5)}L-1 ${q(-len)}Z`,col,'stroke="#6b7280" stroke-width=".4"')+R(-6,0,12,2.4,"#8a6a12")+R(-1.3,2.4,2.6,8,"#4a2f17")+C(0,11.5,1.8,"#8a6a12"),tr(x,y,ang));
+const PLUNGER=(x,y,s=1,r=0)=>G(R(-1.6,-34,3.2,34,"#b9895a",'rx="1.4"')+P("M-9 -33Q0 -47 9 -33Z","#b3261e",'stroke="#6e130e" stroke-width=".8"'),tr(x,y,r,s));
+const BELL=(x,y,s=1,r=-22)=>G(R(-1.3,-20,2.6,8,"#5a3a1a")+P("M-7 0Q-7 -12 0 -13Q7 -12 7 0L9 3H-9Z","#d4a937",'stroke="#8a6a12" stroke-width=".8"')+C(0,4.5,2,"#8a6a12")+P("M12 -12q4 4 0 8M15 -15q6 7 0 14","none",'stroke="#fff" stroke-width="1" opacity=".7"'),tr(x,y,r,s));
+const CAPE2=(x,y,h,col)=>P(`M${q(x-h*.5)} ${q(y+h*.4)}Q${q(x-h*.95)} ${q(y+h*1.7)} ${q(x-h*1.15)} ${q(y+h*2.9)}H${q(x+h*1.15)}Q${q(x+h*.95)} ${q(y+h*1.7)} ${q(x+h*.5)} ${q(y+h*.4)}Z`,col);
+// a leader in armour with a cape and a raised sword, facing dir (1 right, -1 left). No owner: a helmet with a question mark.
+const KNIGHT=(o,x,y,h,dir=1)=>CAPE2(x,y,h,o?fld(o):"#3a3a3a")+BD(x,y,h,"#5d646f","tee",{w:1.05,len:2.8})+E(x-h*.78,y+h*.62,h*.34,h*.2,"#7d8591")+E(x+h*.78,y+h*.62,h*.34,h*.2,"#7d8591")+L(x,y+h*.62,x,y+h*2.6,"rgba(0,0,0,.25)",h/18)
+  +(o?F(o,x,y,h,{flip:dir<0?1:0}):G(P(`M${q(-h*.48)} ${q(h*.45)}V${q(-h*.1)}Q${q(-h*.48)} ${q(-h*.6)} 0 ${q(-h*.6)}Q${q(h*.48)} ${q(-h*.6)} ${q(h*.48)} ${q(-h*.1)}V${q(h*.45)}Z`,"#4b515b",'stroke="#2a2e35" stroke-width="1"')+R(-h*.36,-h*.08,h*.72,h*.1,"#111")+T(0,h*.36,"?",h*.42,"#e8c574",'font-weight="800"'),tr(x,y)))
+  +ARM(x+dir*h*.74,y+h*.92,x+dir*h*1.3,y+h*.5,"#5d646f",h,"#7d8591",.9)+SWORD(x+dir*h*1.3,y+h*.5,h*1.7,dir*32);
+// rows of soldiers with spears, front rank at (x,y), marching toward dir
+const HOST=(x,y,dir,col,seed)=>{const r=rng(seed);let s="";
+  for(let k=2;k>=0;k--)for(let i=0;i<7;i++){const sx=x+dir*(i*11+k*6+r()*3),sy=y-k*9,c=k?"#3a3f47":"#5a616c";
+    s+=L(sx+dir*4,sy-26,sx+dir*4,sy+1,"#7a6a4a",1)+P(`M${q(sx+dir*4-1.6)} ${q(sy-26)}L${q(sx+dir*4)} ${q(sy-31)}L${q(sx+dir*4+1.6)} ${q(sy-26)}Z`,"#c9ced6")
+      +R(sx-3.6,sy-11,7.2,11,col,`opacity="${q(k?.55+.15*(2-k):1)}"`)+C(sx,sy-13.5,3.4,c)}
+  return s};
+// the Iron Throne: blades fanned behind a seat. Draw back, then the sitter, then front.
+const IRON=(x,y,s=1)=>{const r=rng(31);let b="";
+  for(let i=0;i<30;i++){const a=-80+i*160/29+(r()-.5)*6,len=58+r()*46+(Math.abs(a)<30?16:0),w=3.2+r()*2;
+    b+=G(P(`M${q(-w/2)} 0L${q(w/2)} 0L${q(w*.32)} ${q(-len)}L0 ${q(-len-6)}L${q(-w*.32)} ${q(-len)}Z`,i%3?"#4d535d":"#646b77",'stroke="#16181c" stroke-width=".5"')+R(-w*1.7,-6,w*3.4,2.6,"#2b2f36"),`transform="translate(0 -70) rotate(${q(a)})"`)}
+  const arm=d=>G(P("M0 0H40L46 -3L40 -6H0Z","#5a606a",'stroke="#16181c" stroke-width=".5"')+P("M0 5H38L44 2L38 -1H0Z","#4d535d",'stroke="#16181c" stroke-width=".5"'),`transform="translate(${d*30} -58) scale(${d} 1)"`);
+  return {back:G(P("M-46 -30C-60 -70 -40 -124 0 -128C40 -124 60 -70 46 -30Z","#24272d")+b+R(-26,-120,52,64,"#30343b",'rx="4"')+[...Array(7)].map((_,i)=>L(-20+i*6.6,-114,-20+i*6.6,-60,"#1e2126",1.6)).join(""),tr(x,y,0,s)),
+    front:G(R(-36,-60,72,7,"#4a4f58")+R(-34,-54,68,32,"#30343b")+arm(-1)+arm(1)+R(-50,-24,100,9,"#3c4048")+R(-62,-16,124,9,"#33373e")+R(-74,-8,148,9,"#2a2d33"),tr(x,y,0,s))}};
+// the Porcelain Throne: a gilded toilet with plungers fanned behind it
+const PORC=(x,y,s=1)=>{const r=rng(17);let b="";
+  for(let i=0;i<15;i++){const a=-72+i*144/14+(r()-.5)*5,len=58+r()*34;b+=G(PLUNGER(0,0,len/34),`transform="translate(0 -70) rotate(${q(a)})"`)}
+  return {back:G(b+R(-32,-100,64,44,LG(["#ffffff","#dfe5e9"]),'rx="7" stroke="#aab4ba" stroke-width="1.2"')+R(-35,-104,70,9,"#f2f5f7",'rx="4" stroke="#aab4ba" stroke-width="1"')+R(-27,-90,10,3,"#c9a33a",'rx="1.5"'),tr(x,y,0,s)),
+    front:G(P("M-38 -54Q-38 -22 -15 -14L-13 0H13L15 -14Q38 -22 38 -54Z",LG(["#ffffff","#e3e9ec","#c6cfd4"],1),'stroke="#9aa6ad" stroke-width="1.2"')+E(0,-54,40,9,"#fbfcfc",'stroke="#9aa6ad" stroke-width="1.2"')+E(0,-54,40,9,"none",'stroke="#d4a937" stroke-width="1.6"')+R(-18,-2,36,5,"#d4a937",'rx="2"')+P("M-30 -46Q-28 -30 -16 -22","none",'stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".8"'),tr(x,y,0,s))}};
+// a crown made of a toilet-paper roll
+const TPC=(o,x,y,h)=>{const w=HW(o,h),t=y-h*.5;return R(x-w*.34,t-h*.36,w*.68,h*.42,"#fafafa",'stroke="#cfd5d9" stroke-width=".8"')+E(x,t-h*.36,w*.34,h*.08,"#eef1f3",'stroke="#cfd5d9" stroke-width=".8"')+E(x,t-h*.36,w*.12,h*.035,"#b9a27a")+P(`M${q(x+w*.34)} ${q(t-h*.1)}q${q(h*.2)} ${q(h*.2)} ${q(h*.08)} ${q(h*.6)}l${q(-h*.08)} ${q(-h*.02)}q${q(h*.1)} ${q(-h*.36)} ${q(-h*.04)} ${q(-h*.5)}z`,"#f4f4f4",'stroke="#cfd5d9" stroke-width=".6"')};
+// the opening astrolabe: the house sigil (or a toilet) inside turning rings
+const RING=(r,c,n)=>C(150,100,r,"none",`stroke="${c}" stroke-width="2" stroke-opacity=".75"`)+C(150,100,r-5,"none",`stroke="${c}" stroke-width=".8" stroke-opacity=".5"`)+[...Array(n)].map((_,i)=>{const a=i*2*Math.PI/n;return L(150+Math.cos(a)*(r-5),100+Math.sin(a)*(r-5),150+Math.cos(a)*r,100+Math.sin(a)*r,c,1.3,'opacity=".8"')}).join("");
+function ASTRO(o,sk){const c=sk?"#c9d3d8":chg(o),f=sk?"#22302d":fld(o);
+  return SKY(sk?"#1b2523":"#161b25",sk?"#090c0b":"#06080c")+STARS(40,(o||"x").length*5+3,"#fff",0,200)+SPOT(150,100,120,c,.12)
+    +`<g class="ga ga1">${RING(92,c,32)}</g><g class="ga ga2">${RING(74,c,20)}${[0,1,2,3].map(i=>{const a=i*Math.PI/2+.4;return C(150+Math.cos(a)*69,100+Math.sin(a)*69,3,c)}).join("")}</g>`
+    +C(150,100,54,f,`stroke="${c}" stroke-width="2"`)+(sk?G(TOILET(0,24,2.1),tr(150,100)):SIG(o,150,100,66,c,f))}
+// the draft: a great hall with the sticker board, the owner at the table and a few others from that draft
+function HALL(o,y){const r=rng(y),others=(DRAFTS[y]?.teams||[]).map(t=>t[1]).filter(x=>x&&x!==o&&CUT[x]).slice(0,4);let st="";
+  for(let i=0;i<10;i++)for(let j=0;j<6;j++)if(r()<.82-j*.08)st+=R(100+i*10.4,40+j*7.8,9,6,["#e63946","#457b9d","#2a9d8f","#e9c46a","#f4a261","#8d99ae"][Math.floor(r()*6)],'rx=".8"');
+  return SKY("#2b2420","#120e0b")+[...Array(6)].map((_,i)=>L(-20,22+i*24,320,22+i*24,"rgba(0,0,0,.35)",1.2)).join("")
+    +[34,266].map(x=>P(`M${x-14} 92V40A14 14 0 0 1 ${x+14} 40V92Z`,LG(["#3c5a7a","#1b2a3a"]))+L(x,26,x,92,"#2b2420",2)).join("")
+    +BAN(o,62,0,24,44)+BAN(o,214,0,24,44)+FLAME(18,92,.9)+FLAME(282,92,.9)
+    +R(96,28,112,66,"#14213d",'rx="2" stroke="#0a1020" stroke-width="2"')+R(96,28,112,9,"#c0392b")+T(152,35.5,"DRAFT",7,"#fff",'font-weight="800" letter-spacing="2"')+st
+    +others.slice(0,2).map((x,i)=>BD(54+i*24,128,15,"#3a3330","tee",{len:2})+F(x,54+i*24,128,15)).join("")
+    +others.slice(2,4).map((x,i)=>BD(222+i*24,128,15,"#3a3330","tee",{len:2})+F(x,222+i*24,128,15)).join("")
+    +BD(150,112,30,fld(o),"robe",{len:2.4})+F(o,150,112,30,{bob:1})+ARM(150+30*.74,112+30*.92,150+30*1.2,112-30*.25,fld(o),30,"#f4f4f4",.9)+R(150+30*1.2-5,112-30*.25-14,10,7,"#e9c46a",'rx="1"')
+    +R(-20,152,340,10,"#5a3a1f")+R(-20,160,340,50,"#3a2412")+[60,120,180,240].map(x=>R(x-2,140,4,12,"#efe6d0")+P(`M${x} 133q3 4 0 7q-3-3 0-7z`,"#f59e0b")).join("")}
+// the painted table: a parchment map with one token a week, a banner for a win and a black stone for a loss
+function MAPT(reg,o,mark=[]){const r=rng(reg.length*7+3),n=reg.length,pts=reg.map((g,i)=>[28+i*244/Math.max(1,n-1),100+Math.sin(i*.85)*40]);
+  let land="";for(let k=0;k<4;k++){const cx=40+k*75+r()*20,cy=60+r()*80,rr=26+r()*16;let d="";for(let a=0;a<12;a++){const t=a*Math.PI/6,rad=rr*(.7+r()*.5);d+=`${a?"L":"M"}${q(cx+Math.cos(t)*rad*1.3)} ${q(cy+Math.sin(t)*rad)}`}land+=P(d+"Z","#cbb27a",'opacity=".75"')}
+  return R(-20,-20,340,240,"#3a2516")+R(10,12,280,176,LG(["#ecdcb0","#d6bd86"]),'rx="6" stroke="#2a190d" stroke-width="3"')+land
+    +[...Array(9)].map((_,i)=>P(`M${20+i*31} ${30+(i%3)*50}q8-4 16 0`,"none",'stroke="#8a7650" stroke-width=".8" opacity=".5"')).join("")
+    +G(C(0,0,13,"none",'stroke="#6b5532" stroke-width="1"')+P("M0 -15L3 0L0 15L-3 0Z","#6b5532")+P("M-15 0L0 3L15 0L0 -3Z","#6b5532",'opacity=".6"'),tr(268,164))
+    +P("M"+pts.map(p=>`${q(p[0])} ${q(p[1])}`).join("L"),"none",'stroke="#7a2e1f" stroke-width="1.4" stroke-dasharray="3 3" opacity=".7"')
+    +reg.map((g,i)=>{const [x,y]=pts[i],w=g[2]>g[3],m=mark.includes(g[0]);
+      return (w?L(x,y,x,y-18,"#4a2f17",1.3)+P(`M${q(x)} ${q(y-18)}h12l-3 4 3 4h-12z`,fld(o),`stroke="${chg(o)}" stroke-width=".6"`)+C(x,y,2.6,chg(o))
+        :C(x,y+1,5.5,"#1b1b1b",'stroke="#000" stroke-width=".6"')+L(x-2.6,y-1.6,x+2.6,y+3.6,"#c0392b",1.3)+L(x+2.6,y-1.6,x-2.6,y+3.6,"#c0392b",1.3))
+        +(m?T(x+7,y-20,"*",12,"#7a2e1f",'font-weight="900"'):"")}).join("")
+    +T(pts[0][0],pts[0][1]+16,"Wk "+reg[0][0],7,"#4a3418",'font-weight="700"')+T(pts[n-1][0],pts[n-1][1]+16,"Wk "+reg[n-1][0],7,"#4a3418",'font-weight="700"')}
+// a raven flying in with a sealed letter (sealed with the sender's sigil) over the receiver's castle
+const RAVENS=(o,from)=>SKY("#0d1424","#22324d")+STARS(36,(from||"x").length*3+11,"#fff",0,120)+C(236,40,16,"#f2ead2")+C(242,36,14,"#22324d",'opacity=".25"')
+  +CASTLE(96,200,.95,"#0a0d12")+BAN(o,56,158,16,28)+BAN(o,120,158,16,28)+RAVEN(208,92,2.1,1)+(from?G(C(0,0,6.5,fld(from),`stroke="${chg(from)}" stroke-width=".8"`)+SIG(from,0,0,9),tr(203,111)):"");
+// the waiver docks at night, where sellswords are hired
+const DOCKS=(o,nm)=>SKY("#0b1322","#1d2b45")+STARS(30,9,"#fff",0,90)+C(250,32,12,"#f4ecd0")+R(-20,128,340,90,LG(["#15263f","#0a111d"]))
+  +[...Array(8)].map((_,i)=>L(10+i*40,150+(i%2)*14,34+i*40,150+(i%2)*14,"#3c5a7a",1,'opacity=".6"')).join("")
+  +R(-20,118,250,12,"#5a3a1f")+[0,1,2,3,4,5].map(i=>R(i*40+4,128,6,40,"#3a2412")).join("")+R(214,52,6,70,"#3a2412")+R(196,44,58,22,"#7a5230",'rx="2" stroke="#3a2412" stroke-width="2"')+T(225,58,"WAIVER WIRE",7,"#f4e3c0",'font-weight="800"')
+  +FLAME(16,104,.8)+FLAME(186,104,.8)
+  +BD(150,84,24,"#2a2622","robe",{len:1.45})+P("M134 98Q132 64 150 62Q168 64 166 98Q158 76 150 76Q142 76 134 98Z","#1d1a17")+GH(150,86,20,"#8d5a3c",0,0)+T(150,46,nm,8,"#f4e3c0",'font-weight="800"')
+  +BD(84,80,28,fld(o),"coat",{len:1.35})+F(o,84,80,28)+ARM(84+28*.74,80+28*.92,118,96,fld(o),28,"#f4f4f4",.8)+E(124,98,7,8,"#8a6a12")+C(124,91,2.4,"#d4a937")+[0,1,2].map(i=>C(130+i*3,104-i*2,2,"#f2c230")).join("");
+// two hosts meet. fx: snow, embers, wildfire (ships burning), feast (a red wedding), night
+function BATTLE(a,b,x={}){const sky=x.sky||["#2e2a3c","#9b4a2c","#e8a35a"];let s=SKY(...sky);
+  if(x.fx==="night"||x.fx==="snow")s+=STARS(50,7,"#fff",0,110)+C(240,34,12,"#e9eef5");
+  if(x.fx==="wildfire")return s+R(-20,120,340,90,LG(["#123a2a","#06140e"]))+[[58,128,1,a,0],[214,126,1.05,b,1],[262,140,.8,b,1]].map(([px,py,sc,ow,burn])=>G(P("M-30 0H30L22 10H-22Z","#3b2614")+L(0,0,0,-38,"#3b2614",2)+P("M2 -36Q24 -22 2 -6Z",fld(ow),`stroke="${chg(ow)}" stroke-width=".6"`)+SIG(ow,10,-20,13)
+        +(burn?C(0,-14,30,RG(["#57f287@.5","#57f287@0"]))+BURST(0,-12,18,"#7dffa8","#1f9d55",9):""),tr(px,py,0,sc))).join("")
+      +KNIGHT(a,96,70,24,1)+(b?F(b,236,62,20,{flip:1,op:.95}):"")+CONF(40,5,["#7dffa8","#2ecc71","#c6ffd9"]);
+  s+=FLOOR(146,x.ground||"#3b3326",x.ground2||"#1d1913");
+  if(x.fx==="feast")s+=R(-20,-20,340,90,"#4a0d14")+[0,1,2,3,4,5,6].map(i=>P(`M${i*50-10} -10Q${i*50+15} 40 ${i*50+40} -10Z`,"#7a1520")).join("")+TABLE(150,150,180,"#4a2c16");
+  s+=HOST(10,150,1,fld(a),3)+HOST(290,150,-1,b?fld(b):"#333",4)+BAN(a,14,30,24,40)+(b?BAN(b,262,30,24,40):"")+KNIGHT(a,98,88,28,1)+KNIGHT(b,202,88,28,-1);
+  if(x.fx==="snow")s+=SNOW(70,4);if(x.fx==="embers")s+=CONF(36,8,["#ffb347","#ff7b2e","#ffd27a"]);
+  return s}
+// the Sacko bracket: an arena, a plunger against a sword
+const ARENA=(o,b)=>SKY("#3a2f28","#1a1410")+P("M-20 112Q150 60 320 112V150H-20Z","#5a4a3a")+[...Array(40)].map((_,i)=>C(8+i*7.4,96+Math.abs(20-i)*.9+(i%2)*3,2.4,["#d9b38c","#8d5a3c","#f1c7a6","#c68642"][i%4])).join("")
+  +R(-20,118,340,10,"#3b2f24")+FLOOR(128,"#b08a55","#7a5c34")+CH(o,104,92,28,"#7a6a52","robe",{arms:[null,[1.05,-.3]],len:2.7})+PLUNGER(104+28*1.05,92-28*.3+4,1,18)+KNIGHT(b,206,92,28,-1);
+// the walk of shame: the loser in sackcloth, the commissioners ringing the bell, the rest of the league jeering
+function SHAME(o,y){const sep=(COMMISH[y]||[]).filter(x=>x!==o&&CUT[x]),crowd=standings(y).map(r=>r.o).filter(x=>x!==o&&!sep.includes(x)&&CUT[x]).slice(0,6);
+  let s=SKY("#c9d4df","#8ea2b6")+P("M90 60Q150 -10 210 60Z","#e9e2d0")+R(96,58,108,40,"#ddd4bf")+[...Array(5)].map((_,i)=>R(108+i*18,66,8,28,"#bfb39a",'rx="4"')).join("")
+    +[...Array(7)].map((_,i)=>R(-20,98+i*7,340,7,i%2?"#cfc6b2":"#bdb39c")).join("")+FLOOR(146,"#a99f88","#7d7462");
+  crowd.forEach((x,i)=>{const cx=i<3?22+i*30:218+(i-3)*30,cy=112+(i%2)*6;s+=BD(cx,cy,15,["#5a3a2a","#3a4a5a","#5a5a3a"][i%3],"tee",{len:2})+F(x,cx,cy,15)});
+  s+=[[60,70],[96,52],[236,58],[270,76]].map(([a,b])=>C(a,b,3.4,"#d33",'stroke="#7a1a1a" stroke-width=".6"')).join("");
+  sep.forEach((x,i)=>{const sx=sep.length>1?196+i*40:206,sy=96;s+=BD(sx,sy,22,"#1e1b18","robe",{len:2.4})+HAT2(x,"hood",sx,sy,22,"#141210")+F(x,sx,sy,22)+R(sx-HW(x,22)*.5,sy-22*.42,HW(x,22),22*.13,"#f4f1ea")+ARM(sx+22*.6,sy+22*.9,sx+22*1.05,sy+2,"#1e1b18",22,"#e8d9c4",.8)+BELL(sx+22*1.05,sy,1)});
+  s+=CH(o,118,100,30,"#8a7a5f","robe",{arms:[[-.85,2.1],[.85,2.1]],glove:0,r:9,len:2.6})+BUB(sep.length>1?190:206,40,58,18,["SHAME!"],sep.length>1?196:206,74,10,"#fff","#b00020");
+  return s}
+// the bad omens: a torn banner on a dead field, ravens circling
+const RUIN=o=>SKY("#4a4f57","#23262c")+[[60,40,1],[120,26,.8],[244,48,1.1],[200,30,.7]].map(([x,y,sc],i)=>RAVEN(x,y,sc,i%2)).join("")+FLOOR(150,"#4a4234","#2b261d")
+  +G(BAN(o,0,0,40,62),'transform="translate(236 104) rotate(172)"')+L(214,150,226,40,"#3a2a18",2.4)+SWORD(70,156,40,-62,"#9aa1aa")+SWORD(96,158,22,48,"#9aa1aa")
+  +CH(o,150,96,30,fld(o),"tee",{arms:[[-.8,2.05],[.8,2.05]],glove:0,r:-7,len:2.4});
+// the coronation: seated on the Iron Throne, crowned
+function THRONE(o){const t=IRON(150,198,1),h=28;
+  return SKY("#2a1d12","#0f0a06")+RAYS(150,60,"#ffcf7a",18,.07)+SPOT(150,90,130,"#ffcf7a",.22)+[30,270].map(x=>R(x-9,-20,18,230,"#1a120b")+R(x-12,-20,24,14,"#2a1d12")).join("")
+    +BAN(o,8,0,28,58)+BAN(o,264,0,28,58)+t.back+BD(150,98,h,fld(o),"robe",{len:2.5})+E(150,98+h*.5,h*.62,h*.16,"#f4efe6")+F(o,150,98,h)+HAT2(o,"crown",150,98,h)
+    +ARM(150-h*.74,98+h*.92,150-h*1.25,98+h*1.65,fld(o),h,"#e8d9c4",.8)+ARM(150+h*.74,98+h*.92,150+h*1.25,98+h*1.65,fld(o),h,"#e8d9c4",.8)+t.front}
+// seated on the Porcelain Throne with a toilet-paper crown and a plunger for a sceptre
+function PTH(o){const t=PORC(150,198,1),h=30,y=82;
+  return SKY("#1f2c2a","#0b1110")+[...Array(9)].map((_,i)=>L(-20,i*22,320,i*22,"rgba(255,255,255,.05)",1)).join("")+[...Array(14)].map((_,i)=>L(i*22,0,i*22,200,"rgba(255,255,255,.05)",1)).join("")
+    +SPOT(150,80,120,"#d7f0e8",.18)+t.back+BD(150,y,h,"#7a6a52","robe",{len:2.4})+F(o,150,y,h)+TPC(o,150,y,h)
+    +ARM(150-h*.74,y+h*.92,150-h*1.25,y+h*1.75,"#7a6a52",h,"#e8d9c4",.8)+t.front
+    +ARM(150+h*.74,y+h*.92,150+h*1.4,y+h*.62,"#7a6a52",h,"#e8d9c4",.8)+PLUNGER(150+h*1.4,y+h*.62+12,1.15,10)
+    +[[86,60],[214,72],[98,96]].map(([x,y])=>C(x,y,1.6,"#111")+P(`M${x-4} ${y-2}q2-3 4 0M${x} ${y-2}q2-3 4 0`,"none",'stroke="#ccc" stroke-width=".6"')).join("")}
+// 2016: two retired players walk the realm while Kyle and Charles shake on it
+const WIGHT=(x,y,nm,i)=>BD(x,y,24,"#7d8aa0","tee",{len:2.4})+GH(x,y,24,"#9fb3c8",0,0)+C(x-3.4,y-1.4,1.6,"#7fd3ff")+C(x+3.4,y-1.4,1.6,"#7fd3ff")
+  +G(R(-22,-12,44,22,"#e9eef3",'rx="3" stroke="#9fb0c2" stroke-width="1"')+T(0,-2,nm,6.4,"#2b3440",'font-weight="800"')+T(0,6.5,"RETIRED",5.4,"#b00020",'font-weight="800"'),tr(x,y+70,i?5:-5));
+// plaque portrait: head and shoulders on velvet (100 x 120)
+const PORTRAIT=o=>SPOT(50,46,58,"#ffd27a",.3)+F(o,50,54,46,{full:1});
+const EMPTY=()=>SPOT(50,46,58,"#ffd27a",.18)+E(50,106,34,24,"#1a0a0e",'opacity=".7"')+C(50,52,19,"#1a0a0e",'opacity=".7"')+T(50,62,"?",30,"#e8c574",'font-weight="700" opacity=".8"');
+// a toilet with the Sacko loser on the raised lid (160 x 210)
+function LOO(o,y){const pu=SACKO_PUNISH[y],lid="M33 106V44Q33 7 80 7Q127 7 127 44V106Z",inner="M39 102V46Q39 14 80 14Q121 14 121 46V102Z",por=LG(["#ffffff","#eef2f4","#cfd7dc"],1);
+  let face;if(pu?.lid){const [src,sx,sy,sw,iw,ih]=pu.lid,k=82/sw;face=R(39,14,82,88,"#555")+`<image href="${src}" x="${q(39-sx*k)}" y="${q(14-sy*k)}" width="${q(iw*k)}" height="${q(ih*k)}" preserveAspectRatio="none"/>`}
+  else face=R(39,14,82,88,RG(["#7fa3b8","#2c4456"],.5,.3,.8))+F(o,80,54,40,{full:1});
+  return E(80,203,58,6,"rgba(0,0,0,.22)")+R(26,4,108,64,por,'rx="10" stroke="#9aa6ad" stroke-width="1.2"')+R(22,0,116,10,"#f7f9fa",'rx="5" stroke="#9aa6ad" stroke-width="1"')
+    +P(lid,por,'stroke="#9aa6ad" stroke-width="1.4"')+CLIPP(inner,face)+P(inner,"none",'stroke="#9aa6ad" stroke-width="1.2"')
+    +P("M28 112Q28 152 60 162L64 190H96L100 162Q132 152 132 112Z",por,'stroke="#9aa6ad" stroke-width="1.4"')
+    +E(80,112,54,13,"#fbfcfc",'stroke="#9aa6ad" stroke-width="1.4"')+E(80,113,40,8,LG(["#a8dcf0","#5aa9cf"]),'stroke="#c7d0d5" stroke-width="1"')
+    +P("M56 186H104L110 200H50Z",por,'stroke="#9aa6ad" stroke-width="1.2"')
+    +R(57,128,46,17,LG(["#f3dc9b","#c99a3d"]),'rx="3" stroke="#8a6a12" stroke-width=".6"')+T(80,140.5,String(y),11,"#4a3208",'font-weight="800" letter-spacing="1"')
+    +P("M36 118Q38 140 52 150","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"')}
 
+/* ---- the words for each season (Kyle 2026-11-18: facts from the data, memory or Kyle only) ----
+   t title, p prologue, d the draft, m the march (default: written from the weeks), mark weeks to star on the map,
+   realm an extra scene [kicker, title, art, text], r ravens [[trade id, text]], sw/swt/swn the sellsword (default: from the
+   pickups), b battles [[name, text]], fx battle art, foes/sc for seasons without weekly data, st the royal style, e closing line */
+const GOT_C={
+2016:{t:"The Hedge Knight",p:"Season I: eight houses in an ESPN league called The LI League, with Lucas as commissioner. The realm's first crown went to someone who played exactly one season.",
+  d:"Thursday, September 1, 2016, an offline draft at Sal's office in Garden City. Duane drafted from the fifth seat: David Johnson in round one, who finished as the RB1, and Travis Kelce in round five, who finished as the TE1.",
+  realm:["The Realm","The Dead Walk",()=>SKY("#1b2433","#0b0f18")+SNOW(50,16)+FLOOR(150,"#d9e2ec","#9fb0c2")+WIGHT(50,94,"MEGATRON",0)+WIGHT(250,94,"BEAST MODE",1)
+      +BD(124,94,28,"#3a2a22","coat",{len:2.4})+F("kyle",124,94,28)+BD(176,94,28,"#4a1d22","coat",{len:2.4})+F("charles",176,94,28,{flip:1})+ARM(124+20,94+26,148,112,"#3a2a22",28,"#f4f4f4",.8)+ARM(176-20,94+26,152,112,"#4a1d22",28,"#f4f4f4",.8),
+    "While Duane kept quiet, the realm turned on itself. Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Alshon Jeffery and two players who had already retired, Calvin Johnson and Marshawn Lynch. Squirm benched his own team so his cousin Peanut could make the playoffs. Charles went 12-1. Duane went 7-6."],
+  b:[["The First Battle","Duane beat Squirm in the first round. The maesters never wrote down the score."],["The Long Night","Charles came to the final at 12-1. It ran two weeks, and the second was the last week of the NFL season, when several of Charles's players sat. Duane took week 16, 170 to 110, and survived week 17, 72 to 80."]],
+  fx:[{},{fx:"snow",sky:["#05070d","#121a2c","#24344f"],ground:"#c9d3df",ground2:"#8796a8"}],foes:["squirm","charles"],sc:[null,[242,190,[[16,170,110],[17,72,80]]]],
+  st:"Duane of House Bernard, First and Only of the Name, Champion of the Flamingo Men, Slayer of the 12-1, the One Who Came Once",
+  e:"Duane collected the pot during a basketball game at Chaminade High School, which the realm still finds very suspicious, and never played another season."},
+2017:{t:"The Empty Chair",p:"Season II, played in its own ESPN league. The draft order was drawn at random and Kyle won the first pick. Kyle was not at the draft, and the rest of the league rearranged the order.",
+  d:"August 6, 2017, a live sticker draft at Vicente's summer house. Squirm was not invited. Kyle's column ended up ninth, and it still came away with Mike Evans in round one, Michael Thomas in round three, Larry Fitzgerald in round seven, who finished as the WR4, and Carson Wentz in round sixteen, the QB5.",
+  realm:["The Realm","Peanut's Banners",()=>SKY("#3a2230","#1a0f17")+CASTLE(110,200,1.05,"#120b10")+BAN("peanut",74,150,18,30)+BAN("peanut",128,150,18,30)+BAN("kyle",88,40,20,34)+RAVEN(220,60,1.6,1)+BD(232,112,28,fld("peanut"),"tee",{len:2.4})+F("peanut",232,112,28,{r:6}),
+    "Vicente tried to collude twice, first with Rod and then with Keeves, and both trades were vetoed. Rod unloaded Andrew Luck, who never played a snap that year, on Peanut. And by the time Kyle was 9-2, two of Peanut's own draft picks, LeSean McCoy and Travis Kelce, were starting for Kyle."],
+  b:[["The Red Wedding","Right before the playoffs Kyle sent Alvin Kamara to Charles for Ezekiel Elliott. Then the bracket seated them at the same table in the first round. Kamara went down hurt in that very game, and Kyle knocked Charles out."],["The Lost Battle","Kyle won the final. The scores are lost, and so is the name of the last foe: nobody saved who won Vicente against Squirm."]],
+  fx:[{fx:"feast",sky:["#2a0b10","#4a0d14","#7a1520"]},{fx:"night",sky:["#06070c","#141a2a","#2a3550"]}],foes:["charles",null],
+  st:"Kyle of House Klugewicz, First of the Name, Champion of the Flamingo Men, the Empty Chair, Breaker of Charles",
+  e:"10-2 and the second crown in league history. Kyle didn't need to be in the room."},
+2018:{t:"What Is Sacko'd May Never Die",p:"Two years earlier Floof took the first Sacko in league history. Season III moved to a new ESPN league, Vicente and Keeves were gone, and eight houses played together for the last time.",
+  d:"Sal's office. Floof picked fourth: Alvin Kamara in round one, Michael Thomas in round two, Melvin Gordon in round three, Zach Ertz in round five, who finished as the TE2, and Deshaun Watson in round six.",
+  sw:"Aaron Jones came off the waiver docks in week 10, and in week 12 Floof hired a rookie quarterback named Lamar Jackson.",swn:"AARON JONES",
+  b:[["The Siege of Staten Island","Lucas's Staten Island Salvatores never led. Floof won both weeks and the round, 252.4 to 215.0."],["The Iron Fleet","Charles had lost Kareem Hunt in late November, days after buying his jersey, and still reached the final. The kraken won both weeks, 160.6 to 147.2 and then 91.9 to 88.3. Zach Ertz, the fifth-round pick, scored 35 in the last one."]],
+  fx:[{fx:"embers"},{sky:["#0f1c24","#1f4050","#7fb3c4"],ground:"#2a3a3a",ground2:"#141d1d"}],
+  st:"Floof of House Duffy, First of the Name, Champion of the Flamingo Men, Risen from the Sacko, Keeper of 1,806 Points",
+  e:"Still the only owner with a Sacko and a crown, and 1,806.76 is still the highest regular-season total on record."},
+2019:{t:"Hear Me Cluck",p:"Season IV: ten houses for the first time, with Kyle and Charles sharing the commissioner's chair. Of the 25 trades that year, Charles was in 15.",
+  d:"Sal's office. Charles took Travis Kelce in round two, who finished as the TE1. In round fifteen came a quarterback everyone took for a stone egg: Lamar Jackson. Lamar hatched into the QB1 and scored 415.7 points in Charles's lineup.",
+  r:[[11,"A raven from Peanut before week 1: DeAndre Hopkins for Julio Jones and Derrius Guice. Right after, Kyle called Peanut to say it wasn't right what Charles did to him, then made a trade with Peanut himself."],[8,"Two days earlier, a raven from DiLapi's New York Noses: Aaron Jones for Tyler Boyd. DiLapi took the Sacko that year."]],
+  swt:"A Sellsword for the Last Battle",sw:"Charles picked up Breshad Perriman in week 16, the last week of the final, and started him right away. Perriman scored 17.2.",swn:"PERRIMAN",
+  b:[["The Whispering Wood","Quincy won the first week by 17.6. Charles won the second by 35.9, and the round, 262.9 to 244.6."],["The Field of Fire","The dragon from the fifteenth round, Lamar Jackson, scored 37.1 in the first week of the final, and Charles led by 8.4. Then Charles won the second week by 46.8: 304.2 to 249.0."]],
+  fx:[{sky:["#0f1a14","#2b4a33","#7fa36b"],ground:"#2b3a22",ground2:"#151d10"},{fx:"embers",sky:["#2a0e05","#8a2c0c","#f2a03c"]}],
+  st:"Charles of House Lorenzo, First of the Name, Champion of the Flamingo Men, Master of Coin, Hatcher of Dragons, Dealer of Fifteen Trades",
+  e:"The first crown of the Sal's 12 Chickens Dynasty."},
+2020:{t:"Wildfire",p:"Season V, the pandemic season. On the way back from the draft, Quincy threw up all over Kyle's car. Charles was going for two in a row.",
+  d:"Sal's office. Charles took Alvin Kamara in round one. Kamara finished as the RB1 and scored 377.8 points in the Chickens' lineup.",
+  r:[[33,"A raven from Kyle on September 16: Tyreek Hill for Cooper Kupp and James Conner, the Trade Rape of the Year. Three days later Charles bought Kupp back."],[37,"A week later, a raven from Peanut: Aaron Rodgers for Myles Gaskin. Rodgers scored 307.3 points in Charles's lineup."]],
+  swt:"Hired at the Waiver Docks",sw:"In week 10 Charles hired Mike Davis off the waiver docks. Davis scored 69.6 points in the Chickens' lineup, the best hire of the title run.",swn:"MIKE DAVIS",
+  b:[["The Half Point","Charles won the first week by 13.0 and the second by 0.48, and the round, 252.5 to 239.0."],["The Blackwater","Peanut's Pirate King sailed into the final, took the first week 151.0 to 127.2, and declared himself champion. Then on Christmas Day Alvin Kamara scored six touchdowns, 56.2 points, and the whole fleet burned: 323.7 to 286.6."]],
+  fx:[{fx:"embers"},{fx:"wildfire",sky:["#020806","#0b2016","#174a30"]}],
+  st:"Charles of House Lorenzo, Second of the Name, Champion of the Flamingo Men, Burner of the Pirate Fleet, Keeper of the Christmas Wildfire",
+  e:"Back-to-back crowns."},
+2021:{t:"The Wyrm Turns",p:"Season VI: thirteen games for the first time, and the busiest trade year on record, 36 deals. Squirm, the cousin who once benched a whole team for family, had never won it.",
+  d:"Sal's office. Squirm took Tyreek Hill in round one, Justin Herbert in round seven, who finished as the QB2, and Amon-Ra St. Brown in round eleven.",
+  r:[[69,"A raven from Kyle on October 27: Nick Chubb, Stefon Diggs and Mike Evans for Aaron Jones and Tyreek Hill, the season's biggest blockbuster. The next day Evans and Alex Collins went to Quincy for Leonard Fournette. Squirm was 3-4 before the deals and 5-1 after."],[81,"December 3: Chubb and Diggs went on to Floof for Ezekiel Elliott, Mark Ingram and Chris Godwin, and Squirm rode that roster to the crown."]],
+  swt:"The Return of the Eleventh",sw:"In week 16 Squirm went back to the waiver docks for his own eleventh-round pick, Amon-Ra St. Brown. In the last week of the final, Amon-Ra scored 35.4.",swn:"AMON-RA",
+  b:[["Five Points","Floof's El Floof came within 5.6. Squirm won the first week by 7.8, lost the second by 2.2 and took the round, 246.7 to 241.1."],["The Mountain","DiLapi had gone 11-2 with 1,804.68 points, the Mountain of Season VI. Squirm took the first week by 32.0 and held on in the second: 304.5 to 287.8."]],
+  fx:[{sky:["#141a2a","#3a4a6a","#9fb4d0"]},{fx:"embers",sky:["#1a0b05","#5a1e0c","#c25a2a"]}],
+  st:"Squirm of House Woram, First of the Name, Champion of the Flamingo Men, Old Hickory, Slayer of the Mountain",
+  e:"One crown, and in ten seasons not a single Sacko."},
+2022:{t:"The Iron Bank",p:"Season VII. Lucas was studying abroad in London and Sal was in Europe, so the draft moved to Quincy's apartment complex. And Charles opened the vault: 15 trades.",
+  d:"Quincy's apartment complex. Charles took Christian McCaffrey in round one and Davante Adams in round two. They finished as the RB2 and the WR3.",
+  mark:[9],m:"Charles opened 0-2 and sat ninth. Then came eight straight wins, weeks 6 to 13. One of them, week 9 against Kyle, came the Monday night Charles used the commissioner's powers to add Isaiah Likely in the middle of the matchup. ESPN still shows that week as a win, 126.1 to 120.7. The league's books have Charles at 9-4, the No. 3 seed.",
+  r:[[89,"A raven from Jordan on September 27: Justin Jefferson and Jamaal Williams for Alvin Kamara, Keenan Allen, Kareem Hunt and Brian Robinson. The Trade Rape of the Year. Charles was 1-2 before it and 8-2 after, by the league's books."],[104,"November 16, a second loan: four players to DiLapi's New York Noses for Tyreek Hill."]],
+  b:[["The Rookie Lord","Jerry, a 9-4 rookie, never led: 277.3 to 210.0."],["The Iron Bank Has Its Due","Squirm won the first week by 2.5. In the second, Charles put up 130.9 to Squirm's 72.1, and the bank collected: 231.9 to 175.6."]],
+  fx:[{},{sky:["#1a1405","#5a4a12","#d9b45a"]}],
+  st:"Charles of House Lorenzo, Third of the Name, Champion of the Flamingo Men, Master of the Iron Bank, Buyer of Jefferson",
+  e:"Three crowns in four years: the Sal's 12 Chickens Dynasty."},
+2023:{t:"Chaos Is a Ladder",p:"Season VIII was played in its own league, Flamingo Football Year 8, split into the Flamingo and Wrangler conferences, with Kyle and Quincy sharing the chair. Kyle climbed the chaos one trade at a time.",
+  d:"Sal's office. Kyle took Travis Kelce in round one, DJ Moore in round five, who finished as the WR6, and James Cook in round eight.",
+  r:[[118,"October 17: Terry McLaurin, Tank Dell, James Cook and Aaron Jones to Lucas's Team Pace for Derrick Henry. Jones had arrived six days earlier, when Kyle sent Garrett Wilson to his college roommate Jerry for Jones and Anthony Richardson, the Trade Rape of the Year."],[120,"October 28, Lucas again: Darrell Henderson, Tank Dell and Kyler Murray for Chris Olave."]],
+  swt:"The Best Sellsword of the Year",sw:"In week 2 Kyle hired Kyren Williams off the waiver docks. Kyren started 10 games and scored 209.6 points, the league's Pickup of the Year.",swn:"KYREN",
+  b:[["The Wrangler","Rod's MisoTrillerBoy had won the Wrangler Conference. Kyle took the first week by 56.4 and the round, 231.9 to 181.0."],["The Battle of the Roommates","Jerry, Kyle's college roommate, took the first week by 24.5. In the second Kyle put up 152.3 to 108.1 and won it, 265.7 to 246.0."]],
+  fx:[{sky:["#1f1a10","#5a4a22","#c9a35a"]},{fx:"snow",sky:["#1a2230","#4a5a70","#a9b8c8"],ground:"#d9e0e8",ground2:"#9aa8b6"}],
+  st:"Kyle of House Klugewicz, Second of the Name, Champion of the Flamingo Men, Climber of Chaos, Hirer of Kyren, Breaker of Roommates",
+  e:"Kyle's second crown, and the first of the Monglers Era."},
+2024:{t:"The Sultan of Squirm",p:"Season IX. The realm returned to the main ESPN league, Floof sat out still angry about a veto, and a second-year lord, Lucas's roommate Dylan, came across the narrow sea.",
+  d:"Sal's office. Dylan took Josh Allen in round four, who finished as the QB2, then Drake London in round five and Terry McLaurin in round nine, who finished as the WR5 and the WR7.",
+  r:[[124,"One raven all year, October 12, from Kyle: Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr. for Brian Robinson Jr. Dylan was 2-3 before it and 6-2 after."]],
+  sw:"Dylan's sharpest hire came in week 14, the first week of the playoffs: Isaac Guerendo, 38.3 points in the playoff lineup. Zach Charbonnet, hired in week 2, added 43.6.",swn:"GUERENDO",
+  b:[["The Rose and the Sun","Rod never led. Josh Allen scored 51.9 in the first week, and Dylan won the round 316.8 to 279.9."],["The Breaking of Squirm","The Sultans of Squirm met Squirm himself in the final. Dylan won the first week by 20.3 and held on in the second: 276.6 to 262.0."]],
+  fx:[{fx:"embers",sky:["#2a1205","#8a3c10","#f2b05a"]},{sky:["#1c2a3c","#b5541c","#ffd27a"]}],
+  st:"Dylan of House Olivieri, First of the Name, Champion of the Flamingo Men, Sultan of Squirm, Breaker of Squirm, the Unbowed",
+  e:"A crown in the second season, from one trade."},
+2025:{t:"Third of the Name",p:"Season X, with DiLapi as commissioner. Kyle went shopping all autumn and won it from 7-6, matching Duane in 2016 for the worst record of any champion.",
+  d:"Sal's office. Kyle took Amon-Ra St. Brown in round two, who finished as the WR3, Jameson Williams in round five and Javonte Williams in round nine.",
+  r:[[125,"A raven from Jordan on September 9: De'Von Achane for Javonte Williams and Jameson Williams, the Trade Rape of the Year."],[131,"November 1, from Peanut's THE CENTER: Dak Prescott and Alvin Kamara for Terry McLaurin. Jaylen Waddle came from Quincy three weeks later."]],
+  sw:"Cam Skattebo came off the waiver docks in week 3 and scored 73.8 points in Kyle's lineup. In week 15, with the title on the line, Kyle hired Brock Purdy: 57.1 more in the playoffs, while Lucas was still waiting on a quarterback.",swn:"PURDY",
+  b:[["The Chicken Run","Charles never had a chance. Kyle won both weeks, and the round 303.6 to 207.6, a 96-point margin. Amon-Ra St. Brown scored 41.4 in the second week."],["Nine Is My Guy","Lucas had lost Patrick Mahomes and played nine in the final. “Nine is my guy,” Lucas said. Kyle won both weeks: 275.6 to 203.4."]],
+  fx:[{fx:"embers"},{sky:["#151a2a","#3a2a4a","#c26a8a"]}],
+  st:"Kyle of House Klugewicz, Third of the Name, Champion of the Flamingo Men, Lord of the Ladder, Tied with Charles for the Most Crowns",
+  e:"Three crowns: 2017, 2023 and 2025."}
+};
+const GOT_S={
+2016:{t:"The First Shame",p:"Every realm needs someone at the bottom. In the founding season, the first to sit on the Porcelain Throne was Floof.",
+  w:"Keenan Allen, the fifth-round pick, was lost for the year in week 1. Floof tried to collude with Kyle, and even that failed.",
+  b:"No scores were saved from the losers' bracket. Floof lost it.",st:"Floof of House Duffy, First of the Name, Keeper of the First Sacko, Lord of the Losers' Bracket",
+  e:"Two years later Floof sat on the other throne."},
+2017:{t:"The Secret",p:"Before the draft, Peanut gave Charles a draft pick in exchange for a secret. Nobody has ever said what the secret was.",
+  w:"Rod unloaded Andrew Luck on Peanut for Jameis Winston, and Luck never played a snap that season. Aaron Rodgers, the second-round pick, broke his collarbone. Allen Robinson, the fifth, was hurt in week 1. And by the time Kyle was 9-2, two more of Peanut's picks, LeSean McCoy and Travis Kelce, were starting for Kyle.",
+  r:[147],b:"No scores were saved from the losers' bracket. Peanut lost it.",st:"Peanut, First of the Name, Keeper of the Secret, Holder of Andrew Luck, Lord of the Losers' Bracket"},
+2018:{t:"The New Realm's First Shame",p:"Quincy joined the league in 2018, the first year of the ESPN league the realm still plays in. By December Quincy owned its first Sacko.",
+  w:"Ezekiel Elliott and Tyreek Hill were in the lineup all season. But Tom Brady, the third-round pick, finished as the QB14, and LeSean McCoy, the fifth, as the RB39.",
+  st:"Quincy, First of the Name, Keeper of the First ESPN Sacko, Arguer for Sport"},
+2019:{t:"The Prophecy",p:"In 2018 Kyle named a team Dilapi aint Makingthe yoffs, and DiLapi missed the playoffs. In 2019 Kyle ran DilapiSTILLaint Makingthe yoffs for a stretch. The prophecy held, and then some.",
+  w:"Before week 1, DiLapi sold Aaron Jones to Charles for Tyler Boyd, and Jones went to the eventual champion. Alshon Jeffery, the fifth-round pick, finished as the WR59.",
+  r:[8],st:"DiLapi, First of the Name, Keeper of the Noses, Fulfiller of the Prophecy"},
+2020:{t:"The Catfish",p:"Back-to-back. The offseason in between was no better: Peanut catfished him.",
+  w:"Michael Thomas, the first-round pick, finished as the WR95. DiLapi even found Justin Jefferson on the waiver docks in week 4, 178.5 lineup points, and it still wasn't enough. Two of the losses came by less than two points.",
+  b:"Round one against Quincy came down to 0.14 of a point, 241.8 to 241.94. Then the Sacko game, against Kyle, who had gone 1-11: 266.9 to 269.2. Kyle escaped. DiLapi did not.",
+  st:"DiLapi, Second of the Name, Twice Keeper of the Sacko, Bearer of the Stickers, Wonder Woman of the 2021 Draft"},
+2021:{t:"The Long Winter",p:"Thirteen games for the first time. Lucas, the founding commissioner, lost ten of them.",
+  w:"Calvin Ridley, the second-round pick, finished as the WR102. In September Lucas sent A.J. Green and Javonte Williams to Floof for Antonio Brown and Jamaal Williams.",
+  r:[56],st:"Lucas, First of the Name, Keeper of Los Stogies, Founder of the Realm, the Tutu'd"},
+2022:{t:"The One Who Sold Jefferson",p:"On September 27 Jordan sent Justin Jefferson to Charles. Charles won the crown with him. Jordan won this.",
+  w:"Darren Waller, the third-round pick, finished as the TE31, and Antonio Gibson, the fourth, as the RB28.",r:[89],st:"Jordan, First of the Name, Seller of Jefferson, Keeper of the Jerry Jewdys"},
+2023:{t:"Twice Vetoed",p:"On November 24, Peanut tried twice in one evening to buy Ja'Marr Chase from Floof with Alvin Kamara and Cooper Kupp. The league vetoed both.",
+  w:"Nick Chubb, the first-round pick, was lost for the year in week 2 and finished as the RB88. Cooper Kupp, the second, finished as the WR40.",
+  r:[121],st:"Peanut, Second of the Name, the Twice Vetoed, Keeper of Dr. Kakofonus A. Dischord"},
+2024:{t:"The Second Winter",p:"Lucas's second Sacko, as Lucas's Loud Team, and not a single trade on record.",
+  w:"Chris Olave, the third-round pick, finished as the WR94, and Jaylen Waddle, the fifth, as the WR46.",
+  st:"Lucas, Second of the Name, Twice Keeper of the Sacko, Loudest of the Quiet"},
+2025:{t:"The Aura Fades",p:"Quincy went 7-6. In most realms a winning record buys a seat at the table. Quincy missed the playoffs on points.",
+  w:"Brian Thomas Jr., the second-round pick, finished as the WR42, and Chuba Hubbard, the fifth, as the RB38.",
+  r:[135],st:"Quincy, Second of the Name, Keeper of the 7-6 Sacko, Arguer for Sport"}
+};
+
+/* ---- slide pieces ---- */
+const sl=(col,html,cls="")=>({c:`got ${cls}`,st:`--c:${col}`,html});
+const kick=(y,i,t)=>`<div class="wr-k">${y} · ${RN[i]}. ${esc(t)}</div>`;
+const ttl=t=>`<div class="got-title">${esc(t)}</div>`;
+const txt=t=>t?`<p class="wr-t">${esc(t)}</p>`:"";
+const pic=(fn,cls="")=>`<div class="cs-art ${cls}">${art(fn)}</div>`;
+function scoreHTML(a,b,pa,pb,legs){const face=o=>o?av(o):`<span class="av" aria-hidden="true">?</span>`,nm=o=>o?esc(short(o)):"Unknown";
+  if(pa==null)return `<div class="got-score"><div class="gsc w">${face(a)}<b>${nm(a)}</b><span>Won</span></div><i>vs</i><div class="gsc">${face(b)}<b>${nm(b)}</b><span>Lost</span></div><div class="gsc-legs">Scores not saved</div></div>`;
+  const side=(o,v,w)=>`<div class="gsc${w?" w":""}">${face(o)}<b>${nm(o)}</b><span>${f1(v)}</span></div>`;
+  return `<div class="got-score">${side(a,pa,pa>pb)}<i>vs</i>${side(b,pb,pb>pa)}${legs?.length?`<div class="gsc-legs">${legs.map(([w,p,q2])=>`Wk ${w}: ${f1(p)}–${f1(q2)}`).join(" · ")}</div>`:""}</div>`}
+// a trade as a sealed letter: what came and went, wins added the rest of that season, and a veto stamp
+function scroll(id,o){const t=TR.find(t=>t.id===id);if(!t)return "";const x=MV.trades[id],me=t.a.o===o?"a":"b",op=me==="a"?"b":"a",veto=t.st==="vetoed";
+  const split=l=>l.map(s=>{const [n,pos]=s.split("|");return [n,pos,null]}),mine=l=>l.map(p=>[p[0],p[1],p[2]==null?null:p[4]||0]);
+  const got=x?mine(x[me].got):split(t[op].gave),gave=x?mine(x[op].got):split(t[me].gave);
+  const sum=l=>l.reduce((s,g)=>s+(g[2]||0),0),m=x?x[me].war-x[op].war:0,even=!x||Math.abs(m)<.005;
+  const d=new Date(t.d+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+  const tn=t[op].team,sn=short(t[op].o),who=tn.toLowerCase()===sn.toLowerCase()?esc(tn):`${esc(tn)} (${esc(sn)})`;
+  const list=(l,h)=>`<div><div class="gs-h">${h}</div><ul>${l.map(g=>`<li><span>${esc(g[0])} <em>${esc(g[1])}</em></span>${g[2]!=null?`<b>${wf(g[2])}</b>`:""}</li>`).join("")||"<li>Nothing</li>"}</ul>${x?`<div class="gs-tot"><span>Wins added</span><b>${wf(sum(l))}</b></div>`:""}</div>`;
+  return `<div class="got-scroll${veto?" veto":""}"><div class="gs-top"><span>${d} · with ${who}</span>${veto||even?"":`<span class="gs-res ${m>0?"w":"l"}">${m>0?"Won":"Lost"} by ${wf(Math.abs(m),false)} wins</span>`}</div><div class="gs-sides">${list(got,"Got")}${list(gave,"Gave")}</div>${veto?`<span class="gs-stamp">Vetoed</span>`:""}</div>`}
+function facts(o,y,B,sk){const r=S[o]?.seasons?.[y],pr=ptsRank(o,y),n=B?.n||standings(y).length;
+  const cells=[["Record",recS(r)],["Points",r?.pts!=null?fmt(r.pts):"Not saved"],["Points rank",pr?`${ord(pr)} of ${n}`:"–"]];
+  if(!sk&&B?.seed)cells.push(["Seed",`No. ${B.seed}`]);
+  return `<div class="got-facts">${cells.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>`}
+// runs of wins and losses: {w, n, a first week, b last week, i first index, j last index}
+function runs(reg){const out=[];reg.forEach((g,i)=>{const w=g[2]>g[3],l=out[out.length-1];if(l&&l.w===w){l.n++;l.b=g[0];l.j=i}else out.push({w,n:1,a:g[0],b:g[0],i,j:i})});return out}
+const rec=(reg,i)=>{const w=reg.slice(0,i+1).filter(g=>g[2]>g[3]).length;return `${w}-${i+1-w}`};
+// the march, written from the weeks: the start, every run of three or more, a champion's low point, the best (or worst) week, the finish
+function march(o,y,B,sk){const reg=B.reg,nm=short(o),Rn=runs(reg),r=S[o].seasons[y],ev=[];
+  let lo=0,lw=-1;B.rk.forEach((k,i)=>{if(i>=3&&i<reg.length-1&&k>=lo){lo=k;lw=i}});
+  let low=!sk&&lo>B.n/2,k0=0;
+  const say=x=>`${x.n} straight, weeks ${x.a} to ${x.b}`,meh=x=>x.w&&sk?", and it didn't matter":"";
+  const at=x=>{const h=low&&!x.w&&lw>=x.i&&lw<=x.j;if(h)low=false;return h?`, and sat ${ord(lo)} of ${B.n} at ${rec(reg,lw)}`:""};
+  const R0=Rn[0],x0=Rn.find(x=>x.n>=3&&x.i>0&&x.i<4&&x.j>=4);
+  if(R0.n>=4){ev.push([0,`${nm} opened with ${say(R0).replace(/, weeks.*/,"")} ${R0.w?"wins":"losses"}${meh(R0)}${at(R0)}.`]);k0=1}
+  else if(x0){const b=reg.slice(0,x0.i),bw=b.filter(g=>g[2]>g[3]).length;
+    ev.push([0,`${b.length===1?`${nm} ${bw?"won":"lost"} week ${b[0][0]}`:`${nm} opened ${bw}-${b.length-bw}`}, then ${x0.w?"won":"lost"} ${say(x0)}${meh(x0)}${at(x0)}.`]);k0=Rn.indexOf(x0)+1}
+  else{const w4=reg.slice(0,4).filter(g=>g[2]>g[3]).length;ev.push([0,`${nm} opened ${w4}-${4-w4}.`])}
+  Rn.slice(k0).forEach(x=>{if(x.n<3||x.j<4)return;ev.push([x.i,x.w?`Then ${x.j===reg.length-1?"closed with":"won"} ${say(x)}${meh(x)}.`:`Then lost ${say(x)}${at(x)}.`])});
+  if(low)ev.push([lw+.5,`At ${rec(reg,lw)} after week ${reg[lw][0]}, ${nm} sat ${ord(lo)} of ${B.n}.`]);
+  ev.sort((a,b)=>a[0]-b[0]);
+  const lost=reg.filter(g=>g[2]<g[3]),wk=sk?(lost.length?lost:reg).reduce((a,g)=>g[2]<a[2]?g:a):reg.reduce((a,g)=>g[2]>a[2]?g:a);
+  const pr=ptsRank(o,y),last=B.rk[B.rk.length-1];
+  return `${ev.map(e=>e[1]).join(" ")} ${sk?"Worst":"Best"} week: ${f1(wk[2])} against ${short(wk[1])} in week ${wk[0]}. Finished ${r.w}-${r.l}, ${!sk&&B.seed?`the No. ${B.seed} seed`:`${ord(last)} of ${B.n}`}${pr?`, ${ord(pr)} in points`:""}.`}
+function trialText(o,y,B){const P=B.post,nm=short(o),out=[];
+  P.forEach((R,i)=>{const cuz=bowlName(y,0,o,R[1])==="Cuzzie Bowl";
+    out.push(`${i===P.length-1?"The Sacko game":"Round one"}${cuz?" was the Cuzzie Bowl":""}, against ${short(R[1])}: ${f1(R[2])} to ${f1(R[3])}${R[3]-R[2]<10?`, lost by ${(R[3]-R[2]).toFixed(2)}`:""}.`)});
+  const z=B.zero;if(z&&z[2]<=4)out.push(`In week ${z[3]} ${nm} started ${z[0]}, who scored ${z[2]?f1(z[2]):"zero"}.`);
+  return out.join(" ")}
+function shameText(o,y){const sep=(COMMISH[y]||[]).filter(x=>x!==o),pu=SACKO_PUNISH[y];
+  const who=sep.length?`${sep.map(x=>"Septa "+short(x)).join(" and ")}, the commissioner${sep.length>1?"s":""}, rang the bell the whole way down.`:"The bell rang the whole way down.";
+  return `${who} The rest of the league threw what they had. ${pu?"The real punishment came at the next draft.":"What the real punishment was, the maesters never wrote down."}`}
+// a season with no hand-written lines (2026 once it ends) still gets its draft night and its busts from the draft board
+const gather=(o,y)=>{const D=DRAFTS[y],c=D?.teams?D.teams.findIndex(t=>t[1]===o):-1;if(c<0||!D.cols?.[c])return "";const pk=r=>(D.cols[c][r]||"").split("/")[0],st=(D.steals||[]).find(s=>s[2]===c);
+  return `${short(o)} took ${pk(0)} in round one and ${pk(1)} in round two.${st?` The steal: ${st[0]}. ${st[3]}`:""}`};
+const busts=(o,y)=>{const D=DRAFTS[y],c=D?.teams?D.teams.findIndex(t=>t[1]===o):-1;return c<0?"":(D.busts||[]).filter(b=>b[2]===c).map(b=>`${b[0]}: ${b[3]}`).join(" ")};
+const partner=(id,o)=>{const t=TR.find(t=>t.id===id);return t?(t.a.o===o?t.b.o:t.a.o):null};
+const ledger=(y,o,B,sk,story,team)=>sl(sk?"#1f2a28":"#2a1d10",`<div class="wr-k">${y} · From the Maester's Ledger</div><div class="got-ledger"><div class="gl-h"><b>${esc(OWNERS[o].name)}</b><span>${esc(team)} · ${y} ${sk?"Sacko":"Champion"}</span></div>${facts(o,y,B,sk)}${story?`<p>${esc(story)}</p>`:""}<div class="gl-sig">Written at the Citadel, Season ${RN[y-2015]}</div></div>`,`got-led${sk?" got-sk":""}`);
+
+/* ---- the stories ---- */
+function champ(y){const c=CHAMPS[y];if(!c)return [];const o=c.o,X=GOT_C[y]||{},T=THRONES[y],B=T?{...T.c,n:T.n}:null,team=csTeam(o,y)||c.team,[hn,hw]=HOUSE[o]||["House "+short(o),""],col=fld(o),out=[];let i=0;
+  out.push(sl(col,`<div class="wr-k">The Flamingo Men · Season ${RN[y-2015]} · ${y}</div><div class="cs-art got-astro">${art(()=>ASTRO(o))}</div>${ttl(X.t||team)}<div class="got-house">${esc(hn)} · ${esc(team)}</div>${hw?`<div class="got-words">“${esc(hw)}”</div>`:""}${txt(X.p||`Season ${RN[y-2015]}${T?`: ${T.n} houses`:""}, with ${commish(y)} in the commissioner's chair.`)}`,"got-open"));
+  out.push(sl(col,kick(y,++i,"The Gathering")+pic(()=>HALL(o,y))+ttl("The Gathering of Banners")+txt(X.d||gather(o,y))));
+  if(X.realm)out.push(sl(col,kick(y,++i,X.realm[0])+pic(X.realm[2])+ttl(X.realm[1])+txt(X.realm[3])));
+  if(B)out.push(sl(col,kick(y,++i,"The Painted Table")+pic(()=>MAPT(B.reg,o,X.mark||[]))+ttl("The March")+txt(X.m||march(o,y,B))));
+  (X.r||[]).forEach(([id,t])=>out.push(sl(col,kick(y,++i,"A Raven Arrives")+pic(()=>RAVENS(o,partner(id,o)),"got-sm")+txt(t)+scroll(id,o),"got-rv")));
+  const pk=MV.champBuilt[y]?.pickups||[];
+  if(X.sw||pk.length){const p0=pk[0],p1=pk[1];
+    out.push(sl(col,kick(y,++i,"The Sellsword")+pic(()=>DOCKS(o,(X.swn||p0?.n.split(" ").pop()||"").toUpperCase()))+ttl(X.swt||"Hired at the Waiver Docks")
+      +txt(X.sw||`The best hire: ${p0.n}, picked up in week ${p0.w}, ${f1(p0.pts)} points in ${short(o)}'s lineup.${p1?` Next best: ${p1.n}, week ${p1.w}, ${f1(p1.pts)}.`:""}`)))}
+  const kg=B?B.top.slice(0,7):(CHAMP_DETAIL[y]?.roster||[]).filter(r=>r[0]!=="BE"&&r[0]!=="IR").map(([p,n])=>[n,p,null]);
+  if(kg.length)out.push(sl(col,kick(y,++i,"The Kingsguard")+ttl("The Kingsguard")+`<p class="wr-t got-sub">${B?"The seven who scored the most for the crown, in lineup points, playoffs included.":esc(CHAMP_DETAIL[y]?.rosterNote||"")}</p><ul class="got-kg">${kg.map(([n,p,v])=>`<li><i>${esc(p)}</i><b>${esc(n)}</b>${v!=null?`<span>${f1(v)}</span>`:""}</li>`).join("")}</ul>`,"got-kgs"));
+  const P=B?B.post:[],bs=X.b||P.map((R,k)=>{const L=k===P.length-1;return [L?"The Last Battle":`The ${NTH[k+1]} Battle`,`${short(o)} beat ${short(R[1])}${L?" for the crown":""}, ${f1(R[2])} to ${f1(R[3])}.`]});
+  bs.forEach(([nm,t],k)=>{const Rr=P[k],foe=Rr?Rr[1]:X.foes?.[k],sc=X.sc?.[k],last=k===bs.length-1;
+    out.push(sl(col,kick(y,++i,last?"The Final":"The Playoffs")+pic(()=>BATTLE(o,foe,X.fx?.[k]||{}),"got-md")+ttl(nm)+txt(t)+(Rr?scoreHTML(o,Rr[1],Rr[2],Rr[3],Rr[4]):sc?scoreHTML(o,foe,sc[0],sc[1],sc[2]):scoreHTML(o,foe,null,null)),"got-bt"))});
+  out.push(sl("#3a2a12",kick(y,++i,"The Iron Throne")+pic(()=>THRONE(o))+ttl(`Long May ${short(o)} Reign`)+`<p class="got-style">${esc(X.st||`${short(o)} of ${hn}, ${NTH[nthTitle(o,y)]} of the Name, Champion of the Flamingo Men`)}</p>`+txt(X.e),"got-end"));
+  out.push(ledger(y,o,B,0,CHAMP_STORY[y],team));
+  return out}
+function sacko(y){const k=SACKOS[y];if(!k)return [];const o=k.o,X=GOT_S[y]||{},T=THRONES[y],B=T?{...T.s,n:T.n}:null,team=csTeam(o,y)||k.team,col="#26302d",out=[],pu=SACKO_PUNISH[y],rr=S[o]?.seasons?.[y];let i=0;
+  out.push(sl(col,`<div class="wr-k">The Flamingo Men · Season ${RN[y-2015]} · ${y}</div><div class="cs-art got-astro">${art(()=>ASTRO(o,1))}</div>${ttl(X.t||"The Walk of Shame")}<div class="got-house">${esc(OWNERS[o].name)} · ${esc(team)}</div><div class="got-words">“Shame. Shame. Shame.”</div>${txt(X.p||(rr?`${short(o)} went ${rr.w}-${rr.l} as ${team}.`:""))}`,"got-open got-sk"));
+  if(B)out.push(sl(col,kick(y,++i,"The Painted Table")+pic(()=>MAPT(B.reg,o))+ttl("The Long March Down")+txt(X.m||march(o,y,B,1)),"got-sk"));
+  const ww=X.w||busts(o,y);if(ww||X.r?.length)out.push(sl(col,kick(y,++i,"The Omens")+pic(()=>RUIN(o),X.r?.length?"got-sm":"")+ttl("What Went Wrong")+txt(ww)+(X.r||[]).map(id=>scroll(id,o)).join(""),"got-sk got-rv"));
+  const P=B?B.post:[],foe=P[P.length-1]?.[1];
+  out.push(sl(col,kick(y,++i,"Trial by Combat")+pic(()=>ARENA(o,foe),P.length?"got-md":"")+ttl("Trial by Combat")+txt(X.b||trialText(o,y,B))+P.map(Rr=>scoreHTML(o,Rr[1],Rr[2],Rr[3],Rr[4])).join(""),`got-sk got-bt${P.length>1?" got-two":""}`));
+  out.push(sl(col,kick(y,++i,"The Walk of Shame")+pic(()=>SHAME(o,y))+ttl("Shame! Shame! Shame!")+txt(shameText(o,y)),"got-sk"));
+  if(pu?.ph?.length)out.push(sl(col,kick(y,++i,"The Atonement")+`<div class="got-ph">${pu.ph.map(([s,c,pos])=>`<figure><img src="${s}" alt="${esc(c)}"${pos?` style="object-position:${pos}"`:""}></figure>`).join("")}</div>`+ttl("The Atonement")+txt(pu.x),"got-sk"));
+  out.push(sl("#1f2a28",kick(y,++i,"The Porcelain Throne")+pic(()=>PTH(o))+ttl(`Long May ${short(o)} Sit`)+`<p class="got-style">${esc(X.st||`${short(o)}, ${NTH[nthSacko(o,y)]} of the Name, Keeper of the Sacko`)}</p>`+txt(X.e),"got-end got-sk"));
+  out.push(ledger(y,o,B,1,SACKO_STORY[y],team));
+  return out}
+/* ---- the walls ---- */
+function plaque(y){const c=CHAMPS[y];
+  if(!c)return `<div class="plaque empty"><span class="pl-yr">${y}</span><span class="pl-frame">${art(EMPTY,"0 0 100 120",0)}</span><span class="pl-reign">Season ${RN[y-2015]}</span><span class="pl-plate"><span class="pl-name">The throne awaits</span><span class="pl-team">Season in progress</span><span class="pl-stats"><span>Commissioner ${esc(commish(y))}</span></span></span></div>`;
+  const o=c.o,r=S[o]?.seasons?.[y],n=nthTitle(o,y);
+  return `<button type="button" class="plaque" data-gc="${y}" aria-label="${esc(`${y} champion ${OWNERS[o].name}, ${recS(r)}. Play the story.`)}"><span class="pl-yr">${y}</span><span class="pl-frame">${art(()=>PORTRAIT(o),"0 0 100 120",0)}</span><span class="pl-reign">${NTH[n]} of the Name</span><span class="pl-plate"><span class="pl-name">${esc(OWNERS[o].name)}</span><span class="pl-team">${esc(csTeam(o,y)||c.team)}</span><span class="pl-stats"><span><b>${recS(r)}</b></span><span>${r?.pts!=null?`<b>${fmt(r.pts)}</b> pts`:"Points not saved"}</span></span></span><span class="pl-play" aria-hidden="true">▶ Play the saga</span></button>`}
+function toilet(y){const k=SACKOS[y];if(!k)return "";const o=k.o,r=S[o]?.seasons?.[y],pu=SACKO_PUNISH[y],n=nthSacko(o,y);
+  return `<button type="button" class="loo" data-gs="${y}" aria-label="${esc(`${y} Sacko ${OWNERS[o].name}, ${recS(r)}. Play the walk of shame.`)}"><span class="loo-art">${art(()=>LOO(o,y),"0 0 160 210",0)}</span><span class="loo-plate"><span class="loo-yr">${y} Sacko</span>${n>1?`<span class="loo-nth">${NTH[n]} of the Name</span>`:""}<span class="pl-name">${esc(OWNERS[o].name)}</span><span class="pl-team">${esc(csTeam(o,y)||k.team)}</span><span class="pl-stats"><span><b>${recS(r)}</b></span><span>${r?.pts!=null?`<b>${fmt(r.pts)}</b> pts`:"Points not saved"}</span></span>${pu?.lid?`<span class="loo-tag">The punishment, on the lid</span>`:""}</span><span class="pl-play" aria-hidden="true">▶ The walk of shame</span></button>`}
+function play(s,label){if(!s.length)return;openCareer(null,s);const d=$("#csDlg");if(!d)return;d.setAttribute("aria-label",label);d.addEventListener("close",()=>d.setAttribute("aria-label","Career story"),{once:true})}
+const openChamp=y=>play(champ(y),`${y} title story`),openSacko=y=>play(sacko(y),`${y} walk of shame`);
+document.addEventListener("click",e=>{const b=e.target.closest("[data-gc],[data-gs]");if(!b)return;e.preventDefault();b.dataset.gc?openChamp(+b.dataset.gc):openSacko(+b.dataset.gs)});
+return {plaque,toilet,champ,sacko,openChamp,openSacko,title:(y,sk)=>{const X=(sk?GOT_S:GOT_C)[y],c=(sk?SACKOS:CHAMPS)[y];return X?.t||(c?csTeam(c.o,y)||c.team:"")}};
+})();
+function renderChamps(){const el=$("#champList");if(!el||el.dataset.ready)return;el.dataset.ready=1;el.innerHTML=ALL_YEARS.map(y=>GOT.plaque(y)).join("")}
+function renderSackos(){const el=$("#sackoList");if(!el||el.dataset.ready)return;el.dataset.ready=1;el.innerHTML=SEASONS.map(y=>GOT.toilet(y)).join("")}
+
+// styled trade boxes (Got, Gave, wins added), shared with other pages
 function triBox(g,o){const got=[],gave=[],with_=new Set();let d0;
   g.forEach(id=>{const t=TR[id],x=MV.trades[id];if(!x)return;d0??=t.d;["a","b"].forEach(m=>{const op=m==="a"?"b":"a";if(t[m].o!==o)return;with_.add(t[op].o);got.push(...x[m].got);gave.push(...x[op].got)})});
   const sum=l=>l.reduce((s,g)=>s+(g[4]||0),0),win=sum(got)>=sum(gave);
@@ -3370,24 +3856,6 @@ function tradeBox(id,o){if(TRI_OF[id])return triBox(TRI_OF[id],o);const t=TR.fin
   const list=(got,label)=>`<div><div class="eyebrow">${label}</div><ul>${got.length?got.map(g=>`<li><span>${pn(g[0])} <span class="pos">${esc(g[1])}</span></span><span class="pts">${warP(g)}</span></li>`).join(""):'<li class="muted">Nothing</li>'}</ul><div class="tot"><span>Wins added</span><span>${wf(got.reduce((s,g)=>s+(g[4]||0),0))}</span></div></div>`;
   return `<article class="tbox ${win?"win":"loss"}"><div class="tbox-top"><span>${d} · <span class="vs">with ${esc(t[op].team)} (${esc(short(t[op].o))})</span></span><span class="res">${win?"Won":"Lost"} by ${wf(Math.abs(x[me].war-x[op].war),false)} wins</span></div>
     <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div>${lore(id)}</article>`}
-
-/* ---------- SACKOS ---------- */
-// the punishment each Sacko loser served, served at the next draft (Kyle 2026-11-18). Add a year when Kyle gives it.
-const SACKO_PUNISH={
-  2020:{x:"Sticker bitch at the 2021 draft, dressed as Wonder Woman: DiLapi put every pick on the board himself.",ph:[["img/draft-2021-wonder-woman1.jpg","DiLapi as Wonder Woman, sticker bitch at the 2021 draft."],["img/draft-2021-wonder-woman2.jpg","DiLapi, still Wonder Woman, on a break from sticker duty."]]},
-  2021:{x:"Lucas sat out 2022 in London, so the punishment waited for him: he showed up to the 2023 draft in zebra ears and a tutu and presented the board in costume.",ph:[["img/draft-2023-board1.jpg","Lucas in his Sacko punishment costume at the 2023 draft."],["img/draft-2023-tutu.jpg","Lucas in the tutu and zebra ears at the 2023 draft."]]}};
-function punishHTML(y){const p=SACKO_PUNISH[y];if(!p)return "";
-  return `<div class="punish"><div class="eyebrow">The punishment</div><p>${esc(p.x)}</p>${p.ph?.length?`<div class="punish-ph">${p.ph.map(([src,cap])=>`<button type="button" data-full="${src}" data-gal="pun${y}" data-cap="${esc(cap)}" data-t="${y} Sacko punishment"><img src="${src}" alt="${esc(cap)}" loading="lazy"></button>`).join("")}</div>`:""}</div>`}
-function renderSackos(){
-  $("#sackoList").innerHTML=SEASONS.slice().reverse().map(y=>{const k=SACKOS[y];if(!k)return "";
-    return `<article class="champ won sackoed"><div class="champ-top"><div class="champ-photo">${cutout(k.o)}<div class="yr">${y}</div></div><div class="champ-head">
-      <div><span class="eyebrow">${sackoMark()} ${y} Sacko</span><h2>${esc(OWNERS[k.o].name)}</h2>${k.team!==short(k.o)?`<span class="muted">${esc(k.team)}</span>`:""}</div>
-      ${seasonLine(k.o,y)}
-      ${SACKO_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(SACKO_STORY[y])}</p>`:""}${punishHTML(y)}</div></div><div class="champ-body">
-      ${sackoNote(y)}
-      ${(d=>d?`<div><div class="eyebrow">Sacko roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${pn(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>`:"")(SACKO_DETAIL[y])}
-    </div></article>`}).join("");
-}
 
 /* ---------- RULES ---------- */
 // 2026 rules come from the ESPN league settings (pulled 2026-11-13). n = new in 2026, linked to the vote that made it.
