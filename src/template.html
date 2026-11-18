@@ -357,6 +357,9 @@ details.fold{border:0;padding:0}
 details.fold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);margin-bottom:12px}
 details.fold>summary::-webkit-details-marker{display:none}
 details.fold>summary h2{margin:0}
+details.fold>summary .dfsub{margin-left:auto;font-size:.85rem;text-align:right}
+@media (max-width:560px){details.fold>summary .dfsub{display:none}}
+#draftFold,#allTimeBlock,#seasonBlock,#topLists{scroll-margin-top:90px}
 details.fold>summary .chev{width:30px;height:30px;border:1px solid var(--line);border-radius:99px;display:grid;place-items:center;flex:none;background:var(--slab)}
 details.fold>summary .chev::before{content:"";width:8px;height:8px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(1px) rotate(-135deg);transition:transform .15s}
 details.fold:not([open])>summary .chev::before{transform:translateY(-2px) rotate(45deg)}
@@ -1185,7 +1188,7 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 <header class="site"><div class="wrap">
   <a class="brand" href="#home"><svg aria-hidden="true"><use href="#flamingoBall"/></svg><b>The Flamingo Men</b></a>
   <nav class="main" aria-label="Sections">
-    <a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a>
+    <a href="#home">Home</a><a href="#history">History</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a>
   </nav>
   <div class="search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="Search players, teams, pages" autocomplete="off" aria-label="Search the site" aria-controls="sres" aria-expanded="false">
@@ -1277,6 +1280,10 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   <div class="chronicle" id="chronicle"></div>
   <div class="era-seasons" id="eraSeasons"></div>
   <div class="yearcard" id="yearCard"></div>
+  <details class="fold block" id="draftFold"><summary><h2>The <span id="draftYr"></span> draft board</h2><span class="muted dfsub" id="draftSub"></span><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Every pick by round and team, color-coded like the sticker board. Steals and busts are judged on how that NFL season actually went. Players who missed more than eight games hurt are tagged Injured, not Bust. Photos of the board are in the gallery above.</p>
+    <div id="draftBody"></div>
+  </details>
   <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="block" id="weeksBlock">
     <div class="block-head"><h2>Week by week <span class="muted" id="weeksYear" style="font-family:var(--f-data);font-size:.9rem"></span></h2></div>
@@ -1284,30 +1291,6 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
     <p class="muted" style="margin:-4px 0 10px;font-size:.82rem">Pick a week, then click a matchup for both lineups and every player's points. Weeks outlined in gold are playoff weeks.</p>
     <div class="games" id="weekGames"></div>
   </div>
-</div></section>
-
-<!-- STATS -->
-<section class="hall" id="hall-stats"><div class="wrap">
-  <div class="hall-head"><span class="eyebrow">League Stats</span><h2>All-time standings</h2>
-  <p>Regular season records and points from 2016 through the current season. 2026 counts every completed week, so the totals move each week. Trades include every completed trade on record, 2026 included. Click a column to sort.</p></div>
-  <div class="tablebox"><table id="allTime"></table></div>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Luck is an official league stat: actual regular-season wins minus the wins your scores earned, where each week you earn the share of the league you outscored (your record if you had played everyone). +2.0 means two more wins than your scores deserved. ESPN weekly scores, 2018 on, completed weeks only.</p>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg pts / season averages finished seasons only, so a half-played 2026 doesn't drag it down. Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs); 2026 joins once its playoffs are set. Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
-  <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Includes an estimated 2016 or 2017 record. Only Charles's, Duane's and Kyle's 2016 records and Kyle's and Fluff's 2017 records were saved. The rest are worked out from those and the playoff brackets (every game has a winner), so they add up but aren't exact. Points from those two seasons weren't saved.</p>
-  <div class="block">
-    <div class="block-head"><h2>Season standings</h2>
-      <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
-    <div class="tablebox"><table id="seasonTable"></table></div>
-    <p class="muted" id="seasonNote" style="font-size:.9rem"></p>
-  </div>
-</div></section>
-
-<!-- DRAFTS -->
-<section class="hall" id="hall-drafts"><div class="wrap">
-  <div class="hall-head"><span class="eyebrow">Past Drafts</span><h2>The draft boards</h2>
-  <p>Every pick by round and team, color-coded like the sticker board. Steals and busts are judged on how that NFL season actually went. Players who missed more than eight games hurt are tagged Injured, not Bust.</p></div>
-  <div class="years" id="draftYears" role="group" aria-label="Draft year" style="margin-top:0"></div>
-  <div id="draftBody"></div>
 </div></section>
 
 <!-- TEAMS -->
@@ -1320,24 +1303,24 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 <!-- MOVES -->
 <section class="hall" id="hall-records"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
-  <p>The all-time lists, plus every trade and waiver pickup on record. Pickups come from ESPN for 2018 to 2026. The league wasn't on this ESPN league in 2016 and 2017, so those seasons show trades only.</p></div>
+  <p>League records, the all-time and season standings, and every trade and waiver pickup on record. The top 10 lists live on the <a href="#rankings">Rankings</a> tab.</p></div>
   <div class="block" style="margin-top:0"><div class="block-head"><h2>League records</h2></div>
     <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous records">‹</button><div class="recgrid" id="recGrid" tabindex="0" aria-label="League records"></div><button type="button" class="recnav next" aria-label="More records">›</button></div>
-    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
+    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Pickups come from ESPN for 2018 to 2026; 2016 and 2017 show trades only. Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
   </div>
-  <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by wins above replacement (WAR), the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.</p>
-    <div class="top5" id="top5rapes"></div>
-  </details>
-  <details class="fold block"><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <div class="seg" id="pickPos" role="group" aria-label="Position" style="margin:0 0 10px"></div>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
-    <div class="top5" id="top5pickups"></div>
-  </details>
-  <details class="fold block"><summary><h2>Top 10 seasons of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup’s season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, ×0.90 for 8 teams, ×0.95 for 10 and ×1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Open a season to see the breakdown and the lineup.</p>
-    <div class="top5" id="topRosters"></div>
-  </details>
+  <div class="block" id="allTimeBlock"><div class="block-head"><h2>All-time standings</h2></div>
+  <p class="muted" style="margin:0 0 10px;font-size:.9rem;max-width:80ch">Regular season records and points from 2016 through the current season. 2026 counts every completed week, so the totals move each week. Trades include every completed trade on record, 2026 included. Click a column to sort.</p>
+  <div class="tablebox"><table id="allTime"></table></div>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Luck is an official league stat: actual regular-season wins minus the wins your scores earned, where each week you earn the share of the league you outscored (your record if you had played everyone). +2.0 means two more wins than your scores deserved. ESPN weekly scores, 2018 on, completed weeks only.</p>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg pts / season averages finished seasons only, so a half-played 2026 doesn't drag it down. Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs); 2026 joins once its playoffs are set. Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
+  <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Includes an estimated 2016 or 2017 record. Only Charles's, Duane's and Kyle's 2016 records and Kyle's and Fluff's 2017 records were saved. The rest are worked out from those and the playoff brackets (every game has a winner), so they add up but aren't exact. Points from those two seasons weren't saved.</p>
+  </div>
+  <div class="block" id="seasonBlock">
+    <div class="block-head"><h2>Season standings</h2>
+      <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
+    <div class="tablebox"><table id="seasonTable"></table></div>
+    <p class="muted" id="seasonNote" style="font-size:.9rem"></p>
+  </div>
   <div class="block">
     <div class="block-head"><h2>All moves</h2><span class="muted num" id="tradeCount"></span></div>
     <div class="controls">
@@ -1347,9 +1330,6 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
     </div>
     <div id="moveList"></div>
   </div>
-  <details class="fold block"><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
-    <div class="top5" id="top5"></div>
-  </details>
   <div class="block">
     <div class="block-head"><h2>Vetoed</h2></div>
     <div class="trades-list" id="vetoList"></div>
@@ -1364,6 +1344,23 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   <p class="muted rkhow" id="rankHow"></p>
   <ol class="rklist" id="rankList"></ol>
   <div id="rankRetro"></div>
+  <div class="block" id="topLists"><div class="block-head"><h2>The all-time top lists</h2></div><p class="muted" style="margin:0;font-size:.9rem">Tap a list to open it.</p></div>
+  <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by wins above replacement (WAR), the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.</p>
+    <div class="top5" id="top5rapes"></div>
+  </details>
+  <details class="fold block"><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <div class="seg" id="pickPos" role="group" aria-label="Position" style="margin:0 0 10px"></div>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
+    <div class="top5" id="top5pickups"></div>
+  </details>
+  <details class="fold block"><summary><h2>Top 10 seasons of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup’s season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, ×0.90 for 8 teams, ×0.95 for 10 and ×1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Open a season to see the breakdown and the lineup.</p>
+    <div class="top5" id="topRosters"></div>
+  </details>
+  <details class="fold block"><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
+    <div class="top5" id="top5"></div>
+  </details>
 </div></section>
 
 <!-- CHAMPIONS -->
@@ -1392,7 +1389,7 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 
 <div class="meander" aria-hidden="true"></div>
 <footer><div class="wrap">
-  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#stats">Stats</a><a href="#drafts">Drafts</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a></nav>
+  <nav aria-label="Footer"><a href="#home">Home</a><a href="#history">History</a><a href="#teams">Teams</a><a href="#records">Records</a><a href="#rankings">Rankings</a><a href="#champions">Champions</a><a href="#sackos">Sackos</a><a href="#rules">Rules</a></nav>
   <small>The Flamingo Men · Data from the league stats sheet, ESPN trade emails and member screenshots.</small>
 </div></footer>
 
@@ -1997,6 +1994,7 @@ function renderHistory(){
    <div><div class="eyebrow">Pickup of the Year</div>${PICKUPS[histYear]?`<p style="margin:4px 0 0"><b>${esc(PICKUPS[histYear].player)}</b>, picked up by ${esc(PICKUPS[histYear].team)}${PICKUPS[histYear].official?" (official league award)":""}.</p>`:MV.pickupOfYear[histYear]?(m=>`<p style="margin:4px 0 0"><b>${pn(m.add[0])}</b>, picked up by ${esc(m.team)} (${esc(short(m.o))}) in week ${m.w}. He scored ${fmt(m.pts)} points in their lineup.</p>`)(MV.pickupOfYear[histYear]):`<p class="muted" style="margin:4px 0 0">Waiver records for ${histYear} are not in the files yet.</p>`}</div></div>`:""}
 `;
   galArrows($("#yearCard"));
+  renderDrafts();
 }
 
 function wuTrade(){const t={id:"wu2015",d:"2015-10-11",st:"completed",a:{team:"OREO",o:"charles",gave:["Jamaal Charles|RB","Travis Benjamin|WR"]},b:{team:"CURR",o:"quincy",gave:["Randall Cobb|WR","James Jones|WR"]}};
@@ -2169,16 +2167,12 @@ function renderStats(){
 /* ---------- DRAFTS ---------- */
 let draftYear=null;
 const POSN={QB:"QB",RB:"RB",WR:"WR",TE:"TE",DST:"D/ST",K:"K"};
+// The draft board lives in History's year view (the Drafts tab was folded in, Kyle 2026-11-18); board photos are in the year gallery
 function renderDrafts(){
-  const withData=Object.keys(DRAFTS).map(Number);
-  if(draftYear==null)draftYear=Math.max(...withData);
-  $("#draftYears").innerHTML=ALL_YEARS.map(y=>{const has=DRAFTS[y]||BOARDS.find(b=>b.year===y);return `<button type="button" data-y="${y}" aria-pressed="${y===draftYear}"${has?"":' class="dim"'}>${y}</button>`}).join("");
-  $("#draftYears").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;draftYear=+b.dataset.y;renderDrafts()};
-  const D=DRAFTS[draftYear],B=BOARDS.find(b=>b.year===draftYear);
-  const photo=B?`<figure class="board" style="margin:22px 0 0;max-width:820px"><button type="button" data-full="img/${B.img}"><img src="img/${B.img}" alt="${draftYear} draft board" loading="lazy"></button><figcaption class="cap"><h3>The ${draftYear} board</h3><span class="muted" style="font-size:.9rem">${esc(B.cap)}</span></figcaption></figure>`:""
-  const extra=DRAFT_EXTRA.filter(x=>x.year===draftYear).map(x=>`<figure class="board" style="margin:22px 0 0;max-width:620px">${x.vid?`<video src="img/${x.vid}" poster="img/${x.img}" controls playsinline preload="none" style="width:100%;max-height:80vh;border-radius:var(--r);background:#000;display:block"></video>`:`<button type="button" data-full="img/${x.img}"><img src="img/${x.img}" alt="${draftYear} draft night" loading="lazy"></button>`}<figcaption class="cap"><h3>${esc(x.t||"Draft night "+draftYear)}</h3><span class="muted" style="font-size:.9rem">${esc(x.cap)}</span></figcaption></figure>`).join("");
-  const photos=photo+extra;
-  if(!D){$("#draftBody").innerHTML=`<div class="board missing" style="min-height:180px"><div><h3>${draftYear} draft</h3><span style="font-size:.95rem">No draft sheet for this year yet.</span></div></div>${photos}`;return}
+  draftYear=histYear;const D=DRAFTS[draftYear],fold=$("#draftFold");
+  fold.hidden=histMode==="era"||draftYear===2015;if(fold.hidden)return;
+  $("#draftYr").textContent=draftYear;
+  if(!D){$("#draftSub").textContent="Not saved";$("#draftBody").innerHTML=`<p class="muted" style="margin:0">No draft sheet for ${draftYear} yet.${BOARDS.find(b=>b.year===draftYear)?" The photo of the board is in the gallery above.":""}</p>`;return}
   const rounds=Math.max(...D.cols.map(c=>c.length));
   const key=(r,c)=>r+"-"+c;
   const mark={};D.steals.forEach(s=>mark[key(s[1],s[2])]="steal");D.busts.forEach(s=>mark[key(s[1],s[2])]="bust");(D.inj||[]).forEach(([r,c,g])=>mark[key(r,c)]="inj");const gpOf={};(D.inj||[]).forEach(([r,c,g])=>gpOf[key(r,c)]=g);
@@ -2187,12 +2181,12 @@ function renderDrafts(){
   for(let r=1;r<=rounds;r++){body+=`<tr><th class="rd">${r}</th>`+D.cols.map((col,c)=>{const v=col[r-1];if(!v)return `<td class="pk empty"><span>Not on board</span></td>`;const[n,p]=v.split("/");const m=mark[key(r,c)];
     return `<td class="pk ${p.toLowerCase()}${m?" "+m:""}" title="${esc(n)}, ${POSN[p]||p}"><span class="nm">${pn(n)}</span>${m?`<span class="ps"${m==="inj"?` title="Played ${gpOf[key(r,c)]} games"`:""}>${m==="steal"?"Steal":m==="inj"?"Injured":"Bust"}</span>`:""}<span class="sr">, ${POSN[p]||p}</span></td>`}).join("")+"</tr>"}
   const card=(title,list,cls)=>`<div class="pickcard ${cls}"><div class="eyebrow">${title}</div><ol>${list.map(([n,r,c,why])=>`<li><b>${esc(n)}</b> <span class="muted">round ${r}, ${esc(D.teams[c][0])}</span><br>${esc(why)}</li>`).join("")}</ol></div>`;
+  $("#draftSub").textContent=`${D.teams.length} teams · ${rounds} rounds`;
   $("#draftBody").innerHTML=`<div class="dlegend">${["QB","RB","WR","TE","DST","K"].map(p=>`<span class="pk ${p.toLowerCase()}">${POSN[p]}</span>`).join("")}<span class="muted" style="font-size:.85rem">${D.teams.length} teams · ${rounds} rounds</span></div>
     <div class="tablebox dgrid"><table><thead>${head}</thead><tbody>${body}</tbody></table></div>
     <p class="muted" style="font-size:.85rem;margin:8px 0 0">${esc(D.source)}</p>
     ${D.steals.length?`<div class="pickcards">${card("Steals of the draft",D.steals,"good")}${card("Worst picks",D.busts,"bad")}</div>`:`<div class="note" style="margin-top:14px">The season is still being played. Steals and worst picks get called once it ends.</div>`}
-    ${D.odd?`<div class="note" style="margin-top:14px">${esc(D.odd)}</div>`:""}
-    ${photos}`;
+    ${D.odd?`<div class="note" style="margin-top:14px">${esc(D.odd)}</div>`:""}`;
 }
 
 /* ---------- TEAMS ---------- */
@@ -3296,16 +3290,18 @@ const warP=g=>g[2]==null?"":wf(g[4]||0);
 function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
   return `<tr><td class="nw num">${d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}</td>${withTeam?`<td>${esc(m.team)} <span class="muted">${esc(short(m.o))}</span></td>`:""}<td><b>${esc(m.add[0])}</b> <span class="muted">${esc(m.add[1])}</span></td><td>${m.drop?`${pn(m.drop[0])} <span class="muted">${esc(m.drop[1])}</span>`:'<span class="muted">–</span>'}</td><td class="nw">${m.k}</td><td class="num">${m.pts?fmt(m.pts):"–"}</td></tr>`}
 function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
-function renderTrades(){
+function renderTopLists(){
   const margin=x=>Math.abs(x.a.war-x.b.war);
   const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
   $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
     return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${wf(margin(x),false)} wins in ${t.s}: ${wf(x[w].war,false)} wins added to ${wf(x[l].war,false)} for ${esc(t[l].team)} (${esc(short(t[l].o))}).</p></div>${tradeScore(t)}`)}).join("");
   $("#pickPos").innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
-  $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTrades()};
+  $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTopLists()};
   const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
   $("#top5pickups").innerHTML=best.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(m.o)}<div><h4>${pn(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("");
   $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
+}
+function renderTrades(){
   const adds=MV.moves.filter(m=>m.add);
   const owners=[...new Set([...TR.flatMap(t=>[t.a.o,t.b.o]),...adds.map(m=>m.o)].filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
   $("#tradeOwner").innerHTML=`<option value="all">All teams</option>${owners.map(o=>`<option value="${o}" ${o===tOwner?"selected":""}>${esc(OWNERS[o].name)}${OWNERS[o].nick?` (${esc(OWNERS[o].nick)})`:""}</option>`).join("")}<option value="unk" ${tOwner==="unk"?"selected":""}>Owner unconfirmed</option>`;
@@ -3522,7 +3518,7 @@ function renderPlayer(){const r=PLAYERS.p[plCur],ys=Object.keys(r.y).map(Number)
   $("#plBody").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;plYear=b.dataset.y==="all"?"all":+b.dataset.y;renderPlayer();$("#plDlg").scrollTop=0}}
 
 /* ---------- SEARCH ---------- */
-const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, standings, weekly matchups"],["Stats","#stats","Career and season stats"],["Drafts","#drafts","Every draft board"],["Teams","#teams","Owner profiles"],["Records","#records","League records, trade rapes, pickups, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
+const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, draft boards, weekly matchups"],["Draft boards","#drafts","Every draft board, in History"],["Teams","#teams","Owner profiles"],["Records","#records","League records, stats, all-time and season standings, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers, top 10 trade rapes, pickups and seasons"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
 let sSel=0,sItems=[];
 function goTeam(o){current=o;teamYear=null;if(location.hash==="#teams")route();else location.hash="#teams"}
 function goYear(y){histYear=y;histMode="year";histWeek=null;openGame=null;if(location.hash==="#history")route();else location.hash="#history"}
@@ -3548,11 +3544,17 @@ $("#q").addEventListener("keydown",e=>{const bs=[...$("#sres").querySelectorAll(
 $("#sres").addEventListener("mousedown",e=>{const b=e.target.closest("[data-i]");if(!b)return;e.preventDefault();searchPick(+b.dataset.i)});
 document.addEventListener("click",e=>{if(!e.target.closest(".search"))$("#sres").hidden=true});
 
-const ROUTES={home:renderHome,history:renderHistory,stats:renderStats,drafts:renderDrafts,teams:renderTeams,records:()=>{renderRecords();renderTrades();renderTopRosters()},rankings:renderRankings,champions:renderChamps,sackos:renderSackos,rules:renderRules};
-function route(){document.querySelector(".lightbox")?.remove();let h=(location.hash||"#home").slice(1);if(h==="trades"||h==="moves")h="records";if(!ROUTES[h])h="home";
+const ROUTES={home:renderHome,history:renderHistory,teams:renderTeams,records:()=>{renderRecords();renderStats();renderTrades()},rankings:()=>{renderRankings();renderTopLists();renderTopRosters()},champions:renderChamps,sackos:renderSackos,rules:renderRules};
+// Old tabs (Kyle 2026-11-18): Stats folded into Records, Drafts into History's year view, Records' top lists into Rankings.
+// Old links land on the new spot: [new tab, element to scroll to, setup]
+const OLD_TABS={trades:["records"],moves:["records"],stats:["records","#allTimeBlock"],drafts:["history","#draftFold",()=>{histMode="year";if(!DRAFTS[histYear])histYear=Math.max(...Object.keys(DRAFTS).map(Number));histWeek=null;openGame=null}],toplists:["rankings","#topLists"]};
+function route(){document.querySelector(".lightbox")?.remove();let h=(location.hash||"#home").slice(1),go=null;
+  const old=OLD_TABS[h];if(old){h=old[0];go=old[1];old[2]?.();history.replaceState(null,"","#"+h)}
+  if(!ROUTES[h])h="home";
   document.querySelectorAll("section.hall").forEach(s=>s.classList.toggle("on",s.id==="hall-"+h));
   document.querySelectorAll("nav.main a").forEach(a=>{if(a.getAttribute("href")==="#"+h){a.setAttribute("aria-current","page");const n=a.parentElement;if(n.scrollWidth>n.clientWidth)n.scrollTo({left:a.offsetLeft-n.clientWidth/2+a.offsetWidth/2,behavior:"smooth"})}else a.removeAttribute("aria-current")});
-  ROUTES[h]();window.scrollTo(0,0)}
+  ROUTES[h]();window.scrollTo(0,0);
+  if(go){const el=$(go);if(el){if(el.tagName==="DETAILS")el.open=true;requestAnimationFrame(()=>el.scrollIntoView({block:"start"}))}}}
 window.addEventListener("hashchange",route);
 function openLightbox(b){
   document.querySelector(".lightbox")?.remove();
