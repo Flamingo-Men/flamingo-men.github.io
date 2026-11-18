@@ -175,6 +175,73 @@ a.tag.new,.tag.new{background:var(--flamingo-soft);color:var(--flamingo);text-de
   .vote{padding:14px}
 }
 
+/* rules page as a parchment constitution (Kyle 2026-11-18). Parchment in light and dark mode alike. */
+.const{--slab:rgba(255,250,234,.5);--marble:rgba(255,247,226,.65);--stone:rgba(201,170,108,.32);--ink:#33230f;--muted:#6c5636;--line:rgba(112,80,32,.3);
+  --gold:#86600f;--aegean:#5b3c17;--flamingo:#b02e57;--flamingo-soft:rgba(214,74,116,.14);--good:#2e6a3d;--bad:#a12e1d;--r:3px;
+  --f-display:"IM Fell English SC","Marcellus SC",Georgia,serif;--f-data:"EB Garamond",Georgia,serif;--quill:#1d2340;
+  font-family:"EB Garamond",Georgia,serif;font-size:1.06rem;color:var(--ink);position:relative;max-width:1040px;margin:0 auto;
+  padding:clamp(28px,6vw,72px) clamp(18px,6vw,80px);border-radius:4px;
+  background:
+   radial-gradient(ellipse at 50% 40%,rgba(255,250,232,.0) 55%,rgba(150,104,40,.28) 100%),
+   radial-gradient(circle at 12% 18%,rgba(170,120,50,.16),transparent 30%),
+   radial-gradient(circle at 85% 70%,rgba(160,110,40,.14),transparent 34%),
+   radial-gradient(circle at 70% 8%,rgba(120,80,30,.10),transparent 22%),
+   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .32 0 0 0 0 .14 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+   linear-gradient(170deg,#f5e8c6,#ecd9a8 60%,#e7d09a);
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 0 0 1px rgba(120,84,30,.35),0 18px 40px -18px rgba(60,35,5,.55),0 2px 6px rgba(60,35,5,.25)}
+.const::before{content:"";position:absolute;inset:clamp(8px,1.6vw,16px);border:1.5px solid rgba(110,78,30,.55);outline:1px solid rgba(110,78,30,.35);outline-offset:-6px;pointer-events:none;border-radius:2px}
+.const>*{position:relative}
+.const-head{text-align:center;margin-bottom:clamp(22px,4vw,40px)}
+.const-kicker{font-family:"IM Fell English SC",Georgia,serif;letter-spacing:.18em;font-size:.82rem;color:var(--muted)}
+.const .we{font-family:"UnifrakturMaguntia","Old English Text MT",Georgia,serif;font-weight:400;font-size:clamp(2.7rem,10vw,5.6rem);line-height:1.05;margin:10px 0 14px;color:#24180a;letter-spacing:.01em;text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.const .preamble{max-width:62ch;margin:0 auto;font-family:"IM Fell English",Georgia,serif;font-size:clamp(1.05rem,2.2vw,1.22rem);line-height:1.6;text-align:justify;hyphens:auto;text-align-last:center}
+.const .preamble::first-letter{font-family:"UnifrakturMaguntia",Georgia,serif;font-size:1.5em;line-height:0}
+.const .art{margin-top:clamp(30px,5vw,48px)}
+.const .art-h{font-family:"IM Fell English SC",Georgia,serif;font-weight:400;font-size:clamp(1.25rem,3vw,1.6rem);text-align:center;margin:0 0 16px;display:grid;justify-items:center;gap:2px}
+.const .art-h span{font-family:"UnifrakturMaguntia",Georgia,serif;font-size:1.25em;color:#2a1c0b}
+.const .art-h::after{content:"";width:min(260px,60%);height:12px;margin-top:6px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 12'%3E%3Cpath d='M2 6h104M154 6h104' stroke='%236c5636' stroke-width='1'/%3E%3Cpath d='M130 1l5 5-5 5-5-5z' fill='%236c5636'/%3E%3Ccircle cx='116' cy='6' r='2' fill='%236c5636'/%3E%3Ccircle cx='144' cy='6' r='2' fill='%236c5636'/%3E%3C/svg%3E") center/contain no-repeat}
+.const .art-note{text-align:center;font-style:italic;color:var(--muted);margin:-6px 0 14px;font-size:.95rem}
+.const .art .tablebox+.art-note{margin:10px 0 0}
+.const .rcard,.const .vote,.const .commish-now,.const .ctl,.const .tablebox,.const .trade{box-shadow:none}
+.const .rcard{border-top:2px solid var(--aegean)}
+.const .rcard h4,.const .vote h4{font-size:1.25rem}
+.const .rcard dd{font-weight:500}
+.const .commish-now{border-left-color:var(--gold)}
+.const .commish-now .eyebrow{font-family:"IM Fell English SC",Georgia,serif;letter-spacing:.1em;font-size:.85rem;text-transform:none}
+.const .vyear{font-family:"IM Fell English SC",Georgia,serif;color:var(--gold)}
+.const .tag{font-family:"IM Fell English SC",Georgia,serif;font-size:.78rem;letter-spacing:.04em;text-transform:none}
+.const .tag.pass,.const .tag.fail{color:#fbf3df}
+.const th{font-family:"IM Fell English SC",Georgia,serif;font-size:.85rem;letter-spacing:.04em;text-transform:none;background:#e5cf9c}
+.const .vopt .bar{background:rgba(140,100,40,.18)}
+.const .av{border-color:#8a6a2c;filter:sepia(.35) contrast(1.02)}
+.attest{margin-top:clamp(40px,7vw,64px);text-align:center}
+.attest .done{font-family:"IM Fell English",Georgia,serif;font-style:italic;max-width:60ch;margin:0 auto;line-height:1.6}
+.attest .witness{font-family:"IM Fell English",Georgia,serif;margin:16px 0 8px;font-size:1.1rem}
+.sigs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:6px 22px;margin-top:10px;text-align:center}
+.sig{display:grid;justify-items:center;align-content:end;min-height:96px;padding:4px 2px}
+.sig .ink{font-size:var(--fs,2.2rem);line-height:1.15;color:var(--quill);transform:rotate(var(--rot,-3deg));white-space:nowrap;padding:0 .2em;text-shadow:0 0 .5px rgba(29,35,64,.6)}
+.sig .rule{width:88%;height:1px;background:rgba(80,55,20,.45);margin-top:2px}
+.sig small{font-family:"IM Fell English SC",Georgia,serif;font-size:.86rem;color:var(--muted);margin-top:3px;letter-spacing:.03em}
+.sig.pres{grid-column:1/-1;min-height:120px;margin-bottom:6px}
+.sig.pres .ink{--fs:3.4rem}
+.sig.pres .rule{width:min(380px,90%)}
+.sig.pres svg{width:min(300px,80%);height:22px;margin-top:-10px;color:var(--quill);opacity:.85}
+.seal{width:96px;margin:22px auto 0;filter:drop-shadow(0 3px 3px rgba(60,20,10,.35));transform:rotate(-8deg)}
+.seal svg{display:block;width:100%;height:auto}
+@media (max-width:560px){
+  .const{font-size:1rem;padding:30px 18px 34px}
+  .const::before{inset:6px;outline-offset:-4px}
+  .const .preamble{text-align:left;text-align-last:auto}
+  .const .rcard dl{grid-template-columns:minmax(84px,36%) minmax(0,1fr)}
+  .sigs{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 10px}
+  .sig{min-height:78px}
+  .sig .ink{font-size:calc(var(--fs,2.2rem)*.72)}
+  .sig:last-child:nth-child(even){grid-column:1/-1}
+  .sig.pres .ink{font-size:2.6rem}
+  .sig small{font-size:.76rem}
+  .seal{width:76px}
+}
+
 /* tables */
 .tablebox{overflow-x:auto;background:var(--slab);border:1px solid var(--line);border-radius:var(--r)}
 table{border-collapse:collapse;width:100%;font-size:.95rem}
@@ -1365,14 +1432,26 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 
 <!-- CHAMPIONS -->
 <section class="hall" id="hall-rules"><div class="wrap">
-  <div class="hall-head"><span class="eyebrow">The Constitution</span><h2>League rules</h2>
-  <p>How the league runs in 2026, who holds the gavel, and every league vote on record.</p></div>
-  <div id="commishNow"></div>
-  <div class="block"><div class="block-head"><h3>2026 rules</h3><span class="muted" style="font-size:.9rem">From the ESPN league settings</span></div><div class="rules-grid" id="rulesGrid"></div></div>
-  <div class="block"><div class="block-head"><h3>How the format changed</h3></div><div class="tablebox" id="rulesYears"></div>
-  <p class="muted" style="font-size:.85rem;margin:8px 0 0">2016 and 2017 were played in old ESPN leagues that no longer exist, so only the team count, scoring and records are known.</p></div>
-  <div class="block"><div class="block-head"><h3>Commissioners</h3></div><ol class="ctl" id="commishTl"></ol></div>
-  <div class="block" id="votes"><div class="block-head"><h3>League votes on record</h3><span class="muted" style="font-size:.9rem" id="voteCount"></span></div><div class="votes" id="voteList"></div></div>
+  <article class="const" aria-labelledby="constTitle">
+  <header class="const-head">
+    <span class="const-kicker">The Constitution of the Flamingo Men</span>
+    <h2 id="constTitle" class="we">We the Flamingos</h2>
+    <p class="preamble">of the League, in Order to form a more perfect Fantasy Union, establish Justice upon the Waiver Wire, insure domestic Tranquility at the Draft Table, provide for the common Defense against lopsided Trades, promote the general Trash Talk, and secure the Blessings of the Ring to ourselves and our Posterity, while condemning the Unworthy to the Sacko, do ordain and establish this Constitution for the Flamingo Men Fantasy Football League.</p>
+  </header>
+  <section class="art"><h3 class="art-h"><span>Article I</span>Of the Commissioner</h3><div id="commishNow"></div></section>
+  <section class="art"><h3 class="art-h"><span>Article II</span>Of the Laws of the 2026 Season</h3>
+    <p class="art-note">As set down in the ESPN league settings.</p><div class="rules-grid" id="rulesGrid"></div></section>
+  <section class="art"><h3 class="art-h"><span>Article III</span>Of the Format Through the Ages</h3><div class="tablebox" id="rulesYears"></div>
+  <p class="art-note">2016 and 2017 were played in old ESPN leagues that no longer exist, so only the team count, scoring and records are known.</p></section>
+  <section class="art"><h3 class="art-h"><span>Article IV</span>Of Those Who Have Held the Gavel</h3><ol class="ctl" id="commishTl"></ol></section>
+  <section class="art" id="votes"><h3 class="art-h"><span>Amendments</span>And Acts of the League</h3><p class="art-note" id="voteCount"></p><div class="votes" id="voteList"></div></section>
+  <div class="attest">
+    <p class="done">Done in Convention by the Unanimous Consent of the Teams present, at the Draft Table, the Twenty-Sixth Day of August in the Year of our Lord Two Thousand Twenty-Six, and of the Flamingo Men the Twelfth.</p>
+    <p class="witness">In Witness whereof We have hereunto subscribed our Names,</p>
+    <div class="sigs" id="constSigs"></div>
+    <div class="seal" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><radialGradient id="wax" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#f07a9b"/><stop offset=".6" stop-color="#c63a62"/><stop offset="1" stop-color="#8e1f42"/></radialGradient></defs><path fill="url(#wax)" d="M60 4c8 0 10 6 17 8s14-1 18 6 1 12 5 18 10 9 9 17-7 9-8 17 4 13-2 19-12 2-18 6-8 11-16 12-11-5-19-5-11 6-18 3-6-11-12-15-13-2-16-9 3-12 1-19-8-11-5-18 10-7 13-14 0-13 6-18 13 0 19-4S52 4 60 4z"/><circle cx="60" cy="60" r="34" fill="none" stroke="#8e1f42" stroke-width="2.5" opacity=".7"/><circle cx="60" cy="60" r="28" fill="none" stroke="#f9a8bd" stroke-width="1" opacity=".55"/><text x="60" y="71" text-anchor="middle" font-family="Pinyon Script,Georgia,serif" font-size="32" fill="#7a1636" opacity=".9">FM</text></svg></div>
+  </div>
+  </article>
 </div></section>
 <section class="hall" id="hall-sackos"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">Hall of Shame</span><h2>Sacko winners</h2>
@@ -3421,6 +3500,18 @@ const VOTES=[
   {y:2019,d:"2019-10-09",k:"Veto vote",t:"Kyle and Skelly's Zeke trade",trades:[22],res:["Veto overturned","pass"],note:"Kyle sent Joe Mixon, Tyler Boyd and Zach Ertz to Skelly for Ezekiel Elliott, Kenny Golladay and Devin Singletary. The trade was vetoed, then a league vote overturned the veto and it went through."},
   {y:2018,d:"2018-09-21",k:"Veto vote",t:"DiLapi's Mahomes trade with Charles",veto:{n:3,need:4},trades:[149],res:["Went through","pass"],note:"DiLapi sent Patrick Mahomes and Kareem Hunt to Charles for James Conner and Matt Breida. Three teams voted to veto. It took four, so the deal stood."}
 ];
+// Signers: the 12 teams in the 2026 ESPN league (Peanut sat out 2026). Each signs in his own hand. [owner, font, size, tilt]
+const SIGNERS=[["lucas","Monsieur La Doulaise",3.4,-3],["kyle","Mrs Saint Delafield",2.6,-5],["charles","Great Vibes",2.2,-2],["fluff","Herr Von Muellerhoff",2.6,-6],
+  ["squirm","Pinyon Script",1.85,-1],["dilapi","Alex Brush",2.2,-4],["rod","Rouge Script",2.3,-2],["quincy","Petit Formal Script",1.6,-3],
+  ["jordan","Parisienne",2,-4],["dylan","Allura",2.3,-1],["jerry","Italianno",2.8,-3],["ghost","Tangerine",2.9,-5]];
+// shrink any signature wider than its spot (script fonts vary a lot in width)
+function fitSigs(){document.querySelectorAll("#constSigs .ink").forEach(e=>{e.style.fontSize="";const w=e.parentElement.clientWidth-6,sw=e.scrollWidth;if(w>0&&sw>w)e.style.fontSize=(parseFloat(getComputedStyle(e).fontSize)*w/sw)+"px"})}
+function loadConstFonts(){if(document.getElementById("constFonts"))return;
+  const fams=SIGNERS.map(x=>"family="+x[1].replace(/ /g,"+")).join("&")+"&family=UnifrakturMaguntia";
+  const txt=encodeURIComponent([...new Set(SIGNERS.map(x=>OWNERS[x[0]].name).join("")+"FMWetheFlamingosArticleIVAmendments")].join(""));
+  const l1=document.createElement("link");l1.id="constFonts";l1.rel="stylesheet";l1.href=`https://fonts.googleapis.com/css2?${fams}&text=${txt}&display=swap`;
+  const l2=document.createElement("link");l2.rel="stylesheet";l2.href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&display=swap";
+  document.head.append(l1,l2)}
 const fmtD=s=>new Date(s+"T12:00:00").toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
 function renderRules(){
   const now=COMMISH[2026]||[],o=now[0];
@@ -3436,8 +3527,13 @@ function renderRules(){
     return `<tr class="${r[0]<2018?"est":""}"><td class="num" style="text-align:left">${r[0]}</td>${td(1,"num")}${td(2)}${td(3,"num")}${td(4,"num")}${td(5)}${td(6)}${td(7)}</tr>`}).join("")}</tbody></table>`;
   $("#commishTl").innerHTML=terms.slice().reverse().map(x=>`<li class="${x.y2===2026?"now":""}"><span class="yrs">${x.y1===x.y2?x.y1:`${x.y1} to ${x.y2}`}</span><span class="faces">${x.os.map(o=>av(o)).join("")}</span>
     <span class="nm">${x.os.map(o=>esc(OWNERS[o].name)).join(" and ")}<small>${x.y2===2026?"Current commissioner":x.os.length>1?"Co-commissioners":"Commissioner"}${x.y2-x.y1?` · ${x.y2-x.y1+1} seasons`:""}</small></span></li>`).join("");
+  loadConstFonts();
+  const flourish=`<svg viewBox="0 0 300 22" aria-hidden="true"><path d="M4 14c40-12 80 6 120-2s50-12 70-4-24 14-6 10 70-18 108-8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+  $("#constSigs").innerHTML=SIGNERS.map(([o,f,fs,rot],i)=>{const n=OWNERS[o].name,sh=short(o),cap=i===0?"Commissioner":!n.includes(sh)?sh:"";
+    return `<div class="sig${i===0?" pres":""}"><span class="ink" style="font-family:'${f}',cursive;--fs:${fs}rem;--rot:${rot}deg">${esc(n)}</span>${i===0?flourish:""}<span class="rule"></span><small>${esc(n)}${cap?` · ${esc(cap)}`:""}</small></div>`}).join("");
+  fitSigs();document.fonts?.ready.then(fitSigs);if(!window._fitSigs){window._fitSigs=1;addEventListener("resize",fitSigs);document.fonts?.addEventListener?.("loadingdone",fitSigs)}
   let yr=null;
-  $("#voteCount").textContent=`${VOTES.length} on record`;
+  $("#voteCount").textContent=`${VOTES.length} votes on record, newest first`;
   $("#voteList").innerHTML=VOTES.map(v=>{const head=v.y!==yr?`<div class="vyear">${(yr=v.y)}</div>`:"";
     const tot=v.opts?v.opts.reduce((s,x)=>s+x[1],0):0,mx=v.opts?Math.max(...v.opts.map(x=>x[1])):0;
     const opts=v.opts?`<div class="vopts">${v.opts.map((x,i)=>`<div class="vopt${i===v.win?" win":""}"><span class="lbl">${i===v.win?"✓ ":""}${esc(x[0])}</span><span class="n">${x[1]} vote${x[1]===1?"":"s"} · ${Math.round(100*x[1]/tot)}%</span><div class="bar" role="img" aria-label="${x[1]} of ${tot} votes"><i style="width:${100*x[1]/tot}%"></i></div></div>`).join("")}</div>`:"";
