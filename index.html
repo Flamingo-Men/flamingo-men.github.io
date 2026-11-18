@@ -1033,7 +1033,7 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   .who{gap:8px}
   th,td{padding:9px 10px}
 }
-/* CAREER STORY (Kyle 2026-11-18): pick an owner, watch the whole career as movie and TV scenes, end on a Marvel match */
+/* CAREER STORY (Kyle 2026-11-18, rebuilt the same day): pick an owner, open on a movie poster, then one drawn scene per season or group of seasons with the owner's cut-out face, and end on a Marvel match */
 .cs-pick{margin-top:22px;border-radius:14px;padding:16px;color:#fff;position:relative;overflow:hidden;
   background:radial-gradient(120% 140% at 100% 0%,#d9577e 0%,#3a1730 45%,#0d0a14 100%);box-shadow:0 6px 20px -10px rgba(0,0,0,.6)}
 .cs-pick::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,#0d0a14 0 10px,#e8c574 10px 16px,#0d0a14 16px 26px);opacity:.55}
@@ -1047,61 +1047,46 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 @media (max-width:640px){.cs-pick-faces{display:none}}
 .cspdlg .wrp-h{background:linear-gradient(120deg,#d9577e,#3a1730)}
 .cspdlg .wrp-list button:hover,.cspdlg .wrp-list button:focus-visible{background:rgba(217,87,126,.25);border-color:#d9577e}
-.cs{justify-content:center;gap:10px;padding:52px 22px 44px;background:linear-gradient(170deg,#2a1730,#0d0a14)}
+.cs{justify-content:center;gap:10px;padding:52px 22px 44px;background:linear-gradient(170deg,var(--c,#2a1730) 0%,#0d0a14 78%)}
 .cs::before,.cs::after{opacity:.18;filter:blur(40px)}
-.cs.cs-sopranos{background:linear-gradient(170deg,#3a1d3f,#0d0a14)}.cs.cs-bb{background:linear-gradient(170deg,#8a4a1a,#1f1408)}
-.cs.cs-sp{background:linear-gradient(170deg,#2f6fa8,#0f2236)}.cs.cs-lotr{background:linear-gradient(170deg,#5a2a1c,#120c0a)}
-.cs.cs-sw{background:linear-gradient(170deg,#141a33,#020208)}.cs.cs-gf{background:linear-gradient(170deg,#3a1d0c,#050302)}
-.cs.cs-office{background:linear-gradient(170deg,#6e6754,#1d1b16)}.cs.cs-rocky{background:linear-gradient(170deg,#7a1c22,#0d0f1a)}
-.cs.cs-titanic{background:linear-gradient(170deg,#1c3b6b,#050a18)}
 .cs .wr-k{line-height:1.4}
 #csStage .wr-nav:focus{outline:none}
 .cs-res{align-self:flex-start;font-family:var(--f-data);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.16)}
-.cs-res.ch{background:#e8c574;color:#191414;font-weight:700}.cs-res.sk{background:#6d4c41}.cs-res.po{background:rgba(232,197,116,.3)}.cs-res.lv{background:#d9577e}
-.cs-art{position:relative;width:100%;aspect-ratio:3/2;border-radius:14px;overflow:hidden;flex:none;box-shadow:0 10px 30px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.18)}
-.cs-art>svg{position:absolute;inset:0;width:100%;height:100%}
-.cs-art .cs-front{z-index:2;pointer-events:none}
-.cs-cut{position:absolute;left:50%;bottom:0;height:74%;width:auto;max-width:62%;object-fit:contain;object-position:bottom;transform:translateX(-50%);z-index:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5));animation:csBob 3.2s ease-in-out infinite}
-.cs-avf{display:block;height:56%;aspect-ratio:1;bottom:10%}.cs-avf .av{width:100%;height:100%;border:3px solid #fff}
-@keyframes csBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-3px)}}
-.cs-a-sp .cs-cut{filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 4px 4px rgba(0,0,0,.35));animation:csHop 1.2s ease-in-out infinite}
-@keyframes csHop{0%,100%{transform:translateX(-50%) translateY(0) rotate(-2deg)}50%{transform:translateX(-50%) translateY(-6px) rotate(2deg)}}
-.cs-a-sopranos .cs-cut{filter:drop-shadow(0 0 12px rgba(255,79,163,.45)) saturate(.9)}
-.cs-a-gf .cs-cut{filter:sepia(.45) contrast(1.1) drop-shadow(0 8px 12px rgba(0,0,0,.7))}
-.cs-a-titanic .cs-cut{filter:saturate(.6) hue-rotate(-10deg) brightness(.9) drop-shadow(0 6px 10px rgba(0,0,0,.5));animation:csSink 4s ease-in-out infinite}
-@keyframes csSink{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px) rotate(3deg)}}
-.cs-a-sw .cs-cut{filter:drop-shadow(0 0 10px rgba(90,184,255,.5))}
-.cs-a-lotr .cs-cut{filter:drop-shadow(0 0 10px rgba(255,210,63,.35)) drop-shadow(0 6px 10px rgba(0,0,0,.5))}
-.cs-art .neon{animation:csNeon 2.4s steps(1) infinite}@keyframes csNeon{0%,100%{opacity:1}46%{opacity:.35}50%{opacity:1}53%{opacity:.5}}
-.cs-art .ring{animation:csRing 2.6s ease-in-out infinite;transform-origin:56px 50px}@keyframes csRing{50%{transform:scale(1.12);opacity:.8}}
-.cs-art .lava{animation:csRing 1.8s ease-in-out infinite;transform-origin:227px 52px}
-.cs-art .sabers{animation:csSab 1.6s ease-in-out infinite}@keyframes csSab{50%{opacity:.8}}
-.cs-show{position:absolute;top:8px;left:8px;z-index:3;font-family:var(--f-data);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:99px}
+.cs-res.ch{background:#e8c574;color:#191414;font-weight:700}.cs-res.sk{background:#6d4c41}.cs-res.po{background:rgba(232,197,116,.3)}.cs-res.lv{background:#d9577e}.cs-res.so{background:rgba(255,255,255,.07);opacity:.8}
+.cs-chips{display:flex;flex-wrap:wrap;gap:5px}.cs-chips .cs-res{font-size:.6rem;letter-spacing:.08em;padding:3px 8px}
+.cs-art{position:relative;width:100%;aspect-ratio:3/2;border-radius:14px;overflow:hidden;flex:none;box-shadow:0 10px 30px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.18);background:#0d0a14}
+.cs-art>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cs-art text{font-family:var(--f-data);font-weight:700}.cs-art text.hd{font-family:var(--f-display)}
+.cs-art .cs-bob{animation:csBob 3.4s ease-in-out infinite}
+@keyframes csBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5px)}}
+.cs-show{position:absolute;top:8px;left:8px;z-index:3;font-family:var(--f-data);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.62);color:#fff;padding:3px 8px;border-radius:99px;max-width:calc(100% - 16px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cs-title{font-family:var(--f-display);font-size:clamp(1.5rem,7vw,2.1rem);line-height:1.05;letter-spacing:.01em}
 .cs .wr-t{font-size:.98rem;line-height:1.42;max-width:none}
-@media (max-height:700px){.cs .wr-t{font-size:.9rem}.cs-title{font-size:1.4rem}.cs-art{aspect-ratio:16/9}}
-/* intro: opening crawl */
-.cs.cs-intro{background:#020208;justify-content:center;padding:0}
-.cs-stars{position:absolute;inset:0;z-index:0!important;background-image:radial-gradient(1px 1px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 70% 10%,#fff,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 85% 60%,#fff,transparent),radial-gradient(1px 1px at 10% 70%,#fff,transparent),radial-gradient(1px 1px at 55% 45%,#fff,transparent);background-size:180px 180px;opacity:.8}
-.cs-ago{position:absolute!important;left:28px;right:28px;top:40%;margin:0;color:#4bd5ee;font-size:1.15rem;line-height:1.4;animation:csAgo 3.6s ease forwards}
-@keyframes csAgo{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
-.cs-crawl{position:absolute!important;inset:0;perspective:320px;overflow:hidden;opacity:0;animation:csShow 0s 3.4s forwards}
-@keyframes csShow{to{opacity:1}}
-.cs-crawl-in{position:absolute;left:10%;right:10%;top:100%;transform-origin:50% 100%;transform:rotateX(26deg);color:#ffd54a;text-align:center;font-weight:800;animation:csCrawl 34s linear 3.4s forwards}
-@keyframes csCrawl{from{top:100%}to{top:-170%}}
-.cs-ep{font-family:var(--f-data);letter-spacing:.2em;font-size:1rem}
-.cs-eptitle{font-size:2rem;text-transform:uppercase;margin:6px 0 18px;line-height:1.05}
-.cs-crawl-in p{font-size:1.25rem;line-height:1.5;text-align:justify;margin:0}
-@media (prefers-reduced-motion:reduce){.cs-ago{display:none}.cs-crawl{opacity:1;animation:none}.cs-crawl-in{animation:none;top:12%;transform:none}.cs-cut{animation:none}}
+@media (max-height:700px){.cs .wr-t{font-size:.9rem}.cs-title{font-size:1.4rem}.cs-art{aspect-ratio:16/9}.cs .cs-ptitle{font-size:1.6rem}}
+/* opening: a film-leader countdown, then the movie poster */
+.cs.cs-poster{text-align:center;align-items:center;gap:8px;background:radial-gradient(130% 80% at 50% 0%,var(--c,#3a1730) 0%,#06040b 72%)}
+.cs-ptag{font-family:var(--f-data);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
+.cs-poster .cs-art{border-radius:6px;border:0;box-shadow:0 14px 40px rgba(0,0,0,.6)}
+.cs-ptitle{font-family:var(--f-display);font-size:clamp(1.9rem,9vw,2.7rem);line-height:1;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.cs-bill{font-family:var(--f-data);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75;border-top:1px solid rgba(255,255,255,.25);border-bottom:1px solid rgba(255,255,255,.25);padding:5px 0;width:100%}
+.cs-poster .wr-t{text-align:center;font-size:.95rem;opacity:.92}
+.cs .cs-leader{position:absolute;inset:0;z-index:5;background:radial-gradient(circle,#2a241a,#0d0b07 75%);display:grid;place-items:center;pointer-events:none;animation:csLeader 1.9s linear forwards}
+.cs-leader::before{content:"";position:absolute;width:min(62vmin,300px);aspect-ratio:1;border-radius:50%;border:3px solid rgba(244,236,216,.6);box-shadow:inset 0 0 0 16px rgba(244,236,216,.07)}
+.cs-leader::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent calc(50% - 1px),rgba(244,236,216,.35) 50%,transparent calc(50% + 1px)),linear-gradient(0deg,transparent calc(50% - 1px),rgba(244,236,216,.35) 50%,transparent calc(50% + 1px))}
+.cs-leader i{position:absolute;width:min(62vmin,300px);aspect-ratio:1;border-radius:50%;background:conic-gradient(rgba(244,236,216,.2) 0 70deg,transparent 70deg);animation:csSweep .6s linear 3}
+.cs-leader span{grid-area:1/1;position:relative;z-index:1;font-family:var(--f-display);font-size:min(36vmin,160px);line-height:1;color:#f4ecd8;opacity:0}
+.cs-leader span:nth-of-type(1){animation:csCount .6s 0s}.cs-leader span:nth-of-type(2){animation:csCount .6s .6s}.cs-leader span:nth-of-type(3){animation:csCount .6s 1.2s}
+@keyframes csCount{from,to{opacity:1}}
+@keyframes csSweep{to{transform:rotate(360deg)}}
+@keyframes csLeader{0%,92%{opacity:1}100%{opacity:0;visibility:hidden}}
+.cs-seen .cs-leader{display:none}
+@media (prefers-reduced-motion:reduce){.cs .cs-leader{display:none}.cs-art .cs-bob{animation:none}}
 /* summary + marvel finale */
 .cs.cs-sum{justify-content:center;background:linear-gradient(170deg,#d9577e,#241a33)}
 .cs.cs-marvel{justify-content:center;align-items:center;text-align:center;background-color:#b3121f;background-image:radial-gradient(rgba(0,0,0,.22) 1.4px,transparent 1.6px);background-size:9px 9px}
-.cs-mv-art{position:relative;width:min(62vw,240px);aspect-ratio:1;flex:none}
-.cs-mv-art svg{position:absolute;inset:0;width:100%;height:100%;animation:csBurst 6s linear infinite}
-@keyframes csBurst{to{transform:rotate(360deg)}}
-.cs-mv-art .cs-cut.mv{height:86%;max-width:80%}
+.cs .cs-mv-art{border:3px solid #191414;border-radius:4px;box-shadow:6px 6px 0 #191414;rotate:-1.2deg;max-width:420px}
 .cs-mv-name{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(2.2rem,11vw,3.4rem);line-height:.95;letter-spacing:-.01em;color:#fff;text-shadow:3px 3px 0 #191414,-1px -1px 0 #191414,1px -1px 0 #191414,-1px 1px 0 #191414}
-.cs-mv-tag{font-family:var(--f-data);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:#ffd23f;color:#191414;padding:4px 12px;border-radius:4px;font-weight:700;transform:rotate(-3deg)}
+.cs-mv-tag{font-family:var(--f-data);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:#ffd23f;color:#191414;padding:4px 12px;border-radius:4px;font-weight:700;rotate:-3deg}
 .cs.cs-marvel .wr-t{max-width:34ch}
 </style>
 
@@ -2273,297 +2258,912 @@ function openWrapped(o,y){let dlg=$("#wrDlg");
 // Career story (Kyle 2026-11-18): pick an owner, then a tap-through movie of his whole league career.
 // Every owner's story has a Sopranos, Breaking Bad, South Park, Lord of the Rings and Star Wars scene, and ends on a Marvel match.
 // scenes: [year or kicker text, art, title, text]. A number gets the record, team and result from the data. Facts only from memory, data or Kyle.
-const CAREER={
-kyle:{crawl:"Commissioner from 2018 to 2024, the busiest trader this side of Charles, and a man who has never met a roster he didn't want to blow up.",
+/* ---------- CAREER STORY (Kyle 2026-11-18) ----------
+   Each owner's whole league career as a run of movie and TV scenes, drawn as SVG around the owner's cut-out face (img/cut).
+   A scene is {k: season, [seasons] or a label, m: movie or show, t: title, c: background colour, x: what happened, a: the art}.
+   Every scene must match what really happened that season; seasons that go together share one scene. When a season ends,
+   add a scene for each owner who played it. The art kit (F places a face, CH a character, HAT2 headwear) lives in this block. */
+const CS=(()=>{
+/* ---------- CAREER STORY (Kyle 2026-11-18): pick an owner, then a tap-through movie of his league career, one real moment per scene, drawn with the owners' own faces, ending on a Marvel match ---------- */
+// where the face sits in each cut-out: [img w, img h, head centre x, head top, chin, head width], as fractions of the image
+const HD={charles:[672,508,.51,.01,.50,.34],dilapi:[573,760,.60,0,.37,.37],duane:[712,654,.37,.17,.43,.20],dylan:[700,510,.465,.04,.33,.17],
+  fluff:[700,718,.50,0,.50,.39],ghost:[342,299,.53,.01,.55,.40],jerry:[685,760,.47,.01,.55,.40],jordan:[301,307,.49,.01,.43,.30],
+  keeves:[730,544,.55,.04,.78,.42],kyle:[541,760,.50,.005,.31,.36],lucas:[670,760,.56,.03,.62,.50],mateus:[458,760,.53,0,.38,.42],
+  peanut:[766,594,.50,.01,.65,.38],quincy:[444,344,.51,.01,.40,.24],rod:[804,760,.51,0,.52,.28],skelly:[288,257,.53,.01,.47,.34],
+  squirm:[656,760,.52,0,.70,.55],vicente:[566,416,.51,.01,.68,.37]};
+let D="",N=0;const U=p=>p+(++N);
+const q=v=>Math.round(v*10)/10;
+const st=a=>a.map((c,i)=>{const [col,op]=String(c).split("@");return `<stop offset="${i/(a.length-1)}" stop-color="${col}"${op!=null?` stop-opacity="${op}"`:""}/>`}).join("");
+const LG=(a,h)=>{const id=U("l");D+=`<linearGradient id="${id}" ${h?'x2="1"':'x2="0" y2="1"'}>${st(a)}</linearGradient>`;return `url(#${id})`};
+const RG=(a,cx=.5,cy=.5,r=.5)=>{const id=U("r");D+=`<radialGradient id="${id}" cx="${cx}" cy="${cy}" r="${r}">${st(a)}</radialGradient>`;return `url(#${id})`};
+const R=(x,y,w,h,f,e="")=>`<rect x="${q(x)}" y="${q(y)}" width="${q(w)}" height="${q(h)}" fill="${f}" ${e}/>`;
+const C=(x,y,r,f,e="")=>`<circle cx="${q(x)}" cy="${q(y)}" r="${q(r)}" fill="${f}" ${e}/>`;
+const E=(x,y,rx,ry,f,e="")=>`<ellipse cx="${q(x)}" cy="${q(y)}" rx="${q(rx)}" ry="${q(ry)}" fill="${f}" ${e}/>`;
+const P=(d,f,e="")=>`<path d="${d}" fill="${f}" ${e}/>`;
+const L=(x1,y1,x2,y2,s,w=2,e="")=>`<line x1="${q(x1)}" y1="${q(y1)}" x2="${q(x2)}" y2="${q(y2)}" stroke="${s}" stroke-width="${w}" stroke-linecap="round" ${e}/>`;
+const T=(x,y,s,z,f="#fff",e="")=>`<text x="${q(x)}" y="${q(y)}" font-size="${z}" fill="${f}" text-anchor="middle" ${e}>${esc(s)}</text>`;
+// several lines of text, centred on x, first baseline at y
+const TL=(x,y,a,z,f="#fff",lh=1.15,e="")=>`<text x="${q(x)}" y="${q(y)}" font-size="${z}" fill="${f}" text-anchor="middle" ${e}>${a.map((s,i)=>`<tspan x="${q(x)}" dy="${i?q(z*lh):0}">${esc(s)}</tspan>`).join("")}</text>`;
+const G=(s,e="")=>`<g ${e}>${s}</g>`;
+const tr=(x,y,r=0,s=1)=>`transform="translate(${q(x)} ${q(y)})${r?` rotate(${r})`:""}${s!==1?` scale(${s})`:""}"`;
+const rng=seed=>{let s=seed*9301+49297;return()=>(s=(s*16807)%2147483647)/2147483647};
+// filters
+const FXS={sepia:'<feColorMatrix type="matrix" values=".39 .77 .19 0 0 .35 .69 .17 0 0 .27 .53 .13 0 0 0 0 0 1 0"/>',
+  gray:'<feColorMatrix type="saturate" values="0"/>',
+  green:'<feColorMatrix type="matrix" values=".15 .3 .06 0 0 .32 .64 .13 0 .12 .06 .12 .02 0 0 0 0 0 1 0"/>',
+  blue:'<feColorMatrix type="matrix" values=".12 .24 .05 0 .02 .22 .44 .09 0 .14 .3 .6 .12 0 .42 0 0 0 1 0"/>',
+  ice:'<feColorMatrix type="matrix" values=".24 .48 .1 0 .28 .26 .52 .11 0 .34 .28 .56 .12 0 .46 0 0 0 1 0"/>',
+  silver:'<feColorMatrix type="matrix" values=".3 .6 .12 0 .12 .3 .6 .12 0 .14 .32 .64 .13 0 .2 0 0 0 1 0"/>',
+  red:'<feColorMatrix type="matrix" values=".42 .8 .16 0 .06 .1 .2 .04 0 0 .1 .2 .04 0 .02 0 0 0 1 0"/>',
+  night:'<feColorMatrix type="matrix" values=".8 0 0 0 0 0 .8 0 0 0 0 0 1 0 .06 0 0 0 1 0"/>',
+  toon:'<feMorphology in="SourceAlpha" operator="dilate" radius="1.8" result="d"/><feFlood flood-color="#fff"/><feComposite in2="d" operator="in" result="o"/><feMerge><feMergeNode in="o"/><feMergeNode in="SourceGraphic"/></feMerge>',
+  shadow:'<feDropShadow dx="0" dy="2.5" stdDeviation="2.5" flood-opacity=".5"/>'};
+const fx=(n,col)=>{const id=U("f");const body=n==="glow"?`<feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="b"/><feFlood flood-color="${col||"#9fe3ff"}"/><feComposite in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>`:FXS[n];
+  D+=`<filter id="${id}" x="-40%" y="-40%" width="180%" height="180%" color-interpolation-filters="sRGB">${body}</filter>`;return `url(#${id})`};
+// a face from the cut-outs, head centre at (x,y), h = top of head to chin. Head only by default (bobblehead on a drawn body); full:1 keeps the photo's own body and fades it out.
+function F(o,x,y,h,p={}){const H=HD[o],src=CUT[o];
+  if(!H||!src)return G(C(0,0,h*.52,"#e8c574",'stroke="#fff" stroke-width="2"')+T(0,h*.18,(short(o)||"?")[0],h*.55,"#191414",'font-weight="800"'),tr(x,y));
+  const [w,ih,cx,t,c,hw]=H,s=h/((c-t)*ih),W=w*s,Hh=ih*s;let a="";
+  if(!p.full){const id=U("c");D+=`<clipPath id="${id}" clipPathUnits="objectBoundingBox"><ellipse cx="${cx}" cy="${q((t+c)/2*1000)/1000}" rx="${q(hw*.56*1000)/1000}" ry="${q((c-t)*.56*1000)/1000}"/></clipPath>`;a=` clip-path="url(#${id})"`}
+  else if(p.fade!==0){const id=U("m"),g=U("g"),e=Math.min(.98,p.fade||c+.28);D+=`<linearGradient id="${g}" x2="0" y2="1"><stop offset="${q((e-.16)*100)/100}" stop-color="#fff"/><stop offset="${e}" stop-color="#000"/></linearGradient><mask id="${id}" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#${g})"/></mask>`;a=` mask="url(#${id})"`}
+  let im=`<image href="${src}" x="${q(-cx*W)}" y="${q(-(t+c)/2*Hh)}" width="${q(W)}" height="${q(Hh)}" preserveAspectRatio="none"${a}/>`;
+  if(p.fx)im=`<g filter="${fx(p.fx,p.col)}">${im}</g>`;
+  if(p.sh!==0)im=`<g filter="${fx("shadow")}">${im}</g>`;
+  let t2=`translate(${q(x)} ${q(y)})`;if(p.r)t2+=` rotate(${p.r})`;if(p.flip)t2+=" scale(-1 1)";
+  const g=`<g transform="${t2}"${p.op!=null?` opacity="${p.op}"`:""}>${im}</g>`;
+  return p.bob?`<g class="cs-bob" style="animation-delay:-${q((p.bob-1)*.7)}s">${g}</g>`:g}
+// head width in scene units for a head of height h
+const HW=(o,h)=>{const H=HD[o];return H?h*H[5]*H[0]/((H[4]-H[3])*H[1]):h*.9};
+// drawn body under a head at (x,y). k: tee suit tux robe scrubs hoodie jersey stripes dress uniform space coat
+function BD(x,y,h,c="#2b2b35",k="tee",o={}){const t=y+h*.36,s=y+h*.8,b=y+h*(o.len||3),sw=h*(o.w||1),bw=sw*(k==="robe"||k==="dress"?1.25:.86),u=h/40;
+  let r=P(`M${q(x-h*.26)} ${q(t)}C${q(x-sw*.75)} ${q(t+h*.02)} ${q(x-sw)} ${q(s-h*.12)} ${q(x-sw)} ${q(s+h*.22)}L${q(x-bw)} ${q(b)}H${q(x+bw)}L${q(x+sw)} ${q(s+h*.22)}C${q(x+sw)} ${q(s-h*.12)} ${q(x+sw*.75)} ${q(t+h*.02)} ${q(x+h*.26)} ${q(t)}Z`,c);
+  const V=(col,d=.9)=>P(`M${q(x-h*.24)} ${q(t-u)}L${q(x)} ${q(t+h*d)}L${q(x+h*.24)} ${q(t-u)}Z`,col);
+  if(k==="suit"||k==="tux"||k==="coat"){r+=V(o.shirt||"#f4f1ea");
+    r+=P(`M${q(x-h*.24)} ${q(t)}L${q(x-h*.05)} ${q(t+h*.95)}L${q(x-h*.42)} ${q(t+h*.55)}Z`,"rgba(0,0,0,.28)")+P(`M${q(x+h*.24)} ${q(t)}L${q(x+h*.05)} ${q(t+h*.95)}L${q(x+h*.42)} ${q(t+h*.55)}Z`,"rgba(0,0,0,.28)");
+    if(k==="tux")r+=P(`M${q(x)} ${q(t+h*.12)}l${q(-h*.15)} ${q(-h*.08)}v${q(h*.18)}z M${q(x)} ${q(t+h*.12)}l${q(h*.15)} ${q(-h*.08)}v${q(h*.18)}z`,o.tie||"#111")+C(x,t+h*.12,h*.04,o.tie||"#111");
+    else if(k==="suit")r+=P(`M${q(x-h*.06)} ${q(t+h*.04)}h${q(h*.12)}l${q(-h*.03)} ${q(h*.1)}l${q(h*.07)} ${q(h*.62)}l${q(-h*.1)} ${q(h*.12)}l${q(-h*.1)} ${q(-h*.12)}l${q(h*.07)} ${q(-h*.62)}z`,o.tie||"#b3121f");
+    else r+=C(x,t+h*1.15,h*.035,"#111")+C(x,t+h*1.45,h*.035,"#111")}
+  if(k==="scrubs")r+=V("rgba(0,0,0,.18)",.45)+R(x+h*.3,t+h*.55,h*.28,h*.2,"rgba(0,0,0,.15)");
+  if(k==="hoodie")r+=L(x-h*.12,t+h*.05,x-h*.14,t+h*.55,"#eee",u*1.6)+L(x+h*.12,t+h*.05,x+h*.14,t+h*.55,"#eee",u*1.6)+R(x-h*.42,t+h*1.2,h*.84,h*.4,"rgba(0,0,0,.18)",`rx="${q(h*.1)}"`);
+  if(k==="jersey"){r+=P(`M${q(x-h*.22)} ${q(t-u)}Q${q(x)} ${q(t+h*.3)} ${q(x+h*.22)} ${q(t-u)}`,"none",`stroke="${o.trim||"#fff"}" stroke-width="${q(u*2.4)}"`);if(o.txt)r+=T(x,t+h*1.05,o.txt,h*.55,o.trim||"#fff",'font-weight="900"')}
+  if(k==="stripes")for(let i=0;i<7;i++)r+=R(x-sw,t+h*.25+i*h*.34,sw*2,h*.15,o.stripe||"rgba(255,255,255,.85)");
+  if(k==="uniform")r+=V(o.vc||"#22324f",.5)+(o.badge===0?"":P(`M${q(x+h*.3)} ${q(t+h*.55)}l${q(h*.09)} ${q(-h*.05)} ${q(h*.09)} ${q(h*.05)}v${q(h*.14)}l${q(-h*.09)} ${q(h*.07)} ${q(-h*.09)} ${q(-h*.07)}z`,"#e8c574"))+L(x,t+h*.5,x,b,"rgba(0,0,0,.25)",u);
+  if(k==="space")r+=R(x-h*.3,t+h*.55,h*.6,h*.42,"#c9d2dc",`rx="${q(h*.06)}"`)+C(x-h*.15,t+h*.76,h*.06,"#e04848")+C(x+h*.02,t+h*.76,h*.06,"#4a90d9")+C(x+h*.18,t+h*.76,h*.06,"#f2c94c");
+  if(k==="dress"&&o.tutu)r+=P(`M${q(x-h*1.5)} ${q(t+h*1.55)}`+Array.from({length:12},(_,i)=>`L${q(x-h*1.5+i*h*.25+h*.125)} ${q(t+h*(i%2?1.95:1.25))}`).join("")+`L${q(x+h*1.5)} ${q(t+h*1.55)}Q${q(x)} ${q(t+h*1.8)} ${q(x-h*1.5)} ${q(t+h*1.55)}Z`,o.tutu,`stroke="rgba(0,0,0,.12)" stroke-width="${q(u)}"`);
+  if(k==="robe"&&o.belt)r+=R(x-bw*.8,t+h*1.45,bw*1.6,h*.14,o.belt);
+  return r}
+// a sleeve from (x1,y1) to (x2,y2), ending in a cartoon glove
+const ARM=(x1,y1,x2,y2,c,h,glove="#f4f4f4",gs=1)=>L(x1,y1,x2,y2,c,h*.26)+(glove?C(x2,y2,h*.15*gs,glove,`stroke="rgba(0,0,0,.25)" stroke-width="${q(h/40)}"`):"");
+// hats and headwear, sized to the head: (o, kind, x, y, h)
+const HOFF={lucas:.09,dylan:.04,jerry:.03};
+function HAT(o,k,x,y,h,col){const w=HW(o,h),top=y-h*.5+h*(HOFF[o]||0),u=h/40;
+  switch(k){
+  case "top":return R(x-w*.5,top-h*.62,w,h*.72,col||"#16141a")+R(x-w*.5,top-h*.04,w,h*.11,"#7a1d2d")+E(x,top+h*.1,w*.82,h*.1,col||"#16141a");
+  case "santa":return P(`M${q(x-w*.58)} ${q(top+h*.18)}Q${q(x-w*.1)} ${q(top-h*.75)} ${q(x+w*.75)} ${q(top-h*.3)}Q${q(x+w*.3)} ${q(top-h*.3)} ${q(x+w*.58)} ${q(top+h*.18)}Z`,"#c8102e")+C(x+w*.78,top-h*.28,h*.11,"#fff")+R(x-w*.62,top+h*.06,w*1.24,h*.2,"#fff",`rx="${q(h*.1)}"`);
+  case "cowboy":return E(x,top+h*.12,w*.95,h*.1,col||"#7b4a26")+P(`M${q(x-w*.45)} ${q(top+h*.12)}Q${q(x-w*.5)} ${q(top-h*.45)} ${q(x-w*.15)} ${q(top-h*.4)}Q${q(x)} ${q(top-h*.28)} ${q(x+w*.15)} ${q(top-h*.4)}Q${q(x+w*.5)} ${q(top-h*.45)} ${q(x+w*.45)} ${q(top+h*.12)}Z`,col||"#7b4a26")+R(x-w*.46,top-h*.02,w*.92,h*.07,"#3b2414");
+  case "bush":return E(x,top+h*.12,w*.9,h*.12,col||"#6b5a3a")+P(`M${q(x-w*.46)} ${q(top+h*.12)}Q${q(x-w*.44)} ${q(top-h*.4)} ${q(x)} ${q(top-h*.38)}Q${q(x+w*.44)} ${q(top-h*.4)} ${q(x+w*.46)} ${q(top+h*.12)}Z`,col||"#6b5a3a")+R(x-w*.46,top-h*.04,w*.92,h*.08,"#3a2a18")+[-.3,-.15,0,.15,.3].map(d=>P(`M${q(x+w*d-u*2)} ${q(top-h*.03)}l${q(u*2)} ${q(u*5)} ${q(u*2)} ${q(-u*5)}z`,"#f4f0e6")).join("");
+  case "porkpie":return E(x,top+h*.1,w*.78,h*.09,"#1b1b1b")+R(x-w*.44,top-h*.24,w*.88,h*.34,"#1b1b1b",`rx="${q(h*.05)}"`)+R(x-w*.44,top+h*.0,w*.88,h*.06,"#3a3a3a");
+  case "fedora":return E(x,top+h*.12,w*.85,h*.1,col||"#2a2a2a")+P(`M${q(x-w*.44)} ${q(top+h*.12)}Q${q(x-w*.46)} ${q(top-h*.38)} ${q(x)} ${q(top-h*.3)}Q${q(x+w*.46)} ${q(top-h*.38)} ${q(x+w*.44)} ${q(top+h*.12)}Z`,col||"#2a2a2a")+R(x-w*.45,top-h*.02,w*.9,h*.08,"#111");
+  case "tricorn":return P(`M${q(x-w*.8)} ${q(top+h*.05)}Q${q(x)} ${q(top-h*.75)} ${q(x+w*.8)} ${q(top+h*.05)}Q${q(x)} ${q(top-h*.15)} ${q(x-w*.8)} ${q(top+h*.05)}Z`,"#1a1410")+P(`M${q(x-w*.7)} ${q(top)}Q${q(x)} ${q(top-h*.55)} ${q(x+w*.7)} ${q(top)}`,"none",`stroke="#d4a937" stroke-width="${q(u*1.5)}"`)+P(`M${q(x-u*4)} ${q(top-h*.28)}h${q(u*8)}l${q(-u*4)} ${q(u*6)}z`,"#fff");
+  case "crown":return P(`M${q(x-w*.42)} ${q(top+h*.06)}L${q(x-w*.46)} ${q(top-h*.36)}L${q(x-w*.22)} ${q(top-h*.12)}L${q(x)} ${q(top-h*.44)}L${q(x+w*.22)} ${q(top-h*.12)}L${q(x+w*.46)} ${q(top-h*.36)}L${q(x+w*.42)} ${q(top+h*.06)}Z`,"#f2c230",`stroke="#a67c00" stroke-width="${q(u)}"`)+C(x,top-h*.05,h*.05,"#d33")+C(x-w*.25,top-h*.02,h*.04,"#36c")+C(x+w*.25,top-h*.02,h*.04,"#36c");
+  case "helmet":return C(x,y,h*.72,"rgba(190,225,255,.22)",`stroke="#e9eef3" stroke-width="${q(u*3)}"`)+P(`M${q(x-h*.5)} ${q(y-h*.42)}Q${q(x-h*.2)} ${q(y-h*.68)} ${q(x+h*.15)} ${q(y-h*.62)}`,"none",`stroke="rgba(255,255,255,.7)" stroke-width="${q(u*2.5)}"`);
+  case "scrub":return P(`M${q(x-w*.52)} ${q(top+h*.2)}Q${q(x-w*.55)} ${q(top-h*.22)} ${q(x)} ${q(top-h*.2)}Q${q(x+w*.55)} ${q(top-h*.22)} ${q(x+w*.52)} ${q(top+h*.2)}Z`,col||"#4fa3a5");
+  case "cop":return P(`M${q(x-w*.5)} ${q(top+h*.12)}L${q(x-w*.58)} ${q(top-h*.22)}Q${q(x)} ${q(top-h*.42)} ${q(x+w*.58)} ${q(top-h*.22)}L${q(x+w*.5)} ${q(top+h*.12)}Z`,"#1d2b4a")+P(`M${q(x-w*.5)} ${q(top+h*.12)}Q${q(x)} ${q(top+h*.3)} ${q(x+w*.5)} ${q(top+h*.12)}Z`,"#111")+P(`M${q(x)} ${q(top-h*.22)}l${q(u*3)} ${q(u*3)} ${q(-u*3)} ${q(u*4)} ${q(-u*3)} ${q(-u*4)}z`,"#e8c574");
+  case "wizard":return P(`M${q(x-w*.8)} ${q(top+h*.1)}Q${q(x)} ${q(top-h*.05)} ${q(x+w*.8)} ${q(top+h*.1)}L${q(x+w*.35)} ${q(top-h*.02)}L${q(x+w*.15)} ${q(top-h*1.1)}L${q(x-w*.35)} ${q(top-h*.02)}Z`,col||"#6d6a75");
+  case "chef":return R(x-w*.4,top-h*.08,w*.8,h*.22,"#fff")+C(x-w*.25,top-h*.25,h*.2,"#fff")+C(x+w*.25,top-h*.25,h*.2,"#fff")+C(x,top-h*.38,h*.24,"#fff");
+  case "beret":return E(x+w*.08,top+h*.02,w*.58,h*.16,col||"#111")+C(x+w*.08,top-h*.14,h*.04,col||"#111");
+  case "pilot":return P(`M${q(x-w*.52)} ${q(top+h*.12)}Q${q(x)} ${q(top-h*.42)} ${q(x+w*.52)} ${q(top+h*.12)}Z`,"#5a3b22")+R(x-w*.42,top-h*.05,w*.84,h*.14,"#9cc7e0",`rx="${q(h*.06)}" stroke="#333" stroke-width="${q(u)}"`);
+  case "cap":return P(`M${q(x-w*.5)} ${q(top+h*.14)}Q${q(x)} ${q(top-h*.36)} ${q(x+w*.5)} ${q(top+h*.14)}Z`,col||"#c8102e")+E(x+w*.42,top+h*.13,w*.38,h*.06,col||"#c8102e");
+  case "headband":return R(x-w*.5,top+h*.12,w,h*.11,col||"#c8102e")+P(`M${q(x+w*.48)} ${q(top+h*.17)}l${q(h*.25)} ${q(h*.2)}l${q(h*.05)} ${q(-h*.1)}z`,col||"#c8102e");
+  case "hood":return P(`M${q(x-w*.78)} ${q(y+h*.72)}Q${q(x-w*.95)} ${q(top-h*.32)} ${q(x)} ${q(top-h*.28)}Q${q(x+w*.95)} ${q(top-h*.32)} ${q(x+w*.78)} ${q(y+h*.72)}Z`,col||"#2a2030");
+  case "zebra":return [-1,1].map(d=>G(P(`M0 0Q${q(-w*.16)} ${q(-h*.5)} ${q(w*.02)} ${q(-h*.62)}Q${q(w*.2)} ${q(-h*.45)} ${q(w*.14)} 0Z`,"#fafafa",`stroke="#111" stroke-width="${q(u*1.4)}"`)+L(w*.02,-h*.18,w*.1,-h*.12,"#111",u*2.2)+L(w*.0,-h*.34,w*.1,-h*.3,"#111",u*2.2),tr(x+d*w*.32-w*.07,top+h*.12,d*14))).join("");
+  case "panda":return C(x-w*.42,top+h*.05,h*.16,"#111")+C(x+w*.42,top+h*.05,h*.16,"#111");
+  case "horns":return [-1,1].map(d=>P(`M${q(x+d*w*.28)} ${q(top+h*.1)}C${q(x+d*w*.5)} ${q(top-h*.25)} ${q(x+d*w*.6)} ${q(top-h*.6)} ${q(x+d*w*.38)} ${q(top-h*.85)}C${q(x+d*w*.85)} ${q(top-h*.6)} ${q(x+d*w*.75)} ${q(top-h*.05)} ${q(x+d*w*.48)} ${q(top+h*.22)}Z`,col||"#1a1a1a")).join("")+P(`M${q(x-w*.55)} ${q(top+h*.25)}Q${q(x)} ${q(top-h*.3)} ${q(x+w*.55)} ${q(top+h*.25)}Q${q(x)} ${q(top-h*.05)} ${q(x-w*.55)} ${q(top+h*.25)}Z`,col||"#1a1a1a");
+  case "comb":return P(`M${q(x-w*.25)} ${q(top+h*.08)}Q${q(x-w*.32)} ${q(top-h*.22)} ${q(x-w*.14)} ${q(top-h*.18)}Q${q(x-w*.12)} ${q(top-h*.42)} ${q(x+w*.06)} ${q(top-h*.3)}Q${q(x+w*.14)} ${q(top-h*.5)} ${q(x+w*.28)} ${q(top-h*.28)}Q${q(x+w*.4)} ${q(top-h*.2)} ${q(x+w*.28)} ${q(top+h*.08)}Z`,"#d62f2f");
+  case "loki":return P(`M${q(x-w*.5)} ${q(top+h*.25)}Q${q(x-w*.55)} ${q(top-h*.12)} ${q(x)} ${q(top-h*.12)}Q${q(x+w*.55)} ${q(top-h*.12)} ${q(x+w*.5)} ${q(top+h*.25)}Z`,"#d4a937")+[-1,1].map(d=>P(`M${q(x+d*w*.2)} ${q(top-h*.06)}C${q(x+d*w*.32)} ${q(top-h*.5)} ${q(x+d*w*.8)} ${q(top-h*.6)} ${q(x+d*w*.95)} ${q(top-h*1.15)}C${q(x+d*w*.55)} ${q(top-h*.85)} ${q(x+d*w*.22)} ${q(top-h*.7)} ${q(x+d*w*.02)} ${q(top-h*.1)}Z`,"#d4a937",`stroke="#8a6a12" stroke-width="${q(u)}"`)).join("");
+  case "fishbowl":return C(x,y-h*.04,h*.78,"rgba(200,235,255,.18)",`stroke="rgba(235,250,255,.85)" stroke-width="${q(u*2)}"`)+P(`M${q(x-h*.52)} ${q(y-h*.45)}Q${q(x-h*.25)} ${q(y-h*.75)} ${q(x+h*.1)} ${q(y-h*.72)}`,"none",`stroke="#fff" stroke-width="${q(u*3)}" opacity=".8"`);
+  case "patch":return L(x-w*.5,top+h*.22,x+w*.5,top+h*.42,"#111",u*1.5)+E(x-w*.2,y-h*.06,w*.17,h*.12,"#111");
+  case "halo":return E(x,top-h*.12,w*.42,h*.08,"none",`stroke="#ffe680" stroke-width="${q(u*2.5)}"`);
+  case "headphones":return P(`M${q(x-w*.5)} ${q(y)}Q${q(x-w*.55)} ${q(top-h*.15)} ${q(x)} ${q(top-h*.15)}Q${q(x+w*.55)} ${q(top-h*.15)} ${q(x+w*.5)} ${q(y)}`,"none",`stroke="#333" stroke-width="${q(u*2.5)}"`)+R(x-w*.62,y-h*.12,w*.18,h*.3,"#c0392b",`rx="${q(u*2)}"`)+R(x+w*.44,y-h*.12,w*.18,h*.3,"#c0392b",`rx="${q(u*2)}"`);
+  case "mask":return R(x-w*.52,y-h*.2,w*1.04,h*.2,col||"#1a1a1a",`rx="${q(h*.08)}"`)+E(x-w*.22,y-h*.1,w*.12,h*.06,"#fff",'opacity=".9"')+E(x+w*.22,y-h*.1,w*.12,h*.06,"#fff",'opacity=".9"');
+  case "ducky":return P(`M${q(x-w*.36)} ${q(y+h*.06)}Q${q(x)} ${q(y-h*.04)} ${q(x+w*.36)} ${q(y+h*.06)}Q${q(x+w*.3)} ${q(y+h*.3)} ${q(x)} ${q(y+h*.3)}Q${q(x-w*.3)} ${q(y+h*.3)} ${q(x-w*.36)} ${q(y+h*.06)}Z`,"#f5a623",`stroke="#b36b00" stroke-width="${q(u)}"`);
+  }return ""}
+// props
+const TROPHY=(x,y,s=1)=>G(P("M-12 -26h24v6c0 12-6 18-12 18s-12-6-12-18z","#f2c230",'stroke="#a67c00" stroke-width="1"')+P("M-12 -22c-8 0-8 10 0 10M12 -22c8 0 8 10 0 10","none",'stroke="#f2c230" stroke-width="2.5"')+R(-3,-3,6,6,"#d4a017")+R(-9,3,18,5,"#8a5a00",'rx="1"')+P("M-7 -23h4v12h-4z","rgba(255,255,255,.35)"),tr(x,y,0,s));
+const TOILET=(x,y,s=1)=>G(R(-10,-30,20,13,"#f4f4f4",'rx="2" stroke="#bbb" stroke-width="1"')+E(0,-14,15,5,"#fff",'stroke="#bbb" stroke-width="1"')+P("M-14 -14q0 12 9 14v6h10v-6q9-2 9-14z","#f4f4f4",'stroke="#bbb" stroke-width="1"')+E(0,-14,10,3,"#cfe6f5"),tr(x,y,0,s));
+const BALL=(x,y,s=1,r=-25)=>G(E(0,0,11,6.5,"#7a3d17",'stroke="#4a230b" stroke-width="1"')+L(-5,0,5,0,"#fff",1.2)+[-3,0,3].map(d=>L(d,-1.8,d,1.8,"#fff",1)).join(""),tr(x,y,r,s));
+const SIGN=(x,y,w,h,txt,bg="#fff",fg="#191414",z=12,e="")=>G(R(-w/2,-h/2,w,h,bg,`rx="2" ${e}`)+TL(0,-((txt.length-1)*z*1.1)/2+z*.36,txt,z,fg,1.1,'font-weight="800"'),tr(x,y));
+const BUB=(x,y,w,h,txt,tx,ty,z=10,bg="#fff",fg="#191414")=>{const b=Math.max(-w/2+6,Math.min(w/2-12,tx-x-3));return G(P(`M${q(b)} ${q(h/2-1)}L${q(tx-x)} ${q(ty-y)}L${q(b+9)} ${q(h/2-1)}Z`,bg)+R(-w/2,-h/2,w,h,bg,`rx="${q(Math.min(h/2,9))}"`)+TL(0,-((txt.length-1)*z*1.12)/2+z*.36,txt,z,fg,1.12,'font-weight="700"'),tr(x,y))};
+const SABER=(x1,y1,x2,y2,col)=>L(x1,y1,x2,y2,col,7,'opacity=".35"')+L(x1,y1,x2,y2,col,4.5,'opacity=".7"')+L(x1,y1,x2,y2,"#fff",2)+G(R(-2.2,-1,4.4,10,"#999",'rx="1"')+R(-2.6,2,5.2,1.6,"#333"),`transform="translate(${q(x1)} ${q(y1)}) rotate(${q(Math.atan2(y1-y2,x1-x2)*180/Math.PI-90)})"`);
+const PHONE=(x,y,s,inner="")=>G(R(-14,-26,28,52,"#111",'rx="5"')+R(-12,-22,24,42,"#e8f0ff",'rx="2"')+inner,tr(x,y,0,s));
+const TV=(x,y,w,h,inner,frame="#2b2420")=>R(x-w/2-5,y-h/2-5,w+10,h+10,frame,'rx="5"')+`<svg x="${q(x-w/2)}" y="${q(y-h/2)}" width="${q(w)}" height="${q(h)}" viewBox="0 0 ${q(w)} ${q(h)}" preserveAspectRatio="none">${inner}</svg>`+R(x-w/2,y-h/2,w,h,"none",'stroke="rgba(0,0,0,.4)" stroke-width="1.5"')+R(x-w/2,y-h/2,w,h*.45,"rgba(255,255,255,.07)");
+const STARS=(n,seed,col="#fff",y1=0,y2=200)=>{const r=rng(seed);let s="";for(let i=0;i<n;i++)s+=C(r()*300,y1+r()*(y2-y1),r()*1.1+.3,col,`opacity="${q(r()*.6+.3)}"`);return s};
+const CITY=(y,col,seed,win)=>{const r=rng(seed);let s="",x=-5;while(x<305){const w=12+r()*22,h=18+r()*55;s+=R(x,y-h,w,h+80,col);if(win)for(let a=x+3;a<x+w-4;a+=6)for(let b=y-h+5;b<y-4;b+=8)if(r()<.4)s+=R(a,b,2.5,3.5,win);x+=w+1}return s};
+const RAYS=(x,y,col,n=16,op=.18)=>{let s="";for(let i=0;i<n;i++){const a=i*2*Math.PI/n,b=a+Math.PI/n;s+=P(`M${q(x)} ${q(y)}L${q(x+Math.cos(a)*420)} ${q(y+Math.sin(a)*420)}L${q(x+Math.cos(b)*420)} ${q(y+Math.sin(b)*420)}Z`,col,`opacity="${op}"`)}return s};
+const SKY=(...c)=>R(-20,-20,340,240,LG(c));
+const FLOOR=(y,c1,c2)=>R(-20,y,340,240-y,c2?LG([c1,c2]):c1);
+const SPOT=(x,y,r,col="#fff",op=.5)=>E(x,y,r,r*.9,RG([`${col}@${op}`,`${col}@0`]));
+const CURTAIN=(col="#8e1b2a")=>P("M-10 -10H70Q52 60 60 210H-10Z",col)+P("M310 -10H230Q248 60 240 210H310Z",col)+R(-10,-10,320,24,col)+[10,25,40,55].map(x=>L(x,-5,x-6,210,"rgba(0,0,0,.18)",3)).join("")+[245,260,275,290].map(x=>L(x,-5,x+6,210,"rgba(0,0,0,.18)",3)).join("");
+const SNOW=(n,seed)=>{const r=rng(seed);let s="";for(let i=0;i<n;i++)s+=C(r()*300,r()*200,r()*1.6+.6,"#fff",`opacity="${q(r()*.5+.4)}"`);return s};
+const CONF=(n,seed,cols=["#e8c574","#d9577e","#4bd5ee","#7ad67a","#fff"])=>{const r=rng(seed);let s="";for(let i=0;i<n;i++)s+=R(r()*300,r()*200,3,5,cols[i%cols.length],`transform="rotate(${q(r()*90)} ${q(r()*300)} ${q(r()*200)})" opacity=".85"`);return s};
+const VIGN=()=>R(-20,-20,340,240,RG(["#000@0","#000@0","#000@.55"],.5,.5,.75));
+const TABLE=(x,y,w,c="#6b4423")=>R(x-w/2,y,w,7,c,'rx="2"')+R(x-w/2+4,y+7,5,30,c)+R(x+w/2-9,y+7,5,30,c);
+const CHICK=(x,y,s=1,flip)=>G(E(0,0,10,8,"#fafafa",'stroke="#ccc" stroke-width=".8"')+C(8,-8,5,"#fafafa",'stroke="#ccc" stroke-width=".8"')+P("M12 -9l5 1.5-5 1.5z","#f2a72e")+P("M6 -14q1-4 3-1q1-3 3 1z","#d62f2f")+C(9.5,-9,1,"#111")+P("M-9 -3q-6-6-4 2z","#eee")+L(-2,7,-3,12,"#f2a72e",1.4)+L(3,7,3,12,"#f2a72e",1.4),tr(x,y,0,s)+(flip?` transform-origin="0 0"`:""));
+const CARD=(x,y,w,h,txt,r=0,z=11,fg="#191414")=>G(R(-w/2,-h/2,w,h,"#fbf8f0",'stroke="#d9d2c0" stroke-width="1"')+TL(0,-((txt.length-1)*z*1.15)/2+z*.36,txt,z,fg,1.15,'font-weight="800" class="hd"'),tr(x,y,r));
+// a character: drawn body, face, optional hat and arms (arm ends are offsets in head heights from the face centre)
+const CH=(o,x,y,h,c="#2b2b35",k="tee",p={})=>{const sh=[[x-h*.74,y+h*.92],[x+h*.74,y+h*.92]];let a="";
+  (p.arms||[]).forEach((e,i)=>{if(e)a+=ARM(sh[i][0],sh[i][1],x+e[0]*h,y+e[1]*h,p.ac||c,h,p.glove===0?"":(p.glove||"#f4f4f4"),p.gs||1)});
+  return BD(x,y,h,c,k,p)+(p.top?"":a)+F(o,x,y,h,p)+(p.hat?HAT2(o,p.hat,x,y,h,p.hc):"")+(p.hat2?HAT2(o,p.hat2,x,y,h,p.hc2):"")+(p.top?a:"")};
+const SHADES=(o,x,y,h,col="#111")=>{const w=HW(o,h),ey=y+h*(HD[o]?.[6]??.02);return R(x-w*.42,ey-h*.08,w*.38,h*.16,col,`rx="${q(h*.05)}"`)+R(x+w*.04,ey-h*.08,w*.38,h*.16,col,`rx="${q(h*.05)}"`)+L(x-w*.05,ey-h*.03,x+w*.05,ey-h*.03,col,h/30)};
+// extra headwear
+const HAT2=(o,k,x,y,h,col)=>{const w=HW(o,h),top=y-h*.5+h*(HOFF[o]||0),u=h/40;
+  if(k==="greek")return P(`M${q(x-w*.56)} ${q(y+h*.1)}Q${q(x-w*.62)} ${q(top-h*.2)} ${q(x)} ${q(top-h*.2)}Q${q(x+w*.62)} ${q(top-h*.2)} ${q(x+w*.56)} ${q(y+h*.1)}L${q(x+w*.4)} ${q(y+h*.1)}L${q(x+w*.42)} ${q(top+h*.22)}L${q(x-w*.42)} ${q(top+h*.22)}L${q(x-w*.4)} ${q(y+h*.1)}Z`,"#d4a937",`stroke="#8a6a12" stroke-width="${q(u)}"`)+P(`M${q(x-w*.5)} ${q(top-h*.12)}Q${q(x)} ${q(top-h*.85)} ${q(x+w*.6)} ${q(top-h*.05)}Q${q(x)} ${q(top-h*.45)} ${q(x-w*.5)} ${q(top-h*.12)}Z`,col||"#c0392b");
+  if(k==="beanie")return P(`M${q(x-w*.52)} ${q(top+h*.2)}Q${q(x-w*.55)} ${q(top-h*.28)} ${q(x)} ${q(top-h*.28)}Q${q(x+w*.55)} ${q(top-h*.28)} ${q(x+w*.52)} ${q(top+h*.2)}Z`,col||"#1b1b1b")+R(x-w*.54,top+h*.08,w*1.08,h*.16,col||"#1b1b1b",'opacity=".85"');
+  if(k==="captain")return P(`M${q(x-w*.5)} ${q(top+h*.12)}L${q(x-w*.6)} ${q(top-h*.2)}Q${q(x)} ${q(top-h*.4)} ${q(x+w*.6)} ${q(top-h*.2)}L${q(x+w*.5)} ${q(top+h*.12)}Z`,col||"#16213e")+P(`M${q(x-w*.5)} ${q(top+h*.12)}Q${q(x)} ${q(top+h*.3)} ${q(x+w*.5)} ${q(top+h*.12)}Z`,"#111")+R(x-w*.5,top+h*.02,w,h*.06,"#d4a937")+C(x,top-h*.12,h*.07,"#d4a937");
+  if(k==="cerebro")return P(`M${q(x-w*.62)} ${q(y)}Q${q(x-w*.7)} ${q(top-h*.3)} ${q(x)} ${q(top-h*.3)}Q${q(x+w*.7)} ${q(top-h*.3)} ${q(x+w*.62)} ${q(y)}L${q(x+w*.5)} ${q(y)}Q${q(x+w*.5)} ${q(top+h*.05)} ${q(x)} ${q(top+h*.02)}Q${q(x-w*.5)} ${q(top+h*.05)} ${q(x-w*.5)} ${q(y)}Z`,"#b9c3cf",`stroke="#6c7a89" stroke-width="${q(u)}"`)+[-.4,-.15,.15,.4].map(d=>L(x+w*d,top-h*.2,x+w*d*2.2,top-h*.75,"#6c7a89",u*1.2)).join("");
+  if(k==="vr")return R(x-w*.5,top-h*.02,w,h*.24,"#222",`rx="${q(h*.06)}"`)+R(x-w*.44,top+h*.02,w*.88,h*.12,"#6ef3ff",`rx="${q(h*.04)}" opacity=".8"`);
+  return HAT(o,k,x,y,h,col)};
+// a generic cartoon head (for NFL players and extras who aren't league members)
+const GH=(x,y,h,skin="#8d5a3c",r=0,shades=1)=>G(E(0,0,h*.4,h*.5,skin)+(shades?R(-h*.32,-h*.12,h*.28,h*.13,"#111",`rx="${q(h*.04)}"`)+R(h*.04,-h*.12,h*.28,h*.13,"#111",`rx="${q(h*.04)}"`)+L(-h*.04,-h*.07,h*.04,-h*.07,"#111",h/30):C(-h*.14,-h*.06,h*.04,"#111")+C(h*.14,-h*.06,h*.04,"#111"))+P(`M${q(-h*.12)} ${q(h*.18)}Q0 ${q(h*.26)} ${q(h*.12)} ${q(h*.18)}`,"none",`stroke="#3a2010" stroke-width="${q(h/24)}" stroke-linecap="round"`),tr(x,y,r));
+const CAR=(x,y,s,col,flip)=>G(P("M-48 0h96v-14q-4-6-14-8l-16-14h-36l-18 14q-12 2-12 8z",col)+P("M-28-34h20v12h-30zM-4-34h14l14 12h-28z","#bfe3f2",'opacity=".9"')+C(-28,0,9,"#111")+C(-28,0,4,"#888")+C(30,0,9,"#111")+C(30,0,4,"#888")+R(40,-12,8,4,"#ffd")+R(-48,-12,5,4,"#d22"),`transform="translate(${q(x)} ${q(y)}) scale(${flip?-s:s} ${s})"`);
+const STAMP=(x,y,txt,r=-12,col="#d22",z=16)=>G(R(-txt.length*z*.36-6,-z*.8,txt.length*z*.72+12,z*1.35,"none",`stroke="${col}" stroke-width="2.5" rx="3"`)+T(0,z*.32,txt,z,col,'font-weight="900" letter-spacing="1"'),tr(x,y,r)+' opacity=".9"');
+const BURST=(x,y,r,col="#ffb703",col2="#fb5607",n=12)=>{let d="";for(let i=0;i<n*2;i++){const a=i*Math.PI/n,rr=i%2?r*.5:r;d+=`${i?"L":"M"}${q(x+Math.cos(a)*rr)} ${q(y+Math.sin(a)*rr)}`}return P(d+"Z",col)+C(x,y,r*.35,col2)};
+const CLIP=(x,y,w,h,inner,rx=0)=>{const id=U("k");D+=`<clipPath id="${id}"><rect x="${q(x)}" y="${q(y)}" width="${q(w)}" height="${q(h)}" rx="${rx}"/></clipPath>`;return `<g clip-path="url(#${id})">${inner}</g>`};
+const CLIPP=(d,inner)=>{const id=U("k");D+=`<clipPath id="${id}"><path d="${d}" clip-rule="evenodd"/></clipPath>`;return `<g clip-path="url(#${id})">${inner}</g>`};
+// k: season (number), seasons grouped by theme (array) or a label; m: the movie or show; t: title; x: what happened; c: slide colour; a: the drawn scene (300 x 200)
+const CA={
+kyle:{poster:"The Mongler",tag:"He never met a roster he didn't want to blow up.",
+ crawl:"Three titles, tied for the most in league history. Commissioner from 2018 to 2024, the second-busiest trader the league has ever seen, and the winner of four Trade Rapes of the Year.",
  scenes:[
-  [2016,"sopranos","The Sit-Down","Year one, and Kyle is already running a crew. He sends Julio Jones, Jordan Reed and Mark Ingram to Charles for two retired guys and Alshon Jeffery. Tony would call it a business arrangement. The league calls it the founding scandal."],
-  [2017,"lotr","The Return of the King","The random draw gives him the first pick, but he isn't at the draft, so the rest of the league rearranges the order behind his back. He goes 10-2 anyway, flips Kamara to Charles for Zeke right before the playoffs, watches Kamara get hurt against him in round one, and walks out with the ring."],
-  [2018,"sp","Dilapi Aint Makingthe Yoffs","Kyle names his whole team after DiLapi missing the playoffs. South Park rules: mean, specific, and correct. Kyle misses them too."],
-  [2019,"sw","The Phantom Menace","The Zeke trade with Skelly gets vetoed, then the league votes it back through. Kyle has built a Death Star. Then David Johnson gets hurt, the exhaust port is wide open, and the super team misses the playoffs."],
-  [2020,"bb","The Crawl Space","1-11. Walt lying in the crawl space laughing, except Kyle is laughing because he somehow escaped the Sacko. Also, on the drive home from the draft, Quincy throws up all over his car."],
-  [2021,"office","The Monglers Paper Company","Kyle rebrands as The Monglers and makes 15 trades, including Chubb, Diggs and Evans for Aaron Jones and Tyreek Hill. Like Michael Scott starting his own company, the brand shows up before the results do."],
-  [2022,"rocky","The Training Montage","Another year on the outside looking in, and the last one of the drought. Every Rocky movie needs a montage before the comeback."],
-  [2023,"gf","An Offer He Can't Refuse","Kyle makes Jerry an offer: Garrett Wilson for Aaron Jones and Anthony Richardson. Trade Rape of the Year. He goes 11-2, then beats Jerry again in the final. Ring number two."],
-  [2024,"titanic","The Band Keeps Trading","Kyren Williams and DK Metcalf go to Jordan. Travis Kelce and Chuba Hubbard go to Dylan, who wins the title with them. The ship goes down at 4-9 and the band keeps trading."],
-  [2025,"bb","Say My Name","Achane in week one, Waddle from Quincy in November, then a final against Lucas, who plays nine. Ring number three, tied for the most in league history. You're goddamn right."],
-  [2026,"sp","Quincy Feels Minimized","Kyle trades for Romeo Doubs. Quincy, whose plan to put every trade to a league vote got laughed out of the room, announces he feels minimized. Basically a South Park town meeting."]
+ {k:2016,m:"Weekend at Bernie's",t:"Weekend at Bernie's",c:"#b4502c",
+  x:"Year one, and already a scandal. Kyle and Charles collude: Julio Jones, Jordan Reed and Mark Ingram go to Charles for Alshon Jeffery plus Calvin Johnson and Marshawn Lynch, who had both retired. Kyle spends the year propping up two retired guys and pretending everything's fine.",
+  a:()=>SKY("#ff8c5a","#ffc77d","#ffe3a3")+C(232,112,24,"#fff1b8")+R(-20,112,340,40,"#3c8dbc")+L(-20,118,320,118,"rgba(255,255,255,.35)",1.5)+L(-20,128,320,128,"rgba(255,255,255,.25)",1.2)
+   +FLOOR(142,"#c99a63","#9d6f3f")+[0,1,2,3,4,5].map(i=>L(-20,150+i*9,320,150+i*9,"rgba(0,0,0,.12)",1)).join("")+R(-20,132,340,4,"#fff")+[20,80,140,200,260].map(x=>R(x,132,4,12,"#fff")).join("")
+   +L(36,40,36,150,"#eee",2.5)+P("M-4 52Q36 18 76 52Z","#e63946")+P("M16 52Q36 18 56 52Z","#fff",'opacity=".85"')
+   +BD(88,98,34,"#0076b6","jersey",{txt:"81"})+GH(88,98,34,"#5e3a24",-22)+BD(212,98,34,"#002244","jersey",{txt:"24",trim:"#69be28"})+GH(212,98,34,"#4a2c1a",20)
+   +CH("kyle",150,86,42,"#2a9d8f","tee",{arms:[[-1.18,.62],[1.18,.62]],bob:1})+[[-14,128],[10,140],[-6,152],[16,122],[-22,146]].map(([dx,dy])=>C(150+dx,dy,3,"#ffd166")+C(150+dx+1,dy-1,1.2,"#e76f51")).join("")
+   +SIGN(88,150,38,11,["RETIRED"],"#fff","#b00020",7)+SIGN(212,150,38,11,["RETIRED"],"#fff","#b00020",7)},
+ {k:2017,m:"Home Alone",t:"They Left Without Him",c:"#7a1f2b",
+  x:"The random draw gives Kyle the first pick, but he isn't at the draft, so the league rearranges the order behind his back. Revenge comes with a trap: right before the playoffs he sends Alvin Kamara to Charles for Zeke, Kamara gets hurt in their first-round game, and Kyle takes the title.",
+  a:()=>SKY("#8e2433","#5e1622")+[...Array(9)].map((_,i)=>L(i*36,0,i*36-60,160,"rgba(255,255,255,.05)",8)).join("")+FLOOR(152,"#6b4423","#432a14")
+   +P("M-20 18Q20 30 60 18T140 18T220 18T300 18T380 18","none",'stroke="#1e6b3a" stroke-width="5"')+[10,40,70,100,130,160,190,220,250,280].map((x,i)=>C(x,24+(i%2)*3,2.4,["#ffd166","#e63946","#4cc9f0","#80ed99"][i%4])).join("")
+   +P("M196 152L196 136H214V120H232V104H250V88H268V72H286V56H320V152Z","#5a3820")+L(196,128,300,46,"#3a2412",3)+[200,218,236,254,272,290].map((x,i)=>L(x,128-i*16.5,x,152-i*0,"#3a2412",2)).join("")
+   +R(22,44,68,62,"#f4efe1",'rx="2"')+T(56,56,"DRAFT ORDER",6.5,"#191414",'font-weight="800"')+T(56,70,"1. KYLE",8,"#191414")+L(32,67,80,67,"#d00",2)+T(56,84,"1. ???",8,"#191414")+T(56,98,"2. ???",8,"#191414")
+   +L(262,0,256,62,"#ddd",1.2)+G(R(-9,-10,18,20,"#9aa4ad",'rx="2"')+E(0,-10,9,3,"#c2ccd4")+T(0,4,"KAMARA",4.6,"#191414",'font-weight="800"'),tr(256,72,-18))
+   +CH("charles",262,104,24,"#161616","tee",{hat:"beanie",arms:[[-.9,.6],[.9,.2]]})
+   +CH("kyle",128,98,48,"#d64545","tee",{arms:[[-.38,.22],[.38,.22]],top:1})},
+ {k:[2018,2019],m:"Star Wars",t:"That's No Moon",c:"#141a33",
+  x:"In 2018 he names his team Dilapi aint Makingthe yoffs, then misses the playoffs himself. In 2019 he builds a Death Star: the Zeke trade with Skelly gets vetoed, then voted back through. Then David Johnson gets hurt, somebody finds the exhaust port, and the super team misses by one win.",
+  a:()=>SKY("#03040b","#0b1026")+STARS(80,3)+C(98,98,64,RG(["#b9bec7","#8a9099","#4c525c"],.38,.32,.75))+P("M34 102Q98 116 162 102","none",'stroke="#3d424b" stroke-width="3"')
+   +C(74,72,15,"#6d737d")+C(74,72,9,"#585e68")+C(74,72,3,"#8fd3ff")+[[60,130],[120,128],[96,148],[132,80],[118,58]].map(([x,y])=>R(x,y,8,4,"#6d737d")).join("")
+   +BURST(136,122,22,"#ffd166","#f77f00")+L(250,40,140,120,"#ff3b3b",1.6,'opacity=".9"')+G(P("M0 0l18-3 4 3-4 3z","#cfd6e0")+L(4,-2,10,-12,"#cfd6e0",1.6)+L(4,2,10,12,"#cfd6e0",1.6)+L(4,-2,-2,-10,"#cfd6e0",1.6)+L(4,2,-2,10,"#cfd6e0",1.6),tr(214,62,-28))
+   +CH("kyle",238,116,44,"#5b6155","suit",{tie:"#3d4238",shirt:"#4b5046",arms:[null,[.12,-.12]],top:1,bob:1})+T(98,186,"SUPER TEAM",8,"#cfd6e0",'letter-spacing="2"')},
+ {k:2020,m:"Groundhog Day",t:"Same Loss, Every Sunday",c:"#8a5a2b",
+  x:"Kyle loses the first nine weeks in a row, waking up to the same loss every Sunday, and finishes 1-11. He still escapes the Sacko.",
+  a:()=>SKY("#f3d9a4","#e6be7a")+FLOOR(156,"#8a5a3a","#6a4228")+CLIP(22,30,70,58,R(22,30,70,58,"#9fd0ef")+P("M22 78Q50 66 92 76V88H22Z","#fff")+SNOW(60,5))+R(22,30,70,58,"none",'stroke="#fff" stroke-width="4"')+L(57,30,57,88,"#fff",3)+L(22,59,92,59,"#fff",3)
+   +R(150,26,128,82,"#fff",'rx="3"')+R(150,26,128,14,"#c0392b",'rx="3"')+T(214,37,"2020",9,"#fff",'font-weight="800"')+[..."LLLLLLLLLWLL"].map((r,i)=>G(R(0,0,28,14,"none",'stroke="#ddd"')+T(14,11,r,10,r==="W"?"#2a9d4f":"#d00",'font-weight="900"'),tr(156+(i%4)*30,44+Math.floor(i/4)*20))).join("")
+   +R(12,124,150,40,"#8a3b3b",'rx="6"')+R(8,112,18,58,"#5a3820",'rx="3"')+E(48,128,26,12,"#fff")+P("M60 136h104v30H60z","#3d5a80")+P("M60 136h104v6H60z","#5a7ba6")
+   +F("kyle",48,118,34,{r:-72})+R(186,140,46,30,"#6b4423")+R(194,124,32,18,"#222",'rx="3"')+T(210,137,"6:00",11,"#ff3b3b",'font-weight="900"')},
+ {k:[2021,2022],m:"Uncut Gems",t:"This Is How I Win",c:"#3a1440",
+  x:"Kyle can't stop flipping the rock. In week 1 of 2021 he steals Cooper Kupp from Jordan, the Trade Rape of the Year, then flips him to DiLapi three weeks later, and DiLapi rides Kupp to 11-2. Fifteen trades that year. In 2022 Tyreek Hill goes to DiLapi, who sends him on to Charles for a title.",
+  a:()=>SKY("#0a0612","#1d0b26")+RAYS(176,84,"#ff6bd6",18,.1)+RAYS(176,84,"#5ef0ff",13,.08)+R(-20,160,340,50,"#24152e")+R(-20,158,340,4,"rgba(255,255,255,.25)")
+   +CH("dilapi",254,122,32,"#26324a","tee",{arms:[[-1.6,-.35]]})
+   +CH("kyle",112,112,46,"#1b1b1b","coat",{arms:[null,[1.3,-.5]]})+P("M98 134Q112 150 126 134","none",'stroke="#e9c46a" stroke-width="2.5"')
+   +G(P("M-16 -6L-6 -16L10 -14L18 -2L12 14L-6 16L-18 6Z",RG(["#fff","#ff9de2","#7df9ff","#7b2ff7","#2b1055"],.4,.35,.8),'stroke="#fff" stroke-width="1"')+P("M-6 -16L0 0L10 -14M0 0L18 -2M0 0L12 14M0 0L-6 16M0 0L-18 6","none",'stroke="rgba(255,255,255,.5)" stroke-width=".8"')+T(0,30,"KUPP",8,"#fff",'font-weight="800" letter-spacing="2"'),tr(176,84,0,1.3))},
+ {k:2023,m:"The Social Network",t:"You Don't Get to 11-2 Without a Few Enemies",c:"#1f3347",
+  x:"Kyle flips Garrett Wilson back to his college roommate Jerry, three weeks after getting him, for Aaron Jones and Anthony Richardson. The Trade Rape of the Year. He grabs Kyren Williams off waivers, goes 11-2, beats Rod in the semis, then beats Jerry in the final, 265.7 to 246.",
+  a:()=>SKY("#34495e","#1c2833")+R(196,16,92,66,"#7f9db5",'stroke="#2c3e50" stroke-width="4"')+[...Array(14)].map((_,i)=>L(200+i*6.5,18+(i*13)%40,196+i*6.5,30+(i*13)%40,"rgba(255,255,255,.55)",1)).join("")
+   +CH("kyle",86,100,44,"#7f8c8d","hoodie",{arms:[[.2,1.25],[.7,1.2]]})+CH("jerry",222,104,42,"#2f3640","suit",{tie:"#3c6382",arms:[[.55,1.1],[-.55,1.1]]})
+   +P("M-20 150L320 150L320 210L-20 210Z","#5d4030")+R(-20,146,340,6,"#7a553f")+P("M118 146l6-34h56l6 34z","#d0d3d4")+R(122,114,58,30,"#1c1c1c")+R(124,116,54,26,"#3b82f6")
+   +T(151,127,"TRADE",6.5,"#fff",'font-weight="800"')+T(151,137,"ACCEPTED ✓",5.6,"#d1fae5",'font-weight="800"')+R(54,156,40,26,"#fff",'transform="rotate(-6 74 169)"')+R(214,158,24,20,"rgba(220,240,255,.6)",'rx="3"')},
+ {k:2024,m:"Charlie and the Chocolate Factory",t:"Golden Tickets",c:"#7d3c98",
+  x:"Kyle hands out golden tickets. Kyren Williams and DK Metcalf go to Jordan, the Trade Rape of the Year, against him. Then Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr. go to Dylan for Brian Robinson Jr., and Dylan wins the whole factory. Kyle goes 4-9.",
+  a:()=>SKY("#ffb3d9","#d88be6")+[[40,64,"#ff5d8f"],[262,52,"#ffd23f"],[210,86,"#5ad1ff"]].map(([x,y,c])=>L(x,y,x,y+70,"#fff",3)+C(x,y,14,c)+P(`M${x-8} ${y}A8 8 0 1 1 ${x+8} ${y}A5 5 0 1 1 ${x-2} ${y}`,"none",'stroke="#fff" stroke-width="2.5"')).join("")
+   +FLOOR(168,"#5bd16b","#3fa34d")+P("M-20 150Q40 140 100 152T220 150T340 148V176Q280 182 220 174T100 178T-20 172Z","#6b3a1e")+P("M-20 156Q40 148 100 158T220 156T340 154","none",'stroke="#8d5524" stroke-width="2"')
+   +CH("kyle",104,94,42,"#6c3483","coat",{hat:"top",hc:"#3d1d4f",arms:[[-1.05,1.4],[1.32,.42]],bob:1})+L(72,156,62,108,"#2b1b0e",2.5)+C(62,108,4,"#f2c230")
+   +[["KYREN",-14],["DK",0],["KELCE",14]].map(([n,r],i)=>G(R(-15,-7,30,14,"#f2c230",'rx="1.5" stroke="#a67c00" stroke-width="1"')+T(0,2.6,n,6.2,"#5a3a00",'font-weight="900"'),tr(170+i*4,112+i*10,r))).join("")
+   +CH("dylan",240,102,38,"#2d6a4f","tee",{arms:[[-.8,1.1],[.95,.6]]})+TROPHY(274,128,1.25)},
+ {k:2025,m:"Ocean's Eleven",t:"The Crew Goes to Work",c:"#2a1838",
+  x:"4-5 in early November and seventh place. Then the crew goes to work: De'Von Achane from Jordan early on, Dak Prescott and Alvin Kamara from Peanut, and Jaylen Waddle from Quincy in late November. Kyle beats Charles by 96 in the semis and Lucas in the final. Ring number three.",
+  a:()=>SKY("#120d1f","#2a1838")+[...Array(26)].map((_,i)=>C(8+i*11.5,20,2,i%2?"#ffd166":"#fff3b0")).join("")+FLOOR(160,"#3b2448","#24142e")
+   +C(214,98,66,"#7d8597")+C(214,98,56,"#2b2f3a")+[...Array(6)].map((_,i)=>R(176+i*13,126-(i%2)*8,11,6,"#f2c230",'stroke="#a67c00" stroke-width=".6"')).join("")+TROPHY(214,112,1.9)
+   +E(292,98,16,60,"#9aa3b5",'stroke="#6b7280" stroke-width="3"')+[0,1,2,3].map(i=>C(292,72+i*18,4,"#6b7280")).join("")
+   +CH("kyle",92,98,46,"#141414","tux",{arms:[null,[1.35,.55]],bob:1})},
+ {k:2026,m:"Punk'd",t:"You Got Punk'd",c:"#2c3e50",
+  x:"Quincy is mad that nobody put Kyle's Romeo Doubs trade with Jordan up for a veto vote, so Kyle offers Charles five starters, Jonathan Taylor and Trey McBride among them, for one rookie tight end, just to mess with him. The league vetoes it. Quincy says he feels undermined and belittled.",
+  a:()=>SKY("#dfe8f1","#b8c9db")+R(-20,150,340,60,"#8e9aa8")+[[18,18,1,1],[282,18,-1,1],[18,182,1,-1],[282,182,-1,-1]].map(([x,y,a,b])=>P(`M${x} ${y+b*16}V${y}H${x+a*16}`,"none",'stroke="#fff" stroke-width="3"')).join("")+C(234,30,5,"#e11d48")+T(258,34,"REC",11,"#e11d48",'font-weight="900"')
+   +CH("kyle",96,96,42,"#f4f4f4","tee",{hat:"cap",hc:"#1b1b1b",arms:[null,[1.42,.18]],bob:1})+CH("quincy",216,100,40,"#c0392b","tee",{arms:[[-.7,1.3],[.7,1.3]]})
+   +[[196,58],[238,56],[230,46]].map(([x,y],i)=>C(x,y,5+i,"#fff",'opacity=".8"')).join("")+G(R(-26,-16,52,32,"#fff",'rx="2"')+T(0,-6,"TRADE",6,"#555",'font-weight="800"')+L(-18,1,18,1,"#ccc",1)+L(-18,6,12,6,"#ccc",1),tr(156,158,-4))+STAMP(156,160,"VETOED",-14,"#d00",10)}
  ],
- marvel:["Loki","Antihero","The God of Mischief. Collusion in year one, a vetoed trade voted back through, 15 deals in a season, and a whole team named after DiLapi. Every scheme looks doomed right up until he's holding the scepter again. Three times."]},
-charles:{crawl:"Three crowns, the most trades in league history, and a family of chickens whose number goes up and down with the market.",
+ marvel:["Loki","Antihero","The God of Mischief. Collusion in year one, a vetoed trade voted back through, fifteen deals in a season, a hand in seven of the nine Trade Rapes of the Year and a joke trade just to make Quincy mad. Every scheme looks doomed right up until he's holding the scepter again. Three times."]},
+
+charles:{poster:"Sal's 12 Chickens",tag:"The busiest trader in league history.",
+ crawl:"Three titles, the most trades in league history, and a flock of chickens whose number goes up and down with the market.",
  scenes:[
-  ["2015 · The Wu-Tang · Unofficial","sopranos","The Wu-Tang Job","Before the league was official, Charles won it, then sold Quincy a freshly injured Jamaal Charles for Randall Cobb and James Jones. Quincy celebrated. Jamaal was out for the year. The title doesn't count. The legend does."],
-  [2016,"lotr","One Does Not Simply Win in Week 17","He chases Julio Jones for a month, gets him, goes 12-1, and loses the two-week final to Duane 242 to 190 while his stars sit out the last week of the NFL season. The league moves the final up a week because of it."],
-  [2017,"sw","It's a Trap","He trades Peanut a secret for Peanut's draft pick. Nobody knows the secret. Then he takes Kamara from Kyle for Zeke, Kamara gets hurt in their playoff game, and Kyle knocks him out."],
-  [2018,"sp","They Took Our Jerseys","Charles buys a Kareem Hunt jersey days before the Hunt video comes out, ruining his team and the jersey. He still makes the final and loses it to Fluff."],
-  [2019,"sopranos","Boss of the Family","Sal's 12 Chickens are in 15 of the year's 25 trades. Hopkins for Julio and Guice, Aaron Jones for Tyler Boyd. The family business is booming, and Charles takes his first ring."],
-  [2020,"bb","The Empire Business","He sends Kupp and Conner to Kyle for Tyreek, buys Kupp back three days later, and repeats. Peanut goes up 50 in the final and declares himself champion. Kamara drops 56 and Charles cooks."],
-  [2021,"titanic","The Iceberg","6-7 and no playoffs, the one year his ship hits the ice."],
-  [2022,"gf","The Great Dealer","Justin Jefferson from Jordan for four starters, Tyreek Hill from the Noses for four more, and a mid-matchup commissioner add on a Monday night. Every offer one nobody refuses. Ring number three."],
-  ["2023 · Sat out","lotr","Into the West","Charles sails off to the Undying Lands and sits the season out."],
-  [2024,"rocky","Out of Retirement","The old champ comes back as Christian Crusaders and goes the distance, but the judges don't give him a playoff spot."],
-  [2025,"sw","Struck Down","Back in the playoffs as the 2 seed, and Kyle strikes him down in the semis, 303 to 207."],
-  [2026,"office","Down to Four Chickens","Sal's 34 Chickens in 2020, Sal's 12 Chickens after that, and now Sal's 4 Chickens. The flock is shrinking. The ambition isn't."]
+ {k:"2015 · The Wu-Tang · Unofficial",m:"Catch Me If You Can",t:"Catch Me If You Can",c:"#1f2a44",
+  x:"Before the league was official, Charles wins the 2015 Wu-Tang, then sells Quincy a freshly injured Jamaal Charles for Randall Cobb and James Jones. Quincy celebrates. Jamaal is out for the year. The title doesn't count. The con does.",
+  a:()=>SKY("#7ec8e3","#cfeffd")+[0,75,150,225,300].map(x=>R(x-3,0,6,150,"#e9eef2")).join("")+G(P("M0 0h120q14 0 20 6l-20 6H10z","#fff")+P("M40 6l30 26h10l-14-26z","#dfe6ec")+P("M100 0l14-18h8l-6 18z","#dfe6ec"),tr(150,96))+FLOOR(150,"#e8e0cf","#c9bfa8")
+   +CH("charles",96,96,42,"#1f2a44","suit",{tie:"#111",hat:"captain",arms:[null,[1.3,.55]],bob:1})+[0,1,2].map(i=>R(103+i*10,129,3,4,"#d4a937")).join("")
+   +G(R(-44,-22,88,44,"#e9f5e1",'stroke="#6b8f5a" stroke-width="1.2"')+T(-40,-10,"PAY TO THE ORDER OF",4.6,"#355e3b",'text-anchor="start" font-weight="700"')+T(-4,-1,"QUINCY",9,"#1c2b1c",'font-weight="800"')+T(0,11,"ONE (1) JAMAAL CHARLES",5.4,"#1c2b1c",'font-weight="800"')+STAMP(24,10,"VOID",-16,"#d00",12),tr(196,126,-6))
+   +CH("quincy",264,68,24,"#e67e22","tee",{arms:[[-.9,-.85],[.9,-.85]]})},
+ {k:2016,m:"Titanic",t:"Unsinkable",c:"#0b1a3a",
+  x:"Charles hunts down Julio Jones for a month, lands him, and builds a 12-1 super team the whole league calls unsinkable. Then the two-week final runs into the last week of the NFL season, his stars sit, and Duane sinks him 242 to 190. The league moves the final up a week because of it.",
+  a:()=>SKY("#0b1a3a","#28497a")+STARS(40,4)+R(-20,138,340,80,"#0d2747")+[146,158,170,184].map((y,i)=>P(`M-20 ${y}q20-5 40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0t40 0`,"none",`stroke="rgba(255,255,255,${.25-i*.05})" stroke-width="1.2"`)).join("")
+   +P("M214 140L236 92L252 104L266 80L290 140Z","#e8f4fb")+P("M236 92L246 140H214ZM266 80L272 140H254Z","#b9dcef")+T(256,128,"WEEK 17",8,"#2a4d6e",'font-weight="900"')
+   +P("M-20 200L-20 112L178 140L132 200Z","#151515")+L(-20,112,178,140,"#c9a227",2)+[10,40,70,100,130,160].map(x=>L(x,116+(x+20)*.14,x,107+(x+20)*.14,"#ddd",1.2)).join("")+L(-20,104,170,131,"#ddd",1.2)+T(30,154,"12-1",16,"#f4f4f4",'font-weight="900" transform="rotate(8 30 154)"')
+   +CH("charles",104,88,40,"#f5f0e6","tee",{arms:[[-1.75,.35],[1.75,.35]],bob:1})+L(92,121,96,150,"#5a3a22",3)+L(116,121,112,150,"#5a3a22",3)},
+ {k:2017,m:"Troy",t:"Beware of Kyles Bearing Gifts",c:"#b8692e",
+  x:"Charles trades Peanut a secret for Peanut's draft pick, and nobody has ever learned what it was. Then right before the playoffs Kyle wheels a gift up to the gates: Alvin Kamara, for Zeke. Charles takes it. Kamara gets hurt in their first-round game, and Kyle takes the city.",
+  a:()=>SKY("#f6c87d","#e08a4a")+R(210,52,110,150,"#c9a46a")+[...Array(5)].map((_,i)=>R(214+i*22,40,14,14,"#c9a46a")).join("")+[...Array(5)].map((_,r)=>L(210,70+r*22,320,70+r*22,"rgba(0,0,0,.12)",1)).join("")+P("M226 200V150Q248 126 270 150V200Z","#3b2412")+FLOOR(176,"#d9b77a","#b8945a")
+   +G(R(-62,40,124,8,"#6b4423")+[-50,-18,18,50].map(x=>C(x,52,8,"#3b2412")+C(x,52,3,"#8a6a4a")).join("")+[-40,-14,14,40].map(x=>R(x-4,8,8,34,"#8b5a2b")).join("")+E(0,0,52,22,"#a0672f")+P("M34-10L52-58L70-56L64-34L48 0Z","#a0672f")+P("M52-58l-6-12 12 4z","#8b5a2b")+C(60,-48,2.2,"#111")+P("M44-56q-8 10-6 30","none",'stroke="#5a3a1a" stroke-width="4"')+T(-4,8,"KAMARA",11,"#fff3d6",'font-weight="900"')+R(-28,-12,20,14,"#2a1608"),tr(110,118))
+   +F("kyle",92,113,14,{sh:0})+CH("charles",264,42,24,"#c0392b","tee",{hat:"greek",arms:[[-.95,.6],[.9,.7]]})},
+ {k:2018,m:"Seinfeld",t:"The Jersey",c:"#8a6d4a",
+  x:"Charles takes Patrick Mahomes and Kareem Hunt from DiLapi in week 3, then buys a Kareem Hunt jersey. Days later the Hunt video comes out, the Chiefs cut him, and the jersey is worthless. Charles still reaches the final and loses it to Fluff, 252.4 to 235.5.",
+  a:()=>SKY("#d9c7a5","#c4ae88")+R(-20,0,92,160,"#a65a3a")+[...Array(8)].map((_,r)=>[...Array(5)].map((_,c)=>R(-20+c*20+(r%2)*10,r*20,18,8,"rgba(0,0,0,.12)")).join("")).join("")
+   +CLIP(222,26,64,70,R(222,26,64,70,"#9cc3e6")+CITY(96,"#5f7d9c",11,"#e8f1f8"))+R(222,26,64,70,"none",'stroke="#fff" stroke-width="4"')
+   +C(30,74,13,"none",'stroke="#333" stroke-width="2.5"')+C(64,74,13,"none",'stroke="#333" stroke-width="2.5"')+P("M30 74L44 58H58L64 74M44 58L48 74","none",'stroke="#333" stroke-width="2.5"')
+   +R(-20,150,340,60,"#4a6fa5")+R(-10,134,230,26,"#5b82bd",'rx="8"')
+   +CH("charles",150,96,44,"#e31837","jersey",{txt:"27",trim:"#ffb612",arms:[[-.6,1.5],[.6,1.5]]})+G(R(-14,-6,28,12,"#fff",'rx="2"')+T(0,2.4,"NO REFUNDS",3.9,"#c00",'font-weight="900"'),tr(184,158,-10))
+   +BUB(244,132,92,30,["WHAT'S THE DEAL","WITH KAREEM HUNT?"],196,112,7)},
+ {k:2019,m:"The Wolf of Wall Street",t:"The Wolf of Wall Street",c:"#14213d",
+  x:"Sal's 12 Chickens are in 15 of the year's 25 trades. DeAndre Hopkins for Julio Jones and Derrius Guice, Aaron Jones for Tyler Boyd, and the phones never stop ringing. He beats Squirm in the final, 304.2 to 249, for his first ring.",
+  a:()=>SKY("#1b2735","#0d141e")+R(-20,22,340,22,"#000")+`<text x="150" y="37" font-size="8.6" text-anchor="middle" font-weight="700"><tspan fill="#4ade80">HOPKINS ▲  A.JONES ▲  </tspan><tspan fill="#f87171">JULIO ▼  BOYD ▼  GUICE ▼</tspan></text>`
+   +CONF(40,12,["#2e8b57","#3cb371","#85bb65"])+R(-20,150,340,60,"#4a3523")+R(-20,146,340,6,"#6b4a30")
+   +G(R(-12,-4,24,10,"#222",'rx="2"')+P("M-10-4q10-12 20 0","none",'stroke="#222" stroke-width="5"'),tr(52,142))+G(R(-12,-4,24,10,"#222",'rx="2"')+P("M-10-4q10-12 20 0","none",'stroke="#222" stroke-width="5"'),tr(250,142))
+   +CH("charles",150,98,46,"#22313f","suit",{tie:"#d4a937",arms:[[-1.3,-.55],[1.05,-.15]],bob:1})+CHICK(214,140,1.1)},
+ {k:2020,m:"How the Grinch Stole Christmas",t:"The Grinch",c:"#173a2a",
+  x:"Charles turns Cooper Kupp and James Conner into Tyreek Hill, the Trade Rape of the Year, and takes the 1 seed. In the final Peanut goes up big after week one and declares himself champion. Then on Christmas Day Alvin Kamara scores 56, and Charles steals it, 323.7 to 286.6. Back-to-back.",
+  a:()=>SKY("#0d1b3d","#2c4a7a")+STARS(30,8)+[[10,120,50,"#e07a5f"],[70,110,46,"#81b29a"],[226,116,44,"#f2cc8f"],[268,124,40,"#9d8df1"]].map(([x,y,w,c])=>P(`M${x} 170V${y}Q${x+w/2} ${y-34} ${x+w} ${y}V170Z`,c)+P(`M${x-3} ${y+2}Q${x+w/2} ${y-38} ${x+w+3} ${y+2}Q${x+w/2} ${y-26} ${x-3} ${y+2}Z`,"#fff")+R(x+w*.35,y+14,w*.3,16,"#ffe08a")).join("")
+   +FLOOR(166,"#eaf2ff")+SNOW(50,7)
+   +CH("charles",128,94,44,"#c8102e","coat",{hat:"santa",fx:"green",arms:[null,[1.3,-.3]]})
+   +G(E(0,0,34,30,"#c9a56a")+P("M-14-26q14-14 28 0","none",'stroke="#8b6b3a" stroke-width="4"')+T(0,8,"PEANUT'S",7,"#5a3a10",'font-weight="900"')+T(0,17,"TITLE",7,"#5a3a10",'font-weight="900"'),tr(198,112))+TROPHY(198,82,1.3)+G(R(-9,-6,18,12,"#fff",'rx="2"')+T(0,3,"56",8,"#c8102e",'font-weight="900"'),tr(226,96,12))+SNOW(20,17)},
+ {k:[2021,2022],m:"Star Wars",t:"I Am the Senate",c:"#2a0c0c",
+  x:"In 2021 his chickens score the third-most points and miss by one win. In 2022 he becomes the Emperor: Justin Jefferson from Jordan, Tyreek Hill from DiLapi, and a Monday-night commissioner add of Isaiah Likely, mid-matchup. Eight straight wins, a 231.9 to 175.6 final over Squirm, and ring number three.",
+  a:()=>SKY("#3a0f12","#120405")+[...Array(4)].map((_,r)=>[...Array(9)].map((_,i)=>R(-10+i*36+(r%2)*18,30+r*28,26,14,"#5a2a2e",'rx="4"')+R(-6+i*36+(r%2)*18,33+r*28,18,4,"#e8c574",'opacity=".35"')).join("")).join("")+FLOOR(150,"#200809")
+   +HAT("charles","hood",150,92,42,"#151018")+CH("charles",150,92,42,"#151018","robe",{arms:[[-1.5,-.25],[1.5,-.25]],glove:"#e8e0d0"})
+   +[[-1,1],[1,1]].map(([d])=>`<g filter="${fx("glow","#7fd4ff")}">`+P(`M${150+d*63} 82l${d*16} -10l${d*-4} 10l${d*20} -12l${d*-6} 14l${d*24} -8`,"none",'stroke="#d6f2ff" stroke-width="2" stroke-linejoin="round"')+P(`M${150+d*63} 82l${d*18} 8l${d*-2} 8l${d*22} 4l${d*-4} 10l${d*20} 6`,"none",'stroke="#d6f2ff" stroke-width="1.6" stroke-linejoin="round"')+"</g>").join("")},
+ {k:"2023 · Sat out",m:"Ferris Bueller's Day Off",t:"Bueller? Bueller?",c:"#2b6cb0",
+  x:"Charles takes a year off. The league plays on without him, and the 2023 draft board carries a note: Long live Chattles.",
+  a:()=>SKY("#6fb8ec","#d6f0ff")+E(60,40,30,9,"#fff",'opacity=".8"')+E(250,56,26,8,"#fff",'opacity=".7"')+CITY(150,"#8aa9c4",21)
+   +[52,70,88,106].map(x=>L(x,150,x+(x-79)*.2,100,"#5d6d7e",3)).join("")+R(40,52,78,52,"#7f8c8d",'rx="10"')+P("M40 56Q79 34 118 56","#7f8c8d")+T(79,74,"LONG LIVE",9,"#fff",'font-weight="900"')+T(79,92,"CHATTLES",11,"#fff",'font-weight="900"')
+   +FLOOR(160,"#5d6d7e")+CH("charles",184,104,40,"#f4f1ea","tee",{arms:[[-1.1,-.9],[1.1,-.9]],bob:1})+SHADES("charles",184,104,40)
+   +G(P("M-62 0h124q6-14-8-18l-26-4-16-14h-30l-16 14-26 4q-12 4-2 18z","#d01c1c")+C(-38,2,10,"#111")+C(38,2,10,"#111")+C(-38,2,4,"#bbb")+C(38,2,4,"#bbb"),tr(186,164))},
+ {k:2024,m:"Toy Story",t:"You've Got a Friend in Me",c:"#3b82c4",
+  x:"Charles comes back as the Christian Crusaders and picks Kareem Hunt, the jersey guy from 2018, up off waivers. Hunt starts 11 games for him and scores 126.2 points. The third-most points in the league, and still one win short of the playoffs.",
+  a:()=>SKY("#6fb7ea","#a8d8f5")+[[30,30],[110,60],[200,24],[270,70],[60,110],[240,120]].map(([x,y])=>E(x,y,22,10,"#fff")+E(x+12,y-6,14,9,"#fff")+E(x-12,y-3,12,8,"#fff")).join("")+FLOOR(160,"#c8a27a","#a57c52")+[0,1,2,3].map(i=>L(-20,168+i*9,320,168+i*9,"rgba(0,0,0,.1)",1)).join("")
+   +CH("charles",118,96,42,"#f1c40f","tee",{hat:"cowboy",arms:[[-.9,1.4],[1.45,.62]],bob:1})
+   +G(C(0,-24,14,"#c8102e")+R(-10,-30,20,4,"#ffb612")+R(-9,-22,18,10,"#ffe0bd",'rx="4"')+C(-4,-18,1.4,"#111")+C(4,-18,1.4,"#111")+R(-14,-8,28,32,"#c8102e",'rx="5"')+T(0,13,"27",12,"#fff",'font-weight="900"')+R(-12,24,9,14,"#f4f4f4")+R(3,24,9,14,"#f4f4f4"),tr(196,128))+P("M214 92a5 5 0 0 1 9-3a5 5 0 0 1 9 3c0 6-9 11-9 11s-9-5-9-11z","#e63946")},
+ {k:[2025,2026],m:"Chicken Run",t:"The Great Escape",c:"#5b8c3a",
+  x:"Sal's 12 Chickens, then Sal's 34 Chickens, then back to 12, then just Sal's Chickens in 2025: six straight wins, the 2 seed, and a 96-point beating from Kyle in the semis. Now the flock is down to Sal's 4 Chickens, and the coop is planning its escape.",
+  a:()=>SKY("#9fc5e8","#e8f1f8")+P("M-20 130Q60 104 150 126T320 118V200H-20Z","#7cb35a")+[...Array(9)].map((_,i)=>R(-6+i*38,96,5,64,"#8b6b4a")).join("")+[104,116,128].map(y=>P(`M-20 ${y}Q40 ${y+3} 80 ${y}T180 ${y}T320 ${y}`,"none",'stroke="#555" stroke-width="1" stroke-dasharray="3 2"')).join("")
+   +P("M18 160V128L46 108L74 128V160Z","#a0522d")+R(38,138,16,22,"#5a2d14")+P("M226 164V130L256 110L286 130V164Z","#a0522d")+R(248,142,16,22,"#5a2d14")
+   +G(R(-34,-12,68,24,"#c49a6c",'stroke="#7a5230" stroke-width="2"')+T(0,-1,"SAL'S",8,"#3b2412",'font-weight="900"')+T(0,8,"4 CHICKENS",7,"#3b2412",'font-weight="900"')+R(-3,12,6,26,"#7a5230"),tr(96,128,-4))
+   +CH("charles",160,104,40,"#fafafa","tee",{hat:"comb",arms:[[-1.3,.1],[1.3,.1]],glove:0})+CHICK(110,172,1)+CHICK(200,170,1.1)+CHICK(236,152,.9)+G(CHICK(0,0,1),tr(262,52,-20))+L(250,64,240,72,"#fff",1,'opacity=".6"')}
  ],
- marvel:["Thanos","Villain","He collects stars the way Thanos collects Infinity Stones: Julio, Hopkins, Kupp, Tyreek, Justin Jefferson. Three titles, more trades than anyone, and a habit of snapping half the league's rosters out of existence. Inevitable."]},
-fluff:{crawl:"The best career win rate in the league, the only owner to go from Sacko to champion, and a man who almost never trades.",
+ marvel:["Thanos","Villain","He collects stars the way Thanos collects Infinity Stones: Julio, Hopkins, Tyreek, Justin Jefferson. Three titles, more trades than anyone, and a habit of snapping half the league's rosters out of existence. Inevitable."]},
+
+fluff:{poster:"Floof",tag:"From the first Sacko to the best regular season ever.",
+ crawl:"The best career win rate in the league, the only owner to go from Sacko to champion, and a man who almost never trades.",
  scenes:[
-  [2016,"sp","Oh My God, They Sacko'd Fluff","The first Sacko in league history. He also tries to collude with Kyle while hanging out with Alex Katemaris, and fails. Kenny would understand."],
-  [2017,"office","Duane Bernard Jr.","Dwight-level devotion: he names his team after the guy who won the title the year before. He goes 9-3 and still misses the playoffs."],
-  [2018,"lotr","There and Back Again","Two years after the first Sacko, the hobbit comes home with the treasure: 9-3, 1,806.76 points, still the best regular season ever, and the title."],
-  [2019,"sw","The Death Star Blows Up","Best record in the league again, then Squirm drops 285 on him in round one."],
-  [2020,"titanic","No Room on the Door","8-4 and left out of the playoffs. Sorry, Jack."],
-  [2021,"bb","Never Trust Your Partner","He takes Chubb and Diggs from Squirm in December. Squirm cooks with Zeke and Godwin and wins the title. Fluff goes out in round one."],
-  [2022,"sopranos","Session with Melfi","4-9. A lot to unpack with the therapist."],
-  [2023,"sp","Town Meeting","11-2 and first place, and the league votes down his Ja'Marr Chase for Kamara and Kupp trade with Peanut twice in one evening. Then he loses in round one."],
-  ["2024 · Sat out","sw","Exile on Dagobah","So angry about the veto that he sits out the entire season. Yoda in a swamp, but madder."],
-  [2025,"rocky","Back in the Ring","Returns from exile as SQUIRMS JUGZ. Clearly not over the Squirm thing either."],
-  [2026,"lotr","Chasing a Second Ring","The first 12-team year, and Floof comes out flying. Ten years after the first Sacko, he wants another ring."]
+ {k:[2016,2017,2018],m:"Kung Fu Panda",t:"There Is No Secret Ingredient",c:"#b5562b",
+  x:"At the 2016 draft DiLapi pins Floof to the carpet and mongles him by the radiator, and the season ends with the league's first Sacko. In 2017 he names his team Duane Bernard Jr. after the champion. Then in 2018 the Dragon Warrior arrives: 9-3, 1,806.76 points, still the best regular season ever, and the title.",
+  a:()=>SKY("#f6d18a","#e88d5a")+P("M-20 150L40 70L90 130L150 50L210 120L250 80L320 150Z","#8a6a9c",'opacity=".7"')+P("M-20 160L60 100L120 150L190 96L260 150L320 120V200H-20Z","#6d4f7f",'opacity=".8"')
+   +P("M300 0Q250 30 230 10","none",'stroke="#5a3a22" stroke-width="4"')+[[262,14],[244,22],[280,26],[256,34],[290,8]].map(([x,y])=>C(x,y,5,"#ffb7c5")).join("")+FLOOR(164,"#b9875a","#8f6440")+[0,1,2].map(i=>R(-20,164+i*12,340,3,"rgba(0,0,0,.12)")).join("")
+   +TOILET(44,180,.8)+P("M66 150q40-30 80-10","none",'stroke="#fff" stroke-width="1.6" stroke-dasharray="3 3" opacity=".7"')+TROPHY(256,176,1.5)
+   +CH("fluff",152,90,46,"#d4a937","robe",{hat:"panda",belt:"#111",arms:[[-1.45,.05],[1.25,-.6]],bob:1})},
+ {k:[2019,2021],m:"Looney Tunes",t:"Beep Beep",c:"#c96b2c",
+  x:"Floof keeps chasing Squirm and keeps catching the anvil. 2019: the 1 seed, and Squirm drops 285.8 on him in the semis. 2021: he orders Nick Chubb and Stefon Diggs from Squirm, ACME-style, and Squirm uses the return to beat him in the semis, 246.7 to 241.1, on the way to the title.",
+  a:()=>SKY("#f7d488","#f3b36b")+P("M150 150V70h40l6 8h30v72Z","#c4552d")+P("M-20 150V96h36l8 10h24v44Z","#c4552d")+P("M250 150V110h50v40Z","#b3482a")+FLOOR(150,"#e7a35c","#d18a45")
+   +P("M260 150v-30h-6v14h-6v-20h-6v36","none",'stroke="#2e7d32" stroke-width="5" stroke-linecap="round"')
+   +G(P("M-22-6h44l-6 12H-16z","#3a3a3a")+R(-14,6,28,8,"#2a2a2a")+T(0,3,"ACME",7,"#fff",'font-weight="900"'),tr(96,30))+[0,1,2].map(i=>L(84+i*12,8,84+i*12,18,"#fff",1.2,'opacity=".7"')).join("")
+   +CH("fluff",96,108,40,"#8b6b4a","tee",{arms:[[-.3,-.9],[.3,-.9]]})
+   +[0,1,2].map(i=>L(178-i*10,104+i*8,206-i*4,104+i*8,"#fff",2,'opacity=".8"')).join("")+L(226,128,218,150,"#f2a72e",2.5)+L(240,128,248,150,"#f2a72e",2.5)+CH("squirm",232,96,30,"#4a5bd4","tee",{flip:1})
+   +BUB(262,48,58,20,["BEEP BEEP!"],244,74,8.5)},
+ {k:2020,m:"Moneyball",t:"Moneyball",c:"#1c2733",
+  x:"Floof finds an undrafted rookie running back named James Robinson on waivers in week 2. Robinson starts 13 games and scores 219.4 points. Floof goes 8-4, and the playoffs leave him out anyway.",
+  a:()=>SKY("#2b3a4a","#1c2733")+R(18,26,90,52,"#0f1720",'stroke="#5d6d7e" stroke-width="3"')+[30,60,90].map(x=>E(x,40,10,6,"#fff8d6",'opacity=".7"')).join("")+P("M18 78Q63 56 108 78","#2e7d32")
+   +R(150,22,134,96,"#f8f8f8",'stroke="#9aa5b1" stroke-width="2"')+T(217,40,"J. ROBINSON",12,"#1d3557",'font-weight="900"')+T(217,58,"UNDRAFTED",10,"#c1121f",'font-weight="800"')+T(217,78,"219.4 PTS",13,"#1d3557",'font-weight="900"')+E(217,74,52,13,"none",'stroke="#c1121f" stroke-width="2"')+T(217,104,"13 STARTS",8,"#555",'font-weight="700"')
+   +R(-20,160,340,40,"#3d2b1f")+CH("fluff",86,116,44,"#2e4a7d","tee",{arms:[null,[1.5,-.62]]})},
+ {k:[2023,2024],m:"South Park",t:"Screw You Guys, I'm Going Home",c:"#3a7bbf",
+  x:"Floof goes 11-2 and wins eight straight. Then on November 24 the league votes down his Ja'Marr Chase trade with Peanut, twice in one evening, and Jerry knocks him out in the semis. Floof is so angry he sits out all of 2024.",
+  a:()=>SKY("#9fd3f0","#d8eef9")+P("M-20 120L50 50L110 120Z M80 120L170 30L260 120Z M220 120L280 60L340 120Z","#f4f8fb")+P("M50 50L36 70h28zM170 30L152 54h36zM280 60L268 76h24z","#cfd8dc")
+   +[20,64,232,282].map(x=>P(`M${x} 150l12-34 12 34z`,"#1f5130")).join("")+FLOOR(144,"#f4f8fb","#dfe9ef")
+   +G(R(-2,0,4,46,"#666")+R(-24,-16,48,18,"#fff",'stroke="#c00" stroke-width="2"')+T(0,-3,"VETOED",9,"#c00",'font-weight="900"'),tr(256,126))
+   +E(150,152,36,30,"#e53935",'stroke="#fff" stroke-width="2"')+E(150,180,30,8,"#5d4037")+C(116,150,8,"#fdd835",'stroke="#fff" stroke-width="2"')+C(184,150,8,"#fdd835",'stroke="#fff" stroke-width="2"')+L(150,124,150,180,"#b71c1c",1.5)
+   +F("fluff",150,104,48,{fx:"toon",bob:1})+BUB(78,52,104,30,["SCREW YOU GUYS,","I'M GOING HOME"],120,82,8.5)},
+ {k:[2025,2026],m:"Love Actually",t:"To Me, You Are Perfect",c:"#22324d",
+  x:"Back from his year away, Floof can't stop writing love notes to Squirm: SQUIRMS JUGZ in 2025, SQUIRMYS SLUTZS in 2026. In 2026 he also wins eight straight after a 1-1 start.",
+  a:()=>SKY("#0f1a2e","#22324d")+P("M-20 10Q70 30 150 12T320 14","none",'stroke="#333" stroke-width="1"')+[...Array(14)].map((_,i)=>C(i*24-4,15+Math.sin(i)*5,3,["#ffd166","#ef476f","#06d6a0","#4cc9f0"][i%4])).join("")
+   +R(214,52,74,112,"#3b2b20")+R(220,58,62,106,"#ffd98a")+FLOOR(164,"#e8eef5","#cfd8e3")+SNOW(40,23)+F("squirm",250,100,30)
+   +BD(116,78,38,"#3a3a46","coat")+F("fluff",116,78,38,{bob:1})
+   +CARD(160,146,84,44,["SQUIRMYS","SLUTZS"],8,10)+CARD(84,148,84,44,["SQUIRMS","JUGZ"],-6,10)+ARM(88,113,70,134,"#3a3a46",38)+ARM(144,113,168,132,"#3a3a46",38)}
  ],
  marvel:["Hulk","Hero","The best win rate in the league, almost never trades, and when the league vetoed him he smashed his way out for a whole season. Don't make him angry. You wouldn't like him when he's angry."]},
-squirm:{crawl:"Old Hickory. Four finals, one ring, a cousin he would bench himself for, and two different owners who named their teams after him.",
+
+squirm:{poster:"Old Hickory",tag:"Four finals. One ring. Zero quit.",
+ crawl:"Old Hickory. Four finals, one ring, a cousin he'd bench himself for, and two different owners who named their teams after him.",
  scenes:[
-  [2016,"sopranos","Family First","He benches his own team so his cousin Peanut can make the playoffs. Pure Sopranos. Then both cousins make the semis anyway."],
-  [2017,"sp","Not Invited","Vicente hosts the draft and doesn't invite him, because Squirm once copied his homework and got him detention. Grudges in this town go back to middle school."],
-  [2018,"titanic","Going Down With the Ship","2-10 as Team Woram, and somehow not the Sacko."],
-  [2019,"sw","A New Hope","He beats the 1 seed with 285 points in round one, then loses the final to the Empire."],
-  [2020,"rocky","Keeps Getting Up","Back in the playoffs. Like Rocky, he keeps getting up."],
-  [2021,"bb","I Am the One Who Knocks","Aaron Jones and Tyreek to Kyle for Chubb, Diggs and Evans, then Chubb and Diggs to Fluff for Zeke, Ingram and Godwin. Two blockbusters, one perfect cook, and the ring."],
-  [2022,"lotr","So Close to Mount Doom","Close enough to feel the heat, and Charles beats him in the final."],
-  [2023,"sopranos","The Feds","He names his team The Feds, which is every Sopranos character's worst nightmare. 5-8."],
-  [2024,"sw","The Student Becomes the Master","He loses the final to Dylan's Sultans of Squirm, a team literally named after him."],
-  [2025,"sp","Oh My God, They Killed Squirm","Best regular season in the league, then Lucas beats him in the semis by under three points."],
-  [2026,"sw","Frozen in Carbonite","The first 12-team year has not been kind. Somebody thaw him out."]
+ {k:2016,m:"Fast & Furious",t:"Family",c:"#3a1d4f",
+  x:"Year one, and Squirm benches his own team so his cousin Peanut can make the playoffs. Nothing matters more than family. Both cousins make the semis anyway.",
+  a:()=>SKY("#14091f","#3a1d4f")+CITY(132,"#22142f",31,"#ffcf6e")+FLOOR(132,"#1d1c24","#121116")+[0,1,2,3,4,5].map(i=>R(i*56-10,170,30,4,"#f4d35e")).join("")
+   +T(150,46,"FAMILY",24,"#ffd166",`font-weight="900" letter-spacing="4" filter="${fx("glow","#ff9f1c")}"`)
+   +CAR(84,168,1,"#ff7b00")+CAR(222,168,1,"#1f1f1f",1)
+   +CH("squirm",112,104,34,"#f0f0f0","tee",{arms:[null,[.85,-.55]]})+R(139,77,5,13,"#7a4a12",'rx="1.5"')+CH("peanut",190,104,34,"#2e2e2e","tee",{arms:[[-.85,-.55]]})+R(156,77,5,13,"#7a4a12",'rx="1.5"')},
+ {k:2017,m:"The Breakfast Club",t:"Detention",c:"#8a6d4a",
+  x:"Vicente hosts the draft at his summer house and doesn't invite Squirm, because back in school Squirm copied his homework and got him detention. Squirm makes the playoffs anyway and meets Vicente in the first round. Nobody saved who won.",
+  a:()=>SKY("#d2c1a3","#a89273")+[...Array(3)].map((_,r)=>[...Array(22)].map((_,i)=>R(i*14,14+r*34,10,30,["#7b2d26","#2d5d7b","#5d7b2d","#7b6a2d","#4a2d7b"][(i+r*3)%5])).join("")+R(-20,44+r*34,340,4,"#5a3a22")).join("")
+   +R(170,20,112,40,"#2f3e2f",'stroke="#7a5230" stroke-width="3"')+T(226,46,"DETENTION",14,"#f4f4f4",'font-weight="700" font-style="italic"')
+   +FLOOR(150,"#8b6b4a")+CH("vicente",240,112,32,"#4a4a4a","tee",{arms:[[.35,1.15],[-.35,1.15]]})+TABLE(150,150,200,"#6b4423")
+   +CH("squirm",112,100,42,"#3b5a8a","coat",{arms:[null,[.62,-1.35]]})},
+ {k:2018,m:"The Shawshank Redemption",t:"Get Busy Living",c:"#1f2a3a",
+  x:"Team Woram loses the first seven weeks in a row, finishes 2-10 and dead last, and still crawls out of the Sacko. He goes through a river of filth and comes out clean on the other side.",
+  a:()=>SKY("#0b0f1a","#24324a")+[...Array(36)].map((_,i)=>L((i*37)%320-10,(i*53)%200,(i*37)%320-18,(i*53)%200+16,"rgba(200,220,255,.4)",1)).join("")+P("M232 8l-14 30h10l-12 30 26-38h-10l12-22z","#fff6a0")
+   +FLOOR(158,"#2a2a22","#1a1a14")+E(36,150,30,22,"#151515")+E(36,150,22,15,"#3b3320")+P("M14 156Q36 168 60 156","#4a3f24")
+   +CH("squirm",168,96,44,"#3a4a5e","stripes",{stripe:"rgba(235,235,235,.75)",arms:[[-1.55,-1.15],[1.55,-1.15]],bob:1})},
+ {k:[2019,2020,2022],m:"Rocky",t:"How Hard You Can Get Hit",c:"#5a1414",
+  x:"Squirm keeps climbing into the ring with Charles. 2019 final: Charles, 304.2 to 249. 2020: Squirm starts 0-4, wins eight straight behind Justin Herbert off waivers, and loses to Charles in the semis. 2022 final: Charles again, 231.9 to 175.6.",
+  a:()=>SKY("#140c0c","#2a1414")+[...Array(5)].map((_,r)=>[...Array(30)].map((_,i)=>C(i*10.5+(r%2)*5,22+r*12,4,["#3a2a2a","#2a2a3a","#4a3a2a"][(i+r)%3])).join("")).join("")+SPOT(150,40,120,"#fff",.18)
+   +FLOOR(150,"#d9d4c7","#b8b2a2")+R(-20,150,340,8,"#0f3d8a")+R(274,70,10,90,"#c0c0c0")
+   +CH("squirm",104,92,42,"#8a8f96","hoodie",{hat:"beanie",arms:[[.62,.38],[1.28,.12]],glove:"#c0392b",gs:1.7})+CH("charles",206,92,42,"#f4f4f4","tee",{arms:[[-1.28,.12],[-.62,.38]],glove:"#c0392b",gs:1.7})+[0,1,2,3,4].map(i=>P(`M${190+i*8} 140l2 4 4 .5-3 3 .8 4-3.8-2-3.8 2 .8-4-3-3 4-.5z`,"#1d4ed8")).join("")+R(184,158,44,6,"#c8102e")
+   +[136,146,156].map((y,i)=>L(-20,y,320,y,["#c8102e","#fff","#1d4ed8"][i],2.5)).join("")},
+ {k:2021,m:"Inception",t:"A Trade Within a Trade",c:"#4a6a85",
+  x:"Squirm sends Aaron Jones and Tyreek Hill to Kyle for Nick Chubb, Stefon Diggs and Mike Evans, then in December flips Chubb and Diggs to Floof for Zeke, Mark Ingram and Chris Godwin. A trade inside a trade. He beats Floof in the semis and DiLapi in the final, 304.5 to 287.8. The one year Charles misses the playoffs, Squirm takes the ring.",
+  a:()=>SKY("#9bb5c9","#d9e4ec")+G(CITY(0,"#6d8299",41,"#c9d6e2"),'transform="translate(0 64) scale(1 -1)"')+CITY(160,"#56687c",43,"#c9d6e2")+FLOOR(160,"#4b5563")
+   +CH("squirm",136,108,44,"#2b2f36","suit",{tie:"#4b5563",arms:[null,[1.3,.55]],bob:1})+TROPHY(196,138,1.3)
+   +G(P("M0-12l8 12-8 4-8-4z","#b8b8b8")+L(0,-12,0,-17,"#888",1.6)+E(0,4,9,2,"rgba(0,0,0,.25)"),tr(256,166))+P("M244 150q12-6 24 0","none",'stroke="#fff" stroke-width="1.2" opacity=".7"')},
+ {k:2024,m:"Star Wars",t:"Now I Am the Master",c:"#11141b",
+  x:"Squirm drops 330 on DiLapi in the semis, then loses the final 276.6 to 262 to Dylan's Sultans of Squirm, a team literally named after him. When I left you, I was but the learner.",
+  a:()=>SKY("#1a1d24","#0b0d12")+[...Array(7)].map((_,i)=>R(i*46-10,10,40,140,"#22262f",'stroke="#2e3440" stroke-width="2"')+R(i*46+6,24,8,30,"#e8f1ff",'opacity=".25"')).join("")+FLOOR(150,"#14161c")
+   +CH("squirm",92,98,40,"#7b5a3a","robe",{arms:[[.9,.7],[1.2,.55]]})+CH("dylan",210,98,40,"#121212","robe",{arms:[[-1.2,.55],[-.9,.7]]})
+   +SABER(140,120,186,52,"#4cc9f0")+SABER(162,120,114,52,"#ff3b3b")+C(150,86,6,RG(["#fff","#fff@0"]))},
+ {k:[2025,2026],m:"Frozen",t:"Let It Go",c:"#5aa0c8",
+  x:"2025: the best regular season in the league at 9-4, then Lucas beats him in the semis by 2.8 points. 2026: Squirm freezes solid, 0-8 to start, before the thaw finally comes in weeks 9 and 10.",
+  a:()=>SKY("#a7d8f0","#e8f6fc")+P("M20 160L50 40L80 160ZM60 160L100 20L140 160ZM200 160L236 30L272 160ZM240 160L270 70L300 160Z","#cfeaf7",'opacity=".9" stroke="#fff" stroke-width="1.5"')+FLOOR(160,"#eef8fd","#d7eef8")+SNOW(70,9)
+   +CH("squirm",150,96,46,"#9fd4ee","robe",{fx:"ice",arms:[[-1.3,.3],[1.3,.3]],glove:"#e0f4ff",bob:1})+[...Array(6)].map((_,i)=>P(`M${114+i*14} ${130+(i%2)*4}l3 12 3-12z`,"#e0f4ff")).join("")
+   +G(R(-5,-36,10,58,"#fff",'rx="5" stroke="#9aa" stroke-width="1"')+C(0,26,9,"#e63946")+R(-2.5,-10,5,34,"#e63946")+T(16,22,"0-8",8,"#1d3557",'font-weight="900" text-anchor="start"')+T(16,-24,"2-8",8,"#1d3557",'font-weight="900" text-anchor="start"'),tr(254,124))}
  ],
- marvel:["Captain America","Hero","Loyal to family, in the playoffs almost every year, four finals and one ring. He takes the punch and gets back up. He can do this all day. And 2026 is the year he got frozen in the ice."]},
-dilapi:{crawl:"The New York Noses. Two Sackos, an 11-2 season, a 2-11 season, a year as commissioner, and one very famous catfish.",
+ marvel:["Captain America","Hero","Loyal to family, in the playoffs almost every year, four finals and one ring. He takes the punch and gets back up. He can do this all day. And 2026 is the year he got frozen in the ice."]}
+};
+const CB={
+dilapi:{poster:"The New York Noses",tag:"Nobody knows which version is showing up.",
+ crawl:"Two Sackos, an 11-2 season, a 2-11 season, a year as commissioner, and one very famous catfish.",
  scenes:[
-  [2016,"lotr","The Fellowship Forms","He joins the founding league as the Brklyn Noses. No playoffs. The quest is going to take a while."],
-  [2017,"office","Kevin's Chili","Three wins. The whole pot hits the carpet."],
-  [2018,"sp","Dilapi Aint Makingthe Yoffs","Kyle names his team after DiLapi missing the playoffs. He's right. Third straight year without a trip."],
-  [2019,"titanic","The First Sacko","He sells Aaron Jones to Charles for Tyler Boyd. Jones goes to the champion. DiLapi goes to the Sacko."],
-  ["Offseason · 2019 into 2020","sopranos","The Catfish","In the Sopranos, a guy who messes up gets whacked. In the Flamingo Men, he gets catfished. Between seasons, as punishment for winning the Sacko, Peanut catfishes DiLapi."],
-  [2020,"bb","Pinkman Season","Nothing goes right and everything gets worse: back-to-back Sackos and five straight years without the playoffs."],
-  [2021,"rocky","The Comeback","From back-to-back Sackos to 11-2, 1,804.68 points and the final. Squirm wins it, but what a fight."],
-  [2022,"sw","Revenge of the Sith","From the Chosen One to 2-11 in a year. He sends Tyreek Hill to Charles, and Charles wins the title."],
-  [2023,"sp","Back to Normal","6-7. The town settles down for a year."],
-  [2024,"lotr","The Mountaintop","First place in the regular season, then out in the semis."],
-  [2025,"gf","The Commissioner","He runs the league, and a trade involving his own Noses gets done and undone within hours. The league still argues whether that was diplomacy or a cover-up."],
-  [2026,"office","Trading Down","He trades the No. 4 pick to Dylan for No. 9 and still lands Justin Jefferson."]
+ {k:[2016,2017],m:"Fight Club",t:"The First Rule of Draft Night",c:"#3a2a20",
+  x:"At the founding draft DiLapi pins Floof to the carpet and mongles him by the radiator while the picks go on without them. Both of them are grinning. Then come two years of the Noses missing the playoffs.",
+  a:()=>SKY("#2e2721","#16120e")+L(150,0,150,24,"#222",1.5)+SPOT(150,60,150,"#ffe9a8",.22)+C(150,30,7,"#fff3b0")+R(196,34,92,58,"#efe7d4",'rx="2"')+[0,1,2,3].map(i=>L(196,48+i*11,288,48+i*11,"#c9bfa6",1)).join("")+[0,1,2,3].map(i=>L(214+i*18,34,214+i*18,92,"#c9bfa6",1)).join("")+T(242,45,"DRAFT 2016",7,"#5a4a3a",'font-weight="800"')
+   +R(14,92,72,52,"#9aa3ab",'rx="3"')+[...Array(9)].map((_,i)=>R(18+i*7.6,96,4,44,"#c2c9cf",'rx="2"')).join("")+FLOOR(150,"#7a2e22","#4e1a12")
+   +G(BD(0,0,34,"#3a6ea5","tee",{len:3.4})+ARM(-26,30,-40,-10,"#3a6ea5",34),'transform="translate(84 166) rotate(-84)"')
+   +CH("dilapi",176,104,40,"#26324a","tee",{arms:[[-1.5,1.15],[-.95,1.45]],bob:1})+F("fluff",84,166,34,{r:-84})},
+ {k:[2018,2019],m:"Pawn Stars",t:"Best I Can Do",c:"#3a2e22",
+  x:"DiLapi keeps bringing his best stuff to Charles's shop. 2018: Patrick Mahomes and Kareem Hunt, for James Conner and Matt Breida. 2019: Aaron Jones, for Tyler Boyd. Best I can do. Kyle names a team Dilapi aint Makingthe yoffs, DiLapi misses by one win both years, and 2019 ends in his first Sacko.",
+  a:()=>SKY("#3a2e22","#22190f")+[30,62,94].map((x,i)=>G(E(0,14,9,11,["#c0392b","#d4a937","#2e86c1"][i])+E(0,2,7,8,["#c0392b","#d4a937","#2e86c1"][i])+C(0,8,3,"#111")+R(-1.5,-30,3,30,"#5a3a22"),tr(x,62,-8))).join("")+R(10,92,120,4,"#5a3a22")
+   +T(226,44,"CHUCK'S PAWN",15,"#ffd23f",`font-weight="900" filter="${fx("glow","#ff4d4d")}"`)+R(-20,140,340,70,"#5a3f2a")+R(-20,140,340,5,"#8a6a4a")+R(10,148,280,24,"rgba(200,230,255,.12)")
+   +CH("charles",222,98,40,"#2b2b2b","tee",{arms:[[-1.1,-.2]]})+CH("dilapi",86,102,40,"#3b5a8a","coat",{arms:[null,[1.25,.28]]})
+   +G(R(-11,-15,22,30,"#fff",'rx="2" stroke="#d4a937" stroke-width="1.5"')+R(-8,-12,16,16,"#e31837")+T(0,11,"MAHOMES",3.6,"#111",'font-weight="900"'),tr(140,112,8))+BUB(256,80,74,18,["BEST I CAN DO."],236,96,7.5)},
+ {k:"Offseason · 2019 into 2020",m:"Catfish",t:"Catfish",c:"#141a2e",
+  x:"The league has rules for the Sacko winner, and Peanut has his own. Between seasons, as punishment for DiLapi winning the Sacko, Peanut catfishes him.",
+  a:()=>SKY("#141a2e","#0b0f1c")+R(224,16,70,110,"#1e2d4f")+STARS(10,9).replace(/cx="([\d.]+)/g,(m,v)=>`cx="${(224+(+v)%70).toFixed(1)}`)+P("M214 10Q228 70 220 140H246Q236 70 248 10Z","#6b2d4a")+FLOOR(150,"#2a2238")
+   +R(18,118,176,38,"#5a3d5c",'rx="10"')+R(26,100,160,26,"#6b4a6d",'rx="10"')+CH("dilapi",104,100,40,"#26324a","tee",{arms:[null,[1.05,.42]]})+SPOT(140,110,40,"#9fd8ff",.35)
+   +PHONE(146,112,.7,P("M0 -12a4 4 0 0 1 7-2a4 4 0 0 1 7 2c0 5-7 9-7 9s-7-4-7-9z","#ff4d8d",'transform="translate(-7 2)"')+R(-10,6,20,6,"#fff",'rx="3"')+T(0,11,"hey ;)",4.2,"#333"))
+   +F("peanut",252,84,26)+L(240,104,196,36,"#3b2412",2.2)+P("M196 36Q170 60 152 92","none",'stroke="#ddd" stroke-width=".8"')+P("M152 92q-3 4 0 6q3 1 3-2","none",'stroke="#ccc" stroke-width="1.2"')},
+ {k:2020,m:"Any Given Sunday",t:"Life Is a Game of Inches",c:"#1b2433",
+  x:"DiLapi grabs Justin Jefferson off waivers in week 4, misses the playoffs by one win for the third year in a row, and then loses the Sacko game to Quincy, 241.94 to 241.8. Fourteen hundredths of a point. The inches are everywhere.",
+  a:()=>SKY("#1b2433","#0e141f")+[...Array(8)].map((_,i)=>R(i*40-8,16,34,128,"#2c3e57",'stroke="#1a2536" stroke-width="2"')+[0,1,2,3].map(j=>R(i*40-2,24+j*4,22,1.5,"#1a2536")).join("")).join("")+FLOOR(144,"#3a3a3a")+R(-20,160,340,10,"#6b4a2e")
+   +R(174,30,118,82,"#f8f8f8",'stroke="#9aa5b1" stroke-width="2"')+T(233,48,"SACKO GAME",9,"#1d3557",'font-weight="900"')+T(233,66,"QUINCY 241.94",9,"#1d3557",'font-weight="800"')+T(233,82,"DILAPI 241.80",9,"#c1121f",'font-weight="800"')+T(233,102,"↔ 0.14",11,"#c1121f",'font-weight="900"')
+   +CH("dilapi",100,96,44,"#1e3a5f","coat",{arms:[[-1.25,.2],[1.3,-.35]]})+P("M80 82Q100 60 122 82","none",'stroke="#111" stroke-width="3"')+R(76,80,6,10,"#111",'rx="2"')+L(80,90,92,104,"#111",1.5)},
+ {k:[2021,2024],m:"The Revenant",t:"The Bear",c:"#5a6b78",
+  x:"In 2021 DiLapi pulls Jonathan Taylor from Jordan, wins eight straight, goes 11-2 and takes the 1 seed. Squirm mauls him in the final, 304.5 to 287.8. In 2024 he takes the 1 seed again, and the bear is waiting in the semis: Squirm, 330 to 268.1.",
+  a:()=>SKY("#b9c7d1","#eef2f5")+[...Array(9)].map((_,i)=>P(`M${i*38-10} 140l16-60 16 60z`,i%2?"#5d7466":"#4a6153",'opacity=".8"')).join("")+FLOOR(140,"#f4f7fa","#dfe7ec")+SNOW(60,31)
+   +CH("dilapi",92,98,42,"#6b4f3a","coat",{arms:[[-.9,1.2],[1.1,.5]]})+[0,1,2].map(i=>L(70+i*8,140,82+i*8,156,"#9b2226",1.6)).join("")
+   +G(E(0,30,50,34,"#5b3a22")+R(-40,52,16,28,"#5b3a22",'rx="6"')+R(22,52,16,28,"#5b3a22",'rx="6"')+P("M-56 4q-8-10 0-14 8-2 10 8z","#5b3a22"),tr(222,110))+C(208,70,8,"#5b3a22")+C(244,70,8,"#5b3a22")+F("squirm",226,86,36)
+   +[0,1,2].map(i=>P(`M${168+i*5} 108l-6 8`,"none",'stroke="#f4f4f4" stroke-width="2" stroke-linecap="round"')).join("")+E(178,112,12,10,"#5b3a22")},
+ {k:2022,m:"Star Wars",t:"You Were the Chosen One",c:"#5a1206",
+  x:"One year after 11-2, DiLapi loses 11 straight and finishes 2-11. Along the way he sends Tyreek Hill to Charles, and Charles wins the title. It was said that you would destroy the Sith, not join them.",
+  a:()=>SKY("#2b0a05","#7a2208")+[...Array(6)].map((_,i)=>E(40+i*50,30+(i%2)*14,40,12,"#3a1208",'opacity=".6"')).join("")
+   +P("M170 200L210 96L320 80V200Z","#140806")+G(BD(0,0,26,"#2a2018","robe")+HAT("lucas","hood",0,0,26,"#3a2e24")+E(0,0,10,12,"#120a06"),tr(250,96))+SABER(262,124,290,70,"#4cc9f0")
+   +R(-20,150,240,60,LG(["#ffb703","#fb5607","#9b2226"]))+[...Array(8)].map((_,i)=>E(i*30,160+(i%3)*8,10,3,"#ffe066",'opacity=".7"')).join("")+P("M-20 150L60 128L140 140L190 156L200 210H-20Z","#1a0b07",'opacity=".0"')
+   +P("M-20 142L80 120L150 132L176 150H-20Z","#1a0b07")+CH("dilapi",86,92,40,"#1a1410","robe",{fx:"red"})+G(R(-2,0,4,30,"#555")+R(-20,-14,40,16,"#2b2b2b")+T(0,-3,"2-11",11,"#ff6b35",'font-weight="900"'),tr(150,116))},
+ {k:2025,m:"The Sopranos",t:"Commissioner Soprano",c:"#2a1418",
+  x:"DiLapi runs the league. In mid-November his New York Noses and Jordan's Galaxy Liberators swap Brock Bowers and Javonte Williams for Deebo Samuel and Saquon Barkley, and hours later the exact trade runs in reverse. Diplomacy or a cover-up? Nobody talks. Then the season cuts to black: out on points.",
+  a:()=>SKY("#2a1418","#120a0b")+T(108,36,"THE NOSES",16,"#ff5fb0",`font-weight="900" letter-spacing="2" filter="${fx("glow","#ff5fb0")}"`)
+   +R(10,92,30,72,"#7a1f2b",'rx="6"')+R(176,92,30,72,"#7a1f2b",'rx="6"')+R(-20,150,240,60,"#3a2a22")
+   +CH("dilapi",108,100,40,"#1f1a17","coat",{arms:[[.2,1.25],[.62,1.2]]})+R(40,138,140,8,"#e8e2d0")+R(46,146,128,30,"#c9c2ad")
+   +E(132,138,18,5,"#fff")+[0,1,2,3].map(i=>E(124+i*6,135-(i%2)*2,5,3,"none",'stroke="#c8812d" stroke-width="2.4"')).join("")+G(R(-22,-6,44,12,"#2b2b2b",'rx="2"')+T(0,3,"COMMISH",6.4,"#e8c574",'font-weight="900"'),tr(76,140))
+   +G(R(0,0,30,58,"#d4a937",'rx="12"')+R(4,8,22,26,"#ff9f1c",'rx="4" opacity=".85"')+[0,1,2].map(i=>R(5,38+i*5,20,2,"#7a4a12")).join(""),tr(10,40))
+   +R(212,-20,108,240,"#000")},
+ {k:2026,m:"The Notebook",t:"It Still Isn't Over",c:"#6b7f8f",
+  x:"Before the draft DiLapi trades the No. 4 pick to Dylan and slides down to No. 9, and Justin Jefferson, the receiver he found on waivers back in 2020, is still sitting there. Reunited at last.",
+  a:()=>SKY("#9fb0bf","#dfe7ee")+P("M-20 96Q40 80 100 92T220 88T320 94V110H-20Z","#4a6153")+R(-20,104,340,110,LG(["#8fa7b8","#5d778a"]))+[...Array(30)].map((_,i)=>L((i*41)%320,(i*29)%200,(i*41)%320-4,(i*29)%200+12,"rgba(255,255,255,.5)",1)).join("")
+   +[[40,150],[260,140],[230,176]].map(([x,y])=>E(x,y,10,6,"#fff")+P(`M${x+6} ${y-2}q4-12 10-10`,"none",'stroke="#fff" stroke-width="2.5"')+P(`M${x+16} ${y-12}l4 1-4 1z`,"#f2a72e")).join("")
+   +P("M86 150h132l-14 18H100z","#7a4a2a")+BD(118,124,30,"#26324a","tee",{len:1.6})+F("dilapi",118,124,30,{bob:1})+L(100,150,70,176,"#5a3a22",2.5)+L(136,150,166,176,"#5a3a22",2.5)
+   +BD(188,124,30,"#4f2683","jersey",{len:1.6,txt:"18",trim:"#ffc62f"})+GH(188,124,30,"#7a4b31",0,0)+P("M147 98a5 5 0 0 1 9-3a5 5 0 0 1 9 3c0 6-9 11-9 11s-9-5-9-11z","#e63946")}
  ],
- marvel:["Moon Knight","Antihero","Sacko, Sacko, 11-2, 2-11, first place. Nobody, including him, knows which version is showing up this year."]},
-quincy:{crawl:"Argues for sport, names his teams after injury reports, and once threw up all over the commissioner's car.",
+ marvel:["Moon Knight","Antihero","Sacko, Sacko, 11-2, 2-11, first place, commissioner. Nobody, including him, knows which version is showing up this year."]},
+
+quincy:{poster:"Quincy",tag:"Argues for sport.",
+ crawl:"A major anal mongler who argues for sport, names his teams after injury reports and auras, and once threw up all over the commissioner's car.",
  scenes:[
-  ["2015 · The Wu-Tang · Unofficial","sp","Roosevelt Field","Somebody puts his team on a TV at Roosevelt Field Mall and invites strangers to drop his players. He also celebrates trading for Jamaal Charles, who is out for the year."],
-  [2018,"titanic","First Sacko of the ESPN Era","He joins the new league and takes its first Sacko."],
-  [2019,"sw","These Aren't the Trades You're Looking For","He and Kyle try to swap Hunter Henry twice in two days. Vetoed both times. He makes the playoffs anyway."],
-  [2020,"bb","The RV","On the drive home from the draft he throws up all over Kyle's car. Jesse's RV was cleaner."],
-  [2021,"lotr","The Houses of Healing","He renames his team The Hospital after Christian McCaffrey goes down. Still makes the playoffs."],
-  [2022,"sopranos","Hosting the Sit-Down","The draft moves to his apartment complex, and he finishes first in the regular season. Then the semis."],
-  [2023,"office","Assistant to the Regional Commissioner","Co-commissioner with Kyle, and 2-11."],
-  [2024,"rocky","Going the Distance","A winning record, no playoffs."],
-  [2025,"gf","Leave the Gun, Take the Waddle","He sends Jaylen Waddle to Kyle, who wins the title. Then he takes the Sacko with a winning record."],
-  [2026,"sp","Minimized","He proposes putting every trade to a league vote. The league calls it a dumb idea. Kyle trades for Romeo Doubs, and Quincy announces he feels minimized."]
+ {k:"2015 · The Wu-Tang · Unofficial",m:"The Truman Show",t:"Good Afternoon, Good Evening and Good Night",c:"#6b6255",
+  x:"In the unofficial 2015 league, someone puts Quincy's team up on a TV at Roosevelt Field Mall and invites strangers to drop his players. The whole season is a show, and everybody is watching but him.",
+  a:()=>SKY("#efe9dd","#cfc8bb")+[0,1,2,3,4,5].map(i=>L(i*60-10,0,i*60+10,30,"#b8c8d4",3)).join("")+R(-20,0,340,30,"rgba(160,200,230,.35)")+[[0,"#e76f51","SHOES"],[200,"#2a9d8f","PRETZELS"]].map(([x,c,n])=>R(x,40,100,70,c)+R(x+10,56,80,54,"#2b2b2b",'opacity=".35"')+T(x+50,52,n,9,"#fff",'font-weight="900"')).join("")
+   +FLOOR(150,"#d8d2c4","#b9b2a2")+[...Array(8)].map((_,i)=>L(i*44-20,150,i*44-60,210,"rgba(0,0,0,.08)",1)).join("")
+   +R(146,112,8,40,"#333")+TV(150,76,108,64,R(0,0,108,64,"#7cc7f2")+F("quincy",34,32,34,{sh:0})+R(62,14,40,14,"#e63946",'rx="3"')+T(82,24,"DROP?",8,"#fff",'font-weight="900"')+R(62,34,40,14,"#2b2b2b",'rx="3"')+T(82,44,"DROP?",8,"#fff",'font-weight="900"'),"#222")
+   +[[40,"#4a4e69"],[78,"#9a8c98"],[226,"#22223b"],[262,"#c9ada7"]].map(([x,c],i)=>BD(x,140,20,c,"tee",{len:2.4})+GH(x,140,20,["#e0b48f","#8d5a3c","#f1c9a5","#6b4226"][i],0,0)).join("")},
+ {k:2018,m:"Scream",t:"The First Victim",c:"#14152a",
+  x:"Quincy joins the new ESPN league in 2018, opens 0-4, and becomes the first Sacko of the ESPN era. Every horror franchise needs an opening kill.",
+  a:()=>SKY("#0b0c14","#1a1b2e")+R(20,24,80,70,"#22335a",'stroke="#3b3b4f" stroke-width="4"')+C(74,44,10,"#e8eef7")+P("M30 94Q40 60 60 70Q50 50 70 40","none",'stroke="#0b0c14" stroke-width="4"')+FLOOR(150,"#1f1d2b")
+   +R(214,40,72,124,"#0f0f18")+`<g filter="${fx("glow","#7CFC00")}">`+TOILET(250,150,1.4)+"</g>"
+   +CH("quincy",136,96,44,"#3d405b","tee",{arms:[[-.95,-.05]]})+P("M98 82Q90 78 92 92Q94 104 102 100","#1b1b1b")+P("M96 98Q80 140 110 160T150 170","none",'stroke="#1b1b1b" stroke-width="1.4"')
+   +BUB(150,30,124,26,["DO YOU LIKE","SCARY SEASONS?"],108,66,8)},
+ {k:2019,m:"50 First Dates",t:"50 First Vetoes",c:"#2b8bab",
+  x:"Quincy and Kyle try to swap Hunter Henry two days in a row. Vetoed. Vetoed again. It's like they forget overnight that the league already said no. Quincy still takes the 2 seed behind Darren Waller off waivers, then loses to Charles in the semis.",
+  a:()=>SKY("#7fd3e8","#c9f0f7")+R(-20,100,340,40,"#2a9fd6")+FLOOR(130,"#f2deb0","#e7c98a")+[[24,128],[284,126]].map(([x,y])=>P(`M${x} ${y}q4-50-2-80`,"none",'stroke="#8b5a2b" stroke-width="6"')+[0,1,2,3,4].map(i=>P(`M${x-2} ${y-80}q${(i-2)*12} -12 ${(i-2)*24} 4`,"none",'stroke="#2e8b57" stroke-width="5" stroke-linecap="round"')).join("")).join("")
+   +CH("quincy",104,100,40,"#ff8fab","tee",{arms:[null,[1.4,.6]]})+CH("kyle",238,108,32,"#2a9d8f","tee",{arms:[[-1.5,.75]]})
+   +TABLE(170,152,130,"#c9a26b")+G(R(-30,-20,60,40,"#fff",'rx="2"')+T(0,-9,"HUNTER HENRY",5.6,"#333",'font-weight="900"')+STAMP(-6,3,"VETO",-14,"#d00",9)+STAMP(8,12,"VETO",10,"#d00",9),tr(170,128,-3))
+   +[0,1,2].map(i=>R(118+i*2,146-i*4,20,4,"#d9a441",'rx="1.5"')).join("")},
+ {k:2020,m:"The Exorcist",t:"Something Got Into Him",c:"#10142a",
+  x:"On the drive home from the 2020 draft, Quincy throws up all over Kyle's car. Then in December he wins the Sacko game by 0.14 points and sends DiLapi to the toilet instead.",
+  a:()=>SKY("#06070d","#141a33")+C(250,34,14,"#f4f1de")+STARS(25,12)+R(-20,160,340,40,"#1c1c22")+[0,1,2,3,4].map(i=>R(i*70,176,36,3,"#c9c9c9")).join("")+L(30,160,30,60,"#444",3)+E(30,58,10,4,"#ffeaa0")+SPOT(30,90,40,"#ffeaa0",.25)
+   +CH("kyle",188,104,30,"#2b2b2b","tee")+CH("quincy",122,104,30,"#3d405b","tee",{r:-18})
+   +P("M50 168V136q4-16 20-20l26-26h120l24 26q22 4 26 20v32zM102 116l22-22h38v22zM170 116v-22h38l20 22z","#2f4a3a",'fill-rule="evenodd"')+P("M96 118h134","none",'stroke="#1e3226" stroke-width="2"')
+   +R(100,94,60,24,"none",'stroke="#2f4a3a" stroke-width="5"')+R(170,94,58,24,"none",'stroke="#2f4a3a" stroke-width="5"')+C(90,168,14,"#111")+C(232,168,14,"#111")+C(90,168,6,"#777")+C(232,168,6,"#777")
+   +P("M112 110Q80 104 60 124Q48 140 40 162","none",'stroke="#8bc34a" stroke-width="6" stroke-linecap="round"')+[[48,150],[40,140],[60,140]].map(([x,y])=>C(x,y,3,"#8bc34a")).join("")},
+ {k:2021,m:"Grey's Anatomy",t:"The Hospital",c:"#2f7f86",
+  x:"Christian McCaffrey goes down and Quincy renames his team The Hospital. From 1-4 he wins five straight and sneaks in as the 4 seed, then DiLapi drops 327.1 on him in the semis.",
+  a:()=>SKY("#d7eef0","#b5d6da")+[...Array(8)].map((_,i)=>L(i*40,0,i*40,150,"rgba(255,255,255,.4)",1)).join("")+C(90,10,26,"#f4f9f9",'stroke="#9fb7ba" stroke-width="3"')+C(210,10,26,"#f4f9f9",'stroke="#9fb7ba" stroke-width="3"')+SPOT(150,80,120,"#fff",.25)
+   +R(192,36,92,24,"#fff",'rx="3" stroke="#2f7f86" stroke-width="2"')+T(238,52,"THE HOSPITAL",9,"#2f7f86",'font-weight="900"')+FLOOR(150,"#9fbfc2")
+   +R(170,120,120,14,"#e9f1f2",'rx="4"')+R(176,134,6,30,"#8aa")+R(278,134,6,30,"#8aa")+G(BALL(0,0,1.6,0)+R(-6,-8,12,16,"#fff",'opacity=".85"')+T(0,4,"22",8,"#c00",'font-weight="900"'),tr(220,112))+L(276,60,276,150,"#8aa",2)+R(268,58,16,22,"rgba(170,220,255,.8)",'rx="3"')
+   +CH("quincy",104,98,42,"#4fa3a5","scrubs",{hat:"scrub",hc:"#3c8d8f",arms:[null,[1.35,.45]]})+P("M86 128q18 30 36 0","none",'stroke="#333" stroke-width="2"')+C(104,150,4,"#999")},
+ {k:2022,m:"The Great Gatsby",t:"Old Sport",c:"#1d2b55",
+  x:"The draft moves to Quincy's apartment complex, the party is his, and Free Ime Idoka finishes first in the regular season at 9-4. Then Squirm beats him in the semis, and the green light across the bay stays out of reach.",
+  a:()=>SKY("#0b1530","#1d2b55")+BURST(60,40,22,"#ffd166","#fff3b0",14)+BURST(250,30,18,"#ff8fab","#ffe5ec",12)+BURST(200,62,12,"#90e0ef","#fff",10)+R(-20,132,340,70,"#0d1b3a")+[140,152,166].map(y=>L(-20,y,320,y,"rgba(255,255,255,.12)",1)).join("")
+   +L(266,132,266,112,"#5a4a3a",2)+R(250,128,40,4,"#5a4a3a")+C(268,108,4,"#39ff88")+SPOT(268,108,18,"#39ff88",.6)
+   +CH("quincy",128,96,44,"#f4f1ea","tux",{arms:[null,[1.18,-.72]],bob:1})+G(P("M-8-10h16l-8 10z","rgba(255,240,200,.8)",'stroke="#e8c574" stroke-width="1"')+L(0,0,0,8,"#e8c574",1.2)+L(-4,8,4,8,"#e8c574",1.2),tr(182,58))+CONF(24,40,["#e8c574","#fff3b0"])},
+ {k:2023,m:"The Office",t:"Assistant to the Commissioner",c:"#8a7f5f",
+  x:"Quincy becomes co-commissioner with Kyle, then loses his first 11 games and finishes 2-11. Assistant to the commissioner.",
+  a:()=>SKY("#dcd6c3","#c2bba5")+[...Array(8)].map((_,i)=>R(i*40-10,0,38,16,"#ecebe4",'stroke="#cfcab8" stroke-width="1"')).join("")+R(60,4,60,6,"#fff")+R(190,4,60,6,"#fff")+R(196,30,90,64,"#a7c4d9")+[...Array(9)].map((_,i)=>L(196,34+i*7,286,34+i*7,"#d9d4c3",2.4)).join("")
+   +CH("quincy",132,94,44,"#d4a937","suit",{tie:"#6b4423",shirt:"#e8c96a",arms:[[-.5,1.3],[.5,1.3]]})+R(-20,146,340,60,"#8a6a4a")+R(-20,142,340,6,"#a5825c")
+   +G(R(-48,-10,96,20,"#2b2b2b",'rx="2"')+R(-46,-8,92,16,"#d4a937")+T(0,-1,"ASSISTANT (TO THE)",6,"#2b2b2b",'font-weight="900"')+T(0,6,"COMMISSIONER",6,"#2b2b2b",'font-weight="900"'),tr(132,156))
+   +R(222,132,24,22,"#ffe66d")+T(234,146,"2-11",7,"#333",'font-weight="900"')+R(258,136,8,10,"#555")+F("kyle",262,128,14,{bob:2,sh:0})},
+ {k:[2024,2025],m:"Mean Girls",t:"Stop Trying to Make Aura Happen",c:"#c2477d",
+  x:"Jayson Tatums Aura, then Drake Maye's Aura. Quincy goes 7-6 both years and misses the playoffs both times. In 2025 he sends Jaylen Waddle to Kyle, who wins the title with him, and takes the Sacko with a winning record.",
+  a:()=>SKY("#ffc2dc","#ff8fc0")+[...Array(9)].map((_,i)=>R(i*36-12,20,32,124,"#ff6fae",'stroke="#e0559a" stroke-width="2"')+R(i*36-4,30,16,2,"#e0559a")+R(i*36-4,35,16,2,"#e0559a")+C(i*36+14,80,2,"#e0559a")).join("")+FLOOR(144,"#f7d6e6")
+   +`<g filter="${fx("glow","#ff4fb0")}">`+BD(110,98,42,"#ff4fb0","tee")+F("quincy",110,98,42)+"</g>"+[[60,60],[160,52],[70,130],[156,120]].map(([x,y])=>P(`M${x} ${y-7}l2 5 5 2-5 2-2 5-2-5-5-2 5-2z`,"#fff")).join("")
+   +BUB(238,52,104,30,["STOP TRYING TO","MAKE AURA HAPPEN"],300,100,8.4)+G(TOILET(0,0,1)+P("M-8-30l8 6 8-6v12l-8-6-8 6z","#ff4fb0"),tr(244,170,0,1.1))},
+ {k:2026,m:"12 Angry Men",t:"12 Angry Men",c:"#7a6d55",
+  x:"The first 12-team year, and Quincy proposes that every trade go to a league vote. The league calls it a dumb idea. Kyle trades for Romeo Doubs and nobody calls a vote. Quincy says he feels minimized.",
+  a:()=>SKY("#cfc6b0","#b3a88e")+R(110,8,80,42,"#dfe9ef",'stroke="#8a7f66" stroke-width="3"')+L(150,8,150,50,"#8a7f66",2)+C(258,30,14,"none",'stroke="#555" stroke-width="2"')+[0,1,2].map(i=>P(`M258 30l${Math.cos(i*2.1)*12} ${Math.sin(i*2.1)*12}l${Math.cos(i*2.1+.6)*5} ${Math.sin(i*2.1+.6)*5}z`,"#555")).join("")
+   +P("M30 200L112 86H188L270 200Z","#6b4a2e")+P("M30 200L112 86H188L270 200","none",'stroke="#4a311d" stroke-width="2"')
+   +[["kyle",58,176,22],["charles",76,146,19],["fluff",92,122,17],["squirm",104,104,15],["dilapi",114,90,13],["lucas",242,176,22],["jordan",224,146,19],["dylan",208,122,17],["rod",196,104,15],["jerry",186,90,13],["ghost",150,74,13]].map(([o,x,y,h])=>F(o,x,y,h)).join("")
+   +G(BD(0,0,9,"#3d405b","tee",{len:2.2})+F("quincy",0,0,9)+R(4,-14,14,8,"#fff")+T(11,-8.4,"VOTE",3.4,"#c00",'font-weight="900"'),tr(150,176))}
  ],
  marvel:["Ant-Man","Hero","He said he felt minimized, so the league took him literally. Two Sackos, one first-place season, a lot of arguing, and team names that double as injury reports. Small but loud."]},
-lucas:{crawl:"The founding commissioner, back in the chair ten years later, with a year in London and one infamous quarterback decision in between.",
+
+lucas:{poster:"The Founder",tag:"He got everybody into the room.",
+ crawl:"The founding commissioner in 2016, back in the chair ten years later, with a year in London, two Sackos and one very famous quarterback decision in between.",
  scenes:[
-  [2016,"lotr","The Fellowship","The founding commissioner gathers everyone at Sal's office. Before the season, he emails the whole league to stop joining twice, because what happened with Rod happened again."],
-  [2017,"sopranos","Head of the Family","Still commissioner, now as The 718 Pahtinis. Running the family is hard."],
-  [2018,"rocky","The Underdog","The Staten Island Salvatores make the playoffs and run into Fluff, the eventual champion."],
-  [2019,"office","SAL SAL SAL SAL","The team name is just his nickname four times. The record is 3-9."],
-  [2020,"sp","Los Stogies","A new name, and the same town."],
-  [2021,"bb","374 Points of Tom Brady","Tom Brady scores 374 points for him and it doesn't matter. 3-10 and the Sacko."],
-  ["2022 · Sat out","sw","Exile","He leaves to study abroad in London. Obi-Wan went to Tatooine. Lucas went somewhere with worse food."],
-  [2023,"titanic","Team Pace","3-10. The water is cold."],
-  [2024,"sopranos","The Second Sacko","Lucas's Loud Team goes 5-8 and takes his second Sacko."],
-  [2025,"lotr","Nine Is My Guy","He reaches the final, loses Patrick Mahomes, waits on the waiver wire until Kyle takes the good quarterbacks, then plays nine against Kyle. Nine rings were given to men. None of them won the final."],
-  [2026,"sw","Return of the Jedi","Commissioner again, ten years after the founding, and off to a hot start."]
+ {k:[2016,2017],m:"Jurassic Park",t:"Welcome to Flamingo Park",c:"#2f5d3a",
+  x:"Lucas builds the park and runs it as commissioner for the first two years. He spared no expense. In year two the league grows to ten owners and the dinosaurs get loose: two collusion attempts, both vetoed. Life finds a way.",
+  a:()=>SKY("#9cc9a0","#3f7a4a")+[...Array(10)].map((_,i)=>E(i*34,150+(i%2)*10,30,14,"#2f5d3a",'transform="rotate(-20 '+i*34+' 150)"')).join("")+R(-20,120,340,10,"rgba(255,255,255,.12)")
+   +R(36,40,22,150,"#5a3a22")+R(242,40,22,150,"#5a3a22")+R(26,34,248,36,"#6b4423",'stroke="#3b2412" stroke-width="3"')+T(150,59,"FLAMINGO PARK",17,"#ff7b4a",'font-weight="900" letter-spacing="1"')+[[47,24],[253,24]].map(([x,y])=>R(x-3,y,6,10,"#333")+P(`M${x} ${y-14}q-6 8 0 14q6-6 0-14z`,"#ff9f1c")).join("")
+   +CH("lucas",150,104,42,"#f4f1ea","suit",{tie:"#2b2b2b",arms:[null,[1.1,1.0]]})+L(196,146,198,190,"#3b2412",3)+C(196,142,8,"#ff9f1c",'opacity=".85" stroke="#b35900" stroke-width="1"')+P("M193 145q2-6 4-2l2-4","none",'stroke="#ff4f8b" stroke-width="1.6"')
+   +G(R(-26,-9,52,18,"#fff",'rx="2"')+T(0,-1.5,"WARNING",5.6,"#c00",'font-weight="900"')+T(0,5,"COLLUDERS LOOSE",5.2,"#c00",'font-weight="900"'),tr(250,104,-6))},
+ {k:[2018,2019,2020,2021],m:"Beetlejuice",t:"Sal Sal Sal Sal",c:"#3b2a4a",
+  x:"Say it enough times and something weird shows up. In 2018 the Staten Island Salvatores make the playoffs and run into Floof, the eventual champion. In 2019 the team is literally named SAL SAL SAL SAL, and goes 3-9. As Los Stogies in 2021, Tom Brady scores 374 points for him, and he still goes 3-10 and takes the Sacko.",
+  a:()=>SKY("#3b2a4a","#1b1426")+C(244,40,18,"#e8e3c9")+P("M20 150Q30 90 10 60M20 110Q40 90 60 92M18 84Q0 70 -6 74","none",'stroke="#120c18" stroke-width="5"')+FLOOR(150,"#2a3a2a","#1b261b")
+   +[[40,"SAL"],[88,"SAL"],[212,"SAL"],[260,"SAL"]].map(([x,n],i)=>P(`M${x-16} 160V${132+(i%2)*6}q16-18 32 0V160z`,"#8a8f98",'stroke="#5d626b" stroke-width="1.5"')+T(x,152+(i%2)*3,n,9,"#3b3f46",'font-weight="900"')).join("")
+   +CH("lucas",150,96,42,"#111","stripes",{stripe:"rgba(245,245,245,.95)",arms:[[-1.5,-.3],[1.5,-.3]],bob:1})
+   +G(P("M-20 30V8q20-22 40 0v22z","#6d717a")+T(0,16,"BRADY",6,"#2b2b2b",'font-weight="900"')+T(0,25,"374 PTS",6,"#2b2b2b",'font-weight="900"'),tr(150,152,0,.9))},
+ {k:"2022 · Sat out",m:"Harry Potter",t:"Platform 9¾",c:"#7a4a3a",
+  x:"Lucas leaves to study abroad in London. The draft moves to Quincy's apartment complex because Sal is in Europe.",
+  a:()=>SKY("#8a5444","#5a3428")+[...Array(11)].map((_,r)=>[...Array(12)].map((_,c)=>R(-20+c*30+(r%2)*15,r*16,28,14,"#9b5f4b",'stroke="#6e3b2c" stroke-width="1"')).join("")).join("")
+   +R(116,26,68,30,"#111",'rx="3"')+T(150,48,"9¾",20,"#fff",'font-weight="900"')+FLOOR(160,"#6d6d6d","#4a4a4a")
+   +G(R(0,0,40,26,"#7a4a12")+R(4,-20,32,20,"#a0672f")+L(0,26,-14,10,"#555",2.5)+C(8,30,5,"#222")+C(34,30,5,"#222"),tr(232,128))+R(270,40,50,130,"#c0392b",'rx="6"')+C(290,60,12,"#2b2b2b")
+   +CH("lucas",108,98,42,"#2b2b33","coat",{arms:[null,[1.2,.9]]})+[0,1,2,3,4].map(i=>R(88+i*8,116,8,10,i%2?"#d4a937":"#7b1f2b")).join("")+R(116,122,9,34,"#7b1f2b")+[0,1,2].map(i=>R(116,128+i*9,9,4,"#d4a937")).join("")
+   +G(R(-12,-8,24,16,"#012169")+P("M-12-8L12 8M12-8L-12 8","none",'stroke="#fff" stroke-width="3"')+P("M-12-8L12 8M12-8L-12 8","none",'stroke="#c8102e" stroke-width="1.2"')+L(0,-8,0,8,"#fff",5)+L(-12,0,12,0,"#fff",5)+L(0,-8,0,8,"#c8102e",3)+L(-12,0,12,0,"#c8102e",3),tr(46,110,-8))+L(36,118,36,150,"#5a3a22",1.5)},
+ {k:[2023,2024],m:"Black Swan",t:"The Swan",c:"#24182e",
+  x:"Back from London, Lucas shows up to the 2023 draft in his Sacko punishment costume, zebra ears and a tutu. Then he goes 3-10, then 5-8, and the 2024 Sacko is his. Again.",
+  a:()=>SKY("#120d18","#24182e")+P("M110 0L60 200H240L190 0Z","rgba(255,250,230,.08)")+E(150,186,90,12,"rgba(255,250,230,.15)")+FLOOR(176,"#2a1f2e")+CURTAIN("#3a1030")
+   +[[70,60],[230,80],[90,120],[214,40],[250,130]].map(([x,y],i)=>P(`M${x} ${y}q6-8 2-16q-6 8-2 16z`,"#111",`transform="rotate(${i*40} ${x} ${y})"`)).join("")
+   +CH("lucas",150,90,42,"#f4f4f4","dress",{tutu:"#ffffff",hat:"zebra",arms:[[-1.3,-.85],[1.25,.45]],bob:1})
+   +G(R(-16,-20,32,40,"#fff",'stroke="#ccc"')+T(0,-10,"TONIGHT",4.6,"#333",'font-weight="900"')+T(0,1,"3-10",8,"#c00",'font-weight="900"')+T(0,12,"5-8",8,"#c00",'font-weight="900"'),tr(208,118,10))+TOILET(48,190,.7)},
+ {k:2025,m:"The Lord of the Rings",t:"Nine Is My Guy",c:"#3a0d07",
+  x:"Lucas beats Squirm by 2.8 points to reach the final, then loses Patrick Mahomes. He waits on the waiver wire while Kyle grabs the good quarterbacks, then starts nine against Kyle and declares Nine is my guy. Nine rings were given to men. None of them won the final.",
+  a:()=>SKY("#3a0d07","#1a0503")+P("M-20 150L40 96L80 120L120 70L170 130L320 150V200H-20Z","#140604")+P("M108 82l12-12 12 12z","#ff6a00",'opacity=".8"')+SPOT(120,70,40,"#ff6a00",.5)
+   +P("M226 200L236 60L246 40L256 60L266 200Z","#0a0303")+P("M236 60l-8-18 12 8zM256 60l8-18-12 8z","#0a0303")
+   +`<g filter="${fx("glow","#ff7a00")}">`+E(246,30,22,11,"#ff8c1a")+"</g>"+E(246,30,16,8,"#ffd166")+F("kyle",246,30,15,{sh:0})
+   +HAT("lucas","hood",96,104,42,"#0d0d0d")+CH("lucas",96,104,42,"#0d0d0d","robe",{arms:[null,[1.3,.1]],glove:"#bbb"})
+   +C(150,108,9,"none",'stroke="#f2c230" stroke-width="3.5"')+T(150,112,"9",10,"#f2c230",'font-weight="900"')},
+ {k:2026,m:"Breaking Bad",t:"Say My Name",c:"#8a5a2b",
+  x:"Ten years after he founded the league, Lucas is commissioner again. The Student Ath-o-letes pick Patrick Mahomes up off waivers in week 2 and lead the league in scoring at the ten-week mark. Say my name.",
+  a:()=>SKY("#6fb8ee","#f6e2b3")+P("M-20 130L30 90H90L110 130ZM200 130L230 98H300L320 130Z","#c8763c")+FLOOR(130,"#e6c88f","#d4a865")
+   +G(R(-60,-40,120,52,"#f2ead6",'rx="4"')+R(-60,-10,120,6,"#7a5a3a")+R(-50,-32,22,16,"#9cc3e6")+R(-20,-32,22,16,"#9cc3e6")+R(34,-34,20,40,"#d9cfb6")+C(-36,14,9,"#111")+C(36,14,9,"#111")+C(-36,14,4,"#999")+C(36,14,4,"#999"),tr(70,148))
+   +CH("lucas",196,100,46,"#2b2b2b","coat",{hat:"porkpie",arms:[[-.4,1.4],[.4,1.4]],bob:1})+SHADES("lucas",196,100,46)}
  ],
  marvel:["Professor X","Hero","He founded the school, he runs it again ten years later, he spent a year abroad, and the results have been rough. But he got everybody into the room in the first place."]},
-peanut:{crawl:"Squirm's cousin, Kad to his friends, owner of the league's most elaborate team names, and the man behind the catfish.",
+
+peanut:{poster:"Dr. Kakofonus A. Dischord",tag:"More names than anyone in league history.",
+ crawl:"Squirm's cousin, Kad to his friends, owner of the league's most elaborate team names, and the man behind the catfish.",
  scenes:[
-  [2016,"sopranos","The Cousin","His cousin Squirm benches his own team so Peanut can make the playoffs. Family takes care of family."],
-  [2017,"sw","A Jedi Mind Trick in Reverse","He takes Andrew Luck, who never plays a snap, from Rod. He trades his draft pick to Charles for a secret nobody has ever explained. Sacko."],
-  [2018,"rocky","The Contender","The 2 seed, then out in the semis."],
-  [2019,"office","The Yogurtlechefts","3-9 with one of the great team names."],
-  ["Offseason · 2019 into 2020","bb","Heisenberg","Peanut builds a fake identity worthy of Walter White and catfishes DiLapi, as punishment for DiLapi winning the Sacko."],
-  [2020,"lotr","He Put On the Ring","Pirate King reaches the final against Charles, goes up 50 after the first week, and declares himself champion. Charles rallies behind a 56-point Kamara game. The ring was never his."],
-  [2021,"sp","The Bengali Bhavi Bangalore","More team names than Cartman has schemes."],
-  [2022,"gf","Shivakamini Somakandarkram","5-8. The family name keeps getting longer."],
-  [2023,"titanic","Dr. Kakofonus A. Dischord","The league votes down his Kamara and Kupp for Ja'Marr Chase trade twice in one evening, and he takes his second Sacko."],
-  ["2024 · Sat out","sw","Away","He sits the season out."],
-  [2025,"rocky","The Land Down Under","Back as THE LAND DOWN UNDER and a winning record."],
-  ["2026 · Out this year","lotr","The Grey Becomes the White","He was hit by a car before the season and is missing the year while he recovers. Gandalf came back stronger. The league wants Peanut back in 2027."]
+ {k:2016,m:"My Cousin Vinny",t:"My Cousin Squirm",c:"#8a6d4a",
+  x:"His cousin Squirm takes the case and benches his own team so Peanut can make the playoffs. The defense rests. Peanut makes the semis, and Charles's 12-1 team sends him home.",
+  a:()=>SKY("#b8996a","#8a6d4a")+[...Array(8)].map((_,i)=>R(i*40-10,0,36,150,"#a5875a",'stroke="#7a5f3a" stroke-width="2"')).join("")+R(80,30,140,56,"#5a3f22")+R(76,26,148,8,"#6b4a2a")+C(150,16,10,"#d4a937")
+   +FLOOR(150,"#6b4a2a","#4a311d")+CH("squirm",96,96,42,"#7b1f2b","suit",{tie:"#111",arms:[null,[1.05,-.95]]})
+   +TABLE(214,140,96,"#5a3f22")+CH("peanut",214,108,34,"#3d5a80","suit",{tie:"#c0392b",arms:[[-.4,1.05],[.4,1.05]]})+R(170,140,88,7,"#5a3f22")},
+ {k:2017,m:"Lost",t:"We Have to Go Back",c:"#2b8bab",
+  x:"Before the draft Peanut trades his own pick to Charles for a secret, and nobody has ever learned what it was. He takes Andrew Luck from Rod, and Luck never plays a snap. Then he flips Luck to Charles for Willie Snead. The island takes the rest: the Sacko.",
+  a:()=>SKY("#7fd0f0","#d8f3fb")+R(-20,92,340,40,"#2a9fd6")+FLOOR(120,"#f2deb0","#e3c587")+P("M276 120q-4-46 6-76","none",'stroke="#8b5a2b" stroke-width="6"')+[0,1,2,3].map(i=>P(`M282 44q${(i-1.5)*14} -10 ${(i-1.5)*28} 6`,"none",'stroke="#2e8b57" stroke-width="5" stroke-linecap="round"')).join("")
+   +G(R(-40,-14,80,28,"#d9dde2",'rx="12"')+[...Array(5)].map((_,i)=>R(-32+i*14,-6,8,7,"#5d6d7e",'rx="2"')).join("")+P("M40-14l12-8 4 10-6 10 4 10-14-8z","#bfc6cc"),tr(56,112,-10))
+   +E(232,168,30,9,"#7d8a8f",'stroke="#5d6a6f" stroke-width="2"')+T(232,172,"4 8 15 16 23 42",5.6,"#e8f1f2",'font-weight="900"')
+   +CH("peanut",150,96,42,"#f4f4f4","tee",{arms:[null,[1.15,.35]]})+G(R(-14,-9,28,18,"#efe3c2",'stroke="#b39b6a"')+C(0,0,4,"#b3121f")+T(0,-12,"SECRET",5.4,"#fff",'font-weight="900"'),tr(198,108,-8))},
+ {k:2019,m:"Lady and the Tramp",t:"Bella Notte",c:"#16284a",
+  x:"On a trip to Central Park, Kyle and Charles serenade Peanut into a trade they know is horrible: Austin Ekeler, Melvin Gordon, Robert Woods, Jared Cook and Stefon Diggs to Mateus for Le'Veon Bell and Zach Ertz. Peanut slurps it right up. 3-9.",
+  a:()=>SKY("#0e1a33","#22385e")+STARS(20,19)+[30,120,200,280].map(x=>C(x,96,30,"#13301f")).join("")+[60,240].map(x=>L(x,150,x,64,"#222",2.5)+C(x,60,6,"#ffe9a0")+SPOT(x,64,30,"#ffe9a0",.35)).join("")+FLOOR(150,"#1d3a26")
+   +CH("kyle",34,100,28,"#2b2b2b","tee",{arms:[[.4,1.1],[1,1]]})+G(R(-14,-10,28,20,"#c0392b")+[...Array(6)].map((_,i)=>L(-14+i*5.6,-10,-14+i*5.6,10,"#7a1f1f",1)).join(""),tr(40,140))
+   +CH("charles",266,100,28,"#2b2b2b","tee",{arms:[[-1,1],[-.4,1.1]]})+G(E(0,0,9,12,"#c7883c")+R(-1.5,-30,3,22,"#5a3a22"),tr(256,140,30))
+   +CH("peanut",112,104,34,"#6b4a3a","tee")+CH("mateus",188,104,34,"#3a3a3a","tee")+P("M126 112Q150 124 174 112","none",'stroke="#f7d774" stroke-width="2"')
+   +R(70,140,160,40,"#fff")+[...Array(8)].map((_,i)=>R(70+i*20,140,10,40,"#c0392b",'opacity=".75"')).join("")+[0,1].map(i=>R(70,148+i*16,160,6,"#c0392b",'opacity=".5"')).join("")+E(150,142,22,6,"#f2f2f2")+E(150,140,14,4,"#f7d774")+[0,1,2].map(i=>C(144+i*6,138,2,"#b3121f")).join("")
+   +[[70,40],[230,50],[150,30]].map(([x,y])=>T(x,y,"♪",14,"#ffd166")).join("")},
+ {k:"Offseason · 2019 into 2020",m:"Mission: Impossible",t:"The Mask",c:"#3b4a5a",
+  x:"As punishment for DiLapi winning the Sacko, Peanut builds a fake identity and catfishes him. Mission accomplished. This message will self-destruct.",
+  a:()=>SKY("#f4f7fa","#dfe6ec")+[...Array(7)].map((_,i)=>L(i*48,0,i*48,200,"#cfd8df",2)).join("")+FLOOR(160,"#e9eef2")+[...Array(9)].map((_,i)=>L(-20+i*40,200,40+i*40,150,"#ff2b2b",1,'opacity=".7"')+L(60+i*40,200,i*40,150,"#ff2b2b",1,'opacity=".7"')).join("")
+   +R(126,140,48,30,"#c9d2d9")+R(120,136,60,6,"#aab6bf")+PHONE(150,118,.6,P("M0 -12a4 4 0 0 1 7-2a4 4 0 0 1 7 2c0 5-7 9-7 9s-7-4-7-9z","#ff4d8d",'transform="translate(-7 2)"'))
+   +L(200,0,200,58,"#333",1.5)+L(210,0,210,62,"#333",1.5)+G(BD(0,0,30,"#111","tee",{len:3})+ARM(-22,28,-30,-12,"#111",30)+ARM(22,28,30,-12,"#111",30)+F("peanut",0,0,30),'transform="translate(150 60) rotate(-90)"')},
+ {k:2020,m:"Pirates of the Caribbean",t:"The Pirate King",c:"#b5562b",
+  x:"Pirate King scores only the ninth-most points in the league and still reaches the final, beating Skelly 277.4 to 232. After week one of the two-week final he goes up big on Charles and declares himself champion. Then Alvin Kamara scores 56 on Christmas Day, and the treasure sails off, 323.7 to 286.6.",
+  a:()=>SKY("#f3b562","#e07a3f")+C(60,96,22,"#ffe08a")+R(-20,100,340,40,"#2b5d7d")+[108,118,128].map(y=>P(`M-20 ${y}q15-4 30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0t30 0`,"none",'stroke="rgba(255,255,255,.3)" stroke-width="1"')).join("")
+   +G(P("M-30 0h60l-8 10h-44z","#2b1d12")+L(0,0,0,-40,"#2b1d12",2)+P("M0-38q16 10 0 30z","#f4ead5")+G(TROPHY(0,0,.45),tr(6,-20)),tr(250,100))
+   +R(-20,150,340,60,"#6b4423")+[0,1,2,3].map(i=>L(-20,156+i*12,320,156+i*12,"rgba(0,0,0,.2)",1)).join("")+R(186,20,8,132,"#4a2e18")+P("M194 30q50 20 0 70z","#f4ead5")+P("M194 34h40v24h-40z","#111")+C(212,44,5,"#fff")+L(206,52,218,52,"#fff",1.5)
+   +CH("peanut",118,94,44,"#5b1a1a","coat",{hat:"tricorn",arms:[[-1.2,.9],[1.15,-.95]],bob:1})+L(162,52,184,22,"#cfd6df",2.5)+L(160,56,166,50,"#d4a937",3)},
+ {k:2023,m:"Austin Powers",t:"Dr. Kakofonus",c:"#2b2b3a",
+  x:"Dr. Kakofonus A. Dischord tries to send Alvin Kamara and Cooper Kupp to Floof for Ja'Marr Chase, and the league votes it down twice in one evening. His evil plan foiled, he takes the Sacko.",
+  a:()=>SKY("#2b2b3a","#14141d")+[...Array(7)].map((_,i)=>R(i*46-12,10,42,140,"#33334a",'stroke="#22223a" stroke-width="2"')).join("")+R(168,24,118,70,"#0c2a1a",'stroke="#556" stroke-width="3"')+T(227,44,"OPERATION",8,"#39ff88",'font-weight="900"')+T(227,58,"JA'MARR CHASE",8,"#39ff88",'font-weight="900"')+STAMP(227,76,"VETOED x2",-8,"#ff3b3b",9)
+   +FLOOR(150,"#1d1d28")+R(66,52,92,110,"#7a1f2b",'rx="14"')+CH("peanut",112,98,42,"#8a8a92","tee",{arms:[[.3,1.2],[.9,1.0]]})+L(96,114,128,114,"#6b6b72",2.5)
+   +G(E(0,0,16,10,"#e8b4b8")+C(14,-6,7,"#e8b4b8")+P("M10-12l2-6 3 5zM17-12l2-6 2 6z","#e8b4b8")+C(16,-7,1.2,"#333"),tr(118,150))+TOILET(266,186,.8)},
+ {k:2025,m:"Crocodile Dundee",t:"That's a Quarterback",c:"#c1440e",
+  x:"Back as THE LAND DOWN UNDER, Peanut grabs Matthew Stafford off waivers in week 9. Stafford starts nine games for him and scores 189.3 points. That's not a quarterback. That's a quarterback. 7-6, and out on points.",
+  a:()=>SKY("#f5a35b","#fbd38d")+P("M150 130Q160 82 214 80T300 130Z","#c1440e")+P("M-20 130L30 110L60 130Z","#a0390b")+FLOOR(130,"#c1440e","#8a2f0b")
+   +G(P("M0 0q10-24 22-10l2 14-6-2-2 16h-4l-2-10-6 10h-4l4-12q-10 0-4-6z","#3a1a08"),tr(250,110,0,1.4))
+   +CH("peanut",118,98,44,"#8d6e4a","coat",{hat:"bush",arms:[null,[1.1,-.85]],bob:1})+BALL(168,52,1.8,-30)+BUB(236,40,104,20,["THAT'S A QUARTERBACK."],190,50,7.6)
+   +G(R(-26,-9,52,18,"#fff7e6",'rx="2"')+T(0,-1,"STAFFORD",6.4,"#8a2f0b",'font-weight="900"')+T(0,6,"189.3 PTS",5.6,"#8a2f0b",'font-weight="900"'),tr(228,152,-4))},
+ {k:"2026 · Out this year",m:"The Lord of the Rings",t:"Look to My Coming at First Light",c:"#b39b5a",
+  x:"Peanut was hit by a car before the season and is missing the year while he recovers. Gandalf came back stronger. The whole league wants Peanut back in 2027.",
+  a:()=>SKY("#fff8e6","#f6e7b8","#e3c98e")+RAYS(150,120,"#fff",22,.35)+C(150,120,46,RG(["#fff","#fff@.6","#fff@0"]))+P("M-20 150L60 110L120 140L180 104L240 136L320 116V200H-20Z","#c9b27a")+P("M-20 170L80 140L160 164L240 146L320 166V200H-20Z","#a8915c")
+   +`<g filter="${fx("glow","#ffffff")}">`+CH("peanut",150,98,46,"#fbfbfb","robe",{arms:[[-1.1,1.2],[1.15,.2]],glove:"#fff"})+"</g>"+L(204,60,208,190,"#f4f1ea",3.5)+C(204,58,7,"#fff",'opacity=".9"')}
  ],
- marvel:["Mysterio","Villain","The master of illusion: a catfish, a secret traded for a draft pick, a championship declared a week early, and more names than anyone in league history."]},
-jordan:{crawl:"Joined in 2020 and has been fighting uphill ever since, with a new team name every time.",
+ marvel:["Mysterio","Villain","The master of illusion: a catfish, a secret traded for a draft pick, a championship declared a week early, and more team names than anyone in league history."]}
+};
+const CC={
+jordan:{poster:"Galaxy Liberators",tag:"Keeps swinging.",
+ crawl:"Joined in 2020, sat out 2023, and trades constantly. He was on the wrong end of the 2021 and 2022 Trade Rapes of the Year, the right end in 2024, and in 2026 the Galaxy Liberators finally opened 5-0.",
  scenes:[
-  [2020,"sp","The New Kid","He joins as Let Dalvin Cook. Every new kid in South Park has a rough first year."],
-  [2021,"office","Bishop Sycamore JV","A fake high school team as a team name. Peak Office energy."],
-  [2022,"lotr","He Gave Away the Ring","He sends Justin Jefferson to Charles for four starters. Charles wins the title and Jordan takes the Sacko."],
-  ["2023 · Sat out","sw","Off Planet","He sits the season out."],
-  [2024,"gf","An Offer Kyle Should Have Refused","The Galaxy Liberators take Kyren Williams and DK Metcalf from Kyle for Tyreek Hill and Devin Singletary. Trade Rape of the Year."],
-  [2025,"sopranos","1-12","A season even Paulie Walnuts would feel bad about. He also does a Saquon and Bowers trade with the Noses that gets undone within hours."],
-  [2026,"bb","A Whole New Man","He takes Hunter Henry and Sam Darnold from Kyle for Romeo Doubs, which sets Quincy off, and the Galaxy Liberators are finally cooking."]
+ {k:[2020,2021],m:"Friday Night Lights",t:"Clear Eyes, Full Hearts",c:"#1d3557",
+  x:"Jordan joins in 2020 as Let Dalvin Cook and goes 4-8. In 2021 he renames the team Bishop Sycamore JV, after the fake high school football team, starts 4-0, then loses five straight and finishes 6-7.",
+  a:()=>SKY("#0b1530","#1d2b55")+[[40,20],[260,20]].map(([x,y])=>L(x,y,x,150,"#555",3)+R(x-18,y-8,36,14,"#ddd",'rx="2"')+SPOT(x,y+20,60,"#fff",.25)).join("")+[...Array(4)].map((_,r)=>R(-20,88+r*10,340,8,r%2?"#2b3a5a":"#22304d")).join("")
+   +FLOOR(136,"#2f7d32","#256428")+[0,1,2,3].map(i=>L(-20+i*90,136,-60+i*110,200,"#fff",1.5,'opacity=".7"')).join("")
+   +R(184,26,96,48,"#111",'rx="3" stroke="#444" stroke-width="2"')+T(208,42,"HOME",7,"#ffd166",'font-weight="900"')+T(256,42,"WEEKS",7,"#ffd166",'font-weight="900"')+T(208,64,"W 4",14,"#ff4d4d",'font-weight="900"')+T(256,64,"L 5",14,"#ff4d4d",'font-weight="900"')
+   +CH("jordan",112,100,44,"#7b1f2b","jersey",{txt:"JV",trim:"#ffd166",arms:[null,[1.2,.7]]})+G(C(0,0,14,"#7b1f2b")+R(-14,-2,28,4,"#ffd166")+R(6,-4,10,8,"#ccc",'rx="2"'),tr(170,136))+R(100,96,8,3,"#111")+R(116,96,8,3,"#111")},
+ {k:2022,m:"The Oprah Winfrey Show",t:"You Get a Superstar!",c:"#7a3b8f",
+  x:"Jordan hands out superstars like free cars. Week 1 of 2021: Cooper Kupp to Kyle for Chase Edmonds, right before Kupp's triple-crown season. Week 4: Jonathan Taylor to DiLapi. 2022: Justin Jefferson to Charles. That's two Trade Rapes of the Year, a title for Charles, and the 2022 Sacko for Jordan.",
+  a:()=>SKY("#7a3b8f","#3b1a4f")+RAYS(150,30,"#ffd6f5",16,.12)+[...Array(3)].map((_,r)=>[...Array(14)].map((_,i)=>C(i*23+(r%2)*11,140+r*14,7,["#5a2a6f","#4a1f5f","#6a3a7f"][(i+r)%3])).join("")).join("")
+   +CH("jordan",172,80,42,"#f5c518","suit",{tie:"#7a3b8f",shirt:"#fff",arms:[[-1.5,-.4],[1.5,-.4]],bob:1})
+   +[["kyle",38,"KUPP"],["dilapi",96,"TAYLOR"],["charles",262,"JEFFERSON"]].map(([o,x,n],i)=>F(o,x,118,30)+G(R(-21,-12,42,24,["#e63946","#2a9d8f","#4361ee"][i],'rx="2"')+R(-3,-12,6,24,"#ffd166")+R(-21,-3,42,6,"#ffd166")+T(0,21,n,6,"#fff",'font-weight="900"'),tr(x,150))).join("")
+   +BUB(214,42,150,22,["YOU GET A SUPERSTAR!"],186,60,9)},
+ {k:[2024,2025],m:"Apollo 13",t:"Houston, We Have a Problem",c:"#0b1026",
+  x:"The Galaxy Liberators lift off. In 2024 Jordan takes Kyren Williams and DK Metcalf from Kyle, the Trade Rape of the Year, and starts 4-1. Then he loses his last eight. In 2025 the oxygen runs out: twelve straight losses to open the year, a 1-12 finish, and De'Von Achane shipped to Kyle in week 2. Kyle wins the title with him.",
+  a:()=>SKY("#03040b","#0b1026")+STARS(70,13)+C(250,160,70,RG(["#6ec1ff","#1e6fd9","#0b3a7a"],.35,.35,.7))+P("M196 140q20-10 40 4t46-6","none",'stroke="#7ed957" stroke-width="6" opacity=".6"')
+   +G(R(-34,-18,68,36,"#d9dde2",'rx="4"')+P("M34-18l20 18-20 18z","#bfc6cc")+R(-30,-24,10,6,"#bfc6cc")+C(-6,0,6,"#1e293b")+BURST(-36,10,14,"#ffd166","#ff7b00",9),tr(70,64,-14))+[0,1,2].map(i=>C(30-i*8,90+i*10,4+i*2,"#c9d1d9",'opacity=".5"')).join("")
+   +CH("jordan",150,100,44,"#e9eef3","space",{hat:"helmet",arms:[[-1.2,.7],[1.2,.7]],glove:"#c9d2dc"})+G(R(-20,-8,40,16,"#111",'rx="2"')+T(0,4,"1-12",10,"#ff3b3b",'font-weight="900"'),tr(150,170))},
+ {k:2026,m:"The Mighty Ducks",t:"Quack. Quack. Quack.",c:"#1f6f5c",
+  x:"The Galaxy Liberators open 5-0, the best start of Jordan's career, and he trades Romeo Doubs to Kyle for Hunter Henry and Sam Darnold along the way. The Galaxy Liberators can finally skate.",
+  a:()=>SKY("#dff3fb","#b7e1f2")+R(-20,0,340,64,"#2b5d7d")+[...Array(3)].map((_,r)=>[...Array(16)].map((_,i)=>C(i*20+(r%2)*10,14+r*16,6,["#3a6d8f","#24506b","#4a7d9f"][(i+r)%3])).join("")).join("")+R(-20,62,340,8,"#fff")+R(-20,70,340,4,"#c8102e")
+   +FLOOR(74,"#eef8fc","#d8eef7")+L(-20,140,320,140,"#c8102e",2,'opacity=".5"')+C(150,140,20,"none",'stroke="#1d4ed8" stroke-width="2" opacity=".5"')
+   +[[214,132],[240,118],[240,146],[266,104],[266,160]].map(([x,y])=>G(E(0,0,9,6,"#2e7d32")+C(7,-5,4,"#2e7d32")+P("M10-5l5 1-5 2z","#f2a72e"),tr(x,y))).join("")
+   +CH("jordan",112,100,44,"#2e7d32","jersey",{txt:"5-0",trim:"#fff",arms:[[-.6,1.5],[.9,1.25]]})+L(150,130,176,176,"#6b4423",3)+P("M176 176h16v4h-18z","#111")+R(196,174,12,4,"#111",'rx="1"')},
  ],
- marvel:["Spider-Man","Hero","The Parker luck: a Sacko, a 1-12 season, and the Justin Jefferson trade on his record. He keeps swinging anyway."]},
-dylan:{crawl:"Lucas's roommate. Joined in 2023, named his team after Squirm, and won the whole thing in his second year.",
+ marvel:["Spider-Man","Hero","The Parker luck: a Sacko, a 1-12 season, and the Justin Jefferson trade on his record. He keeps swinging anyway, and 2026 might be the year it finally pays off."]},
+
+dylan:{poster:"Sultans of Squirm",tag:"Shows up late. Wins anyway.",
+ crawl:"Lucas's roommate. Joined in 2023, named his team after Squirm, barely trades, and won the whole thing in his second year.",
  scenes:[
-  [2023,"sp","Sultans of Squirm","He joins and names his team after Squirm. Nobody in town knows what to make of it."],
-  [2024,"lotr","One Trade to Rule Them All","His only trade on record sends Brian Robinson Jr. to Kyle for Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr."],
-  ["2024 · The final","sw","The Student Beats the Master","He beats Squirm in the final with a team named after Squirm. Ring in year two."],
-  [2025,"bb","The Hangover Season","The champion slips to 5-8."],
-  [2026,"sopranos","The Sit-Down","He trades the No. 9 pick to DiLapi for No. 4 and takes Puka Nacua."]
+ {k:2023,m:"Wayne's World",t:"We're Not Worthy",c:"#3a2a5a",
+  x:"Dylan joins in 2023 and names his team the Sultans of Squirm, because he loves Squirm, and he is not subtle about it. He goes 6-7 as a rookie, with four losses by less than five points.",
+  a:()=>SKY("#4a3a6a","#2a1f3f")+R(-20,150,340,60,"#5a4a3a")+R(30,120,180,40,"#6b3a3a",'rx="10"')
+   +G(R(-44,-52,88,104,"#d4a937",'rx="4"')+R(-38,-46,76,92,"#2b1f3f"),tr(232,74))+F("squirm",232,70,58)+[[188,26],[280,30],[276,122],[186,118]].map(([x,y])=>P(`M${x} ${y-7}l2 5 5 2-5 2-2 5-2-5-5-2 5-2z`,"#ffe066")).join("")
+   +G(CH("dylan",0,0,40,"#1b1b1b","tee",{arms:[[1.3,-.95],[1.6,-.45]]}),'transform="translate(102 108) rotate(14)"')
+   +BUB(98,44,104,18,["WE'RE NOT WORTHY!"],104,80,8)},
+ {k:2024,m:"Aladdin",t:"Phenomenal Cosmic Power",c:"#1f2b6b",
+  x:"Dylan makes one trade all year, and it's a wish: Kyle, the genie, hands him Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr. for Brian Robinson Jr. From 2-3 he wins six of his next eight, beats Rod and Squirm in the playoffs, and the Sultans of Squirm win the title in year two.",
+  a:()=>SKY("#1f2b6b","#4b3a8f")+STARS(40,24)+C(250,40,14,"#fff7d6")+P("M-20 150V112h30V92q14-20 28 0v20h22V80q20-30 40 0v32h30V150Z","#2a1f4f")+FLOOR(150,"#3a2a5f")
+   +G(P("M-30 0q30 12 60 0l-4 8q-26 10-52 0z","#d4a937")+P("M30 0q14-6 18-14","none",'stroke="#d4a937" stroke-width="3"'),tr(84,168))+P("M84 160Q60 120 70 90Q80 60 64 40","none",'stroke="#7fd4ff" stroke-width="16" opacity=".35" stroke-linecap="round"')
+   +`<g filter="${fx("glow","#7fd4ff")}">`+BD(64,44,30,"#3b7bd9","tee",{len:1.5})+F("kyle",64,44,30,{fx:"blue"})+"</g>"+ARM(86,70,112,60,"#3b7bd9",30)
+   +G(P("M-50 0q50-14 100 0l-6 10q-44-12-88 0z","#c0392b")+[...Array(5)].map((_,i)=>L(-40+i*20,4,-44+i*20,14,"#d4a937",1.5)).join(""),tr(204,150))+CH("dylan",204,108,38,"#d4a937","tee",{arms:[[-.9,.9],[1.05,.2]]})+TROPHY(246,118,1.3)},
+ {k:2025,m:"The Hangover",t:"What Happened Last Night?",c:"#5a4a3a",
+  x:"The morning after a title, the Sultans of Squirm wake up 5-8 with no idea what happened. The only clue: on October 29 they sent Puka Nacua, Alvin Kamara, Calvin Ridley and Dak Prescott to Peanut in an eight-player trade. Three days later Peanut flips Dak and Kamara to Kyle, who wins the title.",
+  a:()=>SKY("#e8dcc4","#cdbd9c")+R(206,24,84,130,"#f4efe4",'stroke="#a89878" stroke-width="3"')+G(E(0,0,26,22,"#e8892b")+[[-14,-8],[0,-12],[14,-8]].map(([x,y])=>P(`M${x} ${y}l4 10`,"none",'stroke="#111" stroke-width="3"')).join("")+C(-9,-2,3,"#111")+C(9,-2,3,"#111")+P("M-6 10q6 6 12 0","none",'stroke="#111" stroke-width="2"')+C(-20,-18,7,"#e8892b")+C(20,-18,7,"#e8892b"),tr(248,96))
+   +FLOOR(150,"#8a7a5a","#6b5d44")+[[40,40,"#e63946"],[70,30,"#ffd166"],[60,60,"#4cc9f0"]].map(([x,y,c])=>L(x,y+12,x+8,150,"#999",.8)+E(x,y,9,11,c)).join("")
+   +G(BD(0,0,36,"#f4f4f4","tee",{len:2.8})+F("dylan",0,0,36),'transform="translate(70 158) rotate(-80)"')+TROPHY(150,176,1.2)+G(R(-21,-24,42,50,"#fff",'stroke="#ccc" stroke-width=".6"')+R(-17,-20,34,34,"#5a6b7d")+T(0,21,"OCT 29",6,"#333",'font-weight="900"'),tr(184,122,10))+F("peanut",184,118,24,{r:10,sh:0})},
+ {k:2026,m:"Draft Day",t:"Draft Day",c:"#1d3557",
+  x:"Before the draft Dylan trades up from No. 9 to No. 4 with DiLapi and takes Puka Nacua. The Sultans of Squirm open 4-0.",
+  a:()=>SKY("#0d1b2a","#1b263b")+R(30,16,240,92,"#0b132b",'stroke="#3a506b" stroke-width="3"')+T(150,46,"WITH THE 4TH PICK",12,"#ffd166",'font-weight="900"')+T(150,72,"SULTANS OF SQUIRM",14,"#fff",'font-weight="900"')+T(150,94,"SELECT: PUKA NACUA",10,"#7ed957",'font-weight="900"')
+   +FLOOR(150,"#14213d")+P("M120 200l8-48h44l8 48z","#3a506b")+R(124,148,52,10,"#4a6080")
+   +CH("dylan",150,118,40,"#1b263b","suit",{tie:"#ffd166",arms:[[-1.2,.2],[1.2,.2]]})+G(R(-14,-14,28,28,"#003594",'rx="3"')+T(0,5,"PUKA",6.6,"#ffd100",'font-weight="900"'),tr(212,122))}
  ],
  marvel:["Captain Marvel","Hero","Shows up late, barely trades, and is the most powerful one in the room by year two."]},
-rod:{crawl:"The RodFather. Rarely trades, quietly wins, and once handed Peanut a quarterback who never played.",
+
+rod:{poster:"The RodFather",tag:"Rarely makes a move.",
+ crawl:"The RodFather. Played in 2017, came back in 2022, rarely trades, and once handed Peanut a quarterback who never played a snap.",
  scenes:[
-  ["2016 · Preseason","sp","What Happened With Rod","Before the first season, Lucas emails the whole league to stop joining twice, because what happened with Rod happened again."],
-  [2017,"gf","The Luck Deal","He makes Peanut an offer he can't refuse: Andrew Luck, who never plays a snap in 2017, for Jameis Winston. Trade Rape of the Year. Vicente tries to collude with him too, and it's vetoed."],
-  ["2018 to 2021 · Away","sw","A Long Time Ago","Four seasons away from the league."],
-  [2022,"sopranos","The RodFather Returns","Back after four seasons away, and a vetoed Darius Slayton giveaway to him goes through the next day for Tom Brady."],
-  [2023,"lotr","King of the Wranglers","MisoTrillerBoy wins the Wrangler Conference at 8-5."],
-  [2024,"rocky","Still Standing","Another winning record and another playoff trip."],
-  ["2025 · Sat out","bb","New Hampshire","He walks away for a year, Walt-style."],
-  [2026,"office","Back in the Office","He returns for the 12-team expansion."]
+ {k:"2016 · Before the first season",m:"The Parent Trap",t:"There Are Two of Him",c:"#3f7a4a",
+  x:"Before the first season even starts, Lucas has to email the whole league asking people to stop joining twice, because what happened with Rod happened again.",
+  a:()=>SKY("#9fd3f0","#e2f4fb")+[...Array(7)].map((_,i)=>P(`M${i*50-10} 120l18-60 18 60z`,"#2f6b3a")).join("")+R(186,60,100,70,"#8b5a2b")+P("M180 64L236 30L292 64Z","#6b4423")+R(222,96,24,34,"#5a3a1a")+G(R(-26,-8,52,16,"#f4efe1",'stroke="#6b4423" stroke-width="2"')+T(0,4,"CAMP",9,"#6b4423",'font-weight="900"'),tr(236,50))
+   +FLOOR(130,"#7cb35a","#5d8f42")+CH("rod",84,104,40,"#f4f4f4","tee",{arms:[null,[1.1,.5]]})+CH("rod",150,104,40,"#2b2b2b","tee",{flip:1,arms:[[-1.1,.5]]})
+   +G(R(-24,-16,48,32,"#fff",'stroke="#999" stroke-width="1"')+P("M-24-16L0 2L24-16","none",'stroke="#999" stroke-width="1"')+T(0,12,"STOP JOINING TWICE",3.6,"#c00",'font-weight="900"'),tr(248,152,-8))},
+ {k:2017,m:"Dumb and Dumber",t:"The Parakeet",c:"#d2691e",
+  x:"Rod sells Peanut Andrew Luck for Jameis Winston, and Luck never plays a snap in 2017. Think of the dead parakeet from Dumb and Dumber with its head taped back on. Trade Rape of the Year. Vicente tries to collude with him too, and the league vetoes it.",
+  a:()=>SKY("#ffd1a1","#f4a261")+R(-20,150,340,60,"#c97b47")
+   +CH("rod",96,96,44,"#ff8c1a","tux",{tie:"#ff8c1a",shirt:"#fff",arms:[null,[1.35,.55]]})
+   +G(P("M-20 30V-10q20-26 40 0v40z","none",'stroke="#c0c0c0" stroke-width="2"')+[...Array(5)].map((_,i)=>L(-16+i*8,-14,-16+i*8,30,"#c0c0c0",1)).join("")+R(-22,30,44,5,"#c0c0c0")+L(-12,14,12,14,"#8b5a2b",2)+E(0,8,7,9,"#4cc9f0")+C(4,-2,5,"#4cc9f0")+P("M8-2l5 1-5 2z","#f2a72e")+L(-1,-4,8,-1,"#eee",2.4)+T(0,46,"LUCK",8,"#222",'font-weight="900"'),tr(170,118))
+   +CH("peanut",246,104,36,"#3d5a80","tee",{arms:[[-1,.7]]})+G(R(-14,-8,28,16,"#fff",'rx="2"')+T(0,3,"JAMEIS",5.6,"#c00",'font-weight="900"'),tr(208,132,-10))},
+ {k:[2022,2023,2024],m:"Scarface",t:"The World Is Yours",c:"#7a1f2b",
+  x:"After four seasons away the RodFather comes back in 2022. In 2023 MisoTrillerBoy grabs rookie De'Von Achane off waivers, wins the Wrangler Conference at 8-5, and reaches the semis before Kyle stops him. Another 8-5 and another playoff trip in 2024. The world is his.",
+  a:()=>SKY("#3a1218","#1a0709")+R(-20,0,340,200,LG(["#4a1a20","#1a0709"]))+[30,270].map(x=>R(x-8,10,16,150,"#5a2a2e")).join("")+P("M60 200L90 150H210L240 200Z","#6b2a2e")+[0,1,2].map(i=>R(90-i*10,150+i*16,120+i*20,4,"#8a3a3e")).join("")
+   +G(C(0,0,40,RG(["#ffe08a","#d4a937","#8a6a12"],.35,.3,.8))+P("M-30-10q30 10 60 0M-34 10q34 10 68 0M-10-38q-10 38 0 76M12-38q10 38 0 76","none",'stroke="#a67c00" stroke-width="1.5"')+E(0,0,58,14,"none",'stroke="#d4a937" stroke-width="5" transform="rotate(-14)"')+T(0,-56,"THE WORLD IS YOURS",9,"#ffd166",'font-weight="900" letter-spacing="1"'),tr(220,82))
+   +CH("rod",108,104,44,"#f4f1ea","suit",{tie:"#7a1f2b",shirt:"#7a1f2b",arms:[[-.9,1.3],[.9,1.3]],bob:1})},
+ {k:[2025,2026],m:"The Terminator",t:"I'll Be Back",c:"#3a0f0f",
+  x:"Rod sits out 2025, then comes back for the first 12-team season. I'll be back.",
+  a:()=>SKY("#1a0606","#3a0f0f")+CITY(140,"#0f0505",51,"#ff3b3b")+FLOOR(140,"#140808")+C(220,96,46,RG(["#bfefff@.9","#4cc9f0@.5","#4cc9f0@0"]))+[...Array(6)].map((_,i)=>P(`M220 96l${Math.cos(i)*50} ${Math.sin(i)*44}l${Math.cos(i+.4)*10} ${Math.sin(i+.4)*10}`,"none",'stroke="#bfefff" stroke-width="1.4"')).join("")
+   +CH("rod",108,98,46,"#1a1a1a","coat",{arms:[[-.5,1.4],[.6,1.35]]})+SHADES("rod",108,98,46)+P("M84 120l-4 30M132 120l4 30","none",'stroke="#333" stroke-width="2"')
+   +G(C(0,0,14,"#2b2b2b")+C(0,0,6,"#666"),tr(250,170))+G(C(0,0,14,"#2b2b2b")+C(0,0,6,"#666"),tr(196,170))+P("M190 162l20-24h30l14 24z","#3a3a3a")}
  ],
- marvel:["Kingpin","Villain","Rarely makes a move, but when he does, Andrew Luck ends up on your roster. Quietly runs his corner of the city with a winning record."]},
-jerry:{crawl:"Kyle's college roommate, whose team is blessed by Swiss Vinny.",
+ marvel:["Kingpin","Villain","Rarely makes a move, but when he does, Andrew Luck ends up on your roster. Since coming back he has quietly run his corner of the city, with playoff trips in two of his three full seasons."]},
+
+jerry:{poster:"The Encino Men",tag:"Blessed by Swiss Vinny.",
+ crawl:"Kyle's college roommate, whose team is blessed by Swiss Vinny. A 9-4 rookie, a finalist in year two, and a frequent trader.",
  scenes:[
-  [2022,"sp","The New Kid Can Play","He joins and goes 9-4, a top-three regular season as a rookie."],
-  [2023,"gf","The Offer","Kyle makes him an offer: Garrett Wilson for Aaron Jones and Anthony Richardson. He takes it."],
-  ["2023 · The final","lotr","So Close","The Encino Men reach the final, and Kyle takes the ring."],
-  [2024,"bb","Bad Batch","5-8."],
-  ["2025 · Sat out","sw","Off Planet","He sits the season out."],
-  [2026,"sopranos","Swiss Vinny","Back for the expansion, still blessed by Swiss Vinny, a name that belongs in the Sopranos."]
+ {k:2022,m:"Rookie of the Year",t:"Rookie of the Year",c:"#1d3557",
+  x:"Jerry joins in 2022, loses week 1, then wins six straight and goes 9-4, a top-three regular season as a rookie. He wins his first trade too, sending Alvin Kamara to Charles for Aaron Jones and two more. Charles beats him in the semis, 277.3 to 210, on the way to the title.",
+  a:()=>SKY("#8fd3f7","#d6f0ff")+R(-20,60,340,90,"#2f6b2f")+[...Array(40)].map((_,i)=>C((i*37)%320-10,64+(i*23)%80,5,i%2?"#3f8f3f":"#2a5f2a")).join("")+R(-20,56,340,6,"#6b4423")
+   +R(200,18,90,40,"#1b4d2b",'stroke="#fff" stroke-width="2"')+T(245,36,"ROOKIE",9,"#fff",'font-weight="900"')+T(245,50,"9-4",11,"#ffd166",'font-weight="900"')
+   +FLOOR(150,"#c99a63","#a87a45")+CH("jerry",130,100,44,"#f4f4f4","jersey",{txt:"22",trim:"#0e3386",hat:"cap",hc:"#0e3386",arms:[[-1.3,-.1],[1.25,-.85]]})+C(196,38,5,"#fff",'stroke="#c00" stroke-width="1"')+[0,1,2].map(i=>L(182-i*8,48+i*6,190-i*8,44+i*6,"#fff",1.2,'opacity=".7"')).join("")},
+ {k:2023,m:"Step Brothers",t:"Did We Just Become Best Friends?",c:"#3a4a6a",
+  x:"In week 3 Jerry sends Garrett Wilson to his old college roommate Kyle for Anthony Richardson and Jerry Jeudy. Three weeks later Wilson comes right back, and Richardson goes right back with Aaron Jones. The league calls it the Trade Rape of the Year. Jerry beats Floof in the semis, and the roommates meet in the final. Kyle wins, 265.7 to 246.",
+  a:()=>SKY("#c9d6e8","#a9b9d1")+R(196,30,80,60,"#f4efe1",'stroke="#8a7f66" stroke-width="2"')+T(236,52,"FINAL",10,"#c00",'font-weight="900"')+T(236,70,"265.7–246",9,"#333",'font-weight="900"')+FLOOR(170,"#8a6a4a")
+   +R(30,30,8,160,"#6b4423")+R(166,30,8,160,"#6b4423")+R(30,80,144,10,"#6b4423")+R(30,150,144,10,"#6b4423")+R(38,68,128,14,"#e9eef5")+R(38,138,128,14,"#e9eef5")
+   +BD(102,54,36,"#c0392b","tee",{len:1.2})+F("kyle",102,54,36,{bob:1})+R(38,72,128,10,"#4361ee",'opacity=".9"')
+   +BD(102,121,36,"#2a9d8f","tee",{len:1.2})+F("jerry",102,121,36,{bob:2})+R(38,142,128,10,"#f4a261",'opacity=".95"')},
+ {k:2024,m:"A Series of Unfortunate Events",t:"A Series of Unfortunate Events",c:"#2b2b33",
+  x:"The Encino Men score the second-most points in the league and still go 5-8, with three losses by less than five points. There is no happy ending in this story.",
+  a:()=>SKY("#5a6170","#2b2f38")+[...Array(40)].map((_,i)=>L((i*29)%320,(i*41)%200,(i*29)%320-6,(i*41)%200+14,"rgba(220,230,255,.35)",1)).join("")
+   +P("M200 150V60l30-30 30 30v90z","#1a1c22")+R(214,80,10,14,"#ffd98a",'opacity=".5"')+R(236,80,10,14,"#1a1c22")+P("M196 60l34-36 34 36","none",'stroke="#111" stroke-width="3"')+FLOOR(150,"#3a3d45")
+   +CH("jerry",108,104,44,"#1b1b1b","coat",{arms:[null,[1.1,.2]]})+P("M84 48Q140 10 196 48Z","#111")+L(140,30,154,92,"#333",2)
+   +G(R(-34,-18,68,36,"#f4efe1",'rx="2"')+T(0,-6,"LOST BY 1.6",6.4,"#333",'font-weight="900"')+T(0,4,"LOST BY 3.9",6.4,"#333",'font-weight="900"')+T(0,14,"LOST BY 4.5",6.4,"#333",'font-weight="900"'),tr(232,170,-4))},
+ {k:[2025,2026],m:"The Blues Brothers",t:"We're on a Mission From Swiss Vinny",c:"#14213d",
+  x:"Jerry sits out 2025, then gets the band back together for the 12-team expansion, with a Chicago team name and the blessing of Swiss Vinny.",
+  a:()=>SKY("#0b132b","#1c2541")+CITY(140,"#141a2e",61,"#ffd98a")+FLOOR(140,"#1d1d24")+[0,1,2,3].map(i=>R(i*80,166,40,4,"#f4d35e")).join("")
+   +G(P("M-70 0h140v-18q-6-6-20-8l-14-16h-62l-16 16q-20 2-28 8z","#111")+R(-34,-40,20,14,"#9cc3e6")+R(-8,-40,22,14,"#9cc3e6")+R(-18,-50,36,6,"#eee")+C(-44,0,11,"#111")+C(44,0,11,"#111")+C(-44,0,5,"#888")+C(44,0,5,"#888")+R(-70,-14,140,4,"#fff"),tr(222,170))
+   +CH("jerry",104,100,44,"#111","suit",{tie:"#111",hat:"fedora",hc:"#111",arms:[[-.3,1.4],[.3,1.4]]})+SHADES("jerry",104,100,44)}
  ],
- marvel:["Star-Lord","Hero","Fun, loud, trades a lot, and was one game from a title in his second year."]},
-skelly:{crawl:"Team Kelly, 2019 to 2021. A winning owner who left to pursue medicine.",
+ marvel:["Star-Lord","Hero","Trades a lot, rocks a Chicago team name, and was one game from a title in his second year."]},
+
+skelly:{poster:"Team Kelly",tag:"Three seasons. A winning record. Then the scrubs.",
+ crawl:"Team Kelly, 2019 to 2021. A winning owner whose best year was 9-3, who left the league to become a \"Pussy Doctor.\"",
  scenes:[
-  [2019,"sw","The Death Star Plans","He sends Ezekiel Elliott, Kenny Golladay and Devin Singletary to Kyle. The trade is vetoed."],
-  ["2019 · The vote","sp","The Town Votes","The league votes the veto back out and the trade goes through. Kyle's super team misses the playoffs."],
-  [2020,"lotr","The Fellowship","9-3, tied for the best record in the league, and into the playoffs."],
-  [2021,"bb","Last Cook","6-7 in his last season."],
-  ["2022 · Retired","sopranos","Dr. Melfi Would Approve","He leaves the league to become a \"Pussy Doctor.\""]
+ {k:2019,m:"Law & Order",t:"Objection Overruled",c:"#1d2b4a",
+  x:"Skelly sends Ezekiel Elliott, Kenny Golladay and Devin Singletary to Kyle for Joe Mixon, Tyler Boyd and Zach Ertz, and the league vetoes it. Then the case goes to a vote, and the jury overturns the veto. The Trade Rape of the Year. Dun dun.",
+  a:()=>SKY("#2b3a55","#1d2b4a")+[...Array(8)].map((_,i)=>R(i*40-10,0,36,150,"#33456a",'stroke="#1d2b4a" stroke-width="2"')).join("")+R(70,40,160,50,"#5a3f22")+R(66,34,168,8,"#6b4a2a")
+   +G(R(-6,-4,30,10,"#6b4423",'rx="3"')+R(8,6,4,12,"#6b4423"),tr(196,60,-20))+FLOOR(150,"#3a2a1a")
+   +CH("skelly",96,108,42,"#2b2b33","suit",{tie:"#3c6382",arms:[null,[1.1,-.85]]})+CH("kyle",236,116,32,"#2a9d8f","tee",{arms:[[-.9,.8],[.9,.8]]})
+   +STAMP(150,170,"VETO OVERTURNED",-6,"#ffd166",11)},
+ {k:2020,m:"8 Mile",t:"Mom's Spaghetti",c:"#1a1a1a",
+  x:"Team Kelly goes 9-3, tied for the best record in the league, and draws Peanut's Pirate King, only the ninth-highest scorer, in the semis. Palms sweaty, knees weak. Peanut wins 277.4 to 232.",
+  a:()=>SKY("#1a1a1a","#0b0b0b")+SPOT(110,60,90,"#fff",.25)+[...Array(2)].map((_,r)=>[...Array(16)].map((_,i)=>C(i*20+(r%2)*10,160+r*12,8,"#222")).join("")).join("")+R(-20,140,340,10,"#3a3a3a")
+   +CH("skelly",108,92,44,"#6b6b6b","hoodie",{arms:[null,[.75,.35]]})+R(136,104,4,16,"#222",'rx="1"')+C(138,102,4,"#555")+[[80,72],[134,70],[88,90]].map(([x,y])=>P(`M${x} ${y}q-3 5 0 7q3-2 0-7z`,"#9fd8ff")).join("")
+   +CH("peanut",232,100,34,"#5b1a1a","coat",{hat:"tricorn",hc:"#8a5a2b",arms:[[-1.1,-.4]]})+G(E(0,0,18,6,"#f2f2f2")+E(0,-2,12,4,"#d94f2a")+[0,1,2].map(i=>C(-6+i*6,-3,2,"#b3321a")).join(""),tr(150,180))},
+ {k:2021,m:"The Lion King",t:"Long Live the King",c:"#c96b2c",
+  x:"Derrick Henry carries Team Kelly to five straight wins. Then Team Kelly loses six straight, Henry breaks his foot in the middle of it, and Skelly's last season ends 6-7.",
+  a:()=>SKY("#f9c46b","#f08a4b","#c2553a")+C(150,120,46,"#ffe3a3")+P("M-20 200V150L70 140L170 112L210 118L230 104L320 150V200Z","#3a2414")+P("M150 112h70l10-8","none",'stroke="#2a180c" stroke-width="3"')
+   +CH("skelly",196,74,30,"#c96b2c","robe",{arms:[[-.4,-1.3],[.4,-1.3]],glove:"#e8e0d0"})+G(BALL(0,0,1.4,0)+T(0,3,"22",6,"#fff",'font-weight="900"'),tr(196,24))+RAYS(196,24,"#fff",10,.18)},
+ {k:"2022 · Retired",m:"Scrubs",t:"My Retirement",c:"#2f7f86",
+  x:"Skelly leaves the league to become a \"Pussy Doctor.\"",
+  a:()=>SKY("#e6f2f2","#c9dede")+[...Array(5)].map((_,i)=>R(i*70-10,30,50,90,"#d6e8e8",'stroke="#a9c4c4" stroke-width="2"')).join("")+FLOOR(140,"#b7cfcf","#9ab7b7")
+   +CH("skelly",150,96,46,"#5fb3b3","scrubs",{arms:[[-.5,1.4],[.5,1.4]]})+P("M128 128q22 34 44 0","none",'stroke="#333" stroke-width="2.5"')+C(150,160,5,"#aaa")
+   +G(R(-26,-7,52,14,"#fff",'rx="2" stroke="#2f7f86"')+T(0,3,"DR. KELLY",7,"#2f7f86",'font-weight="900"'),tr(198,150))}
  ],
  marvel:["Doctor Strange","Hero","Left to become a doctor, and was on the other side of the one trade the league couldn't make up its mind about."]},
-mateus:{crawl:"Team Toppin. One season, six trades.",
+
+mateus:{poster:"Team Toppin",tag:"One season. Six trades. Gone.",
+ crawl:"Team Toppin, 2019. One season, a 4-8 record, six trades, and one review that outlived him.",
  scenes:[
-  [2019,"sp","The New Kid","He joins for one season."],
-  ["2019 · The deals","bb","Cooking Fast","Six trades in one year. That's a lot for anybody."],
-  ["2019 · Final record","lotr","Short Journey","4-8."],
-  ["2020 · Gone","sw","Gone","One season and out."],
-  ["2023 · Draft night","sopranos","The Review","He sends in a review of the 2023 draft, and Lucas, still in his Sacko costume, reads it out loud to the room. Gone, but still has a say, like a made man."]
+ {k:2019,m:"Gone in 60 Seconds",t:"Gone in 60 Seconds",c:"#1f1f2b",
+  x:"Mateus makes six trades in his only season, including the Central Park deal that lands him five of Peanut's players, Austin Ekeler and Stefon Diggs among them, for Le'Veon Bell and Zach Ertz. Then he loses his last five, finishes 4-8, and he's gone.",
+  a:()=>SKY("#1f1f2b","#0f0f16")+[...Array(5)].map((_,i)=>R(i*64-4,12,56,8,"#fff",'opacity=".12"')).join("")+FLOOR(150,"#2a2a33")
+   +R(178,24,108,96,"#f8f8f8",'stroke="#999" stroke-width="2"')+[["EKELER",36],["GORDON",52],["WOODS",68],["COOK",84],["DIGGS",100]].map(([n,y])=>T(222,y,n,9,"#1d3557",'font-weight="900"')+T(268,y,"✓",10,"#2a9d4f",'font-weight="900"')).join("")
+   +CAR(86,176,1.1,"#c0c0c0")+CH("mateus",106,98,42,"#3a2a1a","coat",{arms:[null,[1.2,.4]]})+G(R(-4,-2,8,12,"#333",'rx="2"')+C(0,-4,4,"none",'stroke="#d4a937" stroke-width="2"'),tr(158,116))},
+ {k:"2023 · Draft night",m:"Ratatouille",t:"The Critic",c:"#2b1b14",
+  x:"Four years after his last game, Mateus sends in a review of the 2023 draft, and Lucas, still in his Sacko costume, reads it out loud to the room. Anyone can trade. Not everyone can write a review.",
+  a:()=>SKY("#3a2418","#1b0f0a")+[...Array(6)].map((_,i)=>R(i*56-10,10,40,70,"#4a3020",'rx="20"')).join("")+FLOOR(140,"#2b1b14")+R(40,140,220,10,"#f4efe4")+R(48,150,204,50,"#e8e2d0")
+   +CH("mateus",120,92,44,"#141414","suit",{tie:"#7a1f2b",shirt:"#3a3a3a",arms:[null,[1.2,.9]]})+L(176,128,186,112,"#222",2)
+   +G(R(-26,-18,52,36,"#fff",'stroke="#ccc"')+T(0,-6,"DRAFT 2023",6.6,"#333",'font-weight="900"')+T(0,6,"★★☆☆☆",9,"#d4a937")+L(-18,13,18,13,"#ccc",1),tr(196,138,-6))
+   +E(76,142,16,4,"#fff")+E(76,140,12,3,"#c0392b")+G(E(0,0,6,8,"#8a8f98")+C(0,-9,4,"#8a8f98")+C(-3,-12,2,"#8a8f98")+C(3,-12,2,"#8a8f98")+P("M0 8q8 4 6 10","none",'stroke="#8a8f98" stroke-width="1.5"')+P("M-5-14h10v-6h-10z","#fff"),tr(250,130))}
  ],
  marvel:["Quicksilver","Hero","One season, six trades, gone. Blink and you missed him."]},
-duane:{crawl:"The first champion, in the only season he played.",
+
+duane:{poster:"The Emmustangs",tag:"One season. One ring.",
+ crawl:"The Emmustangs, 2016. The first champion, in the only season he played.",
  scenes:[
-  [2016,"bb","David Johnson Cooks","David Johnson goes on a historic run for him, with Andrew Luck and Travis Kelce along for the ride."],
-  ["2016 · The final","lotr","The First Ring","He beats Charles's 12-1 super team 242 to 190 in the two-week final."],
-  ["2016 · The payout","sopranos","The Envelope","He gets his championship pot during a basketball game at Chaminade High School. Very suspicious."],
-  ["2017","sp","Duane Bernard Jr.","Fluff names his next team after him."],
-  ["2017 · Gone","sw","Han Solo","Shows up, wins, leaves. One season, one ring."]
+ {k:2016,m:"Miracle",t:"Do You Believe in Miracles?",c:"#1d3557",
+  x:"Charles's 12-1 super team is the machine nobody can beat. Duane's 7-6 Emmustangs, behind Andrew Luck, David Johnson and Travis Kelce, beat it anyway, 242 to 190, in the two-week final. Do you believe in miracles?",
+  a:()=>SKY("#cfe8f5","#a9d3ea")+[...Array(3)].map((_,r)=>[...Array(16)].map((_,i)=>C(i*20+(r%2)*10,14+r*14,6,["#1d3557","#e63946","#f1faee"][(i+r)%3],'opacity=".6"')).join("")).join("")+R(-20,52,340,6,"#fff")+R(-20,58,340,4,"#c8102e")
+   +FLOOR(62,"#f4fbff","#dbeff9")+L(-20,150,320,150,"#c8102e",2,'opacity=".5"')+R(196,70,96,40,"#111",'rx="3"')+T(244,96,"242 – 190",15,"#ffd166",'font-weight="900"')
+   +CH("charles",250,136,30,"#c8102e","jersey",{txt:"12-1"})+CH("duane",112,100,44,"#f4f4f4","jersey",{txt:"16",trim:"#1d3557",arms:[[-1.3,-.95],[1.3,-.95]],bob:1})},
+ {k:"2016 · The payout",m:"Hoosiers",t:"The Payout",c:"#6b4423",
+  x:"Duane collects his championship pot during a basketball game at Chaminade High School. Very suspicious.",
+  a:()=>SKY("#c9a46a","#8a6a3a")+[...Array(4)].map((_,r)=>R(-20,40+r*14,340,12,r%2?"#7a5a2a":"#6b4a22")).join("")+[...Array(30)].map((_,i)=>C((i*31)%320-10,44+(i*7)%50,4,"#3a2a1a",'opacity=".6"')).join("")
+   +FLOOR(110,"#e0b070","#c99a5a")+[...Array(6)].map((_,i)=>L(-20+i*60,110,-60+i*70,200,"rgba(0,0,0,.08)",2)).join("")+R(246,30,4,60,"#999")+R(232,30,40,28,"#fff",'stroke="#999" stroke-width="2"')+E(250,62,12,3,"none",'stroke="#e65100" stroke-width="2"')
+   +CLIPP("M-20 -20H320V220H-20Z M58 38H93V104L91 115H58Z M58 148H74V190H58Z",F("duane",126,92,40,{full:1,fade:.9}))+G(R(-16,-10,32,20,"#f4efe1",'stroke="#b39b6a"')+P("M-16-10L0 2L16-10","none",'stroke="#b39b6a"')+T(0,8,"$",8,"#2a7d32",'font-weight="900"'),tr(56,160,-10))+T(56,186,"VERY SUSPICIOUS",7,"#fff",'font-weight="900"')},
+ {k:"2017 and after",m:"The Sandlot",t:"Legends Never Die",c:"#c96b2c",
+  x:"Duane never plays another season, but the next year Floof names his team Duane Bernard Jr. Heroes get remembered, but legends never die.",
+  a:()=>SKY("#f5b971","#f7d79a","#a8c8e0")+FLOOR(140,"#c99a63","#a87a45")+P("M-20 140Q150 120 320 140V150H-20Z","#6b9a4a")+R(-20,108,340,32,"#5a3a22",'opacity=".0"')+[...Array(8)].map((_,i)=>R(i*42-10,110,4,30,"#7a5a3a")).join("")+L(-20,116,320,116,"#7a5a3a",2)
+   +`<g opacity=".75" filter="${fx("glow","#fff7d6")}">`+F("duane",160,58,52,{sh:0})+"</g>"
+   +CH("fluff",96,138,30,"#2e4a7d","jersey",{txt:"JR",arms:[[-.6,-1.1]]})}
  ],
  marvel:["Silver Surfer","Hero","Came out of nowhere, did something cosmic, and left."]},
-keeves:{crawl:"Keeves played one season, in 2017, as Patrick.",
+
+keeves:{poster:"Patrick",tag:"One season. About one win.",
+ crawl:"Keeves played one season, 2017, as Patrick. Kyle remembers about one win.",
  scenes:[
-  [2017,"sp","Patrick","He names his team Patrick."],
-  ["2017 · The offer","bb","Partners","Vicente tries to collude with him. Vetoed."],
-  ["2017 · Final record","sw","About One Win","Kyle remembers about one win."],
-  ["2018","lotr","The Fellowship Breaks","He and Vicente are gone, and the league shrinks back to eight."],
-  ["2018 · Gone","sopranos","Cut to Black","One season and done."]
+ {k:2017,m:"SpongeBob SquarePants",t:"Is Mayonnaise an Instrument?",c:"#1f6fa8",
+  x:"Keeves names his team Patrick and spends most of the year under a rock. Kyle remembers about one win. Vicente tries to collude with him, and the league vetoes it.",
+  a:()=>SKY("#4fb0e8","#1f6fa8")+[...Array(14)].map((_,i)=>C((i*53)%300,(i*37)%160,2+(i%3),"none",'stroke="#cfefff" stroke-width="1" opacity=".7"')).join("")+FLOOR(156,"#f2deb0","#e3c587")
+   +P("M200 160Q240 92 290 160Z","#8b5a2b")+L(244,112,244,96,"#555",2)+C(244,94,4,"#ffcc00")
+   +P("M150 92L160 120L192 124L168 144L176 178L150 160L124 178L132 144L108 124L140 120Z","#ff9cbd",'stroke="#e07a9a" stroke-width="2"')+R(126,150,48,18,"#7ed957",'rx="4"')+[0,1,2].map(i=>C(134+i*16,158,3,"#c77dff")).join("")
+   +F("keeves",150,100,36,{bob:1})+CH("vicente",56,110,26,"#4a4a4a","tee",{arms:[null,[1.3,.4]]})+G(R(-12,-8,24,16,"#fff",'rx="2"')+T(0,3,"TRADE?",5,"#333",'font-weight="900"'),tr(98,122))},
+ {k:"2018 · Gone",m:"Forrest Gump",t:"I'm Pretty Tired",c:"#b5562b",
+  x:"Keeves and Vicente leave after one season, and the league shrinks back to eight. Keeves stops running. He's pretty tired. He thinks he'll go home now.",
+  a:()=>SKY("#9fd3f0","#f6d9a8")+P("M-20 120L20 50H60L70 120ZM220 120L240 60H280L300 120Z","#b5562b")+FLOOR(120,"#d9a56a","#c48a4a")+P("M110 200L146 120H154L190 200Z","#555")+P("M150 200V124","none",'stroke="#f4d35e" stroke-width="2" stroke-dasharray="6 6"')
+   +CH("keeves",150,94,44,"#c0392b","tee",{hat:"cap",hc:"#c0392b",arms:[[-.4,1.4],[.4,1.4]]})+BUB(230,40,90,26,["I'M PRETTY","TIRED."],190,72,9)}
  ],
  marvel:["Howard the Duck","Cult classic","One appearance, everyone remembers it, nobody asked for a sequel."]},
-vicente:{crawl:"Quleefie Beefies, 2017. Draft host, two-time attempted colluder, and now a member of the NYPD.",
+
+vicente:{poster:"Quleefie Beefies",tag:"Hosted the draft. Didn't invite Squirm.",
+ crawl:"Quleefie Beefies, 2017. Draft host, two-time attempted colluder, and now a member of the NYPD.",
  scenes:[
-  ["2017 · Draft night","lotr","The Summer House","He hosts the draft at his summer house."],
-  ["2017 · The guest list","sp","Not Invited","He doesn't invite Squirm, who once copied his homework and got him detention."],
-  [2017,"gf","Two Offers, Both Refused","He tries to collude with Rod, then with Keeves. Both trades are vetoed."],
-  ["2017 · The semis","sopranos","Cut to Black","He reaches the semis against Squirm, and nobody saved the result."],
-  ["2018","sw","Gone","He leaves after one season."],
-  ["Today","bb","Hank Schrader","He just became an NYPD officer. He may be the one who arrests the Flamingo Men someday."]
+ {k:"2017 · Draft night",m:"Sleeping Beauty",t:"Not Invited",c:"#3a1f4f",
+  x:"Vicente hosts the 2017 draft at his summer house and invites everyone but Squirm. You know what happens when you don't invite the fairy: the uninvited guest meets him in the semis, and nobody saved who won.",
+  a:()=>SKY("#3a1f4f","#1a0f26")+[60,240].map(x=>R(x-14,20,28,130,"#4a2f5f")).join("")+P("M90 150V60q60-50 120 0v90z","#2a1638")+FLOOR(150,"#2a1f33")
+   +G(BD(0,0,26,"#2b2b2b","suit",{len:2.4})+F("vicente",0,0,26)+HAT("vicente","crown",0,0,26),tr(70,112))
+   +`<g filter="${fx("glow","#39ff14")}">`+P("M150 160q-30-30-10-70q10 20 20 0q20 40-10 70z","#39ff14",'opacity=".55"')+"</g>"
+   +HAT("squirm","horns",176,92,42,"#111")+CH("squirm",176,92,42,"#111","robe",{arms:[[1.2,-.4]],glove:"#4a2f5f"})+L(226,72,234,150,"#3a2a1a",2.5)+C(226,70,6,"#39ff14")},
+ {k:2017,m:"The Godfather",t:"An Offer They Could Refuse",c:"#2b1a10",
+  x:"Vicente tries to collude twice, once with Rod and once with Keeves. The league vetoes both.",
+  a:()=>SKY("#2b1a10","#140c06")+[...Array(10)].map((_,i)=>R(196,20+i*10,92,5,"#e8c574",'opacity=".25"')).join("")+FLOOR(150,"#1a1008")
+   +CH("vicente",110,96,44,"#111","tux",{arms:[[-.3,1.4],[.35,1.3]]})+P("M128 118l4-4 4 4-4 4z","#c0392b")
+   +G(E(0,0,16,10,"#9a8a7a")+C(13,-7,7,"#9a8a7a")+P("M8-12l2-6 3 5zM15-12l2-6 2 6z","#9a8a7a"),tr(112,154))+R(-20,164,340,40,"#3a2414")
+   +G(R(-24,-14,48,28,"#f4efe1")+T(0,-3,"VICENTE ⇄ ROD",4.4,"#333",'font-weight="900"')+STAMP(0,6,"VETOED",-10,"#c00",7),tr(214,176,-6))+G(R(-24,-14,48,28,"#f4efe1")+T(0,-3,"VICENTE ⇄ KEEVES",4.2,"#333",'font-weight="900"')+STAMP(0,6,"VETOED",8,"#c00",7),tr(268,180,6))},
+ {k:"Today",m:"Brooklyn Nine-Nine",t:"Nine-Nine!",c:"#1d2b4a",
+  x:"Vicente just became an NYPD officer. He may be the one who arrests the Flamingo Men someday.",
+  a:()=>SKY("#dfe7ef","#b8c6d4")+R(180,20,104,70,"#7fa7c9")+CLIP(180,20,104,70,CITY(92,"#5d7d9c",71,"#dfe9f2"))+R(180,20,104,70,"none",'stroke="#fff" stroke-width="4"')+L(232,20,232,90,"#fff",3)
+   +FLOOR(140,"#8a95a3")+R(-20,150,200,14,"#6b4a2e")+R(10,164,10,40,"#6b4a2e")+R(150,164,10,40,"#6b4a2e")+R(30,138,40,14,"#f4efe1")+R(110,132,20,20,"#555")
+   +CH("vicente",112,92,46,"#1d2b4a","uniform",{hat:"cop",arms:[[-.5,1.4],[.5,1.4]]})+T(232,120,"NINE-NINE!",13,"#1d2b4a",'font-weight="900"')}
  ],
  marvel:["Nick Fury","Hero","Works the back channels and has a badge."]},
-ghost:{crawl:"Adam Smith. Met online, played in the 2015 Wu-Tang, vanished for ten years, and phased back in for the expansion.",
+
+ghost:{poster:"Vick's Vet Clinic",tag:"Phases in. Phases out.",
+ crawl:"Adam Smith. A friend the league met playing video games online. He played in the unofficial 2015 league, vanished for about ten years, and phased back in for the expansion.",
  scenes:[
-  ["2015 · Online","sp","Make Love, Not Warcraft","The league meets him playing video games online."],
-  ["2015 · The Wu-Tang · Unofficial","sopranos","The Wu-Tang","He plays in the unofficial 2015 league, the one full of cheating and tampering."],
-  ["2016 to 2025","sw","Ten Years in Exile","He disappears for a decade."],
-  [2026,"bb","Vick's Vet Clinic","He comes back under a new name, like a guy with a strip-mall office: Vick's Vet Clinic."],
-  ["2026 · The return","lotr","There and Back Again","The twelfth team in the first 12-team season."]
+ {k:"2015 · Online",m:"Ready Player One",t:"Player Two Has Entered",c:"#1a0b3a",
+  x:"The league meets him playing video games online. He plays in the unofficial 2015 Wu-Tang league, then logs off for ten years.",
+  a:()=>SKY("#0b0420","#2a0b4a")+STARS(30,81)+[...Array(12)].map((_,i)=>L(150,100,-150+i*55,200,"#ff2bd6",1,'opacity=".6"')).join("")+[...Array(5)].map((_,i)=>L(-20,110+i*i*4,320,110+i*i*4,"#2bd6ff",1,'opacity=".6"')).join("")
+   +CH("ghost",150,88,46,"#2a2a3a","hoodie",{hat:"vr",arms:[[-1.1,.9],[1.1,.9]],glove:"#444"})+R(206,30,80,22,"#000",'stroke="#2bd6ff" stroke-width="2"')+T(246,45,"PLAYER 2",10,"#2bd6ff",'font-weight="900"')},
+ {k:2026,m:"Ghostbusters",t:"Who You Gonna Call?",c:"#14213d",
+  x:"About ten years later the league expands to 12 teams. Who you gonna call? Ghost phases back in as Vick's Vet Clinic.",
+  a:()=>SKY("#0b132b","#1c2541")+CITY(150,"#141a2e",91,"#ffd98a")+R(186,90,100,60,"#2b3a55")+R(186,82,100,14,"#7ed957")+T(236,92,"VICK'S VET CLINIC",6.6,"#0b132b",'font-weight="900"')+R(206,106,24,44,"#ffd98a",'opacity=".6"')+R(240,106,36,26,"#9cc3e6")+FLOOR(150,"#1d1d24")
+   +`<g opacity=".88" filter="${fx("glow","#bfefff")}">`+P("M120 120q-30 30 -6 60q10-14 20 0q10-16 20 0q14-30-10-60z","#e8f6ff")+F("ghost",130,96,46,{fx:"ice",sh:0})+"</g>"
+   +G(R(-14,-14,28,28,"#fff",'rx="4"')+T(0,8,"12",16,"#c00",'font-weight="900"'),tr(56,60,-8))}
  ],
- marvel:["Ghost","Antihero","Phases in and out of existence. Here in 2015, gone for ten years, back in 2026."]}
+ marvel:["Ghost","Antihero","Phases in and out of existence. Here in 2015, gone for about ten years, back in 2026."]}
 };
-const CS_SHOW={sopranos:"The Sopranos",bb:"Breaking Bad",sp:"South Park",lotr:"The Lord of the Rings",sw:"Star Wars",gf:"The Godfather",office:"The Office",rocky:"Rocky",titanic:"Titanic"};
-// scene backdrops: drawn shapes only, no stills from the shows. The owner's cut-out stands in front.
-const CS_BG={
-  sopranos:`<defs><linearGradient id="csSo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140c24"/><stop offset="1" stop-color="#3a1d3f"/></linearGradient></defs><rect width="300" height="200" fill="url(#csSo)"/>
-    <path d="M0 150V110h20V90h18v20h14V70h22v40h16V96h24v54zM196 150V84h26v30h16V60h24v52h18V96h20v54z" fill="#0b0716" opacity=".9"/>
-    <g fill="#ffd36b" opacity=".7"><rect x="60" y="80" width="4" height="5"/><rect x="66" y="92" width="4" height="5"/><rect x="242" y="70" width="4" height="5"/><rect x="250" y="86" width="4" height="5"/></g>
-    <rect x="86" y="18" width="128" height="34" rx="6" fill="#120a1e" stroke="#ff4fa3" stroke-width="2.5" class="neon"/><text x="150" y="42" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="19" fill="#ff7cc0" class="neon">Bada Bing!</text>
-    <rect x="0" y="150" width="300" height="50" fill="#5b1420"/><path d="M0 150h300" stroke="#a52a3a" stroke-width="4"/>`,
-  bb:`<defs><linearGradient id="csBb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9d65c"/><stop offset=".7" stop-color="#ec8d32"/></linearGradient></defs><rect width="300" height="200" fill="url(#csBb)"/>
-    <circle cx="232" cy="46" r="20" fill="#fff4c2" opacity=".85"/><path d="M0 130l30-26h40l18 14 26-30h34l20 42H0zM190 130l20-34h44l14 18 32-6v22z" fill="#b5562a"/>
-    <rect x="0" y="128" width="300" height="72" fill="#d9a35a"/><path d="M0 150q80-8 160 0t140 0" stroke="#c18a45" stroke-width="3" fill="none"/>
-    <g transform="translate(16 104)"><rect width="74" height="38" rx="4" fill="#f4efe2"/><rect y="20" width="74" height="6" fill="#e2a33a"/><rect x="8" y="6" width="16" height="10" fill="#7fb6c9"/><rect x="50" y="6" width="16" height="10" fill="#7fb6c9"/><circle cx="16" cy="40" r="7" fill="#222"/><circle cx="58" cy="40" r="7" fill="#222"/></g>`,
-  sp:`<rect width="300" height="200" fill="#8fd3ff"/><path d="M-10 140L60 40l40 50 50-70 60 80 30-30 70 70z" fill="#fff"/><path d="M60 40l14 20-14-4-12 6zM150 20l16 22-16-6-14 8z" fill="#cfe6f5"/>
-    <g fill="#2f7d3a"><path d="M20 150l14-40 14 40z"/><path d="M44 150l12-32 12 32z"/><path d="M236 150l14-44 14 44z"/><path d="M262 150l12-30 12 30z"/></g><rect y="146" width="300" height="54" fill="#f7fbff"/><path d="M0 160h300" stroke="#dbe7f0" stroke-width="2"/>`,
-  lotr:`<defs><linearGradient id="csLo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b1d2e"/><stop offset="1" stop-color="#c0623a"/></linearGradient><radialGradient id="csRing"><stop offset=".55" stop-color="#ffe9a0" stop-opacity="0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset=".85" stop-color="#c8901a"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient></defs><rect width="300" height="200" fill="url(#csLo)"/>
-    <path d="M170 130l50-80 14 8 12-8 54 80z" fill="#1a1012"/><path d="M220 50q7-14 14 8l-6-2z" fill="#ff5a1f" class="lava"/><circle cx="227" cy="52" r="18" fill="#ff5a1f" opacity=".25" class="lava"/>
-    <path d="M0 150q60-40 140-16t160-6v72H0z" fill="#3f6b2f"/><path d="M0 170q90-30 300 0v30H0z" fill="#2f5524"/>
-    <circle cx="56" cy="50" r="26" fill="url(#csRing)" class="ring"/>`,
-  sw:`<rect width="300" height="200" fill="#05060f"/><g fill="#fff">${Array.from({length:46},(_,i)=>`<circle cx="${(i*67)%300}" cy="${(i*41)%200}" r="${i%5?0.7:1.3}" opacity="${.4+(i%3)*.2}"/>`).join("")}</g>
-    <circle cx="250" cy="44" r="14" fill="#ffcf7a" opacity=".85"/><circle cx="272" cy="58" r="9" fill="#ff9a5a" opacity=".75"/>
-    <g class="sabers"><path d="M40 190L120 40" stroke="#5ab8ff" stroke-width="7" stroke-linecap="round" opacity=".95"/><path d="M40 190L120 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-    <path d="M260 190L180 40" stroke="#ff3b3b" stroke-width="7" stroke-linecap="round" opacity=".95"/><path d="M260 190L180 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></g>`,
-  gf:`<defs><radialGradient id="csGf" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#c77a2a"/><stop offset=".55" stop-color="#3a1d0c"/><stop offset="1" stop-color="#0a0604"/></radialGradient></defs><rect width="300" height="200" fill="url(#csGf)"/>
-    <g fill="#000" opacity=".28">${Array.from({length:8},(_,i)=>`<rect x="0" y="${12+i*18}" width="300" height="7"/>`).join("")}</g><rect y="160" width="300" height="40" fill="#1a0e07"/><path d="M0 160h300" stroke="#5a3418" stroke-width="3"/>`,
-  office:`<rect width="300" height="200" fill="#e9dfc6"/><g stroke="#cfc4a8" stroke-width="2">${Array.from({length:6},(_,i)=>`<path d="M${i*60} 0v26"/>`).join("")}<path d="M0 26h300"/></g>
-    <rect x="200" y="44" width="76" height="62" fill="#bfd8e6" stroke="#9a8f74" stroke-width="3"/><g stroke="#9a8f74" stroke-width="1.5">${Array.from({length:9},(_,i)=>`<path d="M200 ${50+i*6}h76"/>`).join("")}</g>
-    <rect x="20" y="52" width="60" height="44" fill="#fff" stroke="#9a8f74" stroke-width="2"/><path d="M28 86l12-14 10 8 12-18 10 10" stroke="#3a6ea5" stroke-width="2.5" fill="none"/>
-    <rect y="150" width="300" height="50" fill="#8a8578"/><rect x="196" y="140" width="104" height="16" fill="#7a5a3a"/>`,
-  rocky:`<rect width="300" height="200" fill="#0d0f1a"/><radialGradient id="csRk" cx=".5" cy="0" r=".9"><stop offset="0" stop-color="#fff6d0" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></radialGradient><rect width="300" height="200" fill="url(#csRk)"/>
-    <g fill="#2a2e44">${Array.from({length:40},(_,i)=>`<circle cx="${(i*37)%300}" cy="${70+(i%4)*10}" r="6"/>`).join("")}</g>
-    <rect y="150" width="300" height="50" fill="#e8e2d4"/><g stroke-width="3"><path d="M0 118h300" stroke="#d62b2b"/><path d="M0 132h300" stroke="#fff"/><path d="M0 146h300" stroke="#2b56d6"/></g><rect x="6" y="104" width="8" height="50" fill="#555"/><rect x="286" y="104" width="8" height="50" fill="#555"/>`,
-  titanic:`<defs><linearGradient id="csTi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1430"/><stop offset="1" stop-color="#1c3b6b"/></linearGradient></defs><rect width="300" height="200" fill="url(#csTi)"/>
-    <g fill="#fff" opacity=".7"><circle cx="30" cy="20" r="1"/><circle cx="90" cy="40" r="1"/><circle cx="160" cy="16" r="1.2"/><circle cx="270" cy="30" r="1"/></g>
-    <path d="M206 140l20-50 14 10 10-24 22 64z" fill="#e8f4ff"/><path d="M226 90l14 10-4 40h-16z" fill="#bcd7ee"/>
-    <g class="tship" transform="rotate(-14 70 130)"><path d="M10 130h120l-12 18H24z" fill="#1b1b1b"/><rect x="24" y="118" width="94" height="12" fill="#f2f2f2"/><g fill="#e8a33a"><rect x="40" y="100" width="10" height="18"/><rect x="64" y="100" width="10" height="18"/><rect x="88" y="100" width="10" height="18"/></g></g>
-    <path d="M0 146q20-6 40 0t40 0 40 0 40 0 40 0 40 0 40 0 20 0V200H0z" fill="#0b2e5c"/>`
+// Marvel finale art, one panel per owner, and the movie-poster opener
+FXS.purple='<feColorMatrix type="matrix" values=".26 .5 .1 0 .1 .12 .24 .05 0 0 .3 .58 .12 0 .16 0 0 0 1 0"/>';
+const STAR=(x,y,r,col,e="")=>{let d="";for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.42:r;d+=`${i?"L":"M"}${q(x+Math.cos(a)*rr)} ${q(y+Math.sin(a)*rr)}`}return P(d+"Z",col,e)};
+const CAPE=(x,y,col,w=34)=>P(`M${q(x-w)} ${q(y)}Q${q(x-w-26)} ${q(y+52)} ${q(x-w-34)} 214H${q(x+w+34)}Q${q(x+w+26)} ${q(y+52)} ${q(x+w)} ${q(y)}Z`,col);
+const MVA={
+kyle:()=>SKY("#173d24","#07140c")+RAYS(150,70,"#d4a937",16,.1)+STARS(25,3,"#e8c574",0,120)+CAPE(150,118,"#1f7a3a")
+  +CH("kyle",150,86,46,"#155a2c","suit",{tie:"#d4a937",shirt:"#111",hat:"loki",arms:[[-1.25,.55],[1.35,.15]],glove:"#1a3a22"})
+  +L(214,40,206,190,"#d4a937",3.2)+P("M214 42q-12-16 0-30q12 14 0 30z","#d4a937")+P("M206 40q-10-8-8-22M222 40q10-8 8-22","none",'stroke="#d4a937" stroke-width="2.5"')
+  +`<g filter="${fx("glow","#6ef3ff")}">`+C(214,30,5,"#6ef3ff")+"</g>",
+charles:()=>SKY("#2a0f3d","#07020d")+STARS(60,8)+C(236,46,56,RG(["#b04bd6@.45","#b04bd6@0"]))+C(60,150,70,RG(["#4b6bd6@.28","#4b6bd6@0"]))
+  +CH("charles",128,90,46,"#c9a227","uniform",{badge:0,vc:"#6b4f9a",fx:"purple",arms:[[-1.2,.9],[1.55,-.85]],glove:0})+C(73,131,6.5,"#7b5aa6")
+  +G(R(-13,-17,26,32,"#e8b923",'rx="7" stroke="#8a6a12" stroke-width="1.5"')+R(-13,-27,6,13,"#e8b923",'rx="3"')+R(-6,-30,6,15,"#e8b923",'rx="3"')+R(1,-29,6,14,"#e8b923",'rx="3"')+R(8,-26,6,12,"#e8b923",'rx="3"')
+    +[["#ffd23f",-10,-23],["#e63946",-3,-26],["#4bd5ee",4,-25],["#b04bd6",11,-22],["#2a9d4f",-15,2],["#f4a261",0,3]].map(([c,x,y])=>C(x,y,2.7,c,'stroke="#fff" stroke-width=".6"')).join(""),tr(200,48))
+  +BURST(232,20,12,"#fff","#ffd23f",8),
+fluff:()=>SKY("#6b7a44","#1d2410")+CITY(150,"#2b3320",33)+P("M-20 160L60 150L90 170L140 152L200 168L250 150L320 162V220H-20Z","#3a3a2a")+[...Array(8)].map((_,i)=>P(`M${40+i*30} ${172+(i%3)*8}l8-6 6 8-10 4z`,"#555")).join("")
+  +BURST(240,44,40,"#ffd23f","#ff6b35",14)+T(240,50,"SMASH!",13,"#191414",'font-weight="900"')
+  +CH("fluff",130,84,48,"#4f9a3a","tee",{fx:"green",arms:[[-1.45,-.8],[1.45,-.8]],glove:"#4f9a3a",gs:1.9})
+  +P("M94 162h72l6 42h-84z","#6a2c91")+P("M102 162l-6 42M158 162l6 42","none",'stroke="#4a1c66" stroke-width="2"'),
+squirm:()=>SKY("#2b4a7a","#0d1a33")+[...Array(6)].map((_,i)=>R(-20,104+i*16,340,8,i%2?"#b22234":"#f4f4f4",'opacity=".16"')).join("")+RAYS(150,80,"#fff",12,.06)
+  +CH("squirm",150,84,46,"#1d3a8a","uniform",{badge:0,vc:"#b22234",arms:[[-1.3,.95],[1.2,.6]]})+STAR(150,142,12,"#f4f4f4")+R(116,170,68,6,"#b22234")+R(116,178,68,6,"#f4f4f4")
+  +G(C(0,0,32,"#b22234")+C(0,0,24.5,"#f4f4f4")+C(0,0,17,"#b22234")+C(0,0,10.5,"#1d3a8a")+STAR(0,0,9.5,"#f4f4f4"),tr(84,148)),
+dilapi:()=>SKY("#070b18","#18223f")+STARS(60,5)+C(226,58,44,RG(["#fffdf2","#e9e4d0","#cfc8b0"],.4,.35,.8))+C(212,48,6,"#d8d1b8")+C(238,72,8,"#d8d1b8")+C(244,42,4,"#d8d1b8")+CITY(176,"#0b0f1e",44,"#ffd98a")
+  +HAT2("dilapi","hood",146,88,46,"#f4f4f4")+CH("dilapi",146,88,46,"#eeeeee","robe",{belt:"#c9c9c9",arms:[[-1.3,.75],[1.3,.75]],glove:"#e3e3e3"})
+  +P("M150 130a12 12 0 1 0 0 22a9 9 0 1 1 0-22z","#b9b9b9"),
+quincy:()=>SKY("#9fd3f0","#e8f6ff")+FLOOR(150,"#4c9a3a","#2f6b25")+[...Array(18)].map((_,i)=>P(`M${i*18-6} 200Q${i*18} ${120+(i*37)%40} ${i*18+4+(i%3)*3} ${92+(i*29)%50}Q${i*18+6} 130 ${i*18+10} 200Z`,i%2?"#3f8f3a":"#2f7a2a")).join("")
+  +G(E(0,0,96,56,"#7a3d17",'stroke="#4a230b" stroke-width="3"')+L(-40,0,40,0,"#fff",4)+[-24,-12,0,12,24].map(d=>L(d,-7,d,7,"#fff",3)).join(""),tr(200,104,-18))
+  +CH("quincy",62,146,18,"#b3121f","uniform",{badge:0,vc:"#111",arms:[[-1,.9],[1,.9]],glove:"#111"})+P("M40 200Q46 160 44 150Q50 170 52 200Z","#3f8f3a")
+  +BUB(92,64,110,22,["I FEEL MINIMIZED."],66,124,9),
+lucas:()=>SKY("#0a1530","#020611")+[...Array(9)].map((_,i)=>E(150,200,60+i*30,30+i*22,"none",'stroke="#4bd5ee" stroke-width=".8" opacity=".35"')).join("")+[...Array(14)].map((_,i)=>L(150,200,150+Math.cos(Math.PI+i*Math.PI/13)*400,200+Math.sin(Math.PI+i*Math.PI/13)*400,"#4bd5ee",.8,'opacity=".3"')).join("")+STARS(70,17,"#9fe3ff")
+  +["kyle","charles","fluff","squirm","dilapi","quincy"].map((o,i)=>F(o,[40,70,46,256,232,262][i],[44,98,148,40,96,150][i],18,{op:.75,fx:"blue",sh:0})).join("")
+  +CH("lucas",150,92,46,"#2b2b33","suit",{tie:"#7a1f2b",hat:"cerebro",arms:[[-1,1.25],[1,1.25]]}),
+peanut:()=>SKY("#13261c","#050d08")+[...Array(7)].map((_,i)=>E(40+i*40,170-(i%3)*20,60,18,"#3fbf6a",'opacity=".12"')).join("")+[0,1].map(i=>F("peanut",[54,246][i],72,34,{op:.22,fx:"green",sh:0})).join("")
+  +CAPE(150,118,"#5b2a7a")+CH("peanut",150,86,44,"#2f7d4a","uniform",{badge:0,vc:"#5b2a7a",hat:"fishbowl",arms:[[-1.3,.45],[1.3,.45]],glove:"#d4a937"})
+  +[...Array(12)].map((_,i)=>C(150+Math.cos(i*2.1)*100,120+Math.sin(i*1.7)*56,2.5+i%3,"#7dffb0",'opacity=".35"')).join(""),
+jordan:()=>SKY("#6fa3d6","#d4e6f5")+CITY(205,"#4d6d8c",9,"#bcd6ea")+P("M300 0L250 20M300 0L262 40M300 0L282 46","none",'stroke="#fff" stroke-width="1" opacity=".8"')+[1,2,3].map(r=>P(`M${300-r*16} 0Q${300-r*13} ${r*13} 300 ${r*16}`,"none",'stroke="#fff" stroke-width="1" opacity=".8"')).join("")
+  +CH("jordan",140,90,46,"#c8102e","uniform",{badge:0,vc:"#1d3a8a",arms:[[-1.2,1],[1.5,-1.2]],glove:"#c8102e"})+R(106,130,10,80,"#1d3a8a")+R(164,130,10,80,"#1d3a8a")
+  +CLIP(106,126,68,84,[...Array(9)].map((_,i)=>L(140,150,140+Math.cos(i*Math.PI/4.5)*80,150+Math.sin(i*Math.PI/4.5)*80,"#6a0a16",1,'opacity=".75"')).join("")+[1,2,3].map(r=>C(140,150,r*12,"none",'stroke="#6a0a16" stroke-width="1" opacity=".6"')).join(""))
+  +STAR(140,150,6,"#111")+L(209,35,300,-10,"#fff",1.6),
+dylan:()=>SKY("#0b1030","#1f2b6b")+STARS(70,21)+RAYS(150,92,"#ffd166",18,.1)+C(150,92,76,RG(["#ffd166@.35","#ffd166@0"]))
+  +`<g filter="${fx("glow","#ffd166")}">`+CH("dylan",150,86,46,"#c8102e","uniform",{badge:0,vc:"#1d3a8a",arms:[[-1.6,.2],[1.6,.2]],glove:"#ffd166"})+"</g>"
+  +STAR(150,140,13,"#ffd166")+R(116,166,68,9,"#1d3a8a")+[76,224].map(x=>`<g filter="${fx("glow","#fff2b3")}">`+C(x,95,7,"#fff7d6")+"</g>").join(""),
+rod:()=>SKY("#0d0b1a","#1d1430")+R(20,14,260,122,"#0a0a14")+CLIP(20,14,260,122,SKY("#1b1638","#3a2a55")+CITY(136,"#151528",61,"#ffd98a"))+R(20,14,260,122,"none",'stroke="#2a2a3a" stroke-width="5"')+L(150,14,150,136,"#2a2a3a",4)+L(20,74,280,74,"#2a2a3a",3)+FLOOR(136,"#1a1424","#0d0a12")
+  +CH("rod",150,88,48,"#f4f1ea","suit",{tie:"#5b2a7a",shirt:"#5b2a7a",w:1.35,arms:[[-.65,1.4],[.95,1.25]]})+L(196,148,206,204,"#111",3)+C(196,146,4.5,"#d4a937"),
+jerry:()=>SKY("#120a2e","#2e1446")+STARS(60,31)+C(244,50,30,RG(["#ff9b6a","#c2453a"],.35,.35,.8))+E(244,50,50,8,"none",'stroke="#ffd1a1" stroke-width="2" transform="rotate(-18 244 50)"')+C(50,150,80,RG(["#4bd5ee@.25","#4bd5ee@0"]))
+  +CH("jerry",146,88,46,"#8b1e1e","coat",{hat:"headphones",arms:[[-1.45,-.55],[1.15,.95]]})+R(186,126,16,11,"#c8c8c8",'rx="1.5"')+R(189,129,10,4,"#333")+P("M170 102Q190 112 192 126","none",'stroke="#333" stroke-width="1"')
+  +[...Array(4)].map((_,i)=>T(34+i*18,72-i*8,"♪",13,"#ffd166")).join(""),
+skelly:()=>SKY("#1b1230","#0a0614")+C(150,72,64,"#2a1f40",'stroke="#5a4a7a" stroke-width="4"')+[...Array(8)].map((_,i)=>L(150,72,150+Math.cos(i*Math.PI/4)*64,72+Math.sin(i*Math.PI/4)*64,"#5a4a7a",3)).join("")+C(150,72,20,"#3a2a5a",'stroke="#5a4a7a" stroke-width="3"')
+  +CAPE(150,118,"#b3121f",36)+CH("skelly",150,92,46,"#1d3a8a","robe",{belt:"#c9a227",arms:[[-1.55,.35],[1.55,.35]],glove:"#e8c574"})
+  +[79,221].map(x=>`<g filter="${fx("glow","#ff9a3c")}">`+C(x,108,21,"none",'stroke="#ffb703" stroke-width="2"')+C(x,108,15,"none",'stroke="#ff9a3c" stroke-width="1.2" stroke-dasharray="3 2"')+P(`M${x-15} 108L${x} 93L${x+15} 108L${x} 123Z`,"none",'stroke="#ffb703" stroke-width="1"')+"</g>").join(""),
+mateus:()=>SKY("#c9d3dd","#8a96a3")+[...Array(14)].map((_,i)=>L(-20,30+i*12,130+((i*53)%120),30+i*12,"#fff",1.2+(i%3)*.6,'opacity=".55"')).join("")
+  +[.16,.34].map((op,i)=>G(CH("mateus",0,0,44,"#2b5fa8","uniform",{badge:0,vc:"#c0c8d0",arms:[[-1.2,.9],[1.2,.6]],fx:"silver",sh:0}),`transform="translate(${100+i*32} 92)" opacity="${op}"`)).join("")
+  +CH("mateus",172,92,44,"#2b5fa8","uniform",{badge:0,vc:"#c0c8d0",fx:"silver",arms:[[-1.2,.9],[1.3,.5]]}),
+duane:()=>SKY("#04040e","#121a3a")+STARS(80,41)+[...Array(10)].map((_,i)=>L(-20,40+i*15,110+(i*37)%80,58+i*15,"#bfe3ff",1,'opacity=".35"')).join("")+C(252,40,26,RG(["#ffcf7a","#c26a2a"],.35,.35,.8))
+  +G(E(0,0,64,9,"#e8eef5",'stroke="#9aa6b2" stroke-width="2"')+E(-10,-2,40,3,"#fff",'opacity=".7"'),tr(150,172,-8))
+  +`<g filter="${fx("silver")}">`+CH("duane",150,82,44,"#c0c8d0","uniform",{badge:0,vc:"#9aa6b2",arms:[[-1.5,.3],[1.4,-.15]],glove:"#e0e6ec"})+"</g>",
+keeves:()=>SKY("#1a2234","#0b0f1a")+CITY(150,"#121826",14,"#ffd98a")+FLOOR(150,"#20242e")+SPOT(150,60,90,"#ffd98a",.18)
+  +CH("keeves",150,88,46,"#5a4a3a","suit",{tie:"#c0392b",hat:"fedora",hc:"#3a2e22",hat2:"ducky",arms:[[-1,1.2],[1.1,.9]]})+L(199,130,216,125,"#8a5a2b",3)+C(217,124,1.8,"#ff6b35"),
+vicente:()=>SKY("#0d1420","#04070d")+[0,1,2].map(i=>R(18+i*92,20,80,52,"#0a2a3a",'stroke="#2bd6ff" stroke-width="1.5"')+[0,1,2,3].map(j=>L(26+i*92,32+j*10,66+i*92+((i+j)*13)%30,32+j*10,"#2bd6ff",1.4,'opacity=".7"')).join("")).join("")+FLOOR(150,"#0a0e16")
+  +CH("vicente",150,98,48,"#111","coat",{hat:"patch",arms:[[-.6,1.4],[.6,1.4]]}),
+ghost:()=>SKY("#e8eef5","#b7c4d4")+[...Array(6)].map((_,i)=>R(20+i*46,30,30,110,"#cfd8e3",'opacity=".6"')).join("")+FLOOR(150,"#9aa8b8")
+  +[[-36,.14],[36,.14],[-18,.3],[18,.3]].map(([dx,op])=>G(CH("ghost",150+dx,90,46,"#3a3f4a","hoodie",{sh:0}),`opacity="${op}"`)).join("")
+  +CH("ghost",150,90,46,"#3a3f4a","hoodie",{arms:[[-1.2,.9],[1.2,.9]]})
 };
-// props in front of the cut-out for a few scenes
-const CS_FRONT={
-  bb:o=>{const n=short(o),sym=(n[0].toUpperCase()+(n[1]||"").toLowerCase());return `<g transform="translate(222 14)"><rect width="62" height="62" fill="#2d6b3a" stroke="#cfe8d2" stroke-width="2"/><text x="6" y="16" font-size="11" fill="#fff" font-family="sans-serif">${(totals(o)?.seasons||1)}</text><text x="31" y="46" text-anchor="middle" font-size="28" font-weight="800" fill="#fff" font-family="sans-serif">${esc(sym)}</text></g>`},
-  gf:()=>`<g transform="translate(18 150) rotate(-20)"><path d="M0 0h46" stroke="#2f6a2f" stroke-width="3"/><path d="M40 -4l6 6-4 4" stroke="#2f6a2f" stroke-width="2" fill="none"/><circle cx="52" cy="0" r="9" fill="#b3122a"/><path d="M46 -3q6-6 12 0" stroke="#7a0a1a" stroke-width="2" fill="none"/></g>`,
-  office:()=>`<g transform="translate(232 112)"><path d="M0 0h30v30q0 6-6 6H6q-6 0-6-6z" fill="#fff" stroke="#9a8f74" stroke-width="2"/><path d="M30 8q12 0 12 10t-12 10" stroke="#9a8f74" stroke-width="3" fill="none"/><text x="15" y="14" text-anchor="middle" font-size="5.5" font-weight="800" fill="#222" font-family="sans-serif">WORLD'S</text><text x="15" y="22" text-anchor="middle" font-size="5.5" font-weight="800" fill="#222" font-family="sans-serif">BEST</text></g>`,
-  rocky:()=>`<g transform="translate(240 150)"><text font-size="30">🥊</text></g>`
-};
-const CS_ROMAN=n=>{let r="";[[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]].forEach(([v,s])=>{while(n>=v){r+=s;n-=v}});return r||"I"};
-function csPhoto(o,cls=""){return CUT[o]?`<img class="cs-cut ${cls}" src="${CUT[o]}" alt="">`:`<span class="cs-cut cs-avf ${cls}">${av(o)}</span>`}
-// season team names from the weekly files (2018 on) and the draft boards (2016-17)
+// the opener: a one-sheet with a big face under a spotlight
+// trophies on the left for titles, toilets on the right for Sackos
+const POSTER=(o,c="#3a1730",ti=0,sk=0)=>SKY(c,"#06040b")+RAYS(150,-10,"#fff",20,.05)+STARS(30,o.length*7+3,"#fff",0,90)+SPOT(150,80,130,"#fff",.16)
+  +BD(150,96,82,"#14121c","suit",{tie:"#e8c574",shirt:"#f4f4f4"})+F(o,150,96,82,{bob:1})+R(-20,150,340,70,LG(["#06040b@0","#06040b@.85"]))
+  +[...Array(ti)].map((_,i)=>TROPHY(24+i*31,172,.85)).join("")+[...Array(sk)].map((_,i)=>TOILET(276-i*29,176,.8)).join("");
+const CAREER={...CA,...CB,...CC};
+function art(fn){D="";const body=fn()+VIGN();return `<svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs>${D}</defs>${body}</svg>`}
+// one story: poster, a slide per scene, the career summary, then the Marvel match
+function build(o){const K=CAREER[o];if(!K)return [];const tot=totals(o)||{w:0,l:0,pct:0,seasons:0,titles:0,sackos:0},nm=esc(short(o)),out=[],c0=K.scenes[0]?.c||"#3a1730";
+  const ti=tot.titles||0,sk=tot.sackos||0;
+  out.push({c:"cs-poster",st:`--c:${c0}`,html:`<div class="cs-leader" aria-hidden="true"><i></i><span>3</span><span>2</span><span>1</span></div><div class="cs-ptag">${esc(K.tag||"")}</div><div class="cs-art">${art(()=>POSTER(o,c0,ti,sk))}</div><div class="cs-ptitle">${esc(K.poster||OWNERS[o].name)}</div><div class="cs-bill">The Flamingo Men present · ${esc(OWNERS[o].name)} · ${tot.seasons} season${tot.seasons===1?"":"s"}${ti?` · ${ti} title${ti===1?"":"s"}`:""}</div><p class="wr-t">${esc(K.crawl)}</p>`});
+  K.scenes.forEach(s=>out.push({c:"cs-sc",st:`--c:${s.c||"#2a1730"}`,html:`${csKicker(o,s.k)}<div class="cs-art">${art(s.a)}<span class="cs-show">${esc(s.m)}</span></div><div class="cs-title">${esc(s.t)}</div><p class="wr-t">${esc(s.x)}</p>`}));
+  const po=RANK?.playoffs?.[o]?.po,stat=[["Seasons",tot.seasons],["Record",`${tot.w}-${tot.l}`],["Win rate",tot.w+tot.l?(tot.pct*100).toFixed(1)+"%":"–"],["Titles",ti],["Sackos",sk],["Playoff trips",po??"–"],["Trades",tradeCount(o)],["Waiver pickups",pickupCount(o)]];
+  out.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The career so far</div><b style="font-size:1.2rem">${esc(OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">Records include estimates for 2016 and 2017, and the 2026 season so far.</p>`});
+  const [mn,mt,mw]=K.marvel;
+  out.push({c:"cs-marvel",html:`<div class="wr-k">And in the Marvel universe, ${nm} is...</div><div class="cs-art cs-mv-art">${art(MVA[o]||(()=>""))}</div><div class="cs-mv-name">${esc(mn)}</div><span class="cs-mv-tag">${esc(mt)}</span><p class="wr-t">${esc(mw)}</p>`});
+  return out}
+return {CAREER,build};
+})();
 const CS_TEAMS={"charles":{"2018":"The Sal Claps On Planes","2019":"Sal's 12 Chickens","2020":"Sal's 34 Chickens","2021":"Sal's 12 Chickens","2022":"Sal's 12 Chickens","2024":"Christian Crusaders","2025":"Sal's Chickens","2026":"Sal's 4 Chickens","2016":"NY Lorenzos","2017":"Little Bills"},"fluff":{"2018":"Team Duffy","2019":"Oh My BJ","2020":"El Floof","2021":"El Floof","2022":"El Floof","2023":"Floof","2025":"SQUIRMS JUGZ 🍼","2026":"SQUIRMYS SLUTZS","2016":"Team Duffy","2017":"Duane Bernard Jr"},"dilapi":{"2018":"New York Noses","2019":"New York Noses","2020":"New York Noses","2021":"New York Noses","2022":"New York Noses","2023":"New York Noses","2024":"New York Noses","2025":"New York Noses","2026":"New York Noses","2016":"Brklyn Noses","2017":"The Brooklyn Noses"},"squirm":{"2018":"Team Woram","2019":"#dicksoutfor Dolan","2020":"#dicksoutfor Dolan","2021":"#dicksoutfor Dolan","2022":"#dicksoutfor Dolan","2023":"The Feds","2024":"#dicksoutfor Dolan","2025":"#dicksoutfor Dolan","2026":"#dicksoutfor Dolan","2016":"The Hot Mikes","2017":"Squirm"},"quincy":{"2018":"Team Quincy","2019":"Team Quincy","2020":"Team Quincy","2021":"The Hospital FÜĆKCMC","2022":"Free Ime Idoka","2023":"Team Curran","2024":"Jayson Tatums Aura","2025":"Drake Maye's Aura","2026":"Quincy Jonesin' for a TD"},"kyle":{"2018":"Dilapi aint Makingthe yoffs","2019":"Bittersweet Distract0rs","2020":"Bittersweet Distract0rs","2021":"The Monglers","2022":"THE MONGLERS","2023":"THE MNGLRS","2024":"THE MONGLERS","2025":"THE MONGLERS","2026":"THE MONGLERS","2016":"The Salty Andres","2017":"NYC Klugeys"},"peanut":{"2018":"Hempstead Cummings","2019":"The Yogurtlechefts","2020":"Pirate King","2021":"The Bengali Bhavi Bangalore","2022":"Shivakamini Somakandarkram","2023":"Dr. Kakofonus A. Dischord","2025":"THE LAND DOWN UNDER","2016":"Triggered Antonoccis","2017":"Team Peanus"},"lucas":{"2018":"Staten Island Salvatores","2019":"SAL SAL SAL SAL","2020":"Los Stogies","2021":"Los Stogies","2023":"Team Pace","2024":"Lucas's Loud Team","2025":"Lucas' Loud Team","2026":"Student Ath-o-letes","2016":"Patcher's","2017":"The 718 Pahtinis"},"skelly":{"2019":"Team Kelly","2020":"Team Kelly","2021":"Team Kelly"},"mateus":{"2019":"Team Toppin"},"jordan":{"2020":"Let Dalvin Cook","2021":"Bishop Sycamore JV","2022":"Jerry Jewdys","2024":"Galaxy Liberators","2025":"Galaxy Liberators","2026":"Galaxy Liberators"},"rod":{"2022":"RodFather","2023":"MisoTrillerBoy","2024":"Team Rod","2026":"2girls 1Kupp","2017":"The Dominican DS"},"jerry":{"2022":"Chicago Tïttysquashers","2023":"The Encino Men","2024":"The Encino Men","2026":"Chicago Tiddysquashers"},"dylan":{"2023":"Sultans of Squirm","2024":"Sultans of Squirm","2025":"Sultans of Squirm","2026":"Sultans of Squirm"},"ghost":{"2026":"Vick's Vet Clinic"},"duane":{"2016":"Emmustangs"},"vicente":{"2017":"Quleefie Beefies"},"keeves":{"2017":"Patrick"}};
 function csTeam(o,y){if(CS_TEAMS[o]?.[y])return CS_TEAMS[o][y];const m=teamNames(o)[y];if(m&&m.size)return [...m][0];const d=DRAFTS[y]?.teams?.find(t=>t[1]===o);return d?d[0]:""}
 function csResult(o,y){if(SACKOS[y]?.o===o)return ["Sacko","sk"];const p=playoffResult(y,o);if(p)return [p,p==="Champion"?"ch":"po"];
+  if(!S[o]?.seasons?.[y]&&!(NOREC[o]||[]).includes(y))return ["Sat out","so"];
   if(y>=ALL_YEARS[ALL_YEARS.length-1])return ["In progress","lv"];return ["Missed the playoffs","mi"]}
-function csKicker(o,y){if(typeof y==="string")return `<div class="wr-k">${esc(y)}</div>`;
-  const r=S[o]?.seasons?.[y],t=csTeam(o,y),[res,c]=csResult(o,y);
+// a scene's kicker: one season (team, record, result), a group of seasons (one chip each), or a plain label
+function csSpan(ys){const a=[...ys].sort((x,y)=>x-y);if(a.length===1)return String(a[0]);
+  if(a.length>2&&a.every((y,i)=>!i||y===a[i-1]+1))return `${a[0]} to ${a[a.length-1]}`;return `${a.slice(0,-1).join(", ")} and ${a[a.length-1]}`}
+function csChip(o,y){const r=S[o]?.seasons?.[y],[res,c]=csResult(o,y);
+  return `<span class="cs-res ${c}">${y}${r?` · ${r.w}-${r.l}${r.est?" est.":""}`:""} · ${c==="ch"?"🏆 ":c==="sk"?"🚽 ":""}${esc(c==="mi"?"Missed playoffs":res)}</span>`}
+function csKicker(o,k){if(typeof k==="string")return `<div class="wr-k">${esc(k)}</div>`;
+  if(Array.isArray(k))return `<div class="wr-k">${csSpan(k)}</div><div class="cs-chips">${k.map(y=>csChip(o,y)).join("")}</div>`;
+  const r=S[o]?.seasons?.[k],t=csTeam(o,k),[res,c]=csResult(o,k);
   const rec=r?`${r.w}-${r.l}${r.est?" (est.)":""}`:"";
-  return `<div class="wr-k">${y}${t?` · ${esc(t)}`:""}${rec?` · ${rec}`:""}</div><span class="cs-res ${c}">${c==="ch"?"🏆 ":c==="sk"?"🚽 ":""}${esc(res)}</span>`}
-function csBuild(o){const C=CAREER[o],T=totals(o)||{w:0,l:0,pct:0,seasons:0,titles:0,sackos:0},out=[],nm=esc(short(o));
-  const yrs=Object.keys(S[o]?.seasons||{}).map(Number).concat(NOREC[o]||[]).sort((a,b)=>a-b);
-  const span=yrs.length?(yrs[0]===yrs[yrs.length-1]?yrs[0]:`${yrs[0]} to ${yrs[yrs.length-1]}`):"";
-  const crawl=`It is year ${ALL_YEARS.length} of the Flamingo Men. ${OWNERS[o].name.toUpperCase()} has played ${T.seasons} season${T.seasons===1?"":"s"}${span?`, ${span}`:""}, with ${T.titles||"no"} title${T.titles===1?"":"s"} and ${T.sackos||"no"} Sacko${T.sackos===1?"":"s"}. ${C.crawl} This is his story...`;
-  out.push({c:"cs-intro",html:`<div class="cs-stars"></div><p class="cs-ago">A long time ago, in a fantasy league on Long Island...</p><div class="cs-crawl"><div class="cs-crawl-in"><div class="cs-ep">Episode ${CS_ROMAN(T.seasons||1)}</div><div class="cs-eptitle">The ${nm} Saga</div><p>${esc(crawl)}</p></div></div>`});
-  C.scenes.forEach(([y,art,title,text])=>{
-    out.push({c:"cs-"+art,html:`${csKicker(o,y)}<div class="cs-art cs-a-${art}"><svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${CS_BG[art]}</svg>${csPhoto(o)}${CS_FRONT[art]?`<svg class="cs-front" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${CS_FRONT[art](o)}</svg>`:""}<span class="cs-show">${esc(CS_SHOW[art])}</span></div><div class="cs-title">${esc(title)}</div><p class="wr-t">${esc(text)}</p>`})});
-  const po=RANK?.playoffs?.[o]?.po,stat=[["Seasons",T.seasons],["Record",`${T.w}-${T.l}`],["Win rate",T.w+T.l?(T.pct*100).toFixed(1)+"%":"–"],["Titles",T.titles||0],["Sackos",T.sackos||0],["Playoff trips",po??"–"],["Trades",tradeCount(o)],["Waiver pickups",pickupCount(o)]];
-  out.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The career so far</div><b style="font-size:1.2rem">${esc(OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">Records include estimates for 2016 and 2017, and the 2026 season so far.</p>`});
-  const [mn,mt,mw]=C.marvel;
-  out.push({c:"cs-marvel",html:`<div class="wr-k">And in the Marvel universe, ${nm} is...</div><div class="cs-mv-art"><svg viewBox="0 0 200 200" aria-hidden="true"><path class="burst" d="M100 4l14 40 38-22-12 40 44 4-36 26 30 32-42-8 4 42-30-30-20 38-12-42-38 18 18-38-42-12 40-18-24-36 42 6z" fill="#ffd23f" stroke="#191414" stroke-width="4"/></svg>${csPhoto(o,"mv")}</div><div class="cs-mv-name">${esc(mn)}</div><span class="cs-mv-tag">${esc(mt)}</span><p class="wr-t">${esc(mw)}</p>`});
-  return out}
+  return `<div class="wr-k">${k}${t?` · ${esc(t)}`:""}${rec?` · ${rec}`:""}</div><span class="cs-res ${c}">${c==="ch"?"🏆 ":c==="sk"?"🚽 ":""}${esc(res)}</span>`}
 let csS=[],csI=0;
 function csShow(){const st=$("#csStage"),s=csS[csI];st.querySelector(".wr-bars").innerHTML=csS.map((_,i)=>`<i class="${i<=csI?"on":""}"></i>`).join("");
-  st.querySelector(".wr-body").innerHTML=`<div class="wr-slide cs ${s.c}${s.c==="cs-intro"?"":" wr-in"}">${s.html}</div>`;
+  st.querySelector(".wr-body").innerHTML=`<div class="wr-slide cs ${s.c} wr-in${s.seen?" cs-seen":""}"${s.st?` style="${s.st}"`:""}>${s.html}</div>`;s.seen=1;
   st.querySelector(".wr-hint").textContent=csI<csS.length-1?"Tap to continue":"Tap to close"}
 function csStep(k){const n=csI+k;if(n<0)return;if(n>=csS.length){$("#csDlg").close();return}csI=n;csShow()}
 function openCareer(o){let dlg=$("#csDlg");
@@ -2575,9 +3175,9 @@ function openCareer(o){let dlg=$("#csDlg");
     dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();csStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();csStep(-1)}});
     let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
     dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();csStep(dx<0?1:-1)}})}
-  csS=csBuild(o);csI=0;csShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()}
+  csS=CS.build(o);csI=0;csShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()}
 function careerPicker(){const box=$("#csPick");if(!box||box.dataset.ready)return;box.dataset.ready=1;
-  const os=ORDER.filter(o=>CAREER[o]&&OWNERS[o]);
+  const os=ORDER.filter(o=>CS.CAREER[o]&&OWNERS[o]);
   const f=$("#csFaces");if(f)f.innerHTML=["kyle","charles","fluff","squirm","lucas"].map(o=>av(o)).join("");
   box.querySelector(".cs-pick-btn").onclick=()=>{let dlg=$("#csPickDlg");
     if(!dlg){dlg=document.createElement("dialog");dlg.id="csPickDlg";dlg.className="wrpdlg cspdlg";dlg.setAttribute("aria-label","Pick a team");document.body.appendChild(dlg);
