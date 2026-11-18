@@ -209,6 +209,8 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .trades-list{display:grid;gap:10px}
 .tag{display:inline-block;font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:99px;background:var(--stone);color:var(--muted)}
 .tag.veto{background:var(--flamingo);color:#fff}
+.punish{border:1px dashed #8a5a2b;border-radius:12px;padding:10px 12px;background:rgba(138,90,43,.08);max-width:65ch}.punish p{margin:4px 0 0}
+.punish-ph{display:flex;gap:8px;margin-top:8px}.punish-ph button{all:unset;cursor:pointer}.punish-ph img{width:84px;height:84px;object-fit:cover;border-radius:9px;display:block}
 /* named matchups (Kyle 2026-11-18): Lucas on Halloween week = Hollow Night Bowl, Peanut vs Squirm = Cuzzie Bowl */
 .tag.bowl.hn,.ws-tag.hn,b.bowl.hn{background:#ff7a1a;color:#1a0d00}.tag.bowl.cuz,.ws-tag.cuz,b.bowl.cuz{background:#8fd3ff;color:#0b2233}
 .mu .tag.bowl{justify-self:start}.game .gmeta b.bowl{padding:0 6px;border-radius:99px;font-weight:800}
@@ -1559,6 +1561,8 @@ const DRAFT_EXTRA = [
   {year:2016,img:"draft-2016-mongled1.jpg",t:"Floof gets mongled",cap:"Floof getting mongled on the carpet by Chris at the 2016 draft. Both of them are grinning."},
   {year:2016,img:"draft-2016-mongled2.jpg",t:"Still mongling",cap:"Round two: Chris keeps Floof pinned by the radiator while the draft goes on without them."},
   {year:2017,img:"draft-2017-scene.jpg",cap:"The 2017 draft crew at Vicente's house."},
+  {year:2021,img:"draft-2021-wonder-woman1.jpg",t:"Sticker bitch",cap:"DiLapi serving his 2020 Sacko punishment at the 2021 draft: sticker bitch, dressed as Wonder Woman, putting every pick on the board."},
+  {year:2021,img:"draft-2021-wonder-woman2.jpg",t:"Wonder Woman, off duty",cap:"DiLapi taking a break from sticker duty at the 2021 draft, still in the Wonder Woman costume."},
   {year:2023,img:"draft-2023-board1.jpg",t:"Sacko punishment",cap:"Lucas in his Sacko punishment costume, zebra ears and tutu, presenting the 2023 board. The note on it says \"Long live Chattles.\""},
   {year:2023,img:"draft-2023-board2.jpg",t:"Hand on hip",cap:"Lucas, still in the Sacko costume, giving the board one more pose."},
   {year:2023,img:"draft-2023-tutu.jpg",t:"The tutu",cap:"Lucas settling into the 2023 draft in his Sacko punishment tutu and zebra ears."},
@@ -3368,12 +3372,18 @@ function tradeBox(id,o){if(TRI_OF[id])return triBox(TRI_OF[id],o);const t=TR.fin
     <div class="tbox-sides">${list(x[me].got,"Got")}<div class="arr" aria-hidden="true">⇄</div>${list(x[op].got,"Gave")}</div>${lore(id)}</article>`}
 
 /* ---------- SACKOS ---------- */
+// the punishment each Sacko loser served, served at the next draft (Kyle 2026-11-18). Add a year when Kyle gives it.
+const SACKO_PUNISH={
+  2020:{x:"Sticker bitch at the 2021 draft, dressed as Wonder Woman: DiLapi put every pick on the board himself.",ph:[["img/draft-2021-wonder-woman1.jpg","DiLapi as Wonder Woman, sticker bitch at the 2021 draft."],["img/draft-2021-wonder-woman2.jpg","DiLapi, still Wonder Woman, on a break from sticker duty."]]},
+  2021:{x:"Lucas sat out 2022 in London, so the punishment waited for him: he showed up to the 2023 draft in zebra ears and a tutu and presented the board in costume.",ph:[["img/draft-2023-board1.jpg","Lucas in his Sacko punishment costume at the 2023 draft."],["img/draft-2023-tutu.jpg","Lucas in the tutu and zebra ears at the 2023 draft."]]}};
+function punishHTML(y){const p=SACKO_PUNISH[y];if(!p)return "";
+  return `<div class="punish"><div class="eyebrow">The punishment</div><p>${esc(p.x)}</p>${p.ph?.length?`<div class="punish-ph">${p.ph.map(([src,cap])=>`<button type="button" data-full="${src}" data-gal="pun${y}" data-cap="${esc(cap)}" data-t="${y} Sacko punishment"><img src="${src}" alt="${esc(cap)}" loading="lazy"></button>`).join("")}</div>`:""}</div>`}
 function renderSackos(){
   $("#sackoList").innerHTML=SEASONS.slice().reverse().map(y=>{const k=SACKOS[y];if(!k)return "";
     return `<article class="champ won sackoed"><div class="champ-top"><div class="champ-photo">${cutout(k.o)}<div class="yr">${y}</div></div><div class="champ-head">
       <div><span class="eyebrow">${sackoMark()} ${y} Sacko</span><h2>${esc(OWNERS[k.o].name)}</h2>${k.team!==short(k.o)?`<span class="muted">${esc(k.team)}</span>`:""}</div>
       ${seasonLine(k.o,y)}
-      ${SACKO_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(SACKO_STORY[y])}</p>`:""}</div></div><div class="champ-body">
+      ${SACKO_STORY[y]?`<p style="margin:0;max-width:65ch">${esc(SACKO_STORY[y])}</p>`:""}${punishHTML(y)}</div></div><div class="champ-body">
       ${sackoNote(y)}
       ${(d=>d?`<div><div class="eyebrow">Sacko roster</div><ul class="roster">${d.roster.map(([p,n])=>`<li><b>${p}</b>${pn(n)}</li>`).join("")}</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">${esc(d.rosterNote)}</p></div>`:"")(SACKO_DETAIL[y])}
     </div></article>`}).join("");
