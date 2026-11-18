@@ -121,5 +121,7 @@ t=t.replace('/*PLAYOFFS*/',open(os.path.join(root,'data','playoffs.json')).read(
 t=t.replace('/*RECORDS*/',open(os.path.join(root,'data','records.json')).read())
 t=t.replace('/*RANKINGS*/',open(os.path.join(root,'data','rankings.json')).read() if os.path.exists(os.path.join(root,'data','rankings.json')) else '{}')
 t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() if os.path.exists(os.path.join(root,'data','stories.json')) else '{}')
+# biggest rival per owner and the head-to-head bouts behind the boxing story, from src/rivals.py
+t=t.replace('/*RIVALS*/',open(os.path.join(root,'data','rivals.json')).read() if os.path.exists(os.path.join(root,'data','rivals.json')) else '{}')
 open(os.path.join(root,'index.html'),'w').write(t)
 print('ok',len(t))
