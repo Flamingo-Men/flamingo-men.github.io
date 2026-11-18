@@ -1033,6 +1033,76 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   .who{gap:8px}
   th,td{padding:9px 10px}
 }
+/* CAREER STORY (Kyle 2026-11-18): pick an owner, watch the whole career as movie and TV scenes, end on a Marvel match */
+.cs-pick{margin-top:22px;border-radius:14px;padding:16px;color:#fff;position:relative;overflow:hidden;
+  background:radial-gradient(120% 140% at 100% 0%,#d9577e 0%,#3a1730 45%,#0d0a14 100%);box-shadow:0 6px 20px -10px rgba(0,0,0,.6)}
+.cs-pick::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,#0d0a14 0 10px,#e8c574 10px 16px,#0d0a14 16px 26px);opacity:.55}
+.cs-pick::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:repeating-linear-gradient(90deg,#0d0a14 0 10px,#e8c574 10px 16px,#0d0a14 16px 26px);opacity:.55}
+.cs-pick-btn{display:flex;align-items:center;gap:14px;width:100%;border:0;background:none;color:#fff;text-align:left;cursor:pointer;padding:8px 0;font:inherit}
+.cs-pick-btn b{display:block;font-family:var(--f-display);font-size:1.35rem;letter-spacing:.02em;line-height:1.1}
+.cs-pick-btn small{display:block;opacity:.85;font-size:.88rem;margin-top:3px}
+.cs-pick-btn .wr-play{margin-left:auto;flex:none;width:46px;height:46px;border-radius:50%;background:#e8c574;color:#191414;display:grid;place-items:center;font-size:1.05rem}
+.cs-pick-faces{display:flex;flex:none}
+.cs-pick-faces .av{width:38px;height:38px;border:2px solid #0d0a14;margin-left:-12px}.cs-pick-faces .av:first-child{margin-left:0}
+@media (max-width:640px){.cs-pick-faces{display:none}}
+.cspdlg .wrp-h{background:linear-gradient(120deg,#d9577e,#3a1730)}
+.cspdlg .wrp-list button:hover,.cspdlg .wrp-list button:focus-visible{background:rgba(217,87,126,.25);border-color:#d9577e}
+.cs{justify-content:center;gap:10px;padding:52px 22px 44px;background:linear-gradient(170deg,#2a1730,#0d0a14)}
+.cs::before,.cs::after{opacity:.18;filter:blur(40px)}
+.cs.cs-sopranos{background:linear-gradient(170deg,#3a1d3f,#0d0a14)}.cs.cs-bb{background:linear-gradient(170deg,#8a4a1a,#1f1408)}
+.cs.cs-sp{background:linear-gradient(170deg,#2f6fa8,#0f2236)}.cs.cs-lotr{background:linear-gradient(170deg,#5a2a1c,#120c0a)}
+.cs.cs-sw{background:linear-gradient(170deg,#141a33,#020208)}.cs.cs-gf{background:linear-gradient(170deg,#3a1d0c,#050302)}
+.cs.cs-office{background:linear-gradient(170deg,#6e6754,#1d1b16)}.cs.cs-rocky{background:linear-gradient(170deg,#7a1c22,#0d0f1a)}
+.cs.cs-titanic{background:linear-gradient(170deg,#1c3b6b,#050a18)}
+.cs .wr-k{line-height:1.4}
+#csStage .wr-nav:focus{outline:none}
+.cs-res{align-self:flex-start;font-family:var(--f-data);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.16)}
+.cs-res.ch{background:#e8c574;color:#191414;font-weight:700}.cs-res.sk{background:#6d4c41}.cs-res.po{background:rgba(232,197,116,.3)}.cs-res.lv{background:#d9577e}
+.cs-art{position:relative;width:100%;aspect-ratio:3/2;border-radius:14px;overflow:hidden;flex:none;box-shadow:0 10px 30px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.18)}
+.cs-art>svg{position:absolute;inset:0;width:100%;height:100%}
+.cs-art .cs-front{z-index:2;pointer-events:none}
+.cs-cut{position:absolute;left:50%;bottom:0;height:74%;width:auto;max-width:62%;object-fit:contain;object-position:bottom;transform:translateX(-50%);z-index:1;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5));animation:csBob 3.2s ease-in-out infinite}
+.cs-avf{display:block;height:56%;aspect-ratio:1;bottom:10%}.cs-avf .av{width:100%;height:100%;border:3px solid #fff}
+@keyframes csBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-3px)}}
+.cs-a-sp .cs-cut{filter:drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(0 4px 4px rgba(0,0,0,.35));animation:csHop 1.2s ease-in-out infinite}
+@keyframes csHop{0%,100%{transform:translateX(-50%) translateY(0) rotate(-2deg)}50%{transform:translateX(-50%) translateY(-6px) rotate(2deg)}}
+.cs-a-sopranos .cs-cut{filter:drop-shadow(0 0 12px rgba(255,79,163,.45)) saturate(.9)}
+.cs-a-gf .cs-cut{filter:sepia(.45) contrast(1.1) drop-shadow(0 8px 12px rgba(0,0,0,.7))}
+.cs-a-titanic .cs-cut{filter:saturate(.6) hue-rotate(-10deg) brightness(.9) drop-shadow(0 6px 10px rgba(0,0,0,.5));animation:csSink 4s ease-in-out infinite}
+@keyframes csSink{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px) rotate(3deg)}}
+.cs-a-sw .cs-cut{filter:drop-shadow(0 0 10px rgba(90,184,255,.5))}
+.cs-a-lotr .cs-cut{filter:drop-shadow(0 0 10px rgba(255,210,63,.35)) drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.cs-art .neon{animation:csNeon 2.4s steps(1) infinite}@keyframes csNeon{0%,100%{opacity:1}46%{opacity:.35}50%{opacity:1}53%{opacity:.5}}
+.cs-art .ring{animation:csRing 2.6s ease-in-out infinite;transform-origin:56px 50px}@keyframes csRing{50%{transform:scale(1.12);opacity:.8}}
+.cs-art .lava{animation:csRing 1.8s ease-in-out infinite;transform-origin:227px 52px}
+.cs-art .sabers{animation:csSab 1.6s ease-in-out infinite}@keyframes csSab{50%{opacity:.8}}
+.cs-show{position:absolute;top:8px;left:8px;z-index:3;font-family:var(--f-data);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.6);color:#fff;padding:3px 8px;border-radius:99px}
+.cs-title{font-family:var(--f-display);font-size:clamp(1.5rem,7vw,2.1rem);line-height:1.05;letter-spacing:.01em}
+.cs .wr-t{font-size:.98rem;line-height:1.42;max-width:none}
+@media (max-height:700px){.cs .wr-t{font-size:.9rem}.cs-title{font-size:1.4rem}.cs-art{aspect-ratio:16/9}}
+/* intro: opening crawl */
+.cs.cs-intro{background:#020208;justify-content:center;padding:0}
+.cs-stars{position:absolute;inset:0;z-index:0!important;background-image:radial-gradient(1px 1px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 70% 10%,#fff,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#fff,transparent),radial-gradient(1px 1px at 85% 60%,#fff,transparent),radial-gradient(1px 1px at 10% 70%,#fff,transparent),radial-gradient(1px 1px at 55% 45%,#fff,transparent);background-size:180px 180px;opacity:.8}
+.cs-ago{position:absolute!important;left:28px;right:28px;top:40%;margin:0;color:#4bd5ee;font-size:1.15rem;line-height:1.4;animation:csAgo 3.6s ease forwards}
+@keyframes csAgo{0%{opacity:0}15%,70%{opacity:1}100%{opacity:0;visibility:hidden}}
+.cs-crawl{position:absolute!important;inset:0;perspective:320px;overflow:hidden;opacity:0;animation:csShow 0s 3.4s forwards}
+@keyframes csShow{to{opacity:1}}
+.cs-crawl-in{position:absolute;left:10%;right:10%;top:100%;transform-origin:50% 100%;transform:rotateX(26deg);color:#ffd54a;text-align:center;font-weight:800;animation:csCrawl 34s linear 3.4s forwards}
+@keyframes csCrawl{from{top:100%}to{top:-170%}}
+.cs-ep{font-family:var(--f-data);letter-spacing:.2em;font-size:1rem}
+.cs-eptitle{font-size:2rem;text-transform:uppercase;margin:6px 0 18px;line-height:1.05}
+.cs-crawl-in p{font-size:1.25rem;line-height:1.5;text-align:justify;margin:0}
+@media (prefers-reduced-motion:reduce){.cs-ago{display:none}.cs-crawl{opacity:1;animation:none}.cs-crawl-in{animation:none;top:12%;transform:none}.cs-cut{animation:none}}
+/* summary + marvel finale */
+.cs.cs-sum{justify-content:center;background:linear-gradient(170deg,#d9577e,#241a33)}
+.cs.cs-marvel{justify-content:center;align-items:center;text-align:center;background-color:#b3121f;background-image:radial-gradient(rgba(0,0,0,.22) 1.4px,transparent 1.6px);background-size:9px 9px}
+.cs-mv-art{position:relative;width:min(62vw,240px);aspect-ratio:1;flex:none}
+.cs-mv-art svg{position:absolute;inset:0;width:100%;height:100%;animation:csBurst 6s linear infinite}
+@keyframes csBurst{to{transform:rotate(360deg)}}
+.cs-mv-art .cs-cut.mv{height:86%;max-width:80%}
+.cs-mv-name{font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(2.2rem,11vw,3.4rem);line-height:.95;letter-spacing:-.01em;color:#fff;text-shadow:3px 3px 0 #191414,-1px -1px 0 #191414,1px -1px 0 #191414,-1px 1px 0 #191414}
+.cs-mv-tag{font-family:var(--f-data);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;background:#ffd23f;color:#191414;padding:4px 12px;border-radius:4px;font-weight:700;transform:rotate(-3deg)}
+.cs.cs-marvel .wr-t{max-width:34ch}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1162,6 +1232,7 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
       <details class="dblock" data-k="trades"><summary><h2>Trade tracker</h2><span class="dsub">Is it paying off? Starting points since the deal</span></summary>
         <div class="tt-list" id="tradeTrack"></div></details>
     </div>
+    <div class="cs-pick" id="csPick"><button type="button" class="cs-pick-btn"><span class="cs-pick-faces" id="csFaces"></span><span><b>Your career, the movie</b><small>Pick a team and watch their whole Flamingo Men career play out as scenes from the movies and shows</small></span><span class="wr-play" aria-hidden="true">▶</span></button></div>
   </div>
 </section>
 
@@ -1789,7 +1860,7 @@ function renderHome(){
   {const cy=ALL_YEARS[ALL_YEARS.length-1],yn=cy-2015,nt=Object.keys(LIVE).length||12;   // always the current season
    $("#yearline").textContent=`Year ${yn} · ${cy} season`;$("#heroLine").textContent=`Year ${yn} of the republic · ${nt} teams · ${cy} season underway`}
   $("#heroStats").innerHTML=[[ALL_YEARS.length,"Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
-  if(!dashTimer){dashPrefs();loadDash();wrPicker();
+  careerPicker();if(!dashTimer){dashPrefs();loadDash();wrPicker();
     // re-pull every two minutes while a week is being played and the home page is open
     dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
   else renderDash();
@@ -2198,6 +2269,321 @@ function openWrapped(o,y){let dlg=$("#wrDlg");
     let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
     dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();wrStep(dx<0?1:-1)}})}
   wrO=o;wrS=WR[o][y];wrI=0;wrShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()}
+
+// Career story (Kyle 2026-11-18): pick an owner, then a tap-through movie of his whole league career.
+// Every owner's story has a Sopranos, Breaking Bad, South Park, Lord of the Rings and Star Wars scene, and ends on a Marvel match.
+// scenes: [year or kicker text, art, title, text]. A number gets the record, team and result from the data. Facts only from memory, data or Kyle.
+const CAREER={
+kyle:{crawl:"Commissioner from 2018 to 2024, the busiest trader this side of Charles, and a man who has never met a roster he didn't want to blow up.",
+ scenes:[
+  [2016,"sopranos","The Sit-Down","Year one, and Kyle is already running a crew. He sends Julio Jones, Jordan Reed and Mark Ingram to Charles for two retired guys and Alshon Jeffery. Tony would call it a business arrangement. The league calls it the founding scandal."],
+  [2017,"lotr","The Return of the King","He isn't even at the draft and still ends up with the first pick. He goes 10-2, flips Kamara to Charles for Zeke right before the playoffs, watches Kamara get hurt against him in round one, and walks out with the ring."],
+  [2018,"sp","Dilapi Aint Makingthe Yoffs","Kyle names his whole team after DiLapi missing the playoffs. South Park rules: mean, specific, and correct. Kyle misses them too."],
+  [2019,"sw","The Phantom Menace","The Zeke trade with Skelly gets vetoed, then the league votes it back through. Kyle has built a Death Star. Then David Johnson gets hurt, the exhaust port is wide open, and the super team misses the playoffs."],
+  [2020,"bb","The Crawl Space","1-11. Walt lying in the crawl space laughing, except Kyle is laughing because he somehow escaped the Sacko. Also, on the drive home from the draft, Quincy throws up all over his car."],
+  [2021,"office","The Monglers Paper Company","Kyle rebrands as The Monglers and makes 15 trades, including Chubb, Diggs and Evans for Aaron Jones and Tyreek Hill. Like Michael Scott starting his own company, the brand shows up before the results do."],
+  [2022,"rocky","The Training Montage","Another year on the outside looking in, and the last one of the drought. Every Rocky movie needs a montage before the comeback."],
+  [2023,"gf","An Offer He Can't Refuse","Kyle makes Jerry an offer: Garrett Wilson for Aaron Jones and Anthony Richardson. Trade Rape of the Year. He goes 11-2, then beats Jerry again in the final. Ring number two."],
+  [2024,"titanic","The Band Keeps Trading","Kyren Williams and DK Metcalf go to Jordan. Travis Kelce and Chuba Hubbard go to Dylan, who wins the title with them. The ship goes down at 4-9 and the band keeps trading."],
+  [2025,"bb","Say My Name","Achane in week one, Waddle from Quincy in November, then a final against Lucas, who plays nine. Ring number three, tied for the most in league history. You're goddamn right."],
+  [2026,"sp","Quincy Feels Minimized","Kyle trades for Romeo Doubs. Quincy, whose plan to put every trade to a league vote got laughed out of the room, announces he feels minimized. Basically a South Park town meeting."]
+ ],
+ marvel:["Loki","Antihero","The God of Mischief. Collusion in year one, a vetoed trade voted back through, 15 deals in a season, and a whole team named after DiLapi. Every scheme looks doomed right up until he's holding the scepter again. Three times."]},
+charles:{crawl:"Three crowns, the most trades in league history, and a family of chickens whose number goes up and down with the market.",
+ scenes:[
+  ["2015 · The Wu-Tang · Unofficial","sopranos","The Wu-Tang Job","Before the league was official, Charles won it, then sold Quincy a freshly injured Jamaal Charles for Randall Cobb and James Jones. Quincy celebrated. Jamaal was out for the year. The title doesn't count. The legend does."],
+  [2016,"lotr","One Does Not Simply Win in Week 17","He chases Julio Jones for a month, gets him, goes 12-1, and loses the two-week final to Duane 242 to 190 while his stars sit out the last week of the NFL season. The league moves the final up a week because of it."],
+  [2017,"sw","It's a Trap","He trades Peanut a secret for Peanut's draft pick. Nobody knows the secret. Then he takes Kamara from Kyle for Zeke, Kamara gets hurt in their playoff game, and Kyle knocks him out."],
+  [2018,"sp","They Took Our Jerseys","Charles buys a Kareem Hunt jersey days before the Hunt video comes out, ruining his team and the jersey. He still makes the final and loses it to Fluff."],
+  [2019,"sopranos","Boss of the Family","Sal's 12 Chickens are in 15 of the year's 25 trades. Hopkins for Julio and Guice, Aaron Jones for Tyler Boyd. The family business is booming, and Charles takes his first ring."],
+  [2020,"bb","The Empire Business","He sends Kupp and Conner to Kyle for Tyreek, buys Kupp back three days later, and repeats. Peanut goes up 50 in the final and declares himself champion. Kamara drops 56 and Charles cooks."],
+  [2021,"titanic","The Iceberg","6-7 and no playoffs, the one year his ship hits the ice."],
+  [2022,"gf","The Great Dealer","Justin Jefferson from Jordan for four starters, Tyreek Hill from the Noses for four more, and a mid-matchup commissioner add on a Monday night. Every offer one nobody refuses. Ring number three."],
+  ["2023 · Sat out","lotr","Into the West","Charles sails off to the Undying Lands and sits the season out."],
+  [2024,"rocky","Out of Retirement","The old champ comes back as Christian Crusaders and goes the distance, but the judges don't give him a playoff spot."],
+  [2025,"sw","Struck Down","Back in the playoffs as the 2 seed, and Kyle strikes him down in the semis, 303 to 207."],
+  [2026,"office","Down to Four Chickens","Sal's 34 Chickens in 2020, Sal's 12 Chickens after that, and now Sal's 4 Chickens. The flock is shrinking. The ambition isn't."]
+ ],
+ marvel:["Thanos","Villain","He collects stars the way Thanos collects Infinity Stones: Julio, Hopkins, Kupp, Tyreek, Justin Jefferson. Three titles, more trades than anyone, and a habit of snapping half the league's rosters out of existence. Inevitable."]},
+fluff:{crawl:"The best career win rate in the league, the only owner to go from Sacko to champion, and a man who almost never trades.",
+ scenes:[
+  [2016,"sp","Oh My God, They Sacko'd Fluff","The first Sacko in league history. He also tries to collude with Kyle while hanging out with Alex Katemaris, and fails. Kenny would understand."],
+  [2017,"office","Duane Bernard Jr.","Dwight-level devotion: he names his team after the guy who won the title the year before. He goes 9-3 and still misses the playoffs."],
+  [2018,"lotr","There and Back Again","Two years after the first Sacko, the hobbit comes home with the treasure: 9-3, 1,806.76 points, still the best regular season ever, and the title."],
+  [2019,"sw","The Death Star Blows Up","Best record in the league again, then Squirm drops 285 on him in round one."],
+  [2020,"titanic","No Room on the Door","8-4 and left out of the playoffs. Sorry, Jack."],
+  [2021,"bb","Never Trust Your Partner","He takes Chubb and Diggs from Squirm in December. Squirm cooks with Zeke and Godwin and wins the title. Fluff goes out in round one."],
+  [2022,"sopranos","Session with Melfi","4-9. A lot to unpack with the therapist."],
+  [2023,"sp","Town Meeting","11-2 and first place, and the league votes down his Ja'Marr Chase for Kamara and Kupp trade with Peanut twice in one evening. Then he loses in round one."],
+  ["2024 · Sat out","sw","Exile on Dagobah","So angry about the veto that he sits out the entire season. Yoda in a swamp, but madder."],
+  [2025,"rocky","Back in the Ring","Returns from exile as SQUIRMS JUGZ. Clearly not over the Squirm thing either."],
+  [2026,"lotr","Chasing a Second Ring","The first 12-team year, and Floof comes out flying. Ten years after the first Sacko, he wants another ring."]
+ ],
+ marvel:["Hulk","Hero","The best win rate in the league, almost never trades, and when the league vetoed him he smashed his way out for a whole season. Don't make him angry. You wouldn't like him when he's angry."]},
+squirm:{crawl:"Old Hickory. Four finals, one ring, a cousin he would bench himself for, and two different owners who named their teams after him.",
+ scenes:[
+  [2016,"sopranos","Family First","He benches his own team so his cousin Peanut can make the playoffs. Pure Sopranos. Then both cousins make the semis anyway."],
+  [2017,"sp","Not Invited","Vicente hosts the draft and doesn't invite him, because Squirm once copied his homework and got him detention. Grudges in this town go back to middle school."],
+  [2018,"titanic","Going Down With the Ship","2-10 as Team Woram, and somehow not the Sacko."],
+  [2019,"sw","A New Hope","He beats the 1 seed with 285 points in round one, then loses the final to the Empire."],
+  [2020,"rocky","Keeps Getting Up","Back in the playoffs. Like Rocky, he keeps getting up."],
+  [2021,"bb","I Am the One Who Knocks","Aaron Jones and Tyreek to Kyle for Chubb, Diggs and Evans, then Chubb and Diggs to Fluff for Zeke, Ingram and Godwin. Two blockbusters, one perfect cook, and the ring."],
+  [2022,"lotr","So Close to Mount Doom","Close enough to feel the heat, and Charles beats him in the final."],
+  [2023,"sopranos","The Feds","He names his team The Feds, which is every Sopranos character's worst nightmare. 5-8."],
+  [2024,"sw","The Student Becomes the Master","He loses the final to Dylan's Sultans of Squirm, a team literally named after him."],
+  [2025,"sp","Oh My God, They Killed Squirm","Best regular season in the league, then Lucas beats him in the semis by under three points."],
+  [2026,"sw","Frozen in Carbonite","The first 12-team year has not been kind. Somebody thaw him out."]
+ ],
+ marvel:["Captain America","Hero","Loyal to family, in the playoffs almost every year, four finals and one ring. He takes the punch and gets back up. He can do this all day. And 2026 is the year he got frozen in the ice."]},
+dilapi:{crawl:"The New York Noses. Two Sackos, an 11-2 season, a 2-11 season, a year as commissioner, and one very famous catfish.",
+ scenes:[
+  [2016,"lotr","The Fellowship Forms","He joins the founding league as the Brklyn Noses. No playoffs. The quest is going to take a while."],
+  [2017,"office","Kevin's Chili","Three wins. The whole pot hits the carpet."],
+  [2018,"sp","Dilapi Aint Makingthe Yoffs","Kyle names his team after DiLapi missing the playoffs. He's right. Third straight year without a trip."],
+  [2019,"titanic","The First Sacko","He sells Aaron Jones to Charles for Tyler Boyd. Jones goes to the champion. DiLapi goes to the Sacko."],
+  ["Offseason · 2019 into 2020","sopranos","The Catfish","In the Sopranos, a guy who messes up gets whacked. In the Flamingo Men, he gets catfished. Between seasons, as punishment for winning the Sacko, Peanut catfishes DiLapi."],
+  [2020,"bb","Pinkman Season","Nothing goes right and everything gets worse: back-to-back Sackos and five straight years without the playoffs."],
+  [2021,"rocky","The Comeback","From back-to-back Sackos to 11-2, 1,804.68 points and the final. Squirm wins it, but what a fight."],
+  [2022,"sw","Revenge of the Sith","From the Chosen One to 2-11 in a year. He sends Tyreek Hill to Charles, and Charles wins the title."],
+  [2023,"sp","Back to Normal","6-7. The town settles down for a year."],
+  [2024,"lotr","The Mountaintop","First place in the regular season, then out in the semis."],
+  [2025,"gf","The Commissioner","He runs the league, and a trade involving his own Noses gets done and undone within hours. The league still argues whether that was diplomacy or a cover-up."],
+  [2026,"office","Trading Down","He trades the No. 4 pick to Dylan for No. 9 and still lands Justin Jefferson."]
+ ],
+ marvel:["Moon Knight","Antihero","Sacko, Sacko, 11-2, 2-11, first place. Nobody, including him, knows which version is showing up this year."]},
+quincy:{crawl:"Argues for sport, names his teams after injury reports, and once threw up all over the commissioner's car.",
+ scenes:[
+  ["2015 · The Wu-Tang · Unofficial","sp","Roosevelt Field","Somebody puts his team on a TV at Roosevelt Field Mall and invites strangers to drop his players. He also celebrates trading for Jamaal Charles, who is out for the year."],
+  [2018,"titanic","First Sacko of the ESPN Era","He joins the new league and takes its first Sacko."],
+  [2019,"sw","These Aren't the Trades You're Looking For","He and Kyle try to swap Hunter Henry twice in two days. Vetoed both times. He makes the playoffs anyway."],
+  [2020,"bb","The RV","On the drive home from the draft he throws up all over Kyle's car. Jesse's RV was cleaner."],
+  [2021,"lotr","The Houses of Healing","He renames his team The Hospital after Christian McCaffrey goes down. Still makes the playoffs."],
+  [2022,"sopranos","Hosting the Sit-Down","The draft moves to his apartment complex, and he finishes first in the regular season. Then the semis."],
+  [2023,"office","Assistant to the Regional Commissioner","Co-commissioner with Kyle, and 2-11."],
+  [2024,"rocky","Going the Distance","A winning record, no playoffs."],
+  [2025,"gf","Leave the Gun, Take the Waddle","He sends Jaylen Waddle to Kyle, who wins the title. Then he takes the Sacko with a winning record."],
+  [2026,"sp","Minimized","He proposes putting every trade to a league vote. The league calls it a dumb idea. Kyle trades for Romeo Doubs, and Quincy announces he feels minimized."]
+ ],
+ marvel:["Ant-Man","Hero","He said he felt minimized, so the league took him literally. Two Sackos, one first-place season, a lot of arguing, and team names that double as injury reports. Small but loud."]},
+lucas:{crawl:"The founding commissioner, back in the chair ten years later, with a year in London and one infamous quarterback decision in between.",
+ scenes:[
+  [2016,"lotr","The Fellowship","The founding commissioner gathers everyone at Sal's office. Before the season, he emails the whole league to stop joining twice, because what happened with Rod happened again."],
+  [2017,"sopranos","Head of the Family","Still commissioner, now as The 718 Pahtinis. Running the family is hard."],
+  [2018,"rocky","The Underdog","The Staten Island Salvatores make the playoffs and run into Fluff, the eventual champion."],
+  [2019,"office","SAL SAL SAL SAL","The team name is just his nickname four times. The record is 3-9."],
+  [2020,"sp","Los Stogies","A new name, and the same town."],
+  [2021,"bb","374 Points of Tom Brady","Tom Brady scores 374 points for him and it doesn't matter. 3-10 and the Sacko."],
+  ["2022 · Sat out","sw","Exile","He leaves to study abroad in London. Obi-Wan went to Tatooine. Lucas went somewhere with worse food."],
+  [2023,"titanic","Team Pace","3-10. The water is cold."],
+  [2024,"sopranos","The Second Sacko","Lucas's Loud Team goes 5-8 and takes his second Sacko."],
+  [2025,"lotr","Nine Is My Guy","He reaches the final, loses Patrick Mahomes, waits on the waiver wire until Kyle takes the good quarterbacks, then plays nine against Kyle. Nine rings were given to men. None of them won the final."],
+  [2026,"sw","Return of the Jedi","Commissioner again, ten years after the founding, and off to a hot start."]
+ ],
+ marvel:["Professor X","Hero","He founded the school, he runs it again ten years later, he spent a year abroad, and the results have been rough. But he got everybody into the room in the first place."]},
+peanut:{crawl:"Squirm's cousin, Kad to his friends, owner of the league's most elaborate team names, and the man behind the catfish.",
+ scenes:[
+  [2016,"sopranos","The Cousin","His cousin Squirm benches his own team so Peanut can make the playoffs. Family takes care of family."],
+  [2017,"sw","A Jedi Mind Trick in Reverse","He takes Andrew Luck, who never plays a snap, from Rod. He trades his draft pick to Charles for a secret nobody has ever explained. Sacko."],
+  [2018,"rocky","The Contender","The 2 seed, then out in the semis."],
+  [2019,"office","The Yogurtlechefts","3-9 with one of the great team names."],
+  ["Offseason · 2019 into 2020","bb","Heisenberg","Peanut builds a fake identity worthy of Walter White and catfishes DiLapi, as punishment for DiLapi winning the Sacko."],
+  [2020,"lotr","He Put On the Ring","Pirate King reaches the final against Charles, goes up 50 after the first week, and declares himself champion. Charles rallies behind a 56-point Kamara game. The ring was never his."],
+  [2021,"sp","The Bengali Bhavi Bangalore","More team names than Cartman has schemes."],
+  [2022,"gf","Shivakamini Somakandarkram","5-8. The family name keeps getting longer."],
+  [2023,"titanic","Dr. Kakofonus A. Dischord","The league votes down his Kamara and Kupp for Ja'Marr Chase trade twice in one evening, and he takes his second Sacko."],
+  ["2024 · Sat out","sw","Away","He sits the season out."],
+  [2025,"rocky","The Land Down Under","Back as THE LAND DOWN UNDER and a winning record."],
+  ["2026 · Out this year","lotr","The Grey Becomes the White","He was hit by a car before the season and is missing the year while he recovers. Gandalf came back stronger. The league wants Peanut back in 2027."]
+ ],
+ marvel:["Mysterio","Villain","The master of illusion: a catfish, a secret traded for a draft pick, a championship declared a week early, and more names than anyone in league history."]},
+jordan:{crawl:"Joined in 2020 and has been fighting uphill ever since, with a new team name every time.",
+ scenes:[
+  [2020,"sp","The New Kid","He joins as Let Dalvin Cook. Every new kid in South Park has a rough first year."],
+  [2021,"office","Bishop Sycamore JV","A fake high school team as a team name. Peak Office energy."],
+  [2022,"lotr","He Gave Away the Ring","He sends Justin Jefferson to Charles for four starters. Charles wins the title and Jordan takes the Sacko."],
+  ["2023 · Sat out","sw","Off Planet","He sits the season out."],
+  [2024,"gf","An Offer Kyle Should Have Refused","The Galaxy Liberators take Kyren Williams and DK Metcalf from Kyle for Tyreek Hill and Devin Singletary. Trade Rape of the Year."],
+  [2025,"sopranos","1-12","A season even Paulie Walnuts would feel bad about. He also does a Saquon and Bowers trade with the Noses that gets undone within hours."],
+  [2026,"bb","A Whole New Man","He takes Hunter Henry and Sam Darnold from Kyle for Romeo Doubs, which sets Quincy off, and the Galaxy Liberators are finally cooking."]
+ ],
+ marvel:["Spider-Man","Hero","The Parker luck: a Sacko, a 1-12 season, and the Justin Jefferson trade on his record. He keeps swinging anyway."]},
+dylan:{crawl:"Lucas's roommate. Joined in 2023, named his team after Squirm, and won the whole thing in his second year.",
+ scenes:[
+  [2023,"sp","Sultans of Squirm","He joins and names his team after Squirm. Nobody in town knows what to make of it."],
+  [2024,"lotr","One Trade to Rule Them All","His only trade on record sends Brian Robinson Jr. to Kyle for Travis Kelce, Chuba Hubbard, Devin Singletary and Tyrone Tracy Jr."],
+  ["2024 · The final","sw","The Student Beats the Master","He beats Squirm in the final with a team named after Squirm. Ring in year two."],
+  [2025,"bb","The Hangover Season","The champion slips to 5-8."],
+  [2026,"sopranos","The Sit-Down","He trades the No. 9 pick to DiLapi for No. 4 and takes Puka Nacua."]
+ ],
+ marvel:["Captain Marvel","Hero","Shows up late, barely trades, and is the most powerful one in the room by year two."]},
+rod:{crawl:"The RodFather. Rarely trades, quietly wins, and once handed Peanut a quarterback who never played.",
+ scenes:[
+  ["2016 · Preseason","sp","What Happened With Rod","Before the first season, Lucas emails the whole league to stop joining twice, because what happened with Rod happened again."],
+  [2017,"gf","The Luck Deal","He makes Peanut an offer he can't refuse: Andrew Luck, who never plays a snap in 2017, for Jameis Winston. Trade Rape of the Year. Vicente tries to collude with him too, and it's vetoed."],
+  ["2018 to 2021 · Away","sw","A Long Time Ago","Four seasons away from the league."],
+  [2022,"sopranos","The RodFather Returns","Back after four seasons away, and a vetoed Darius Slayton giveaway to him goes through the next day for Tom Brady."],
+  [2023,"lotr","King of the Wranglers","MisoTrillerBoy wins the Wrangler Conference at 8-5."],
+  [2024,"rocky","Still Standing","Another winning record and another playoff trip."],
+  ["2025 · Sat out","bb","New Hampshire","He walks away for a year, Walt-style."],
+  [2026,"office","Back in the Office","He returns for the 12-team expansion."]
+ ],
+ marvel:["Kingpin","Villain","Rarely makes a move, but when he does, Andrew Luck ends up on your roster. Quietly runs his corner of the city with a winning record."]},
+jerry:{crawl:"Kyle's college roommate, whose team is blessed by Swiss Vinny.",
+ scenes:[
+  [2022,"sp","The New Kid Can Play","He joins and goes 9-4, a top-three regular season as a rookie."],
+  [2023,"gf","The Offer","Kyle makes him an offer: Garrett Wilson for Aaron Jones and Anthony Richardson. He takes it."],
+  ["2023 · The final","lotr","So Close","The Encino Men reach the final, and Kyle takes the ring."],
+  [2024,"bb","Bad Batch","5-8."],
+  ["2025 · Sat out","sw","Off Planet","He sits the season out."],
+  [2026,"sopranos","Swiss Vinny","Back for the expansion, still blessed by Swiss Vinny, a name that belongs in the Sopranos."]
+ ],
+ marvel:["Star-Lord","Hero","Fun, loud, trades a lot, and was one game from a title in his second year."]},
+skelly:{crawl:"Team Kelly, 2019 to 2021. A winning owner who left to pursue medicine.",
+ scenes:[
+  [2019,"sw","The Death Star Plans","He sends Ezekiel Elliott, Kenny Golladay and Devin Singletary to Kyle. The trade is vetoed."],
+  ["2019 · The vote","sp","The Town Votes","The league votes the veto back out and the trade goes through. Kyle's super team misses the playoffs."],
+  [2020,"lotr","The Fellowship","9-3, tied for the best record in the league, and into the playoffs."],
+  [2021,"bb","Last Cook","6-7 in his last season."],
+  ["2022 · Retired","sopranos","Dr. Melfi Would Approve","He leaves the league to become a \"Pussy Doctor.\""]
+ ],
+ marvel:["Doctor Strange","Hero","Left to become a doctor, and was on the other side of the one trade the league couldn't make up its mind about."]},
+mateus:{crawl:"Team Toppin. One season, six trades.",
+ scenes:[
+  [2019,"sp","The New Kid","He joins for one season."],
+  ["2019 · The deals","bb","Cooking Fast","Six trades in one year. That's a lot for anybody."],
+  ["2019 · Final record","lotr","Short Journey","4-8."],
+  ["2020 · Gone","sw","Gone","One season and out."],
+  ["2023 · Draft night","sopranos","The Review","He sends in a review of the 2023 draft, and Lucas, still in his Sacko costume, reads it out loud to the room. Gone, but still has a say, like a made man."]
+ ],
+ marvel:["Quicksilver","Hero","One season, six trades, gone. Blink and you missed him."]},
+duane:{crawl:"The first champion, in the only season he played.",
+ scenes:[
+  [2016,"bb","David Johnson Cooks","David Johnson goes on a historic run for him, with Andrew Luck and Travis Kelce along for the ride."],
+  ["2016 · The final","lotr","The First Ring","He beats Charles's 12-1 super team 242 to 190 in the two-week final."],
+  ["2016 · The payout","sopranos","The Envelope","He gets his championship pot during a basketball game at Chaminade High School. Very suspicious."],
+  ["2017","sp","Duane Bernard Jr.","Fluff names his next team after him."],
+  ["2017 · Gone","sw","Han Solo","Shows up, wins, leaves. One season, one ring."]
+ ],
+ marvel:["Silver Surfer","Hero","Came out of nowhere, did something cosmic, and left."]},
+keeves:{crawl:"Keeves played one season, in 2017, as Patrick.",
+ scenes:[
+  [2017,"sp","Patrick","He names his team Patrick."],
+  ["2017 · The offer","bb","Partners","Vicente tries to collude with him. Vetoed."],
+  ["2017 · Final record","sw","About One Win","Kyle remembers about one win."],
+  ["2018","lotr","The Fellowship Breaks","He and Vicente are gone, and the league shrinks back to eight."],
+  ["2018 · Gone","sopranos","Cut to Black","One season and done."]
+ ],
+ marvel:["Howard the Duck","Cult classic","One appearance, everyone remembers it, nobody asked for a sequel."]},
+vicente:{crawl:"Quleefie Beefies, 2017. Draft host, two-time attempted colluder, and now a member of the NYPD.",
+ scenes:[
+  ["2017 · Draft night","lotr","The Summer House","He hosts the draft at his summer house."],
+  ["2017 · The guest list","sp","Not Invited","He doesn't invite Squirm, who once copied his homework and got him detention."],
+  [2017,"gf","Two Offers, Both Refused","He tries to collude with Rod, then with Keeves. Both trades are vetoed."],
+  ["2017 · The semis","sopranos","Cut to Black","He reaches the semis against Squirm, and nobody saved the result."],
+  ["2018","sw","Gone","He leaves after one season."],
+  ["Today","bb","Hank Schrader","He just became an NYPD officer. He may be the one who arrests the Flamingo Men someday."]
+ ],
+ marvel:["Nick Fury","Hero","Works the back channels and has a badge."]},
+ghost:{crawl:"Adam Smith. Met online, played in the 2015 Wu-Tang, vanished for ten years, and phased back in for the expansion.",
+ scenes:[
+  ["2015 · Online","sp","Make Love, Not Warcraft","The league meets him playing video games online."],
+  ["2015 · The Wu-Tang · Unofficial","sopranos","The Wu-Tang","He plays in the unofficial 2015 league, the one full of cheating and tampering."],
+  ["2016 to 2025","sw","Ten Years in Exile","He disappears for a decade."],
+  [2026,"bb","Vick's Vet Clinic","He comes back under a new name, like a guy with a strip-mall office: Vick's Vet Clinic."],
+  ["2026 · The return","lotr","There and Back Again","The twelfth team in the first 12-team season."]
+ ],
+ marvel:["Ghost","Antihero","Phases in and out of existence. Here in 2015, gone for ten years, back in 2026."]}
+};
+const CS_SHOW={sopranos:"The Sopranos",bb:"Breaking Bad",sp:"South Park",lotr:"The Lord of the Rings",sw:"Star Wars",gf:"The Godfather",office:"The Office",rocky:"Rocky",titanic:"Titanic"};
+// scene backdrops: drawn shapes only, no stills from the shows. The owner's cut-out stands in front.
+const CS_BG={
+  sopranos:`<defs><linearGradient id="csSo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140c24"/><stop offset="1" stop-color="#3a1d3f"/></linearGradient></defs><rect width="300" height="200" fill="url(#csSo)"/>
+    <path d="M0 150V110h20V90h18v20h14V70h22v40h16V96h24v54zM196 150V84h26v30h16V60h24v52h18V96h20v54z" fill="#0b0716" opacity=".9"/>
+    <g fill="#ffd36b" opacity=".7"><rect x="60" y="80" width="4" height="5"/><rect x="66" y="92" width="4" height="5"/><rect x="242" y="70" width="4" height="5"/><rect x="250" y="86" width="4" height="5"/></g>
+    <rect x="86" y="18" width="128" height="34" rx="6" fill="#120a1e" stroke="#ff4fa3" stroke-width="2.5" class="neon"/><text x="150" y="42" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="19" fill="#ff7cc0" class="neon">Bada Bing!</text>
+    <rect x="0" y="150" width="300" height="50" fill="#5b1420"/><path d="M0 150h300" stroke="#a52a3a" stroke-width="4"/>`,
+  bb:`<defs><linearGradient id="csBb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9d65c"/><stop offset=".7" stop-color="#ec8d32"/></linearGradient></defs><rect width="300" height="200" fill="url(#csBb)"/>
+    <circle cx="232" cy="46" r="20" fill="#fff4c2" opacity=".85"/><path d="M0 130l30-26h40l18 14 26-30h34l20 42H0zM190 130l20-34h44l14 18 32-6v22z" fill="#b5562a"/>
+    <rect x="0" y="128" width="300" height="72" fill="#d9a35a"/><path d="M0 150q80-8 160 0t140 0" stroke="#c18a45" stroke-width="3" fill="none"/>
+    <g transform="translate(16 104)"><rect width="74" height="38" rx="4" fill="#f4efe2"/><rect y="20" width="74" height="6" fill="#e2a33a"/><rect x="8" y="6" width="16" height="10" fill="#7fb6c9"/><rect x="50" y="6" width="16" height="10" fill="#7fb6c9"/><circle cx="16" cy="40" r="7" fill="#222"/><circle cx="58" cy="40" r="7" fill="#222"/></g>`,
+  sp:`<rect width="300" height="200" fill="#8fd3ff"/><path d="M-10 140L60 40l40 50 50-70 60 80 30-30 70 70z" fill="#fff"/><path d="M60 40l14 20-14-4-12 6zM150 20l16 22-16-6-14 8z" fill="#cfe6f5"/>
+    <g fill="#2f7d3a"><path d="M20 150l14-40 14 40z"/><path d="M44 150l12-32 12 32z"/><path d="M236 150l14-44 14 44z"/><path d="M262 150l12-30 12 30z"/></g><rect y="146" width="300" height="54" fill="#f7fbff"/><path d="M0 160h300" stroke="#dbe7f0" stroke-width="2"/>`,
+  lotr:`<defs><linearGradient id="csLo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b1d2e"/><stop offset="1" stop-color="#c0623a"/></linearGradient><radialGradient id="csRing"><stop offset=".55" stop-color="#ffe9a0" stop-opacity="0"/><stop offset=".7" stop-color="#ffd23f"/><stop offset=".85" stop-color="#c8901a"/><stop offset="1" stop-color="#ffd23f" stop-opacity="0"/></radialGradient></defs><rect width="300" height="200" fill="url(#csLo)"/>
+    <path d="M170 130l50-80 14 8 12-8 54 80z" fill="#1a1012"/><path d="M220 50q7-14 14 8l-6-2z" fill="#ff5a1f" class="lava"/><circle cx="227" cy="52" r="18" fill="#ff5a1f" opacity=".25" class="lava"/>
+    <path d="M0 150q60-40 140-16t160-6v72H0z" fill="#3f6b2f"/><path d="M0 170q90-30 300 0v30H0z" fill="#2f5524"/>
+    <circle cx="56" cy="50" r="26" fill="url(#csRing)" class="ring"/>`,
+  sw:`<rect width="300" height="200" fill="#05060f"/><g fill="#fff">${Array.from({length:46},(_,i)=>`<circle cx="${(i*67)%300}" cy="${(i*41)%200}" r="${i%5?0.7:1.3}" opacity="${.4+(i%3)*.2}"/>`).join("")}</g>
+    <circle cx="250" cy="44" r="14" fill="#ffcf7a" opacity=".85"/><circle cx="272" cy="58" r="9" fill="#ff9a5a" opacity=".75"/>
+    <g class="sabers"><path d="M40 190L120 40" stroke="#5ab8ff" stroke-width="7" stroke-linecap="round" opacity=".95"/><path d="M40 190L120 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M260 190L180 40" stroke="#ff3b3b" stroke-width="7" stroke-linecap="round" opacity=".95"/><path d="M260 190L180 40" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></g>`,
+  gf:`<defs><radialGradient id="csGf" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#c77a2a"/><stop offset=".55" stop-color="#3a1d0c"/><stop offset="1" stop-color="#0a0604"/></radialGradient></defs><rect width="300" height="200" fill="url(#csGf)"/>
+    <g fill="#000" opacity=".28">${Array.from({length:8},(_,i)=>`<rect x="0" y="${12+i*18}" width="300" height="7"/>`).join("")}</g><rect y="160" width="300" height="40" fill="#1a0e07"/><path d="M0 160h300" stroke="#5a3418" stroke-width="3"/>`,
+  office:`<rect width="300" height="200" fill="#e9dfc6"/><g stroke="#cfc4a8" stroke-width="2">${Array.from({length:6},(_,i)=>`<path d="M${i*60} 0v26"/>`).join("")}<path d="M0 26h300"/></g>
+    <rect x="200" y="44" width="76" height="62" fill="#bfd8e6" stroke="#9a8f74" stroke-width="3"/><g stroke="#9a8f74" stroke-width="1.5">${Array.from({length:9},(_,i)=>`<path d="M200 ${50+i*6}h76"/>`).join("")}</g>
+    <rect x="20" y="52" width="60" height="44" fill="#fff" stroke="#9a8f74" stroke-width="2"/><path d="M28 86l12-14 10 8 12-18 10 10" stroke="#3a6ea5" stroke-width="2.5" fill="none"/>
+    <rect y="150" width="300" height="50" fill="#8a8578"/><rect x="196" y="140" width="104" height="16" fill="#7a5a3a"/>`,
+  rocky:`<rect width="300" height="200" fill="#0d0f1a"/><radialGradient id="csRk" cx=".5" cy="0" r=".9"><stop offset="0" stop-color="#fff6d0" stop-opacity=".55"/><stop offset="1" stop-color="#fff6d0" stop-opacity="0"/></radialGradient><rect width="300" height="200" fill="url(#csRk)"/>
+    <g fill="#2a2e44">${Array.from({length:40},(_,i)=>`<circle cx="${(i*37)%300}" cy="${70+(i%4)*10}" r="6"/>`).join("")}</g>
+    <rect y="150" width="300" height="50" fill="#e8e2d4"/><g stroke-width="3"><path d="M0 118h300" stroke="#d62b2b"/><path d="M0 132h300" stroke="#fff"/><path d="M0 146h300" stroke="#2b56d6"/></g><rect x="6" y="104" width="8" height="50" fill="#555"/><rect x="286" y="104" width="8" height="50" fill="#555"/>`,
+  titanic:`<defs><linearGradient id="csTi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0a1430"/><stop offset="1" stop-color="#1c3b6b"/></linearGradient></defs><rect width="300" height="200" fill="url(#csTi)"/>
+    <g fill="#fff" opacity=".7"><circle cx="30" cy="20" r="1"/><circle cx="90" cy="40" r="1"/><circle cx="160" cy="16" r="1.2"/><circle cx="270" cy="30" r="1"/></g>
+    <path d="M206 140l20-50 14 10 10-24 22 64z" fill="#e8f4ff"/><path d="M226 90l14 10-4 40h-16z" fill="#bcd7ee"/>
+    <g class="tship" transform="rotate(-14 70 130)"><path d="M10 130h120l-12 18H24z" fill="#1b1b1b"/><rect x="24" y="118" width="94" height="12" fill="#f2f2f2"/><g fill="#e8a33a"><rect x="40" y="100" width="10" height="18"/><rect x="64" y="100" width="10" height="18"/><rect x="88" y="100" width="10" height="18"/></g></g>
+    <path d="M0 146q20-6 40 0t40 0 40 0 40 0 40 0 40 0 40 0 20 0V200H0z" fill="#0b2e5c"/>`
+};
+// props in front of the cut-out for a few scenes
+const CS_FRONT={
+  bb:o=>{const n=short(o),sym=(n[0].toUpperCase()+(n[1]||"").toLowerCase());return `<g transform="translate(222 14)"><rect width="62" height="62" fill="#2d6b3a" stroke="#cfe8d2" stroke-width="2"/><text x="6" y="16" font-size="11" fill="#fff" font-family="sans-serif">${(totals(o)?.seasons||1)}</text><text x="31" y="46" text-anchor="middle" font-size="28" font-weight="800" fill="#fff" font-family="sans-serif">${esc(sym)}</text></g>`},
+  gf:()=>`<g transform="translate(18 150) rotate(-20)"><path d="M0 0h46" stroke="#2f6a2f" stroke-width="3"/><path d="M40 -4l6 6-4 4" stroke="#2f6a2f" stroke-width="2" fill="none"/><circle cx="52" cy="0" r="9" fill="#b3122a"/><path d="M46 -3q6-6 12 0" stroke="#7a0a1a" stroke-width="2" fill="none"/></g>`,
+  office:()=>`<g transform="translate(232 112)"><path d="M0 0h30v30q0 6-6 6H6q-6 0-6-6z" fill="#fff" stroke="#9a8f74" stroke-width="2"/><path d="M30 8q12 0 12 10t-12 10" stroke="#9a8f74" stroke-width="3" fill="none"/><text x="15" y="14" text-anchor="middle" font-size="5.5" font-weight="800" fill="#222" font-family="sans-serif">WORLD'S</text><text x="15" y="22" text-anchor="middle" font-size="5.5" font-weight="800" fill="#222" font-family="sans-serif">BEST</text></g>`,
+  rocky:()=>`<g transform="translate(240 150)"><text font-size="30">🥊</text></g>`
+};
+const CS_ROMAN=n=>{let r="";[[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]].forEach(([v,s])=>{while(n>=v){r+=s;n-=v}});return r||"I"};
+function csPhoto(o,cls=""){return CUT[o]?`<img class="cs-cut ${cls}" src="${CUT[o]}" alt="">`:`<span class="cs-cut cs-avf ${cls}">${av(o)}</span>`}
+// season team names from the weekly files (2018 on) and the draft boards (2016-17)
+const CS_TEAMS={"charles":{"2018":"The Sal Claps On Planes","2019":"Sal's 12 Chickens","2020":"Sal's 34 Chickens","2021":"Sal's 12 Chickens","2022":"Sal's 12 Chickens","2024":"Christian Crusaders","2025":"Sal's Chickens","2026":"Sal's 4 Chickens","2016":"NY Lorenzos","2017":"Little Bills"},"fluff":{"2018":"Team Duffy","2019":"Oh My BJ","2020":"El Floof","2021":"El Floof","2022":"El Floof","2023":"Floof","2025":"SQUIRMS JUGZ 🍼","2026":"SQUIRMYS SLUTZS","2016":"Team Duffy","2017":"Duane Bernard Jr"},"dilapi":{"2018":"New York Noses","2019":"New York Noses","2020":"New York Noses","2021":"New York Noses","2022":"New York Noses","2023":"New York Noses","2024":"New York Noses","2025":"New York Noses","2026":"New York Noses","2016":"Brklyn Noses","2017":"The Brooklyn Noses"},"squirm":{"2018":"Team Woram","2019":"#dicksoutfor Dolan","2020":"#dicksoutfor Dolan","2021":"#dicksoutfor Dolan","2022":"#dicksoutfor Dolan","2023":"The Feds","2024":"#dicksoutfor Dolan","2025":"#dicksoutfor Dolan","2026":"#dicksoutfor Dolan","2016":"The Hot Mikes","2017":"Squirm"},"quincy":{"2018":"Team Quincy","2019":"Team Quincy","2020":"Team Quincy","2021":"The Hospital FÜĆKCMC","2022":"Free Ime Idoka","2023":"Team Curran","2024":"Jayson Tatums Aura","2025":"Drake Maye's Aura","2026":"Quincy Jonesin' for a TD"},"kyle":{"2018":"Dilapi aint Makingthe yoffs","2019":"Bittersweet Distract0rs","2020":"Bittersweet Distract0rs","2021":"The Monglers","2022":"THE MONGLERS","2023":"THE MNGLRS","2024":"THE MONGLERS","2025":"THE MONGLERS","2026":"THE MONGLERS","2016":"The Salty Andres","2017":"NYC Klugeys"},"peanut":{"2018":"Hempstead Cummings","2019":"The Yogurtlechefts","2020":"Pirate King","2021":"The Bengali Bhavi Bangalore","2022":"Shivakamini Somakandarkram","2023":"Dr. Kakofonus A. Dischord","2025":"THE LAND DOWN UNDER","2016":"Triggered Antonoccis","2017":"Team Peanus"},"lucas":{"2018":"Staten Island Salvatores","2019":"SAL SAL SAL SAL","2020":"Los Stogies","2021":"Los Stogies","2023":"Team Pace","2024":"Lucas's Loud Team","2025":"Lucas' Loud Team","2026":"Student Ath-o-letes","2016":"Patcher's","2017":"The 718 Pahtinis"},"skelly":{"2019":"Team Kelly","2020":"Team Kelly","2021":"Team Kelly"},"mateus":{"2019":"Team Toppin"},"jordan":{"2020":"Let Dalvin Cook","2021":"Bishop Sycamore JV","2022":"Jerry Jewdys","2024":"Galaxy Liberators","2025":"Galaxy Liberators","2026":"Galaxy Liberators"},"rod":{"2022":"RodFather","2023":"MisoTrillerBoy","2024":"Team Rod","2026":"2girls 1Kupp","2017":"The Dominican DS"},"jerry":{"2022":"Chicago Tïttysquashers","2023":"The Encino Men","2024":"The Encino Men","2026":"Chicago Tiddysquashers"},"dylan":{"2023":"Sultans of Squirm","2024":"Sultans of Squirm","2025":"Sultans of Squirm","2026":"Sultans of Squirm"},"ghost":{"2026":"Vick's Vet Clinic"},"duane":{"2016":"Emmustangs"},"vicente":{"2017":"Quleefie Beefies"},"keeves":{"2017":"Patrick"}};
+function csTeam(o,y){if(CS_TEAMS[o]?.[y])return CS_TEAMS[o][y];const m=teamNames(o)[y];if(m&&m.size)return [...m][0];const d=DRAFTS[y]?.teams?.find(t=>t[1]===o);return d?d[0]:""}
+function csResult(o,y){if(SACKOS[y]?.o===o)return ["Sacko","sk"];const p=playoffResult(y,o);if(p)return [p,p==="Champion"?"ch":"po"];
+  if(y>=ALL_YEARS[ALL_YEARS.length-1])return ["In progress","lv"];return ["Missed the playoffs","mi"]}
+function csKicker(o,y){if(typeof y==="string")return `<div class="wr-k">${esc(y)}</div>`;
+  const r=S[o]?.seasons?.[y],t=csTeam(o,y),[res,c]=csResult(o,y);
+  const rec=r?`${r.w}-${r.l}${r.est?" (est.)":""}`:"";
+  return `<div class="wr-k">${y}${t?` · ${esc(t)}`:""}${rec?` · ${rec}`:""}</div><span class="cs-res ${c}">${c==="ch"?"🏆 ":c==="sk"?"🚽 ":""}${esc(res)}</span>`}
+function csBuild(o){const C=CAREER[o],T=totals(o)||{w:0,l:0,pct:0,seasons:0,titles:0,sackos:0},out=[],nm=esc(short(o));
+  const yrs=Object.keys(S[o]?.seasons||{}).map(Number).concat(NOREC[o]||[]).sort((a,b)=>a-b);
+  const span=yrs.length?(yrs[0]===yrs[yrs.length-1]?yrs[0]:`${yrs[0]} to ${yrs[yrs.length-1]}`):"";
+  const crawl=`It is year ${ALL_YEARS.length} of the Flamingo Men. ${OWNERS[o].name.toUpperCase()} has played ${T.seasons} season${T.seasons===1?"":"s"}${span?`, ${span}`:""}, with ${T.titles||"no"} title${T.titles===1?"":"s"} and ${T.sackos||"no"} Sacko${T.sackos===1?"":"s"}. ${C.crawl} This is his story...`;
+  out.push({c:"cs-intro",html:`<div class="cs-stars"></div><p class="cs-ago">A long time ago, in a fantasy league on Long Island...</p><div class="cs-crawl"><div class="cs-crawl-in"><div class="cs-ep">Episode ${CS_ROMAN(T.seasons||1)}</div><div class="cs-eptitle">The ${nm} Saga</div><p>${esc(crawl)}</p></div></div>`});
+  C.scenes.forEach(([y,art,title,text])=>{
+    out.push({c:"cs-"+art,html:`${csKicker(o,y)}<div class="cs-art cs-a-${art}"><svg viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${CS_BG[art]}</svg>${csPhoto(o)}${CS_FRONT[art]?`<svg class="cs-front" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${CS_FRONT[art](o)}</svg>`:""}<span class="cs-show">${esc(CS_SHOW[art])}</span></div><div class="cs-title">${esc(title)}</div><p class="wr-t">${esc(text)}</p>`})});
+  const po=RANK?.playoffs?.[o]?.po,stat=[["Seasons",T.seasons],["Record",`${T.w}-${T.l}`],["Win rate",T.w+T.l?(T.pct*100).toFixed(1)+"%":"–"],["Titles",T.titles||0],["Sackos",T.sackos||0],["Playoff trips",po??"–"],["Trades",tradeCount(o)],["Waiver pickups",pickupCount(o)]];
+  out.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The career so far</div><b style="font-size:1.2rem">${esc(OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">Records include estimates for 2016 and 2017, and the 2026 season so far.</p>`});
+  const [mn,mt,mw]=C.marvel;
+  out.push({c:"cs-marvel",html:`<div class="wr-k">And in the Marvel universe, ${nm} is...</div><div class="cs-mv-art"><svg viewBox="0 0 200 200" aria-hidden="true"><path class="burst" d="M100 4l14 40 38-22-12 40 44 4-36 26 30 32-42-8 4 42-30-30-20 38-12-42-38 18 18-38-42-12 40-18-24-36 42 6z" fill="#ffd23f" stroke="#191414" stroke-width="4"/></svg>${csPhoto(o,"mv")}</div><div class="cs-mv-name">${esc(mn)}</div><span class="cs-mv-tag">${esc(mt)}</span><p class="wr-t">${esc(mw)}</p>`});
+  return out}
+let csS=[],csI=0;
+function csShow(){const st=$("#csStage"),s=csS[csI];st.querySelector(".wr-bars").innerHTML=csS.map((_,i)=>`<i class="${i<=csI?"on":""}"></i>`).join("");
+  st.querySelector(".wr-body").innerHTML=`<div class="wr-slide cs ${s.c}${s.c==="cs-intro"?"":" wr-in"}">${s.html}</div>`;
+  st.querySelector(".wr-hint").textContent=csI<csS.length-1?"Tap to continue":"Tap to close"}
+function csStep(k){const n=csI+k;if(n<0)return;if(n>=csS.length){$("#csDlg").close();return}csI=n;csShow()}
+function openCareer(o){let dlg=$("#csDlg");
+  if(!dlg){dlg=document.createElement("dialog");dlg.id="csDlg";dlg.className="wrdlg";dlg.setAttribute("aria-label","Career story");
+    dlg.innerHTML=`<div class="wr-stage" id="csStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
+    document.body.appendChild(dlg);
+    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>csStep(-1);dlg.querySelector(".next").onclick=()=>csStep(1);
+    dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+    dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();csStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();csStep(-1)}});
+    let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
+    dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();csStep(dx<0?1:-1)}})}
+  csS=csBuild(o);csI=0;csShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()}
+function careerPicker(){const box=$("#csPick");if(!box||box.dataset.ready)return;box.dataset.ready=1;
+  const os=ORDER.filter(o=>CAREER[o]&&OWNERS[o]);
+  const f=$("#csFaces");if(f)f.innerHTML=["kyle","charles","fluff","squirm","lucas"].map(o=>av(o)).join("");
+  box.querySelector(".cs-pick-btn").onclick=()=>{let dlg=$("#csPickDlg");
+    if(!dlg){dlg=document.createElement("dialog");dlg.id="csPickDlg";dlg.className="wrpdlg cspdlg";dlg.setAttribute("aria-label","Pick a team");document.body.appendChild(dlg);
+      dlg.addEventListener("click",e=>{const b=e.target.closest("[data-co]");if(b){dlg.close();openCareer(b.dataset.co)}else if(e.target===dlg||e.target.closest(".wrp-x"))dlg.close()})}
+    dlg.innerHTML=`<div class="wrp-h"><b>Whose career?</b><button type="button" class="wrp-x" aria-label="Close">×</button></div><div class="wrp-list">${os.map(o=>{const t=totals(o);return `<button type="button" data-co="${o}">${av(o)}<span>${esc(short(o))}</span><small>${t?`${t.seasons} season${t.seasons===1?"":"s"}${t.titles?` · ${"🏆".repeat(t.titles)}`:""}`:esc(OWNERS[o].name)}</small></button>`}).join("")}</div>`;
+    dlg.showModal()}}
 
 /* ---------- MOVES ---------- */
 let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
