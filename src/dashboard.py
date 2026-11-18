@@ -156,7 +156,8 @@ if last:
     awards.append(dict(k='Luckiest win',o=lk[0]['o'],v=f(lk[0]['p']),t=f"Won with a score that would have lost to {len(sides)-1-beat(lk[0]['p'])} of {len(sides)-1} teams"))
     awards.append(dict(k='Heartbreaker',o=hb[0]['o'],v=f(hb[0]['p']),t=f"Would have beaten {beat(hb[0]['p'])} of {len(sides)-1} teams, but lost to {nk(hb[1]['o'])}"))
     bl=max(G,key=lambda g:abs(g[0]['p']-g[1]['p']));w_,l_=sorted(bl,key=lambda s:-s['p'])
-    awards.append(dict(k='Blowout',o=w_['o'],o2=l_['o'],v=f"+{f(w_['p']-l_['p'])}",t=f"{nk(w_['o'])} ran over {nk(l_['o'])}, {f(w_['p'])} to {f(l_['p'])}"))
+    # the week's blowout is a Perch Alert (Kyle 2026-11-18): Floof's move of perching on the top of the couch, on whoever is sitting there
+    awards.append(dict(k='Perch Alert',o=w_['o'],o2=l_['o'],v=f"+{f(w_['p']-l_['p'])}",t=f"{nk(w_['o'])} perched on {nk(l_['o'])}, {f(w_['p'])} to {f(l_['p'])}"))
     cl=min(G,key=lambda g:abs(g[0]['p']-g[1]['p']));w_,l_=sorted(cl,key=lambda s:-s['p'])
     awards.append(dict(k='Nail-biter',o=w_['o'],o2=l_['o'],v=f(w_['p']-l_['p']),t=f"{nk(w_['o'])} edged {nk(l_['o'])}, {f(w_['p'])} to {f(l_['p'])}"))
     mvp=max(((r,s) for s,_ in sides for r in s['r'] if r[2] not in('BE','IR')),key=lambda x:x[0][3])
