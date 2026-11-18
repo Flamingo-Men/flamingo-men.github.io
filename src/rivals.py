@@ -1,6 +1,6 @@
 # Builds ../data/rivals.json: every owner's biggest rival and every matchup between them, for the team pages (Kyle 2026-11-18).
-# Matchups are weekly, from data/weeks/*.json (2018 on, finished weeks only): regular season, playoffs (each week of a
-# two-week round is its own matchup) and the Sacko bracket (consolation games among non-playoff teams; the 3rd-place game
+# Matchups come from data/weeks/*.json (2018 on, finished weeks only): regular-season weeks, playoff rounds (a two-week
+# round is one game, won on the two-week total; Kyle 2026-11-18) and the Sacko bracket (consolation games among non-playoff teams; the 3rd-place game
 # between the semifinal losers is left out). 2016-17 playoff meetings come from the hand-set brackets (no scores saved).
 # Rivalry score = regular-season and Sacko-bracket games + 1 per game decided by under 10 points
 # + 6 per playoff meeting (a round, 9 for a final), times a balance factor (an even series counts more):
@@ -10,6 +10,7 @@ here=os.path.dirname(os.path.abspath(__file__)); root=os.path.dirname(here)
 PO=json.load(open(os.path.join(root,'data','playoffs.json')))
 def po_teams(y):
     return {s['o'] for rd in PO.get(str(y),{}).get('rounds',[]) for m in rd for s in (m['a'],m['b']) if s.get('o')}
+RD={}
 G=[]  # y, w, k (reg/sacko/po/final), a, b, pa, pb, win, rd (playoff round id)
 for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
     y=int(os.path.basename(f)[:4]);d=json.load(open(f));T=d['teams'];cur=d.get('cur')
@@ -28,7 +29,15 @@ for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
             else:
                 if oa in pt and ob in pt: continue   # 3rd-place game, not the Sacko bracket
                 k='sacko'
-            G.append(dict(y=y,w=int(w),k=k,a=oa,b=ob,pa=a['p'],pb=b['p'],rd=f"{y}-{g['mp']}",leg=g.get('leg','')))
+            if k=='reg':
+                G.append(dict(y=y,w=int(w),k=k,a=oa,b=ob,pa=a['p'],pb=b['p'],rd=f"{y}-{g['mp']}",leg=''))
+                continue
+            # Kyle 2026-11-18: a two-week playoff or Sacko round is one game, decided by the two-week total
+            key=(f"{y}-{g['mp']}",oa,ob);r=RD.get(key)
+            if not r:
+                r=RD[key]=dict(y=y,w=int(w),k=k,a=oa,b=ob,pa=0.0,pb=0.0,rd=key[0],leg='',wks=[]);G.append(r)
+            r['pa']=round(r['pa']+a['p'],2);r['pb']=round(r['pb']+b['p'],2);r['wks'].append(int(w));r['w']=min(r['wks'])
+            if len(r['wks'])>1: r['leg']=f"Weeks {min(r['wks'])}-{max(r['wks'])}"
 # 2016 and 2017 brackets, same as BRACKET_MANUAL in template.html (Kyle); no scores except the 2016 final total
 MAN={2016:[('charles','peanut','charles','po',None,None),('duane','squirm','duane','po',None,None),('duane','charles','duane','final',242,190)],
      2017:[('kyle','charles','kyle','po',None,None),('vicente','squirm',None,'po',None,None)]}

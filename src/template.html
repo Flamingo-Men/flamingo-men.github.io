@@ -2201,12 +2201,12 @@ function rivalCard(o){const R=RIVALS[o];if(!R||!R.length)return "";
     <div class="rv-list" id="rvList"${rvOpen?"":" hidden"}>${rvOpen?rvList(o,rvOpen.x):""}</div>
     <p class="muted rv-note">Every matchup counts, close games count extra, and playoff meetings count most. Tap a rival to see every game.</p></div>`}
 function rvList(o,x){const r=(RIVALS[o]||[]).find(z=>z.o===x);if(!r)return "";
-  const lab=g=>{const[y,w,k,,,,leg]=g,wk=w?`Wk ${w}`:"";const two=/of 2/.test(leg||"")?` · ${leg}`:"";
+  const lab=g=>{const[y,w,k,,,,leg]=g,wk=leg||(w?`Week ${w}`:""),two="";
     return k==="final"?`Championship<small>${wk}${two}</small>`:k==="po"?`Playoffs<small>${w?wk+two:"Semifinal"}</small>`:k==="sacko"?`Sacko bracket<small>${wk}${two}</small>`:`Week ${w}`};
   const rows=r.games.slice().reverse().map(g=>{const[y,,k,p,q,res]=g;
     return `<li class="${k==="final"?"fin":k==="po"?"po":k==="sacko"?"sk":""}"><span class="y">${y}</span><span class="lab">${lab(g)}</span><span class="sc">${p!=null?`${fmt(p)} - ${fmt(q)}`:'<span class="muted">score not saved</span>'}</span><span class="res ${res===1?"w":res===0?"l":""}">${res===1?"W":res===0?"L":"?"}</span></li>`}).join("");
   return `<div class="rv-head"><div class="who">${av(o)}<b>${nm(o)} vs ${nm(x)}</b>${av(x)}</div><b>${r.w}-${r.l}</b><div class="rv-leg"><span><i class="po"></i>Playoffs</span><span><i class="fin"></i>Championship</span><span><i class="sk"></i>Sacko bracket</span></div></div>
-    <ol class="rv-games">${rows}</ol><p class="muted rv-note">Newest first. Scores are ${nm(o)}'s first. Two-week playoff and Sacko rounds show each week as its own game.</p>`}
+    <ol class="rv-games">${rows}</ol><p class="muted rv-note">Newest first. Scores are ${nm(o)}'s first. A two-week playoff or Sacko round counts as one game, won on the two-week total.</p>`}
 function rvToggle(o,x){rvOpen=rvOpen?.x===x?null:{o,x};const sec=$("#profile .rv-sec");if(!sec)return;
   sec.querySelectorAll("[data-rv]").forEach(b=>b.setAttribute("aria-expanded",rvOpen?.x===b.dataset.rv?"true":"false"));
   const L=$("#rvList");L.hidden=!rvOpen;L.innerHTML=rvOpen?rvList(o,x):""}
