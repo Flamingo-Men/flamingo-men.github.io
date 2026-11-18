@@ -215,7 +215,7 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .av-btn{all:unset;cursor:pointer;display:block;position:relative;border-radius:var(--r)}.av-btn:focus-visible{outline:3px solid var(--flamingo);outline-offset:3px}
 .av-btn .av-play{position:absolute;left:10px;bottom:10px;background:rgba(15,10,20,.82);color:#fff;font-family:var(--f-data);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:99px}
 .av-btn:hover .av-play{background:var(--flamingo)}
-.cuz-btn{display:flex;align-items:center;gap:12px;margin:0 0 14px;padding:8px 14px 8px 8px;border:1px solid var(--line);border-radius:14px;background:var(--slab);color:inherit;font:inherit;cursor:pointer;text-align:left;max-width:360px}
+.cuz-btn{display:flex;align-items:center;gap:12px;margin:12px 0 0;width:100%;box-sizing:border-box;padding:8px 14px 8px 8px;border:1px solid var(--line);border-radius:14px;background:var(--slab);color:inherit;font:inherit;cursor:pointer;text-align:left;max-width:360px}
 .cuz-btn img{width:64px;height:52px;object-fit:cover;border-radius:9px;filter:sepia(.25)}.cuz-btn b{display:block}.cuz-btn small{color:var(--muted)}.cuz-btn:hover{border-color:var(--flamingo)}
 .cuz-ph{width:100%;max-width:300px;align-self:center;border-radius:12px;border:4px solid #fbf8f0;box-shadow:0 8px 24px rgba(0,0,0,.35);rotate:-2deg;filter:sepia(.2)}
 .cuz-st{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cuz-st div{background:rgba(255,255,255,.1);border-radius:12px;padding:10px}.cuz-st b{display:block;font-size:1.5rem}.cuz-st small{opacity:.85}
@@ -2174,7 +2174,7 @@ function renderTeams(){
   yrs.sort((a,b)=>b-a);if(teamYear==null||!yrs.includes(teamYear))teamYear=yrs[0]??null;
   const nameList=Object.entries(names).sort((a,b)=>a[0]-b[0]).map(([y,s])=>`<span class="chip">${esc([...s].join(" / "))}<small>${y}</small></span>`).join("");
   $("#profile").innerHTML=`<div class="profile">
-   <div>${CS.CAREER[o]?`<button type="button" class="av-btn" data-career="${o}" aria-label="Play ${esc(short(o))}'s career movie">${av(o,"big")}<span class="av-play">▶ Career movie</span></button>`:av(o,"big")}</div>
+   <div>${CS.CAREER[o]?`<button type="button" class="av-btn" data-career="${o}" aria-label="Play ${esc(short(o))}'s career movie">${av(o,"big")}<span class="av-play">▶ Career movie</span></button>`:av(o,"big")}${o==="peanut"||o==="squirm"?`<button type="button" class="cuz-btn" data-cuz="1"><img src="img/cuzzie-babies.jpg" alt="Squirm and Peanut as babies"><span><b>The Cuzzie Bowl</b><small>The cousins' rivalry</small></span></button>`:""}</div>
    <div>
      <span class="eyebrow">${O.nick?esc(O.nick):"Owner"}</span><h2>${esc(O.name)}</h2>
      <div class="kpis">
@@ -2185,7 +2185,6 @@ function renderTeams(){
        <div class="kpi"><b>${tradeCount(o)}</b><span>Trades made</span></div>
      </div>
      <p style="max-width:65ch;margin:0 0 14px">${esc(O.desc)}</p>
-     ${o==="peanut"||o==="squirm"?`<button type="button" class="cuz-btn" data-cuz="1"><img src="img/cuzzie-babies.jpg" alt="Squirm and Peanut as babies"><span><b>The Cuzzie Bowl</b><small>The story of the cousins' rivalry</small></span></button>`:""}
      ${O.favs?`<div class="eyebrow" style="margin-bottom:6px">${esc(O.favNote||"Favorite players")}</div><div class="chips" style="margin-bottom:14px">${O.favs.map(p=>`<span class="chip">${esc(p)}</span>`).join("")}</div>`:""}
      ${drafted.length?`<div class="eyebrow" style="margin-bottom:6px">Keeps drafting · picked in more than one draft</div><div class="chips" style="margin-bottom:14px">${drafted.map(([p,ys])=>`<span class="chip" title="${ys.join(", ")}">${esc(p)}<small>×${ys.length}</small></span>`).join("")}</div>`:""}
      ${fav.length?`<div class="eyebrow" style="margin-bottom:6px">Can't quit them · acquired more than once</div><div class="chips">${fav.map(([p,n])=>`<span class="chip">${esc(p.split("|")[0])}<small>×${n}</small></span>`).join("")}</div>`:""}
