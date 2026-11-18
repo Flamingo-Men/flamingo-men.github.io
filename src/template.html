@@ -794,7 +794,7 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .ws-st .ws-f{--fs:22px}.ws-st .ws-f .av{border-width:2px;font-size:.55rem;box-shadow:none}
 .ws-st span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ws-st small{font-family:var(--f-data);opacity:.85;text-align:right}
-/* RIVALS (Kyle 2026-11-18): biggest rival on each team page, opens a boxing-match tap-through story */
+/* RIVALS (Kyle 2026-11-18): biggest rival on each team page; tap to expand every matchup between them */
 .rv-sec{margin:4px 0 16px}
 .rv-row{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
 .rv-card{display:flex;align-items:center;gap:14px;flex:1 1 300px;max-width:460px;text-align:left;border:0;border-radius:16px;padding:12px 14px;color:#fff;cursor:pointer;font:inherit;
@@ -802,65 +802,33 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .rv-card:hover{transform:translateY(-1px)}
 .rv-card b{display:block;font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1.15}
 .rv-card small{display:block;opacity:.88;font-size:.84rem}
-.rv-card small.k{font-family:var(--f-data);text-transform:uppercase;letter-spacing:.14em;font-size:.68rem;opacity:.9}
-.rv-card .wr-play{margin-left:auto;flex:none;width:40px;height:40px;border-radius:50%;background:#fff;color:#241a33;display:grid;place-items:center;font-size:.95rem}
-.rv-ring{position:relative;flex:none;width:62px;height:62px;border-radius:50%;padding:3px;background:conic-gradient(#ffd23f,#e0517a,#ffd6e0,#e8c574,#ffd23f)}
+.rv-card .chev{margin-left:auto;flex:none;width:36px;height:36px;border-radius:50%;background:#fff;color:#241a33;display:grid;place-items:center;font-size:1rem;transition:transform .2s}
+.rv-card[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.rv-ring{position:relative;flex:none;width:58px;height:58px;border-radius:50%;padding:3px;background:conic-gradient(#ffd23f,#e0517a,#ffd6e0,#e8c574,#ffd23f)}
 .rv-ring .av{width:100%;height:100%;border:3px solid #241a33;font-size:1rem}
-.rv-ring i{position:absolute;right:-6px;bottom:-4px;font-style:normal;font-size:1.25rem;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4));animation:rvJab 1.6s ease-in-out infinite}
-@keyframes rvJab{0%,70%,100%{transform:none}80%{transform:translate(-5px,-3px) rotate(-14deg)}}
 .rv-mini{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--stone);color:inherit;border-radius:14px;padding:8px 12px;cursor:pointer;font:inherit;text-align:left}
+.rv-mini[aria-expanded="true"]{outline:2px solid #c2416b;outline-offset:1px}
 .rv-mini .av{width:34px;height:34px}
 .rv-mini span{display:grid;line-height:1.15;font-weight:700;font-size:.9rem}
 .rv-mini small{font-weight:400;opacity:.75;font-size:.76rem}
 .rv-note{font-size:.78rem;margin:6px 0 0}
-@media (prefers-reduced-motion:reduce){.rv-ring i{animation:none}}
-/* the story slides */
-.rv .rv-ropes{position:absolute!important;left:-10px;right:-10px;bottom:7%;height:64px;z-index:0!important;pointer-events:none;animation:none!important;
-  background:linear-gradient(rgba(255,214,224,.28),rgba(255,214,224,.28)) 0 0/100% 4px no-repeat,linear-gradient(rgba(232,197,116,.3),rgba(232,197,116,.3)) 0 28px/100% 4px no-repeat,linear-gradient(rgba(255,214,224,.28),rgba(255,214,224,.28)) 0 56px/100% 4px no-repeat}
-.rv .rv-spot{animation:none!important;position:absolute!important;left:50%;top:-30%;width:150%;height:90%;transform:translateX(-50%);z-index:0!important;pointer-events:none;background:radial-gradient(closest-side,rgba(255,240,245,.22),transparent);}
-.rv-poster{display:grid;gap:10px;justify-items:center;text-align:center}
-.rv-ev{font-family:var(--f-data);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;background:#ffd23f;color:#241a33;padding:4px 12px;border-radius:3px;font-weight:800}
-.rv-title{font-size:clamp(2rem,9.5vw,3rem);font-weight:900;line-height:.95;letter-spacing:-.02em;text-transform:uppercase;text-shadow:0 3px 0 rgba(0,0,0,.25)}
-.rv-face2{display:flex;align-items:center;justify-content:center;gap:6px;width:100%}
-.rv-face2>div{display:grid;justify-items:center;gap:6px;flex:1;min-width:0}
-.rv-face2 b{font-size:1.1rem;line-height:1.1;overflow-wrap:anywhere}
-.rv-face2 small{font-family:var(--f-data);font-size:.68rem;letter-spacing:.06em;opacity:.85}
-.rv-face2 .ws-f{--fs:96px}
-.rv-face2 .l .ws-f{animation:rvL 1.8s ease-in-out infinite}.rv-face2 .r .ws-f{animation:rvR 1.8s ease-in-out infinite}
-@keyframes rvL{0%,100%{transform:none}50%{transform:translateX(6px) rotate(3deg)}}
-@keyframes rvR{0%,100%{transform:none}50%{transform:translateX(-6px) rotate(-3deg)}}
-.rv-x{font-size:2rem;flex:none}
-.rv-tape{display:grid;gap:0;background:rgba(0,0,0,.26);border-radius:14px;padding:6px 12px}
-.rv-tape .hd{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:6px 0 8px;border-bottom:1px solid rgba(255,255,255,.25)}
-.rv-tape .hd .ws-f{--fs:52px;justify-self:center}
-.rv-tape .hd b{font-family:var(--f-data);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.85}
-.rv-tape .r{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.95rem}
-.rv-tape .r:last-child{border-bottom:0}
-.rv-tape .r>span{text-align:center;font-weight:800}
-.rv-tape .r>small{font-family:var(--f-data);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.8;text-align:center;min-width:8.5em}
-.rv-tape .r>span.up{color:#ffd23f}
-.rv-score{display:flex;align-items:center;justify-content:center;gap:14px}
-.rv-score .ws-f{--fs:70px}
-.rv-score .n{font-size:clamp(3rem,15vw,4.6rem);font-weight:900;letter-spacing:-.04em;line-height:1}
-.rv-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:rgba(255,255,255,.2)}
-.rv-bar i{display:block;height:100%;animation:wsGrow 1s .3s cubic-bezier(.2,.8,.2,1) both}
-.rv-bouts{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.rv-bouts li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;background:rgba(0,0,0,.24);border-radius:12px;padding:8px 10px}
-.rv-bouts .ws-f{--fs:38px}.rv-bouts .ws-f .av{border-width:2px;font-size:.8rem;box-shadow:none}
-.rv-bouts b{display:block;font-size:.95rem;line-height:1.15}
-.rv-bouts small{display:block;font-size:.76rem;opacity:.85}
-.rv-bouts .p{font-family:var(--f-data);font-weight:700;font-size:.86rem;text-align:right;white-space:nowrap}
-.rv-bouts li.fin{background:linear-gradient(90deg,rgba(255,210,63,.35),rgba(0,0,0,.2))}
-.rv-belt{position:relative;width:min(80vw,310px);aspect-ratio:300/170;margin:0 auto;flex:none}
-.rv-belt svg{position:absolute;inset:0;width:100%;height:100%}
-.rv-belt .ws-f{position:absolute;left:50%;top:50%;width:30%;transform:translate(-50%,-50%);animation:wsGlow 2s ease-in-out infinite}
-.rv-belt .shine{animation:rvShine 2.6s ease-in-out infinite}
-@keyframes rvShine{0%,100%{opacity:.15}50%{opacity:.6}}
-.rv-next{display:grid;gap:8px}
-.rv-next .ws-end{display:flex;align-items:center;gap:10px;justify-content:center}
-.rv-next .ws-end .av{width:28px;height:28px}
-.rv-next .ws-end.alt{background:rgba(255,255,255,.18);color:#fff}
-@media (prefers-reduced-motion:reduce){.rv-face2 .ws-f,.rv-belt .ws-f,.rv-belt .shine{animation:none}}
+.rv-list{margin-top:12px;border:1px solid var(--line);border-radius:var(--r);padding:12px;background:var(--slab)}
+.rv-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:10px}
+.rv-head b{font-size:1.05rem}
+.rv-leg{display:flex;flex-wrap:wrap;gap:6px;font-size:.74rem}
+.rv-leg span{display:inline-flex;align-items:center;gap:5px}
+.rv-leg i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.rv-games{list-style:none;margin:0;padding:0;display:grid;gap:4px;max-height:420px;overflow:auto}
+.rv-games li{display:grid;grid-template-columns:2.9em minmax(0,1fr) auto 1.2em;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:var(--stone);border-left:5px solid transparent;font-size:.88rem}
+.rv-games .y{font-family:var(--f-data);font-weight:700}
+.rv-games .lab small{display:block;opacity:.75;font-size:.74rem}
+.rv-games .sc{font-family:var(--f-data);text-align:right;white-space:nowrap}
+.rv-games .res{font-weight:800;text-align:center}
+.rv-games .res.w{color:#1f8a4c}.rv-games .res.l{color:#b3261e}
+.rv-games li.po{border-left-color:#d22d3d;background:rgba(210,45,61,.14)}
+.rv-games li.fin{border-left-color:#d4a017;background:rgba(232,190,40,.26)}
+.rv-games li.sk{border-left-color:#7a4a2a;background:rgba(122,74,42,.2)}
+.rv-leg .po{background:#d22d3d}.rv-leg .fin{background:#d4a017}.rv-leg .sk{background:#7a4a2a}
 .ws-move{display:grid;gap:12px}
 .ws-move>div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center}
 .ws-move .ws-f{--fs:58px;grid-row:span 2}
@@ -2187,7 +2155,7 @@ function renderTeams(){
      ${nameList?`<div class="eyebrow" style="margin:14px 0 6px">Team names on record</div><div class="chips">${nameList}</div>`:""}
      ${yrs.length?`<div class="season-panel"><div class="controls" style="margin:0"><label for="teamYear">Season<select id="teamYear">${yrs.map(y=>`<option ${y===teamYear?"selected":""}>${y}</option>`).join("")}</select></label></div><div id="seasonDetail"></div></div>`:""}
    </div></div>`;
-  $("#profile").querySelectorAll(".rv-sec [data-rv]").forEach(b=>b.onclick=()=>openRival(o,b.dataset.rv));
+  $("#profile").querySelectorAll(".rv-sec [data-rv]").forEach(b=>b.onclick=()=>rvToggle(o,b.dataset.rv));
   if(yrs.length){$("#teamYear").onchange=e=>{teamYear=+e.target.value;renderSeasonDetail()};renderSeasonDetail()}
 }
 let teamView="roster";
@@ -2219,96 +2187,29 @@ function renderSeasonDetail(){
 }
 
 /* ---------- RIVALS ---------- */
-// Kyle 2026-11-18: each owner's biggest rival (data/rivals.json from src/rivals.py: every game since 2018, extra for close
-// games and a lot extra for playoff meetings), told as a fight-night tap-through story on the weekly story player's styling.
-const RV_TH=[["#3a1730","#0d0a14","#d9577e"],["#c2416b","#241a33","#e8c574"],["#b8466b","#1d2440","#f4a3b8"],["#a93b62","#2a1a2e","#f7b8c8"],["#d05a7a","#4a1d3a","#e8c574"],["#9e3a5c","#1a2236","#e8c574"],["#e46f8c","#7a2848","#ffd6e0"]];
-const RV_NAMES=["Bad Blood","The Grudge Match","Unfinished Business","Thrilla in Flamingo","No Love Lost","The Long Island Brawl","Settle It in the Ring"];
-const rvRound=g=>g.k==="final"?"Championship":g.k==="semi"?"Semifinal":g.k==="qf"?"Quarterfinal":`Week ${g.w}`;
-const rvNick=v=>{const k=(OWNERS[v]?.nick||"").split(" / ")[0];return k&&k!==short(v)?`"${esc(k)}"`:"&nbsp;"};
-const rvWhen=g=>`${g.y} ${rvRound(g)}`;
-function rivalOf(o,x){const R=RIVALS[o];if(!R)return null;return R.top.o===x?R.top:R.more?.[x]||null}
-function rivalCard(o){const R=RIVALS[o];if(!R)return "";const r=R.top,x=r.o;
-  const sub=r.w+r.l===0?`${r.po} playoff bout${r.po>1?"s":""}`:`${r.w}-${r.l} all-time${r.po?` · ${r.po} playoff bout${r.po>1?"s":""}`:""}`;
+// Kyle 2026-11-18: each owner's biggest rival (data/rivals.json from src/rivals.py: every weekly matchup, close games count
+// extra and playoff meetings count most). Tapping a rival expands every matchup between them: red = playoffs,
+// gold = championship, brown = Sacko bracket.
+let rvOpen=null;
+function rivalCard(o){const R=RIVALS[o];if(!R||!R.length)return "";
+  if(rvOpen&&rvOpen.o!==o)rvOpen=null;
+  const sub=r=>[`${r.w}-${r.l} all-time`,r.po?`${r.po} playoff meeting${r.po>1?"s":""}`:"",r.sk?`${r.sk} Sacko bracket game${r.sk>1?"s":""}`:""].filter(Boolean).join(" · ");
+  const ex=x=>rvOpen?.x===x?"true":"false",t=R[0];
   return `<div class="rv-sec"><div class="eyebrow" style="margin-bottom:6px">Biggest rival</div><div class="rv-row">
-    <button type="button" class="rv-card" data-rv="${x}" aria-label="Watch the ${nm(o)} vs ${nm(x)} rivalry story"><span class="rv-ring">${av(x)}<i aria-hidden="true">🥊</i></span>
-    <span><small class="k">Tonight's main event</small><b>vs. ${nm(x)}</b><small>${sub}</small></span><span class="wr-play" aria-hidden="true">▶</span></button>
-    ${(R.next||[]).map(n=>`<button type="button" class="rv-mini" data-rv="${n.o}" aria-label="Watch the ${nm(o)} vs ${nm(n.o)} rivalry story">${av(n.o)}<span>${nm(n.o)}<small>${n.w}-${n.l}${n.po?` · ${n.po} playoff`:""}</small></span></button>`).join("")}</div>
-    <p class="muted rv-note">Every game on record counts, close games count extra, and playoff meetings count most. Tap for the fight.</p></div>`}
-function rvBuild(o,r,dash){const x=r.o,out=[];let ti=0;const add=(html,th)=>out.push({html,th:th||RV_TH[1+(ti++%(RV_TH.length-1))]});
-  const n=v=>nm(v),G=r.games,dec=G.filter(g=>g.win!=null),scored=G.filter(g=>g.p!=null&&g.q!=null);
-  const name=RV_NAMES[wsH([o,x].sort().join("|"))%RV_NAMES.length];
-  const ta=totals(o)||{},tb=totals(x)||{},first=G[0]?.y;
-  // 1. the fight poster
-  add(`<div class="rv-poster"><span class="rv-ev">Flamingo Men Fight Night</span><div class="rv-title">${esc(name)}</div>
-    <div class="rv-face2"><div class="l">${wsF(o)}<b>${n(o)}</b><small>${rvNick(o)}</small></div><span class="rv-x" aria-hidden="true">🥊</span><div class="r">${wsF(x)}<b>${n(x)}</b><small>${rvNick(x)}</small></div></div>
-    <p class="wr-t">${r.n} bout${r.n===1?"":"s"}${first?` since ${first}`:""}${r.po?`, ${r.po} of them in the playoffs`:""}. ${RIVALS[o]?.top.o===x?`This is ${n(o)}'s biggest rivalry in the league.`:`One of ${n(o)}'s top three rivalries.`}</p><p class="wr-t" style="opacity:.7;font-size:.85rem">Tap to start →</p></div>`,RV_TH[0]);
-  // 2. tale of the tape
-  const sea=v=>Object.keys(S[v]?.seasons||{}).length,ppg=(p,k)=>k?fmt(p/k):"–";
-  const trades=uniqT(TR.filter(t=>t.st==="completed"&&((t.a.o===o&&t.b.o===x)||(t.a.o===x&&t.b.o===o)))).length;
-  const row=(lab,a,b,hi)=>{const up=hi===undefined?["",""]:hi>0?["up",""]:hi<0?["","up"]:["",""];return `<div class="r"><span class="${up[0]}">${a}</span><small>${lab}</small><span class="${up[1]}">${b}</span></div>`};
-  const cmp=(a,b)=>(a||0)-(b||0);
-  add(`<div class="wr-k">Tale of the tape</div><div class="rv-tape"><div class="hd">${wsF(o)}<b>vs</b>${wsF(x)}</div>
-    ${row("Titles",(ta.titles||0)?"♛".repeat(ta.titles):"0",(tb.titles||0)?"♛".repeat(tb.titles):"0",cmp(ta.titles,tb.titles))}
-    ${row("All-time record",ta.w!=null?`${ta.w}-${ta.l}`:"–",tb.w!=null?`${tb.w}-${tb.l}`:"–")}
-    ${row("Win %",ta.pct?ta.pct.toFixed(3).replace(/^0/,""):"–",tb.pct?tb.pct.toFixed(3).replace(/^0/,""):"–",cmp(ta.pct,tb.pct))}
-    ${row("Sackos",ta.sackos||0,tb.sackos||0,cmp(tb.sackos,ta.sackos))}
-    ${row("Seasons",sea(o),sea(x))}
-    ${r.reg?row("Pts per bout",ppg(r.pf,r.reg),ppg(r.pa,r.reg),cmp(r.pf,r.pa)):""}
-    </div><p class="wr-t" style="font-size:.88rem;opacity:.85">${trades?`They've also made ${trades} trade${trades>1?"s":""} with each other. Business is business.`:"They have never made a trade with each other. Not one."}</p>`);
-  // 3. the scorecards
-  if(dec.length){const lead=r.w>r.l?o:r.l>r.w?x:null,pa=Math.round(100*r.w/(r.w+r.l||1));
-    add(`<div class="wr-k">The official scorecards</div><div class="rv-score">${wsF(o)}<span class="n">${r.w}-${r.l}</span>${wsF(x)}</div>
-      <div class="rv-bar"><i style="width:${pa}%;background:${dcol(o)}"></i><i style="flex:1;background:${dcol(x)}"></i></div>
-      <div class="wr-big long">${lead?`${n(lead)} ${Math.abs(r.w-r.l)>=4?"owns":"leads"} the series`:"Dead even"}</div>
-      <p class="wr-t">Every week they've played counts, playoffs included. ${r.reg?`In the regular season it's ${fmt(r.pf)} points to ${fmt(r.pa)}. `:""}${r.streak>=3||r.ostreak>=3?`Longest win streak: ${r.streak>=r.ostreak?`${n(o)} with ${r.streak} straight`:`${n(x)} with ${r.ostreak} straight`}.`:r.close?`${r.close} of their games were decided by under 10 points.`:""}</p>`)}
-  // 4. playoff bouts
-  const po=G.filter(g=>g.k!=="reg");
-  if(po.length){add(`<div class="wr-k">Title fights</div><div class="wr-big long">${po.length} playoff bout${po.length>1?"s":""}</div><ol class="rv-bouts">${po.map(g=>{const w=g.win===1?o:g.win===0?x:null;
-      return `<li class="${g.k==="final"?"fin":""}">${w?wsF(w):wsF(o)}<div><b>${g.y} ${rvRound(g)}${g.k==="final"?" 🏆":""}</b><small>${w?`${n(w)} wins${g.p!=null?` by ${fmt(Math.abs(g.p-g.q))}`:""}`:"Winner wasn't saved"}</small></div><span class="p">${g.p!=null?`${fmt(g.p)}-${fmt(g.q)}`:"no score"}</span></li>`}).join("")}</ol>
-      <p class="wr-t" style="font-size:.88rem;opacity:.85">${po.length>=2?"Rivalries are made in December.":"One playoff meeting. Somebody still hasn't let it go."}</p>`)}
-  else add(`<div class="wr-k">Title fights</div><div class="wr-big long">No playoff bouts yet</div><p class="wr-t">They've never met in the playoffs. The title fight is still waiting to be booked.</p>`);
-  // 5. biggest knockouts
-  const ko=scored.filter(g=>g.win!=null).map(g=>({g,m:Math.abs(g.p-g.q),w:g.win===1?o:x,l:g.win===1?x:o})).sort((a,b)=>b.m-a.m);
-  if(ko.length){const k=ko[0],other=ko.find(z=>z.w!==k.w);
-    add(`<div class="wr-k">Biggest knockout</div>${WS_ART.ko(k.w,k.l)}<div class="wr-big">${fmt(k.m)}</div><p class="wr-t"><b>${n(k.w)}</b> beat ${n(k.l)} ${fmt(Math.max(k.g.p,k.g.q))}-${fmt(Math.min(k.g.p,k.g.q))} in ${rvWhen(k.g)}. ${n(k.l)} is still seeing stars.</p>
-      ${other?`<p class="wr-note">${n(other.w)}'s best shot back: ${fmt(Math.max(other.g.p,other.g.q))}-${fmt(Math.min(other.g.p,other.g.q))} in ${rvWhen(other.g)}, by ${fmt(other.m)}.</p>`:`<p class="wr-note">${n(k.l)} has never landed a punch back.</p>`}`)}
-  // 6. closest decisions
-  const cl=scored.slice().sort((a,b)=>Math.abs(a.p-a.q)-Math.abs(b.p-b.q)).slice(0,3);
-  if(cl.length&&Math.abs(cl[0].p-cl[0].q)<15){const c0=cl[0],w0=c0.win===1?o:c0.win===0?x:null,l0=w0===o?x:o;
-    add(`<div class="wr-k">Closest decisions</div>${WS_ART.ekg(o,x)}<div class="wr-big">${fmt(Math.abs(c0.p-c0.q))}</div><p class="wr-t">${w0?`<b>${n(w0)}</b> took a split decision in ${rvWhen(c0)}. ${n(l0)} wants a recount.`:`A draw in ${rvWhen(c0)}. Nobody's happy.`}</p>
-      ${cl.slice(1).some(g=>Math.abs(g.p-g.q)<10)?`<ol class="rv-bouts">${cl.slice(1).filter(g=>Math.abs(g.p-g.q)<10).map(g=>{const w=g.win===1?o:x;return `<li>${wsF(w)}<div><b>${rvWhen(g)}</b><small>${n(w)} by ${fmt(Math.abs(g.p-g.q))}</small></div><span class="p">${fmt(g.p)}-${fmt(g.q)}</span></li>`}).join("")}</ol>`:""}`)}
-  // 7. the belt
-  const b=r.belt;
-  if(b){const live=dash?.live?.find(g=>[g[0].o,g[1].o].sort().join()===[o,x].sort().join()),ch=b.o===o?x:o;
-    add(`<div class="wr-k">Current belt holder</div><div class="rv-belt"><svg viewBox="0 0 300 170" aria-hidden="true"><defs><linearGradient id="rvG" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#b8860b"/></linearGradient></defs>
-      <rect x="0" y="52" width="300" height="66" rx="12" fill="#241a33" stroke="#e8c574" stroke-width="3"/><path d="M14 70h272M14 100h272" stroke="#e8c574" stroke-width="1.5" stroke-dasharray="3 5"/>
-      <circle cx="40" cy="85" r="18" fill="url(#rvG)"/><circle cx="260" cy="85" r="18" fill="url(#rvG)"/><path d="M40 73l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z M260 73l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="#b8860b"/>
-      <ellipse cx="150" cy="85" rx="78" ry="80" fill="url(#rvG)" stroke="#8a6408" stroke-width="4"/><ellipse cx="150" cy="85" rx="62" ry="64" fill="none" stroke="#fff" stroke-width="2" class="shine"/>
-      <text x="150" y="26" text-anchor="middle" font-size="11" font-weight="900" fill="#3b2a0b" font-family="sans-serif" letter-spacing="2">RIVALRY</text><text x="150" y="156" text-anchor="middle" font-size="11" font-weight="900" fill="#3b2a0b" font-family="sans-serif" letter-spacing="2">CHAMPION</text></svg>${wsF(b.o)}</div>
-      <div class="wr-big long">${n(b.o)}</div><p class="wr-t">Won the last bout (${rvWhen(b)})${b.n>1?` and ${b.n} straight since ${rvWhen(b.since)}`:""}. ${live?`<b>Title defense this week</b> in Week ${dash.week}. ${n(ch)} gets the rematch.`:`${n(ch)} wants the belt back.`}</p>`,RV_TH[5])}
-  // 8. the end card
-  const R=RIVALS[o],nx=(R?.top.o===x?R.next:[{o:R?.top.o}].concat((R?.next||[]).filter(z=>z.o!==x))).filter(z=>z?.o).slice(0,2);
-  add(`<div class="wr-k">That's the fight</div><div class="wr-big long">${n(o)} vs ${n(x)}</div><p class="wr-t">${r.w===r.l?"Still even. Run it back.":`${r.w>r.l?n(o):n(x)} is up ${Math.max(r.w,r.l)}-${Math.min(r.w,r.l)}. The rematch is never far away.`}</p>
-    <div class="rv-next">${nx.map(z=>`<button type="button" class="ws-end alt" data-rv="${z.o}">${av(z.o)}Next: ${n(o)} vs ${n(z.o)}</button>`).join("")}<button type="button" class="ws-end" data-close="1">Leave the arena</button></div>`,RV_TH[0]);
-  return out}
-let rvS=[],rvI=0;
-function rvShow(){const st=$("#rvStage"),s=rvS[rvI];st.querySelector(".wr-bars").innerHTML=rvS.map((_,i)=>`<i class="${i<=rvI?"on":""}"></i>`).join("");
-  st.querySelector(".wr-body").innerHTML=`<div class="wr-slide ws rv wr-in" style="background:linear-gradient(165deg,${s.th[0]} 0%,${s.th[1]} 85%);--wa:${s.th[2]};--wb:${s.th[2]}"><i class="rv-spot" aria-hidden="true"></i><i class="rv-ropes" aria-hidden="true"></i>${s.html}</div>`;
-  st.querySelector(".wr-hint").textContent=rvI<rvS.length-1?"Tap to continue":"Tap to close"}
-function rvStep(k){const n=rvI+k;if(n<0)return;if(n>=rvS.length){$("#rvDlg").close();return}rvI=n;rvShow()}
-function openRival(o,x){const r=rivalOf(o,x);if(!r)return;let dlg=$("#rvDlg");
-  if(!dlg){dlg=document.createElement("dialog");dlg.id="rvDlg";dlg.className="wrdlg";dlg.setAttribute("aria-label","Rivalry story");
-    dlg.innerHTML=`<div class="wr-stage" id="rvStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
-    document.body.appendChild(dlg);
-    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>rvStep(-1);dlg.querySelector(".next").onclick=()=>rvStep(1);
-    dlg.addEventListener("click",e=>{if(e.target===dlg){dlg.close();return}const b=e.target.closest(".ws-end");if(!b)return;if(b.dataset.rv)openRival(dlg._o,b.dataset.rv);else dlg.close()});
-    dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();rvStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();rvStep(-1)}});
-    let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
-    dlg.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>50){e.preventDefault();rvStep(dx<0?1:-1)}})}
-  dlg._o=o;
-  const go=d=>{rvS=rvBuild(o,r,d);rvI=0;rvShow();if(!dlg.open)dlg.showModal();dlg.querySelector(".next").focus()};
-  // the dashboard says whether the two meet this week (title defense); it is only loaded on the home page, so fetch it if needed
-  if(DASH)go(DASH);else fetch("data/dashboard.json").then(r=>r.ok?r.json():null).catch(()=>null).then(go)}
+    <button type="button" class="rv-card" data-rv="${t.o}" aria-expanded="${ex(t.o)}"><span class="rv-ring">${av(t.o)}</span><span><b>vs. ${nm(t.o)}</b><small>${sub(t)}</small></span><span class="chev" aria-hidden="true">▾</span></button>
+    ${R.slice(1).map(r=>`<button type="button" class="rv-mini" data-rv="${r.o}" aria-expanded="${ex(r.o)}">${av(r.o)}<span>${nm(r.o)}<small>${r.w}-${r.l}${r.po?` · ${r.po} playoff`:""}</small></span></button>`).join("")}</div>
+    <div class="rv-list" id="rvList"${rvOpen?"":" hidden"}>${rvOpen?rvList(o,rvOpen.x):""}</div>
+    <p class="muted rv-note">Every matchup counts, close games count extra, and playoff meetings count most. Tap a rival to see every game.</p></div>`}
+function rvList(o,x){const r=(RIVALS[o]||[]).find(z=>z.o===x);if(!r)return "";
+  const lab=g=>{const[y,w,k,,,,leg]=g,wk=w?`Wk ${w}`:"";const two=/of 2/.test(leg||"")?` · ${leg}`:"";
+    return k==="final"?`Championship<small>${wk}${two}</small>`:k==="po"?`Playoffs<small>${w?wk+two:"Semifinal"}</small>`:k==="sacko"?`Sacko bracket<small>${wk}${two}</small>`:`Week ${w}`};
+  const rows=r.games.slice().reverse().map(g=>{const[y,,k,p,q,res]=g;
+    return `<li class="${k==="final"?"fin":k==="po"?"po":k==="sacko"?"sk":""}"><span class="y">${y}</span><span class="lab">${lab(g)}</span><span class="sc">${p!=null?`${fmt(p)} - ${fmt(q)}`:'<span class="muted">score not saved</span>'}</span><span class="res ${res===1?"w":res===0?"l":""}">${res===1?"W":res===0?"L":"?"}</span></li>`}).join("");
+  return `<div class="rv-head"><div class="who">${av(o)}<b>${nm(o)} vs ${nm(x)}</b>${av(x)}</div><b>${r.w}-${r.l}</b><div class="rv-leg"><span><i class="po"></i>Playoffs</span><span><i class="fin"></i>Championship</span><span><i class="sk"></i>Sacko bracket</span></div></div>
+    <ol class="rv-games">${rows}</ol><p class="muted rv-note">Newest first. Scores are ${nm(o)}'s first. Two-week playoff and Sacko rounds show each week as its own game.</p>`}
+function rvToggle(o,x){rvOpen=rvOpen?.x===x?null:{o,x};const sec=$("#profile .rv-sec");if(!sec)return;
+  sec.querySelectorAll("[data-rv]").forEach(b=>b.setAttribute("aria-expanded",rvOpen?.x===b.dataset.rv?"true":"false"));
+  const L=$("#rvList");L.hidden=!rvOpen;L.innerHTML=rvOpen?rvList(o,x):""}
 
 /* ---------- WRAPPED ---------- */
 // Spotify Wrapped style recap per owner and finished season, from data/wrapped.json (src/wrapped.py)
