@@ -123,5 +123,7 @@ t=t.replace('/*RANKINGS*/',open(os.path.join(root,'data','rankings.json')).read(
 t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() if os.path.exists(os.path.join(root,'data','stories.json')) else '{}')
 # biggest rival per owner and the head-to-head bouts behind the boxing story, from src/rivals.py
 t=t.replace('/*RIVALS*/',open(os.path.join(root,'data','rivals.json')).read() if os.path.exists(os.path.join(root,'data','rivals.json')) else '{}')
+# week-by-week facts behind the Game of Thrones title stories and the Sacko walks of shame, from src/thrones.py
+t=t.replace('/*THRONES*/',open(os.path.join(root,'data','thrones.json')).read() if os.path.exists(os.path.join(root,'data','thrones.json')) else '{}')
 open(os.path.join(root,'index.html'),'w').write(t)
 print('ok',len(t))
