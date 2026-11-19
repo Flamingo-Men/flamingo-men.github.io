@@ -276,7 +276,7 @@ po=[m for m in SCHED if m.get('playoffTierType')=='WINNERS_BRACKET']
 actual={}
 for m in po:
     actual.setdefault(m['matchupPeriodId'],[]).append(dict(a=dict(o=OW[m['home']['teamId']],pts=score(m,'home')),b=dict(o=OW[m['away']['teamId']],pts=score(m,'away')) if 'away' in m else None,win={'HOME':'a','AWAY':'b'}.get(m.get('winner'))))
-# Sacko bracket (loser advances): ESPN's losers ladder games, once the playoffs start
+# Sacko bracket (loser advances): ESPN's losers ladder games, once the playoffs start. The page shows only the last two weeks (bottom four, Kyle 2026-11-19)
 sacko={}
 for m in [m for m in SCHED if m.get('playoffTierType')=='LOSERS_CONSOLATION_LADDER']:
     sacko.setdefault(m['matchupPeriodId'],[]).append(dict(a=dict(o=OW[m['home']['teamId']],pts=score(m,'home')),b=dict(o=OW[m['away']['teamId']],pts=score(m,'away')) if 'away' in m else None,win={'HOME':'a','AWAY':'b'}.get(m.get('winner'))))
