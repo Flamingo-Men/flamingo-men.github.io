@@ -2118,7 +2118,7 @@ function renderOdds(){const d=DASH,W=d.odds.weeks,S_=d.odds.series;if(!W.length)
     tip.hidden=false;const left=x(i)*r.width/w;tip.style.top="0px";tip.style.left=(left>r.width/2?left-tip.offsetWidth-12:left+12)+"px"};
   $("#oddsHit").onpointermove=move;$("#oddsHit").onpointerdown=move;$("#oddsHit").onpointerleave=ev=>{if(ev.pointerType!=="mouse")return;tip.hidden=true;xh.setAttribute("x1",-10);xh.setAttribute("x2",-10)}}
 function renderBracketLive(){const d=DASH,B_=d.bracket,sd={};(d.standings||[]).forEach(s=>{if(s.seed)sd[s.seed]=s});B_.seeds.forEach(s=>sd[s.seed]={...sd[s.seed],...s});
-  const act=B_.actual||{},real=Object.keys(act).length>0,sact=B_.sacko||{},sreal=Object.keys(sact).length>0;
+  const act=B_.actual||{},real=Object.keys(act).length>0,sact=B_.sacko||{};
   $("#brSub").textContent=real?"Live playoff bracket":`If the season ended today · ${d.reg-d.last} weeks left`;
   const pct=s=>s.odds==null?"":s.odds>=99.5?">99%":`${s.odds.toFixed(0)}%`;
   const side=(s,extra="",win=false,lose=false)=>s?`<div class="brl-s${win?" w":""}${lose?" l":""}"><span class="sd">${s.seed||""}</span>${av(s.o)}<span title="${esc(s.team||"")} ${s.rec||""}">${nm(s.o)}</span><small>${extra}</small></div>`:`<div class="brl-s tbd"><span class="sd"></span><span></span><span>${esc(extra)}</span><small></small></div>`;
@@ -2133,16 +2133,18 @@ function renderBracketLive(){const d=DASH,B_=d.bracket,sd={};(d.standings||[]).f
   else cols=[[m(sd[4],sd[5],pct(sd[4]),pct(sd[5])),m(sd[3],sd[6],pct(sd[3]),pct(sd[6]))],
     [m(sd[1],null,`Bye ${sd[1]?.bye!=null?sd[1].bye.toFixed(0)+"%":""}`,"Winner of 4 v 5"),m(sd[2],null,`Bye ${sd[2]?.bye!=null?sd[2].bye.toFixed(0)+"%":""}`,"Winner of 3 v 6")],
     [m(null,null,"","Semi winners","","","Championship")]];
-  // Sacko bracket (Kyle): 12 and 11 get byes, 10 v 7 and 8 v 9 in round 1, the LOSER advances; the last loser takes the Sacko
-  const n=Object.keys(sd).length,S=k=>sd[k],r=s=>s?.rec||"";
+  // Sacko bracket (Kyle 2026-11-19): just the bottom four over two rounds, lined up with the semifinals and the final.
+  // Semis are 12 v 9 and 11 v 10, the LOSER advances, and the Sacko game loser takes the Sacko. Real games are ESPN's losers ladder
+  // games in those two weeks (an earlier ESPN round, if the league's ladder still has one, is left off).
+  const n=Object.keys(sd).length,S=k=>sd[k],r=s=>s?.rec||"",skW=[w2,w3].map(String);
+  const sact2=Object.fromEntries(Object.entries(sact).filter(([k])=>skW.includes(k))),sreal=Object.keys(sact2).length>0;
   let scols;
-  if(sreal){scols=realCols(sact,true);if(scols.length<3)scols.push([m(null,null,"","Semi losers","","","Sacko game"," sk")])}
-  else scols=n>=12?[[m(S(10),S(7),r(S(10)),r(S(7)),0,0,"Loser advances"," sk"),m(S(8),S(9),r(S(8)),r(S(9)),0,0,"Loser advances"," sk")],
-    [m(S(12),null,r(S(12)),"Loser of 10 v 7",0,0,"Bye in round 1"," sk"),m(S(11),null,r(S(11)),"Loser of 8 v 9",0,0,"Bye in round 1"," sk")],
+  if(sreal){scols=realCols(sact2,true);if(scols.length<2)scols.push([m(null,null,"","Semi losers",0,0,"Loser takes the Sacko"," sk")])}
+  else scols=n>=8?[[m(S(n),S(n-3),r(S(n)),r(S(n-3)),0,0,"Loser advances"," sk"),m(S(n-1),S(n-2),r(S(n-1)),r(S(n-2)),0,0,"Loser advances"," sk")],
     [m(null,null,"","Semi losers",0,0,"Loser takes the Sacko"," sk")]]:null;
   $("#bracketLive").innerHTML=tree(cols,H)
     +(!real&&B_.bubble.length?`<p class="brl-bub">First ones out: ${B_.bubble.map(s=>`${nm(s.o)} (${s.rec}, ${pct(s)})`).join(", ")}. Percentages are playoff odds; byes go to the two division winners${sd[1]?.div&&sd[2]?.div?` (${esc(sd[1].div)} and ${esc(sd[2].div)})`:""}.</p>`:"")
-    +(scols?`<div class="brl-sk-h"><img class="sk-ic" src="img/sacko.png" alt=""><h3>Sacko bracket</h3><span class="dsub">${sreal?"Loser advances":"Loser advances · if the season ended today"}</span></div>${tree(scols,[`Round 1 · Wk ${w1}`,`Round 2 · Wk ${w2}`,`Sacko game · Wk ${w3}`])}`:"")
+    +(scols?`<div class="brl-sk-h"><img class="sk-ic" src="img/sacko.png" alt=""><h3>Sacko bracket</h3><span class="dsub">${sreal?"Bottom four · loser advances":"Bottom four · loser advances · if the season ended today"}</span></div>${tree(scols,[`Semifinals · Wk ${w2}`,`Sacko game · Wk ${w3}`])}`:"")
     +'<p class="brl-bub brl-swipe">Swipe sideways to see every round.</p>'}
 let ssAll=false;
 function renderSeason(){const L_=DASH.stories,n=ssAll?L_.length:Math.min(6,L_.length);
