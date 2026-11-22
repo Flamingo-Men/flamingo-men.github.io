@@ -473,6 +473,10 @@ details.fold:not([open])>summary{margin-bottom:0}
 .recwrap{position:relative;padding:0 26px}
 .recgrid{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(160px,15vw,172px);gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:2px 2px 6px}
 .recgrid::-webkit-scrollbar{display:none}
+.movepg{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+.movepg span{margin-right:4px;font-size:.9rem}
+.movepg button{min-width:44px;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--slab);color:var(--ink);cursor:pointer;font:inherit;font-size:.9rem}
+.movepg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
 .recgrid .rec{scroll-snap-align:start}
 .retro{margin-top:28px;border:2px dashed var(--gold);border-radius:var(--r);padding:20px 18px;background:repeating-linear-gradient(0deg,transparent 0 27px,color-mix(in srgb,var(--gold) 12%,transparent) 27px 28px),color-mix(in srgb,var(--gold) 6%,var(--slab))}
 .retro h3{font-family:var(--f-data);font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:4px 0 2px}
@@ -1589,8 +1593,14 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
   <p>League records, the all-time and season standings, and every trade and waiver pickup on record. The top 10 lists live on the <a href="#rankings">Rankings</a> tab.</p></div>
   <div class="block" style="margin-top:0"><div class="block-head"><h2>League records</h2></div>
-    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous records">‹</button><div class="recgrid" id="recGrid" tabindex="0" aria-label="League records"></div><button type="button" class="recnav next" aria-label="More records">›</button></div>
-    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">Pickups come from ESPN for 2018 to 2026; 2016 and 2017 show trades only. Single-week records and streaks use ESPN box scores from 2018 on (regular season and playoffs; streaks count regular-season games only). Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
+    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous league records">‹</button><div class="recgrid" id="recLeague" tabindex="0" aria-label="League records"></div><button type="button" class="recnav next" aria-label="More league records">›</button></div>
+  </div>
+  <div class="block"><div class="block-head"><h2>Regular season records</h2></div>
+    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous regular season records">‹</button><div class="recgrid" id="recReg" tabindex="0" aria-label="Regular season records"></div><button type="button" class="recnav next" aria-label="More regular season records">›</button></div>
+  </div>
+  <div class="block"><div class="block-head"><h2>Playoff records</h2></div>
+    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous playoff records">‹</button><div class="recgrid" id="recPo" tabindex="0" aria-label="Playoff records"></div><button type="button" class="recnav next" aria-label="More playoff records">›</button></div>
+    <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">League records cover whole careers: career wins, losses and win rate count regular-season games. Regular season records count regular-season games only. Playoff records count the winners' bracket from 2016 on; a playoff round played over two weeks is one game, decided by the two-week total, and playoff-week records use single weeks of those rounds. Single-week records and streaks use ESPN box scores from 2018 on, and playoff scores were saved from 2018 on (plus the 2016 final). Pickups come from ESPN for 2018 to 2026. Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
   </div>
   <div class="block" id="allTimeBlock"><div class="block-head"><h2>All-time standings</h2></div>
   <p class="muted" style="margin:0 0 10px;font-size:.9rem;max-width:80ch">Regular season records and points from 2016 through the current season. 2026 counts every completed week, so the totals move each week. Trades include every completed trade on record, 2026 included. Click a column to sort.</p>
@@ -1599,12 +1609,11 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
   <p class="muted" style="font-size:.78rem;margin:6px 0 0">Avg pts / season averages finished seasons only, so a half-played 2026 doesn't drag it down. Playoffs counts playoff trips from 2016 to 2025 (2016 and 2017 had four-team playoffs); 2026 joins once its playoffs are set. Avg draft spot is the owner's first-round slot averaged over every draft board 2016 to 2026, scaled to 10 picks: the slot divided by the number of teams, times 10, so 7th of 10 is 7.0, 6th of 12 is 5.0 and the last pick is always 10. Hover a value to see each year.</p>
   <p class="muted" style="font-size:.78rem;margin:6px 0 0">* Includes an estimated 2016 or 2017 record. Only Charles's, Duane's and Kyle's 2016 records and Kyle's and Fluff's 2017 records were saved. The rest are worked out from those and the playoff brackets (every game has a winner), so they add up but aren't exact. Points from those two seasons weren't saved.</p>
   </div>
-  <div class="block" id="seasonBlock">
-    <div class="block-head"><h2>Season standings</h2>
-      <div class="controls" style="margin:0"><span id="seasonDiv"></span><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
+  <details class="fold block" id="seasonBlock"><summary><h2>Season standings</h2><span class="chev" aria-hidden="true"></span></summary>
+    <div class="controls" style="margin:0 0 10px"><span id="seasonDiv"></span><label for="seasonSel">Season<select id="seasonSel"></select></label></div>
     <div class="tablebox"><table id="seasonTable"></table></div>
     <p class="muted" id="seasonNote" style="font-size:.9rem"></p>
-  </div>
+  </details>
   <div class="block">
     <div class="block-head"><h2>All moves</h2><span class="muted num" id="tradeCount"></span></div>
     <div class="controls">
@@ -1613,6 +1622,7 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
       <label for="moveType">Type<select id="moveType"><option value="all">Trades and pickups</option><option value="trades">Trades</option><option value="pickups">Waiver pickups</option></select></label>
     </div>
     <div id="moveList"></div>
+    <div class="movepg" id="movePg" role="group" aria-label="Moves to show"></div>
   </div>
   <div class="block">
     <div class="block-head"><h2>Vetoed</h2></div>
@@ -2372,45 +2382,69 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
   const hiS=top(withPts,r=>r.pts),loS=top(withPts.filter(r=>!r.live),r=>r.pts,1),bestR=top(seas,pct),worstR=top(seas,pct,1);
   const mW=top(T,x=>x.w),mL=top(T,x=>x.l),mT=top(T,x=>x.titles),mS=top(T,x=>x.sackos),mTr=top(T,x=>x.trades);
   const car=T.filter(x=>x.w+x.l>=36),bP=top(car,x=>x.pct),wP=top(car,x=>x.pct,1);
-  const c=[
-    card("Most points, one week",fmt(R.weekHigh.p),[R.weekHigh],`${tn(R.weekHigh)} vs ${esc(short(R.weekHigh.vs))}, ${wk(R.weekHigh.y,R.weekHigh.w)}`),
-    card("Fewest points, one week",fmt(R.weekLow.p),[R.weekLow],`${tn(R.weekLow)} vs ${esc(short(R.weekLow.vs))}, ${wk(R.weekLow.y,R.weekLow.w)}`),
-    card("Most points, one season",fmt(hiS[0].pts),hiS,hiS.map(r=>`${yl(r)}, ${r.w}-${r.l}`).join("; ")),
-    card("Fewest points, one season",fmt(loS[0].pts),loS,loS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
-    card("Best record, one season",`${bestR[0].w}-${bestR[0].l}`,bestR,bestR.map(yl).join(", ")),
-    card("Worst record, one season",`${worstR[0].w}-${worstR[0].l}`,worstR,worstR.map(yl).join(", ")),
-    card("Most wins, all time",mW[0].w,mW,`${mW.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
-    card("Most losses, all time",mL[0].l,mL,`${mL.map(x=>`${x.w}-${x.l}`).join(", ")} career`),
+  const PL=RANK.playoffs||{},PLA=Object.entries(PL).filter(([o])=>OWNERS[o]).map(([o,r])=>({o,...r}));
+  const ls=[];for(const o in LUCK)for(const y in LUCK[o])if(OWNERS[o])ls.push({o,y,...LUCK[o][y]});
+  const yl2=x=>`${x.y}${+x.y===2026?" so far":""}, ${x.w}-${x.g-x.w} with scores worth ${x.exp.toFixed(1)} wins`;
+  // playoff games (Kyle 2026-11-22): every winners'-bracket round, 2016 on. A two-week round is one game, decided by its two-week total.
+  const PG=[];Object.keys({...PLAYOFFS,...BRACKET_MANUAL}).map(Number).sort().forEach(y=>{const P=BRACKET_MANUAL[y]||PLAYOFFS[y];if(!P?.rounds?.length)return;
+    P.rounds.forEach((rd,i)=>rd.forEach(m=>PG.push({y,final:i===P.rounds.length-1,rd:i===P.rounds.length-1?"final":i===P.rounds.length-2?"semifinal":"quarterfinal",...m})))});
+  const PO={};const po=o=>PO[o]||(PO[o]={o,w:0,l:0,fin:0});
+  PG.forEach(g=>{["a","b"].forEach(k=>{const x=g[k];if(!x.o||!OWNERS[x.o])return;const r=po(x.o);if(g.final)r.fin++;if(g.win===k)r.w++;else if(g.win&&g[g.win==="a"?"b":"a"].o)r.l++})});
+  const POA=Object.values(PO),poC=POA.filter(x=>x.w+x.l>=4),poBest=top(poC,x=>x.w/(x.w+x.l)),poWorst=top(poC,x=>x.w/(x.w+x.l),1);
+  const sides=[];PG.forEach(g=>{if(g.a.pts==null||g.b.pts==null)return;[["a","b"],["b","a"]].forEach(([m,t])=>sides.push({y:g.y,rd:g.rd,o:g[m].o,team:g[m].team,p:g[m].pts,vs:g[t].o,vsp:g[t].pts,won:g.win===m}))});
+  const wonS=sides.filter(x=>x.won),pHi=top(sides,x=>x.p),pLo=top(sides,x=>x.p,1),pBl=top(wonS,x=>x.p-x.vsp),pCl=top(wonS,x=>x.p-x.vsp,1),pLoss=top(sides.filter(x=>!x.won),x=>x.p),pChamp=top(wonS.filter(x=>x.rd==="final"),x=>x.p);
+  const rdl=x=>`${x.y} ${x.rd}`,PW=R.po||{};
+  const LEAGUE=[
     card("Most titles",mT[0].titles,mT,"Championships"),
     card("Most Sackos",mS[0].sackos,mS,"Losers' bracket losses"),
+    card("Most wins, all time",mW[0].w,mW,`${mW.map(x=>`${x.w}-${x.l}`).join(", ")} career, regular season`),
+    card("Most losses, all time",mL[0].l,mL,`${mL.map(x=>`${x.w}-${x.l}`).join(", ")} career, regular season`),
     card("Best career win rate",(bP[0].pct*100).toFixed(1)+"%",bP,`${bP[0].w}-${bP[0].l}, at least 36 games`),
     card("Worst career win rate",(wP[0].pct*100).toFixed(1)+"%",wP,`${wP[0].w}-${wP[0].l}, at least 36 games`),
-    card("Biggest blowout",fmt(R.blowout.m),[R.blowout],`${fmt(R.blowout.p)} to ${fmt(R.blowout.vsp)} over ${esc(short(R.blowout.vs))}, ${wk(R.blowout.y,R.blowout.w)}`),
-    card("Closest game",fmt(R.closest.m),[R.closest],`${fmt(R.closest.p)} to ${fmt(R.closest.vsp)} over ${esc(short(R.closest.vs))}, ${wk(R.closest.y,R.closest.w)}`),
-    card("Longest win streak",R.winStreak.n,[R.winStreak],`Regular-season games, ${wk(...R.winStreak.start)} to ${wk(...R.winStreak.end)}`),
-    card("Longest losing streak",R.loseStreak.n,[R.loseStreak],`Regular-season games, ${wk(...R.loseStreak.start)} to ${wk(...R.loseStreak.end)}`),
-    (()=>{const PL=RANK.playoffs||{},a=Object.entries(PL).filter(([o])=>OWNERS[o]).map(([o,r])=>({o,...r}));const d=top(a,x=>x.drought),yr=x=>x.dfrom===x.dto?`${x.dfrom}`:`${x.dfrom} to ${String(x.dto).slice(2)}`;
-      return card("Longest playoff drought",`${d[0].drought} seasons`,d,d.map(x=>`${short(x.o)} ${yr(x)}${x.cur===x.drought?(x.po?" (still going)":" (never made it)"):""}`).join("; ")+(d.some(x=>x.dto-x.dfrom+1>x.drought)?". Seasons sat out don't count":""))})(),
-    (()=>{const PL=RANK.playoffs||{},a=Object.entries(PL).filter(([o])=>OWNERS[o]).map(([o,r])=>({o,...r}));const m=top(a,x=>x.po);
-      return card("Most playoff trips",m[0].po,m,m.map(x=>`${x.po} of ${x.seasons} seasons`).join("; "))})(),
-    card("Best player week",fmt(R.player.p),[R.player],`${pn(R.player.n)} (${R.player.pos}) for ${tn(R.player)}, ${wk(R.player.y,R.player.w)}`),
-    card("Most points in a loss",fmt(R.unluckiest.p),[R.unluckiest],`Lost to ${esc(short(R.unluckiest.vs))}'s ${fmt(R.unluckiest.vsp)}, ${wk(R.unluckiest.y,R.unluckiest.w)}`),
-    card("Most points left on the bench",fmt(R.bench.bench),[R.bench],`${tn(R.bench)}, ${wk(R.bench.y,R.bench.w)}`),
+    ...(()=>{if(!ls.length)return [];const cl=Object.keys(LUCK).filter(o=>OWNERS[o]).map(o=>({o,luck:careerLuck(o)})),chi=top(cl,x=>x.luck),clo=top(cl,x=>x.luck,1);
+      return [card("Luckiest career",lk(chi[0].luck)+" wins",chi,"Wins above what his scores earned, 2018 on"),card("Unluckiest career",lk(clo[0].luck)+" wins",clo,"Wins below what his scores earned, 2018 on")]})(),
     card("Most trades, all time",mTr[0].trades,mTr,"Completed trades on record"),
-    ...(()=>{const ls=[];for(const o in LUCK)for(const y in LUCK[o])if(OWNERS[o])ls.push({o,y,...LUCK[o][y]});if(!ls.length)return [];
-      const hi=top(ls,x=>x.luck),lo=top(ls,x=>x.luck,1),cl=Object.keys(LUCK).filter(o=>OWNERS[o]).map(o=>({o,luck:careerLuck(o)})),chi=top(cl,x=>x.luck),clo=top(cl,x=>x.luck,1);
-      const yl2=x=>`${x.y}${+x.y===2026?" so far":""}, ${x.w}-${x.g-x.w} with scores worth ${x.exp.toFixed(1)} wins`;
-      return [card("Luckiest season",lk(hi[0].luck)+" wins",hi,hi.map(yl2).join("; ")),card("Unluckiest season",lk(lo[0].luck)+" wins",lo,lo.map(yl2).join("; ")),
-        card("Luckiest career",lk(chi[0].luck)+" wins",chi,"Wins above what his scores earned, 2018 on"),card("Unluckiest career",lk(clo[0].luck)+" wins",clo,"Wins below what his scores earned, 2018 on")]})(),
     (()=>{const a=Object.keys(OWNERS).map(o=>({o,n:pickupCount(o)})).filter(x=>x.n);const m=top(a,x=>x.n);const tot=a.reduce((t,x)=>t+x.n,0);
       return card("Most waiver pickups, all time",m[0].n,m,`Waiver and free-agent adds, 2018 on. The league has made ${tot.toLocaleString()} in all`)})()];
-  // most important first (Kyle): career wins and losses, career win rate, titles and Sackos, playoffs, season records, streaks, single games
-  const ORDER=[6,7,10,11,8,9,17,16,4,5,2,3,22,23,24,25,14,15,0,1,12,13,18,19,20,21,26].filter(i=>i<c.length);
-  const g=$("#recGrid");g.innerHTML=ORDER.map(i=>c[i]).join("");
-  const wrap=g.parentElement,pv=wrap.querySelector(".prev"),nx=wrap.querySelector(".next");
-  const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
-  pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
-  g.onscroll=upd;requestAnimationFrame(upd)}
+  const REG=[
+    card("Best record, one season",`${bestR[0].w}-${bestR[0].l}`,bestR,bestR.map(yl).join(", ")),
+    card("Worst record, one season",`${worstR[0].w}-${worstR[0].l}`,worstR,worstR.map(yl).join(", ")),
+    card("Most points, one season",fmt(hiS[0].pts),hiS,hiS.map(r=>`${yl(r)}, ${r.w}-${r.l}`).join("; ")),
+    card("Fewest points, one season",fmt(loS[0].pts),loS,loS.map(r=>`${r.y}, ${r.w}-${r.l}`).join("; ")),
+    card("Longest win streak",R.winStreak.n,[R.winStreak],`${wk(...R.winStreak.start)} to ${wk(...R.winStreak.end)}`),
+    card("Longest losing streak",R.loseStreak.n,[R.loseStreak],`${wk(...R.loseStreak.start)} to ${wk(...R.loseStreak.end)}`),
+    card("Most points, one week",fmt(R.weekHigh.p),[R.weekHigh],`${tn(R.weekHigh)} vs ${esc(short(R.weekHigh.vs))}, ${wk(R.weekHigh.y,R.weekHigh.w)}`),
+    card("Fewest points, one week",fmt(R.weekLow.p),[R.weekLow],`${tn(R.weekLow)} vs ${esc(short(R.weekLow.vs))}, ${wk(R.weekLow.y,R.weekLow.w)}`),
+    card("Biggest blowout",fmt(R.blowout.m),[R.blowout],`${fmt(R.blowout.p)} to ${fmt(R.blowout.vsp)} over ${esc(short(R.blowout.vs))}, ${wk(R.blowout.y,R.blowout.w)}`),
+    card("Closest game",fmt(R.closest.m),[R.closest],`${fmt(R.closest.p)} to ${fmt(R.closest.vsp)} over ${esc(short(R.closest.vs))}, ${wk(R.closest.y,R.closest.w)}`),
+    card("Most points in a loss",fmt(R.unluckiest.p),[R.unluckiest],`Lost to ${esc(short(R.unluckiest.vs))}'s ${fmt(R.unluckiest.vsp)}, ${wk(R.unluckiest.y,R.unluckiest.w)}`),
+    card("Best player week",fmt(R.player.p),[R.player],`${pn(R.player.n)} (${R.player.pos}) for ${tn(R.player)}, ${wk(R.player.y,R.player.w)}`),
+    card("Most points left on the bench",fmt(R.bench.bench),[R.bench],`${tn(R.bench)}, ${wk(R.bench.y,R.bench.w)}`),
+    ...(()=>{if(!ls.length)return [];const hi=top(ls,x=>x.luck),lo=top(ls,x=>x.luck,1);
+      return [card("Luckiest season",lk(hi[0].luck)+" wins",hi,hi.map(yl2).join("; ")),card("Unluckiest season",lk(lo[0].luck)+" wins",lo,lo.map(yl2).join("; "))]})()];
+  const PLAY=[
+    (()=>{const m=top(POA,x=>x.fin);return card("Most finals",m[0].fin,m,`Championship games, 2016 on`)})(),
+    (()=>{const m=top(PLA,x=>x.po);return card("Most playoff trips",m[0].po,m,m.map(x=>`${x.po} of ${x.seasons} seasons`).join("; "))})(),
+    (()=>{const d=top(PLA,x=>x.drought),yr=x=>x.dfrom===x.dto?`${x.dfrom}`:`${x.dfrom} to ${String(x.dto).slice(2)}`;
+      return card("Longest playoff drought",`${d[0].drought} seasons`,d,d.map(x=>`${short(x.o)} ${yr(x)}${x.cur===x.drought?(x.po?" (still going)":" (never made it)"):""}`).join("; ")+(d.some(x=>x.dto-x.dfrom+1>x.drought)?". Seasons sat out don't count":""))})(),
+    (()=>{const m=top(POA,x=>x.w);return card("Most playoff wins",m[0].w,m,m.map(x=>`${x.w}-${x.l} in the playoffs`).join("; "))})(),
+    ...(poC.length?[card("Best playoff record",`${poBest[0].w}-${poBest[0].l}`,poBest,`${(poBest[0].w/(poBest[0].w+poBest[0].l)*100).toFixed(0)}%, at least 4 playoff games`),
+      card("Worst playoff record",`${poWorst[0].w}-${poWorst[0].l}`,poWorst,`${(poWorst[0].w/(poWorst[0].w+poWorst[0].l)*100).toFixed(0)}%, at least 4 playoff games`)]:[]),
+    ...(sides.length?[card("Most points, playoff game",fmt(pHi[0].p),pHi,pHi.map(x=>`${fmt(x.p)} to ${fmt(x.vsp)} vs ${esc(short(x.vs))}, ${rdl(x)}`).join("; ")),
+      card("Fewest points, playoff game",fmt(pLo[0].p),pLo,pLo.map(x=>`${fmt(x.p)} to ${fmt(x.vsp)} vs ${esc(short(x.vs))}, ${rdl(x)}`).join("; ")),
+      card("Biggest playoff blowout",fmt(pBl[0].p-pBl[0].vsp),pBl,pBl.map(x=>`${fmt(x.p)} to ${fmt(x.vsp)} over ${esc(short(x.vs))}, ${rdl(x)}`).join("; ")),
+      card("Closest playoff game",fmt(pCl[0].p-pCl[0].vsp),pCl,pCl.map(x=>`${fmt(x.p)} to ${fmt(x.vsp)} over ${esc(short(x.vs))}, ${rdl(x)}`).join("; ")),
+      card("Most points in a playoff loss",fmt(pLoss[0].p),pLoss,pLoss.map(x=>`Lost to ${esc(short(x.vs))}'s ${fmt(x.vsp)}, ${rdl(x)}`).join("; ")),
+      card("Highest-scoring title game",fmt(pChamp[0].p),pChamp,pChamp.map(x=>`${fmt(x.p)} to ${fmt(x.vsp)} over ${esc(short(x.vs))} in the ${x.y} final`).join("; "))]:[]),
+    ...(PW.weekHigh?[card("Most points, playoff week",fmt(PW.weekHigh.p),[PW.weekHigh],`${tn(PW.weekHigh)} vs ${esc(short(PW.weekHigh.vs))}, ${wk(PW.weekHigh.y,PW.weekHigh.w)}`),
+      card("Fewest points, playoff week",fmt(PW.weekLow.p),[PW.weekLow],`${tn(PW.weekLow)} vs ${esc(short(PW.weekLow.vs))}, ${wk(PW.weekLow.y,PW.weekLow.w)}`),
+      card("Best player week, playoffs",fmt(PW.player.p),[PW.player],`${pn(PW.player.n)} (${PW.player.pos}) for ${tn(PW.player)}, ${wk(PW.player.y,PW.player.w)}`),
+      card("Most bench points, playoff week",fmt(PW.bench.bench),[PW.bench],`${tn(PW.bench)}, ${wk(PW.bench.y,PW.bench.w)}`)]:[])];
+  [["#recLeague",LEAGUE],["#recReg",REG],["#recPo",PLAY]].forEach(([id,cs])=>{const g=$(id);g.innerHTML=cs.join("");
+    const wrap=g.parentElement,pv=wrap.querySelector(".prev"),nx=wrap.querySelector(".next");
+    const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
+    pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
+    g.onscroll=upd;requestAnimationFrame(upd)})}
 let rankKey="current";
 const RETRO=[
  ["charles","Chuck","2 Time Champ, Enough said"],
@@ -3620,7 +3654,7 @@ function careerPicker(){const box=$("#csPick");if(!box||box.dataset.ready)return
     dlg.showModal()}}
 
 /* ---------- MOVES ---------- */
-let tOwner="all",tSeason="all",tType="all",showAll=false,pickPos="all";
+let tOwner="all",tSeason="all",tType="all",moveN=5,pickPos="all";
 const MOVE_SEASONS=Object.entries(MV.seasons).filter(([,v])=>v==="espn").map(([y])=>+y);
 function tradeScore(t){if(TRI_OF[t.id])return triScore(TRI_OF[t.id]);const x=MV.trades[t.id];if(!x)return "";
   const side=(s,g)=>`<b>${esc(s.team)}</b> ${wf(g.war)} wins (${fmt(g.par)} pts over replacement)${g.got.length?` <span class="muted">· ${g.got.map(p=>`${esc(p[0])} ${p[2]==null?"?":`${wf(p[4]||0)} in ${p[5]??0} start${p[5]===1?"":"s"}`}`).join(", ")}</span>`:""}`;
@@ -3649,19 +3683,21 @@ function renderTrades(){
   const ys=[...new Set([...TR.map(t=>t.s),...adds.map(m=>m.y)])].sort((a,b)=>b-a);
   $("#tradeSeason").innerHTML=`<option value="all">All seasons</option>${ys.map(y=>`<option ${String(y)===String(tSeason)?"selected":""}>${y}</option>`).join("")}`;
   $("#moveType").value=tType;
-  $("#tradeOwner").onchange=e=>{tOwner=e.target.value;showAll=false;renderTrades()};
-  $("#tradeSeason").onchange=e=>{tSeason=e.target.value;showAll=false;renderTrades()};
-  $("#moveType").onchange=e=>{tType=e.target.value;showAll=false;renderTrades()};
+  $("#tradeOwner").onchange=e=>{tOwner=e.target.value;renderTrades()};
+  $("#tradeSeason").onchange=e=>{tSeason=e.target.value;renderTrades()};
+  $("#moveType").onchange=e=>{tType=e.target.value;renderTrades()};
   const match=t=>(tSeason==="all"||t.s==+tSeason)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
   const byDate=(a,b)=>a.d.localeCompare(b.d)||a.id-b.id;
   const list=tType==="pickups"?[]:uniqT(TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse());
   const pk=tType==="trades"||tOwner==="unk"?[]:adds.filter(m=>(tSeason==="all"||m.y==+tSeason)&&(tOwner==="all"||m.o===tOwner)).slice().reverse();
   $("#tradeCount").textContent=[tType!=="pickups"?`${list.length} trade${list.length===1?"":"s"}`:"",tType!=="trades"?`${pk.length} pickup${pk.length===1?"":"s"}`:""].filter(Boolean).join(" · ");
-  const cap=showAll?pk.length:100;
+  // show 5 of each list by default; the control under the list picks 5, 10, 20 or all (Kyle 2026-11-22)
+  const cap=moveN||Infinity,more=n=>n>cap?`<p class="muted" style="margin:8px 0 0;font-size:.85rem">Showing ${cap} of ${n.toLocaleString()}.</p>`:"";
   const noWaivers=tSeason!=="all"&&!MOVE_SEASONS.includes(+tSeason)?`<div class="note" style="margin-bottom:12px">ESPN has no waiver history for ${tSeason}, so only trades are listed.</div>`:"";
-  $("#moveList").innerHTML=noWaivers+(tType!=="pickups"?`${tType==="all"?`<h3 style="margin:0 0 10px">Trades</h3>`:""}<div class="trades-list">${list.map(t=>tradeHTML(t,tradeScore(t))).join("")||'<p class="muted">No trades match.</p>'}</div>`:"")
-    +(tType!=="trades"&&pk.length?`${tType==="all"?`<h3 style="margin:24px 0 10px">Waiver and free agent pickups</h3>`:""}${pickupTable(pk.slice(0,cap))}${pk.length>cap?`<p><button type="button" class="seg-more" id="moreMoves" style="margin-top:10px;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--slab);cursor:pointer;color:var(--ink)">Show all ${pk.length} pickups</button></p>`:""}`:(tType==="pickups"?'<p class="muted">No pickups match.</p>':""));
-  const more=$("#moreMoves");if(more)more.onclick=()=>{showAll=true;renderTrades()};
+  $("#moveList").innerHTML=noWaivers+(tType!=="pickups"?`${tType==="all"?`<h3 style="margin:0 0 10px">Trades</h3>`:""}<div class="trades-list">${list.slice(0,cap).map(t=>tradeHTML(t,tradeScore(t))).join("")||'<p class="muted">No trades match.</p>'}</div>${more(list.length)}`:"")
+    +(tType!=="trades"&&pk.length?`${tType==="all"?`<h3 style="margin:24px 0 10px">Waiver and free agent pickups</h3>`:""}${pickupTable(pk.slice(0,cap))}${more(pk.length)}`:(tType==="pickups"?'<p class="muted">No pickups match.</p>':""));
+  $("#movePg").innerHTML=`<span class="muted">Show</span>${[5,10,20,0].map(n=>`<button type="button" data-n="${n}" aria-pressed="${n===moveN}">${n||"All"}</button>`).join("")}`;
+  $("#movePg").onclick=e=>{const b=e.target.closest("[data-n]");if(!b)return;moveN=+b.dataset.n;renderTrades()};
   $("#vetoList").innerHTML=TR.filter(t=>t.st==="vetoed").reverse().map(t=>tradeHTML(t)).join("")+MANUAL_VETOES.map(v=>`<article class="trade"><div class="trade-top"><span>${v.y} season</span><span class="tag veto">Vetoed</span></div><p style="margin:0">${esc(v.text)} <span class="muted">Player details not on file.</span></p></article>`).join("");
 }
 
