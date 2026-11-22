@@ -1854,13 +1854,13 @@ const YEAR_PHOTOS = {
   2016:[{src:"img/hist-2016-final.jpg",t:"The 2016 final",cap:"The 2016 championship on the old ESPN app. Duane (7-6) beat Charles (12-1) 242 to 190 over the two-week final, 170 to 110 in week 16 and 72 to 80 in week 17."},{src:"img/hist-2016-mike.jpg",t:"The Hot Mike",cap:"Squirm with Mike, the namesake of his 2016 team, The Hot Mikes."},{src:"img/hist-2016-brady.jpg",t:"Burning Brady",cap:"Setting a Tom Brady jersey on fire on Super Bowl night to close out the 2016 season."}],
   2017:[{src:"img/hist-2017-hollow-night.jpg",t:"The Hollow Night",cap:"Halloween 2017, the Hollow Night. Lucas as the teacher, Alexis as the student, and Chris in the Yankees hat, the defense's star witness. Peanut called it a betrayal. Lucas and Chris swear it was innocent."}],
   2018:[{src:"img/era-2018.jpg?v=2",t:"The couch",cap:"The Founding Era crew on the couch in 2018, the last eight-team season."},{src:"img/giants-2018.jpg",t:"Giants game",cap:"Decked out in Giants jerseys at a game at MetLife Stadium in 2018."}],
-  2019:[{src:"img/bhavi-2019-poster.jpg",vid:"img/bhavi-2019.mp4",t:"Bhavi Bitch era",cap:"Video: 2019, at the height of the Bhavi Bitch era."}],
+  2019:[{src:"img/bhavi-2019-poster.jpg",vid:"img/bhavi-2019.mp4",t:"Bhavi Bitch era",cap:"Video: 2019, at the height of the Bhavi Bitch era."},{src:"img/superbowl-2020.jpg",t:"Super Bowl party",cap:"The Flamingos at the February 2020 Super Bowl party hosted by Floof's girlfriend Diana. That Super Bowl closed the 2019 NFL season."}],
   2020:[{src:"img/era-2020.jpg",t:"Floof's basement",cap:"Doing shenanigans in Floof's basement."},{src:"img/graduation-2020.jpg",t:"Graduation",cap:"Graduation in 2020, in white dinner jackets under the 2020 balloon arch."}],
   2021:[{src:"img/usd-movein.jpg",t:"Move-in day",cap:"Kyle and Jerry on their first day of move-in at the University of San Diego, the start of the college roommates."}],
   2022:[{src:"img/era-2022.jpg",t:"At the bar",cap:"The league at the bar in 2022."}],
-  2023:[{src:"img/era-2023.jpg",t:"The cabin",cap:"The league in the cabin in 2023."},{src:"img/crawl-2024-mcsorleys.jpg",t:"Bar crawl",cap:"The January 2024 NYC bar crawl, right after the 2023 season, around a table at McSorley's Old Ale House."},{src:"img/crawl-2024-selfie.jpg",t:"Bar crawl, later",cap:"Another stop on the January 2024 NYC bar crawl."}],
+  2023:[{src:"img/era-2023.jpg",t:"The cabin",cap:"The league in the cabin in 2023."},{src:"img/crawl-2024-mcsorleys.jpg",t:"Bar crawl",cap:"The January 2024 NYC bar crawl, right after the 2023 season, around a table at McSorley's Old Ale House."},{src:"img/crawl-2024-selfie.jpg",t:"Bar crawl, later",cap:"Another stop on the January 2024 NYC bar crawl."},{src:"img/trophy-2023.jpg",t:"The 2023 trophy",cap:"The 2023 trophy, acquired from Christopher Morley by Peanut and Fluff. Questions about its origins will not be taken."}],
   2024:[{src:"img/jordan-grad-2024.jpg",t:"Jordan's graduation",cap:"Flamingos at Jordan's graduation party in 2024."},{src:"img/squirm-tackle-2024-poster.jpg",vid:"img/squirm-tackle-2024-full.mp4",t:"The tackle",cap:"Video: Squirm tackling DiLapi."},{src:"img/mcsorleys-2025.jpg",t:"McSorley's",cap:"A 2025 night at McSorley's, right after the 2024 season."}],
-  2026:[{src:"img/era-2026.jpg",t:"Out together",cap:"The league out together in 2026, the first 12-team year."},{src:"img/trophy-2026.jpg",t:"The new trophy",cap:"The league's new trophy: a glass flamingo on a crystal base engraved \"Flamingo Men, Fantasy Football Champion.\""}],
+  2026:[{src:"img/era-2026.jpg",t:"Out together",cap:"The league out together in 2026, the first 12-team year."},{src:"img/trophy-2026.jpg",t:"The new trophy",cap:"The league's new trophy: a glass flamingo on a crystal base engraved \"Flamingo Men, Fantasy Football Champion.\""},{src:"img/brull-dinner-2026.jpg",t:"Brull Foundation dinner",cap:"The Flamingo Men at the Brull Foundation dinner in 2026."}],
 };
 // league lore told on a History year (Kyle 2026-11-22). Kad = Peanut.
 const LORE = {
@@ -2213,7 +2213,7 @@ function renderHome(){
 const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
 // Era group photos (Kyle, 2026-11-13), keyed by ERAS index; pos = object-position for the wide desktop crop
 const ERA_PHOTO={1:{src:"img/era-2018.jpg?v=2",pos:"50% 100%",alt:"The Founding Era crew on the couch"},0:{src:"img/era-2015.jpg",pos:"50% 22%",alt:"The #Squad boxing in 2015",badge:"img/wu-tang-logo.png"},2:{src:"img/era-2020.jpg",pos:"50% 35%",alt:"Doing shenanigans in Floof's basement"},
-  3:{src:"img/era-2023.jpg",pos:"50% 62%",alt:"The league in the cabin in 2023"},4:{src:"img/era-2026.jpg",pos:"50% 25%",alt:"The league out together in 2026"}};
+  3:{src:"img/era-2023.jpg",pos:"50% 62%",alt:"The league in the cabin in 2023"},4:{src:"img/brull-dinner-2026.jpg",pos:"50% 30%",alt:"The league at the Brull Foundation dinner in 2026"}};
 const YEAR_BIO={
   2015:"The unofficial prequel. Charles won a league so full of cheating and tampering that nobody counts it.",
   2016:"Year one of The LI League. Charles went 12-1 with a super team and still lost the two-week final to Duane's Emmustangs, 242 to 190, because the final ran into the NFL's last week, when teams rest their stars for the playoffs. The league has held the final a week earlier ever since.",
@@ -4380,6 +4380,7 @@ const TALES={
   swt:"Reprogrammed",sw:"In week 2 Kyle hired Kyren Williams off the waiver wire. Kyren started 10 games and scored 209.6 points, the league's Pickup of the Year.",swn:"KYREN",
   b:[["Wrangler Terminated","Rod's MisoTrillerBoy had won the Wrangler Conference. Kyle took the first week by 56.4 and the round, 231.9 to 181.0."],["Judgment Day","Jerry, Kyle's college roommate, took the first week by 24.5. In the second Kyle put up 152.3 to 108.1 and won it, 265.7 to 246.0."]],
   fx:[{hat:"cowboy"},{}],
+  ph:{k:"Target Acquired",t:"The Trophy",src:"img/trophy-2023.jpg",pos:"50% 50%",cap:"The 2023 Flamingo Men trophy",x:"Mission complete. The 2023 trophy, acquired from Christopher Morley by Peanut and Fluff. Questions about its origins will not be taken."},
   st:"Kyle Klugewicz, Model T-2023, Champion of the Flamingo Men, Hirer of Kyren, Breaker of Roommates, Back as Promised",
   e:"Kyle's second title, and the first of the Monglers Era."},
 2024:{t:"Breaking Squirm",tt:[["Br",35],"eaking ",["S",16],"quirm"],w:"Respect the chemistry.",
