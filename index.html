@@ -332,8 +332,7 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .divgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px 18px;align-items:start}
 .divcol{min-width:0}
 .champ-slot.sk-slot{border-color:#8a5a2b}.champ-slot.sk-slot .eyebrow{color:#8a5a2b;display:flex;align-items:center;gap:4px}.sk-slot .sk-ic{height:20px;margin:0}
-.bm.sk-game{border-color:#8a5a2b;border-width:2px}.bracket .rh.sk-lab{margin:4px 0 -10px}
-.st-mk{font-size:1rem;white-space:nowrap}.st-mk .sk-ic{vertical-align:-3px}
+.bm.sk-game{border-color:#8a5a2b;border-width:2px}.st-mk{font-size:1rem;white-space:nowrap}.st-mk .sk-ic{vertical-align:-3px}
 #seasonTable .divrow th{text-align:left;padding-top:14px;font-family:var(--f-data);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777);background:transparent}
 #seasonDiv .seg{display:inline-flex}
 .divname{display:flex;align-items:center;gap:10px}
@@ -2262,15 +2261,19 @@ function bracketHTML(y){if(y===2015)return "";const sk=SACKO_BR[y];
   const mode=sk?histBr:"po",head=`<div class="st-head"><div class="eyebrow">${mode==="sk"?"Sacko bracket":"Playoff bracket"}</div>${tog}</div>`;
   return mode==="sk"?skBracketHTML(y,head):poBracketHTML(y,head)}
 function skBracketHTML(y,head){const R=SACKO_BR[y].rounds,so=SACKOS[y]?.o;
-  const row=(s,w)=>`<div class="row ${w===true?"w":w===false?"l":""}"><span class="sd"></span><span class="nm"><b>${esc(s.team||short(s.o))}</b><small>${esc(short(s.o))}</small></span><span class="sc">${fmt(s.pts)}</span></div>`;
-  const mu=(m,lab)=>`${lab?`<div class="rh sk-lab">${lab}</div>`:""}<div class="bm${lab==="The Sacko game"?" sk-game":""}">${row(m.a,m.win?m.win==="a":null)}${row(m.b,m.win?m.win==="b":null)}</div>`;
-  const last=R[R.length-1],sg=last.find(m=>[m.a.o,m.b.o].includes(so)),rest=last.filter(m=>m!==sg);
-  const loser=sg&&sg.win?sg[sg.win==="a"?"b":"a"]:null;
+  // Kyle 2026-11-22: losers advance, and only the games that feed the Sacko game are shown
+  const lose=m=>m.win?m[m.win==="a"?"b":"a"]:null;
+  const row=(s,adv)=>`<div class="row ${adv===true?"w":adv===false?"l":""}"><span class="sd"></span><span class="nm"><b>${esc(s.team||short(s.o))}</b><small>${esc(short(s.o))}</small></span><span class="sc">${fmt(s.pts)}</span></div>`;
+  const mu=(m,cls="")=>`<div class="bm${cls}">${row(m.a,m.win?m.win!=="a":null)}${row(m.b,m.win?m.win!=="b":null)}</div>`;
+  const sg=R[R.length-1].find(m=>[m.a.o,m.b.o].includes(so));
+  const feed=sg?R[0].filter(m=>{const l=lose(m);return l&&[sg.a.o,sg.b.o].includes(l.o)}):[];
+  if(!sg||feed.length!==2)return `<div class="hist-br" data-y="${y}">${head}<p class="muted" style="margin:4px 0 0">No Sacko bracket on file.</p></div>`;
+  const loser=lose(sg);
   return `<div class="hist-br" data-y="${y}">${head}<div class="bracket">
-    <div class="col"><div class="rh">Round 1</div>${R[0].map(m=>mu(m)).join("")}</div><div class="join"></div>
-    <div class="col">${sg?mu(sg,"The Sacko game"):""}${rest.map(m=>mu(m,"Placement")).join("")}</div><div class="join one"></div>
-    <div class="champ-slot sk-slot"><span class="eyebrow">${sackoMark()||"🚽"} Sacko</span><b>${loser?esc(loser.team||short(loser.o)):esc(SACKOS[y]?.team||"TBD")}</b>${loser?`<span class="muted" style="font-size:.85rem">${esc(OWNERS[loser.o].name)}</span>`:""}</div></div>
-    <p class="muted bnote">The non-playoff teams play it out. Each round ran two weeks, and the score is the two-week total. The loser of the Sacko game takes the Sacko.</p></div>`}
+    <div class="col"><div class="rh">Round 1</div>${feed.map(m=>mu(m)).join("")}</div><div class="join"></div>
+    <div class="col"><div class="rh">The Sacko game</div>${mu(sg," sk-game")}</div><div class="join one"></div>
+    <div class="champ-slot sk-slot"><span class="eyebrow">${sackoMark()||"🚽"} Sacko</span><b>${esc(loser.team||short(loser.o))}</b><span class="muted" style="font-size:.85rem">${esc(OWNERS[loser.o].name)}</span></div></div>
+    <p class="muted bnote">The loser moves on in the Sacko bracket. Each round ran two weeks, and the score is the two-week total. The loser of the Sacko game takes the Sacko.</p></div>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-brseg] button");if(!b)return;histBr=b.dataset.v;const w=b.closest(".hist-br");if(w)w.outerHTML=bracketHTML(+w.dataset.y)});
 function poBracketHTML(y,head){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
   if(y===2015)return "";
