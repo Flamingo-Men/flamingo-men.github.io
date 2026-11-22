@@ -327,7 +327,10 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
 .st-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .divname{margin:14px 0 6px;font-family:var(--f-data);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777)}
-.hist-st .divname:first-of-type{margin-top:4px}
+.hist-st .divname{margin-top:4px}
+/* divisions side by side (Kyle 2026-11-22); they stack only when there isn't room */
+.divgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px 18px;align-items:start}
+.divcol{min-width:0}
 #seasonTable .divrow th{text-align:left;padding-top:14px;font-family:var(--f-data);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777);background:transparent}
 #seasonDiv .seg{display:inline-flex}
 .divname{display:flex;align-items:center;gap:10px}
@@ -2244,7 +2247,7 @@ function histStandings(y){if(y===2015)return "";
   const names=o=>{const n=teamNames(o)[y];return n?[...n].slice(-1)[0]:(MV.rosters[y]?.[o]?.team||"")};
   const tbl=rows=>`<div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>`;
   const G=histDiv?divGroups(y,st):null;
-  return `<div class="hist-st" data-y="${y}" style="min-width:0"><div class="st-head"><div class="eyebrow">Final standings${y===2026?" (in progress)":""}</div>${DIVS[y]?divSeg("hist",histDiv):""}</div>${G?G.map(g=>`<h4 class="divname">${divHead(g.n)}</h4>${tbl(g.rows)}`).join(""):tbl(st)}
+  return `<div class="hist-st" data-y="${y}" style="min-width:0"><div class="st-head"><div class="eyebrow">Final standings${y===2026?" (in progress)":""}</div>${DIVS[y]?divSeg("hist",histDiv):""}</div>${G?`<div class="divgrid">${G.map(g=>`<div class="divcol"><h4 class="divname">${divHead(g.n)}</h4>${tbl(g.rows)}</div>`).join("")}</div>`:tbl(st)}
   <p class="muted bnote">${y<2018?`Only ${y===2016?"Charles's, Duane's and Kyle's":"Kyle's and Fluff's"} ${y} records were saved. The rest (marked est.) are estimates worked out from those, and the playoff bracket, since every game has a winner.`:y===2026?"Standings so far this season.":"Ranked by regular-season wins, then points. Seeds are ESPN's playoff seeds."}</p></div>`}
 function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
   if(y===2015)return "";
