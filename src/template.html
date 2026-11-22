@@ -325,6 +325,14 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .seg{display:flex;gap:6px;flex-wrap:wrap}
 .seg button{border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 12px;cursor:pointer;font-family:var(--f-data);font-size:.8rem;color:var(--ink)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
+.st-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.divname{margin:14px 0 6px;font-family:var(--f-data);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777)}
+.hist-st .divname:first-of-type{margin-top:4px}
+#seasonTable .divrow th{text-align:left;padding-top:14px;font-family:var(--f-data);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#777);background:transparent}
+#seasonDiv .seg{display:inline-flex}
+.divname{display:flex;align-items:center;gap:10px}
+.divph{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--line);flex:none}
+#seasonTable .divrow .divname{margin:0}
 .top5:has(.toproster){grid-template-columns:minmax(0,1fr)}
 .toproster{min-width:0;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:block}
 .toproster .hd{display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px;align-items:center;list-style:none;cursor:pointer;position:relative;padding-right:26px}
@@ -505,6 +513,14 @@ details.fold:not([open])>summary{margin-bottom:0}
 .rk .sc small{display:block;font-weight:400;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 @media (max-width:560px){.rk{grid-template-columns:30px 40px minmax(0,1fr);gap:10px}.rk .av{width:40px;height:40px}.rk .n{font-size:1.2rem}.rk .sc{grid-column:3;text-align:left}.rk .sc small{display:inline;margin-left:6px}}
 .yearbio{margin:0;max-width:70ch;font-size:1.05rem}
+/* league lore cards on History years (Bhavi, Kyle 2026-11-22) */
+.lorecard{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px;grid-template-columns:1fr;align-items:start}
+.lorecard h3{margin:2px 0 0}
+.lorecard p{margin:0;max-width:70ch}
+.lorecard .lorevid{all:unset;cursor:zoom-in;position:relative;display:block;max-width:320px}
+.lorecard .lorevid img{width:100%;border-radius:var(--r);display:block}
+.lorecard .lorevid::after{content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(8,12,24,.7);color:#fff;display:grid;place-items:center;padding-left:3px;box-sizing:border-box;pointer-events:none}
+.lorecard .lorevid:focus-visible img{outline:2px solid var(--gold);outline-offset:2px}
 .bracket{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,.8fr);align-items:center;gap:0;margin-top:6px}
 .bracket .col{display:grid;gap:14px}
 .bracket .rh{font-family:var(--f-data);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:-6px}
@@ -1580,7 +1596,7 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
   </div>
   <div class="block" id="seasonBlock">
     <div class="block-head"><h2>Season standings</h2>
-      <div class="controls" style="margin:0"><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
+      <div class="controls" style="margin:0"><span id="seasonDiv"></span><label for="seasonSel">Season<select id="seasonSel"></select></label></div></div>
     <div class="tablebox"><table id="seasonTable"></table></div>
     <p class="muted" id="seasonNote" style="font-size:.9rem"></p>
   </div>
@@ -1723,6 +1739,8 @@ const PLAYOFFS = /*PLAYOFFS*/;
 const RECW = /*RECORDS*/;
 const STORIES = /*STORIES*/;
 const RIVALS = /*RIVALS*/;
+// each season's divisions from ESPN (src/divisions.py): {year:{names:[...],o:{owner:index}}}; 2016-17 had none saved
+const DIVS = /*DIVISIONS*/;
 const THRONES = /*THRONES*/;
 const RANK = /*RANKINGS*/;
 
@@ -1732,7 +1750,7 @@ const HISTORY = {
   2017:{title:"The Klugey Coronation",items:["Played in a separate ESPN league, also called The Flamingo Men, and the league format was not saved.","The draft is held at Vicente's summer house. Squirm is not invited, because Vicente never forgave him for copying his homework and getting him detention.","The draft order is randomized and Kyle gets the first overall pick. He was not at the draft, and the rest of the league colluded to rearrange the order.","Rod unloads Andrew Luck, who would miss the whole season, on Peanut for Jameis Winston. Peanut then passes Luck to Charles for Willie Snead.","Before the draft, Charles trades Peanut a secret for Peanut's draft pick. Nobody has said what the secret was.","Vicente tries to collude twice, first with Rod and then with Keeves. Both trades are vetoed.","Kyle goes 10-2 as the NYC Klugeys and wins the title with Kelce, Michael Thomas and Mike Evans.","Right before the playoffs Kyle trades Alvin Kamara to Charles for Ezekiel Elliott. It proves fatal for Charles: the two meet in the first round, Kamara gets hurt in that very game, and Kyle knocks Charles out on his way to the title.","Live draft on the big sticker board on August 6, 2017.","The Hollow Night: on Halloween, a week after Peanut and Alexis (the Lex division's namesake) broke up, Lucas goes out with her in matching teacher and student costumes. Peanut calls him Judas. Lucas and Chris still say it was innocent.","Peanut takes the Sacko."]},
   2018:{title:"From Sacko to Champion",items:["The league starts over in a new ESPN league, the one it still plays in today, with a 12-game regular season.","Fluff posts the best record (9-3) and the most points (1,806.76), then wins the title. Quincy takes the Sacko.","Charles buys a Kareem Hunt jersey days before the Hunt video comes out, ruining both his team and the jersey.","The draft is back at Sal's office. Vicente and Keeves are gone, and this is the last eight-team season in league history.","Kyle names his team Dilapi aint Makingthe yoffs. He's right: DiLapi misses the playoffs again, his third straight season without a trip."]},
   2019:{title:"The King's Coronation",items:["Kyle (Bittersweet Distract0rs) sends Mixon, Boyd and Ertz to Skelly for Ezekiel Elliott, Kenny Golladay and Devin Singletary. The deal is vetoed, then a league vote overturns the veto.","The trade makes Kyle a super team, until David Johnson gets hurt and Kyle misses the playoffs.","Team Quincy and Kyle try to swap Hunter Henry twice in two days. Vetoed both times.","Kyle also ran DilapiSTILLaint Makingthe yoffs for a stretch, a name aimed squarely at Dilapi.","25 completed trades in the first year of the archive. Charles's Sal's 12 Chickens were in 15 of them."]},
-  2020:{title:"The Pandemic Season",items:["On the way back from the draft, Quincy throws up all over Kyle's car.","Kyle goes 1-11 but escapes the Sacko.","CeeDee Lamb is traded for Christian Kirk on October 30, and the exact trade is run in reverse four days later.","Charles and Skelly share the best record at 9-3.","Peanut reaches the final against Charles as a big underdog, and the whole league is rooting for him. He goes up 23.8 after the first week, declares himself champion, and loses the crowd. Charles rallies behind a 56-point Kamara game and wins it."]},
+  2020:{title:"The Pandemic Season",items:["At the draft, Quincy confesses that he already knew Bhavi, and how. The whole story is in 2019, The Legend of Bhavi.","On the way back from the draft, Quincy throws up all over Kyle's car.","Kyle goes 1-11 but escapes the Sacko.","CeeDee Lamb is traded for Christian Kirk on October 30, and the exact trade is run in reverse four days later.","Charles and Skelly share the best record at 9-3.","Peanut reaches the final against Charles as a big underdog, and the whole league is rooting for him. He goes up 23.8 after the first week, declares himself champion, and loses the crowd. Charles rallies behind a 56-point Kamara game and wins it."]},
   2021:{title:"Squirm Cums on the Competition",items:["The regular season grows to 13 games.","The busiest trade year on record with 36 deals. Kyle rebrands as The Monglers and makes 15 of them, including Chubb, Diggs and Evans for Aaron Jones and Tyreek Hill.","Dilapi goes 11-2 with 1,804.68 points. Quincy renames his team The Hospital RIP CMC, GUS."]},
   2022:{title:"The Great Dealer",items:["Lucas sits the season out to study abroad in London.","Charles's Sal's 12 Chickens become the league's biggest dealer with 15 trades.","The headline deal: Kamara, Keenan Allen, Kareem Hunt and Brian Robinson go to Jordan's Jerry Jewdys for Justin Jefferson and Jamaal Williams.","In November Charles makes his second blockbuster, sending D'Onta Foreman, Michael Pittman Jr., Chris Godwin and Leonard Fournette to the New York Noses for Tyreek Hill.","The commissioner vetoes a Darius Slayton giveaway to the RodFather on December 1. It goes through the next day for Tom Brady.","Dilapi drops from 11-2 to 2-11.","And the Chickens win the title. Charles's third championship came in the same season as the firesale.","The draft moves to Quincy's apartment complex, because Sal was in Europe.","Controversy on Monday night, November 7: Charles uses his commissioner powers to add Isaiah Likely and drop Evan Engram mid-matchup, trying to win his game."]},
   2023:{title:"The Breakaway Season",items:["Played in a separate league, Flamingo Football Year 8, split into the Flamingo and Wrangler conferences, with Kyle and Quincy as co-commissioners.","The Monglers (11-2) win it all after flipping Garrett Wilson for Aaron Jones and Anthony Richardson.","November 24: the league votes down Floof and Dr. Kakofonus's Kamara and Kupp for Ja'Marr Chase trade twice in one evening. Fluff was so angry about the veto that he sat out the 2024 season.","Peanut takes the Sacko."]},
@@ -1836,7 +1854,7 @@ const YEAR_PHOTOS = {
   2016:[{src:"img/hist-2016-final.jpg",t:"The 2016 final",cap:"The 2016 championship on the old ESPN app. Duane (7-6) beat Charles (12-1) 242 to 190 over the two-week final, 170 to 110 in week 16 and 72 to 80 in week 17."},{src:"img/hist-2016-mike.jpg",t:"The Hot Mike",cap:"Squirm with Mike, the namesake of his 2016 team, The Hot Mikes."},{src:"img/hist-2016-brady.jpg",t:"Burning Brady",cap:"Setting a Tom Brady jersey on fire on Super Bowl night to close out the 2016 season."}],
   2017:[{src:"img/hist-2017-hollow-night.jpg",t:"The Hollow Night",cap:"Halloween 2017, the Hollow Night. Lucas as the teacher, Alexis as the student, and Chris in the Yankees hat, the defense's star witness. Peanut called it a betrayal. Lucas and Chris swear it was innocent."}],
   2018:[{src:"img/era-2018.jpg?v=2",t:"The couch",cap:"The Founding Era crew on the couch in 2018, the last eight-team season."},{src:"img/giants-2018.jpg",t:"Giants game",cap:"Decked out in Giants jerseys at a game at MetLife Stadium in 2018."}],
-  2019:[{src:"img/superbowl-2020.jpg",t:"Super Bowl party",cap:"The Flamingos at the February 2020 Super Bowl party hosted by Floof's girlfriend Diana. That Super Bowl closed the 2019 NFL season."}],
+  2019:[{src:"img/bhavi-2019-poster.jpg",vid:"img/bhavi-2019.mp4",t:"Bhavi Bitch era",cap:"Video: 2019, at the height of the Bhavi Bitch era."},{src:"img/superbowl-2020.jpg",t:"Super Bowl party",cap:"The Flamingos at the February 2020 Super Bowl party hosted by Floof's girlfriend Diana. That Super Bowl closed the 2019 NFL season."}],
   2020:[{src:"img/era-2020.jpg",t:"Floof's basement",cap:"Doing shenanigans in Floof's basement."},{src:"img/graduation-2020.jpg",t:"Graduation",cap:"Graduation in 2020, in white dinner jackets under the 2020 balloon arch."}],
   2021:[{src:"img/usd-movein.jpg",t:"Move-in day",cap:"Kyle and Jerry on their first day of move-in at the University of San Diego, the start of the college roommates."}],
   2022:[{src:"img/era-2022.jpg",t:"At the bar",cap:"The league at the bar in 2022."}],
@@ -1844,6 +1862,16 @@ const YEAR_PHOTOS = {
   2024:[{src:"img/jordan-grad-2024.jpg",t:"Jordan's graduation",cap:"Flamingos at Jordan's graduation party in 2024."},{src:"img/squirm-tackle-2024-poster.jpg",vid:"img/squirm-tackle-2024-full.mp4",t:"The tackle",cap:"Video: Squirm tackling DiLapi."},{src:"img/mcsorleys-2025.jpg",t:"McSorley's",cap:"A 2025 night at McSorley's, right after the 2024 season."}],
   2026:[{src:"img/era-2026.jpg",t:"Out together",cap:"The league out together in 2026, the first 12-team year."},{src:"img/trophy-2026.jpg",t:"The new trophy",cap:"The league's new trophy: a glass flamingo on a crystal base engraved \"Flamingo Men, Fantasy Football Champion.\""},{src:"img/brull-dinner-2026.jpg",t:"Brull Foundation dinner",cap:"The Flamingo Men at the Brull Foundation dinner in 2026."}],
 };
+// league lore told on a History year (Kyle 2026-11-22). Kad = Peanut.
+const LORE = {
+  2019:{t:"The Legend of Bhavi",vid:{src:"img/bhavi-2019-poster.jpg",vid:"img/bhavi-2019.mp4",cap:"Video: 2019, at the height of the Bhavi Bitch era."},p:[
+    "It started around 2018. Bhavi was friends with a girl one of the boys was trying to get a date with, and she had a crush on Kad. Kyle and Kad took Bobby Shmurda's \"Bobby Bitch\" and turned it into \"Bhavi Bitch,\" and from there the bit grew into Bhavi as the Shiva. (Jerry, for the record, was spot on.)",
+    "The bit followed Kad onto the draft board. He showed up to the 2022 draft as Shiva-KAD and played that season as Shivakamini Somakandarkram.",
+    "Then came 2020. A photo of her landed in the fantasy group chat, and Quincy called Kyle in a full panic, demanding to know how he knew her. It turned out Quincy had already met Bhavi, completely at random, at a concert, and they had gotten very well acquainted. At the 2020 draft he came clean to the whole league.",
+    "She has a division now: when the league went to 12 teams in 2026, it split into the Lex and Bhavi divisions."]},
+};
+function loreHTML(y){const L=LORE[y];if(!L)return"";const v=L.vid;
+  return `<section class="lorecard"><div><span class="eyebrow">League lore</span><h3>${esc(L.t)}</h3></div>${L.p.map(x=>`<p>${esc(x)}</p>`).join("")}${v?`<button type="button" class="lorevid" data-full="${v.src}" data-vid="${v.vid}" data-cap="${esc(v.cap)}" data-t="${esc(y+" · "+L.t)}" data-gal="lore${y}" aria-label="Play the ${y} video"><img src="${v.src}" alt="${esc(L.t)} video" loading="lazy" decoding="async"></button>`:""}</section>`}
 function yearPhotos(y){
   const b=BOARDS.find(x=>x.year===y),out=[];
   if(b)out.push({src:"img/"+b.img,t:"Draft board",cap:b.cap});
@@ -1900,6 +1928,17 @@ const LUCK=RECW.luck||{};const luckOf=(o,y)=>LUCK[o]?.[y]?.luck;const careerLuck
 const lk=v=>v==null?"–":(v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(1);
 function standings(y){const rows=[];for(const o in S){const r=S[o].seasons[y];if(r)rows.push({o,...r})}
   rows.sort((a,b)=>(a.rk&&b.rk?a.rk-b.rk:0)||b.w-a.w||(b.pts||0)-(a.pts||0));return rows}
+// full vs by-division standings (Kyle 2026-11-22): History opens split by division, Records opens full
+let histDiv=true,recDiv=false;
+function divGroups(y,rows){const D=DIVS[y];if(!D)return null;const g=D.names.map(n=>({n,rows:[]})),other=[];
+  rows.forEach(r=>{const i=D.o[r.o];(i!=null&&g[i]?g[i].rows:other).push(r)});if(other.length)g.push({n:"No division",rows:other});return g.filter(x=>x.rows.length)}
+const divLabel=n=>/conference|division/i.test(n)?n:n+" division";
+// photos of the division namesakes (Kyle 2026-11-22; both said they were OK with it)
+const DIV_PHOTO={Lex:"img/div-lex.jpg",Bhavi:"img/div-bhavi.jpg"};
+const divHead=n=>`${DIV_PHOTO[n]?`<img class="divph" src="${DIV_PHOTO[n]}" alt="${esc(n)}" loading="lazy" decoding="async">`:""}<span>${esc(divLabel(n))}</span>`;
+function divSeg(k,on){return `<div class="seg divseg" role="group" aria-label="Standings view" data-divseg="${k}">${[[0,"Full standings"],[1,"By division"]].map(([v,l])=>`<button type="button" data-v="${v}" aria-pressed="${!!v===on}">${l}</button>`).join("")}</div>`}
+document.addEventListener("click",e=>{const b=e.target.closest(".divseg button");if(!b)return;const k=b.closest(".divseg").dataset.divseg,on=b.dataset.v==="1";
+  if(k==="hist"){histDiv=on;const w=b.closest(".hist-st");if(w)w.outerHTML=histStandings(+w.dataset.y)}else{recDiv=on;renderStats()}});
 function teamNames(o){const m={};if(LIVE[o])(m[2026]??=new Set()).add(LIVE[o].team);TR.forEach(t=>{[t.a,t.b].forEach(s=>{if(s.o===o){(m[t.s]??=new Set()).add(s.team)}})});
   for(const y in EXTRA_NAMES){if(EXTRA_NAMES[y][o])(m[y]??=new Set()).add(EXTRA_NAMES[y][o])}
   return m}
@@ -2203,7 +2242,9 @@ function histStandings(y){if(y===2015)return "";
   const tag=o=>res[o]==="Champion"?'<span class="crown" style="font-size:.95rem">♛ Champion</span>':res[o]==="Runner-up"?'<span class="tag">Runner-up</span>':res[o]?'<span class="tag">Semifinal</span>':"";
   const anyPts=st.some(r=>r.pts!=null),anySeed=Object.keys(seed).length;
   const names=o=>{const n=teamNames(o)[y];return n?[...n].slice(-1)[0]:(MV.rosters[y]?.[o]?.team||"")};
-  return `<div style="min-width:0"><div class="eyebrow" style="margin-bottom:8px">Final standings${y===2026?" (in progress)":""}</div><div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>
+  const tbl=rows=>`<div class="tablebox"><table class="mtable"><thead><tr><th class="num">#</th><th>Team</th><th class="num">W-L</th>${anyPts?'<th class="num">Points</th>':""}${anySeed?'<th class="num">Seed</th>':""}<th>Result</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td class="num">${r.w!=null?i+1:""}</td><td><div class="who">${av(r.o)}<span><b>${esc(names(r.o)||short(r.o))}</b> <span class="muted">${esc(short(r.o))}</span></span></div></td><td class="num nw">${r.w!=null?`${r.w}-${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}`:'<span class="muted">not saved</span>'}</td>${anyPts?`<td class="num">${r.pts!=null?fmt(r.pts):""}</td>`:""}${anySeed?`<td class="num">${seed[r.o]||""}</td>`:""}<td>${tag(r.o)}${SACKOS[y]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody></table></div>`;
+  const G=histDiv?divGroups(y,st):null;
+  return `<div class="hist-st" data-y="${y}" style="min-width:0"><div class="st-head"><div class="eyebrow">Final standings${y===2026?" (in progress)":""}</div>${DIVS[y]?divSeg("hist",histDiv):""}</div>${G?G.map(g=>`<h4 class="divname">${divHead(g.n)}</h4>${tbl(g.rows)}`).join(""):tbl(st)}
   <p class="muted bnote">${y<2018?`Only ${y===2016?"Charles's, Duane's and Kyle's":"Kyle's and Fluff's"} ${y} records were saved. The rest (marked est.) are estimates worked out from those, and the playoff bracket, since every game has a winner.`:y===2026?"Standings so far this season.":"Ranked by regular-season wins, then points. Seeds are ESPN's playoff seeds."}</p></div>`}
 function bracketHTML(y){const P=BRACKET_MANUAL[y]||PLAYOFFS[y];
   if(y===2015)return "";
@@ -2249,6 +2290,7 @@ function renderHistory(){
   $("#yearCard").innerHTML=h.unofficial?`<div><span class="eyebrow">2015 · Unofficial · Not counted</span><h2>${esc(h.title)}</h2></div><p class="yearbio">${esc(YEAR_BIO[2015])}</p>${galleryHTML(2015)}<div class="facts">${fact("League","Wu-Tang")}${fact("Crew","The #Squad")}${fact("Winner","Charles (not counted)")}</div><ul>${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>${wuTrade()}`:`<div><span class="eyebrow">${histYear} · Year ${histYear-2015}</span><h2>${esc(h.title)}</h2></div>
    <p class="yearbio">${esc(YEAR_BIO[histYear]||"")}</p>
    ${galleryHTML(histYear)}
+   ${loreHTML(histYear)}
    ${bracketHTML(histYear)}
    ${histStandings(histYear)}
    <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
@@ -2425,7 +2467,9 @@ function renderStats(){
   $("#seasonSel").innerHTML=ALL_YEARS.slice().reverse().map(y=>`<option value="${y}" ${y===seasonSel?"selected":""}>${y}</option>`).join("");
   $("#seasonSel").onchange=e=>{seasonSel=+e.target.value;renderStats()};
   const st=standings(seasonSel);const names=Object.fromEntries(Object.keys(OWNERS).map(o=>[o,teamNames(o)[seasonSel]]));
-  $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th class="num" title="Wins above or below what the weekly scores earned">Luck</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead><tbody>${st.map((r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}</td><td class="num">${fmt(r.pts)}</td><td class="num">${lk(luckOf(r.o,seasonSel))}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`).join("")}</tbody>`:`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
+  $("#seasonDiv").innerHTML=st.length&&DIVS[seasonSel]?divSeg("rec",recDiv):"";
+  const G=recDiv&&st.length?divGroups(seasonSel,st):null,row=(r,i)=>`<tr><td class="num">${i+1}</td><td><div class="who">${av(r.o)}${esc(OWNERS[r.o].name)}</div></td><td>${names[r.o]?esc([...names[r.o]].slice(-1)[0]):'<span class="muted">–</span>'}</td><td class="num">${r.w}</td><td class="num">${r.l}${r.est?' <span class="muted" title="Estimated">est.</span>':""}</td><td class="num">${fmt(r.pts)}</td><td class="num">${lk(luckOf(r.o,seasonSel))}</td><td>${seasonSel===2026?`<span class="num">${LIVE[r.o]?.moves??""}</span>`:""}${CHAMPS[seasonSel]?.o===r.o?'<span class="crown">♛ Champion</span>':""}${SACKOS[seasonSel]?.o===r.o?`${sackoMark()}<span class="sacko"> Sacko</span>`:""}</td></tr>`;
+  $("#seasonTable").innerHTML=st.length?`<thead><tr><th class="num">#</th><th>Owner</th><th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Points</th><th class="num" title="Wins above or below what the weekly scores earned">Luck</th><th>${seasonSel===2026?"Moves":"Honors"}</th></tr></thead>`+(G?G.map(g=>`<tbody><tr class="divrow"><th colspan="8"><span class="divname">${divHead(g.n)}</span></th></tr>${g.rows.map(row).join("")}</tbody>`).join(""):`<tbody>${st.map(row).join("")}</tbody>`):`<tbody><tr><td class="muted">${seasonSel===2026?`<a href="https://fantasy.espn.com/football/league/standings?leagueId=92604">Live 2026 standings on ESPN</a>`:`No records for ${seasonSel} yet.`}</td></tr></tbody>`;
   $("#seasonNote").textContent=seasonSel===2026?"2026 standings so far, from ESPN's weekly results (completed weeks only). Divisions: Lex and Bhavi. Moves counts every waiver and free-agent add.":seasonSel===2016?"Saved 2016 records: Charles 12-1, Duane 7-6 and Kyle 6-7 (first team out of the playoffs). The rest are estimates (est.): 52 games means 52 wins, the bracket puts Peanut and Squirm in the top four, and Kyle was the first team out. That leaves 15 wins for Lucas, DiLapi and Fluff, and Fluff and DiLapi were worse than Lucas. The Sacko is decided in the losers' bracket, so Fluff's Sacko doesn't mean he had the worst record. Points weren't saved.":seasonSel===2017?"Saved 2017 records: Kyle 10-2 and Fluff 9-3. The rest are estimates (est.): Fluff missed the playoffs at 9-3, so Charles, Vicente and Squirm had to be 9-3 or better, which leaves 14 wins for the other five. Kyle remembers Keeves with about 1 win and Peanut with 3, which leaves 10 wins for Lucas, Rod and DiLapi (which of them got the fourth is a guess). The Sacko is decided in the losers' bracket, which is how Peanut took it at 3-9 instead of Keeves.":"Ranked by regular season wins, then points. Playoff results are not in the stats sheet.";
 }
 
