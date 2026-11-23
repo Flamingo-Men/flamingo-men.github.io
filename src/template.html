@@ -709,12 +709,16 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 .coach-card.champ{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
 .coach-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
 .playbtn{border:0;border-radius:99px;padding:6px 14px;cursor:pointer;background:#1f4d2a;color:#fff;font-family:var(--f-data);font-size:.84rem}.playbtn:hover{background:#2b6a30}
+.gold-art{border:0;padding:0;margin:0;background:none;cursor:pointer;width:100%;font:inherit;color:inherit;text-align:left}
+.gd-bar{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#e9b72c,#fff1a8)}
+.gr-wave{animation:grWave 2.4s ease-in-out infinite}@keyframes grWave{50%{transform:translateX(6px)}}
+.gr-nug{animation:grNug 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes grNug{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
 .sh-water line{animation:shWater .55s linear infinite}@keyframes shWater{to{stroke-dashoffset:-16}}
 .sh-steam{animation:shSteam 3.3s ease-in-out infinite}@keyframes shSteam{0%,100%{transform:translateY(4px);opacity:.3}50%{transform:translateY(-4px);opacity:.9}}
 .soap-fall{animation:soapFall 2.6s cubic-bezier(.5,0,.5,1) infinite;transform-box:fill-box;transform-origin:center}
 @keyframes soapFall{0%{transform:translate(-30px,-74px) rotate(-40deg)}38%{transform:translate(0,0) rotate(8deg)}46%{transform:translate(3px,-7px) rotate(-6deg)}54%,100%{transform:translate(5px,0) rotate(-12deg)}}
 .ch-pl{animation:chPl 2.8s ease-in-out infinite}@keyframes chPl{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
-@media (prefers-reduced-motion:reduce){.sh-water line,.sh-steam,.soap-fall,.ch-pl{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
+@media (prefers-reduced-motion:reduce){.gr-wave,.gr-nug,.sh-water line,.sh-steam,.soap-fall,.ch-pl{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -4369,8 +4373,43 @@ function topRapes(){const margin=x=>Math.abs(x.a.war-x.b.war);
   return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
     const side=(s,won)=>{const g=x[s].got,suit=won?"♥":"♠";return `<div class="pt-side${won?" won":""}"><div class="pt-own">${t[s].o?av(t[s].o):""}<div><b>${esc(t[s].o?short(t[s].o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,suit)).join("")}</div><div class="pt-tot"><span class="tc-stamp${won?"":" l"}">${won?"Won":"Fleeced"}</span>${wf(x[s].war,false)} wins</div></div>`};
     return `<article class="ptable${i===0?" first":""}"><header class="pt-top"><span class="rank">${ROMAN[i]}</span><span>${t.s} season${x.w>1?` · week ${x.w}`:""}</span></header><div class="pt-felt">${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins"><span class="chips" aria-hidden="true"><i></i><i></i><i></i></span><b>${wf(margin(x),false)}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
-function topPickups(){const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
-  return `<div class="top5">${best.map((m,i)=>`<article class="pickup"><span class="rank">${ROMAN[i]}</span>${av(m.o)}<div><h4>${pn(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("")}</div>`}
+// Top 5 waiver pickups as a gold rush (Kyle 2026-11-23): the owner panning a river, the player's face as the gold nugget,
+// sized by pickup score against the best of the five. Tap the nugget for the week-by-week points in that owner's lineup.
+let pickList=[];
+function goldArt(m,i,top){const {q,R,C,E,P,L,T,G,CH,HAT,BUB,LG,HW}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=78,y=58,h=34,f=.5+.5*Math.pow((m.score||m.pts)/top,2);
+  let s=R(-10,-10,260,200,LG(["#9fd3f2","#f7e3b5"]));
+  s+=P("M-10 92L30 52L58 74L96 30L134 70L160 48L200 84L250 60V110H-10Z","#8a9bb0")+P("M-10 100L40 70L78 90L120 58L170 92L210 72L250 96V118H-10Z","#6f8a6a")+C(206,26,13,"#ffe28a",'opacity=".9"');
+  s+=[[28,96],[52,92],[190,98],[226,94]].map(([a,b])=>P(`M${a} ${b}l-7 16h14z`,"#2f5d3a")+P(`M${a} ${b+6}l-9 18h18z`,"#2a5233")).join("");
+  // the river, with moving ripples, and a sandbar at the front
+  s+=P("M-10 112Q120 100 250 114V170H-10Z","#4a9cc9")+`<g class="gr-wave">${[0,1,2,3,4,5].map(k=>P(`M${10+k*40} ${124+(k%3)*12}q8-4 16 0t16 0`,"none",'stroke="#cfeaf7" stroke-width="1.5" stroke-linecap="round" opacity=".8"')).join("")}</g>`;
+  s+=P("M-10 160Q70 146 150 156T250 152V190H-10Z","#d9b77a")+[[20,170],[60,166],[180,172],[214,164]].map(([a,b])=>E(a,b,4,2,"#b8935a")).join("");
+  // the prospector, knee-deep with his pan
+  s+=CH(o,x,y,h,c,"tee",{arms:[[.25,1.65],[1.55,1.55]],len:2.4,w:.8,ac:podShade(c,-.2),top:1});
+  s+=HAT(o,"bush",x,y+h*.2,h*.95,"#8a6a3c")+R(x-h*.5,y+h*2.1,h,h*.5,"#4a9cc9",'opacity=".85"')+P(`M${x-h*.6} ${y+h*2.2}q10-5 20 0t20 0t20 0`,"none",'stroke="#cfeaf7" stroke-width="1.5"');
+  // the pan, tilted toward us, with the nugget
+  const px=x+h*1.05,py=y+h*1.72,nr=22*f;
+  s+=E(px,py,38,12,"#6e7378",'stroke="#3f4348" stroke-width="1.5"')+E(px,py-1,31,8.5,"#8d9297")+E(px,py+1,20,4.5,"#a2865a",'opacity=".7"');
+  s+=`<g transform="translate(${q(px)} ${q(py-nr*.55)})"><g class="gr-nug">`+P(`M${q(-nr*1.15)} ${q(nr*.2)}L${q(-nr*.7)} ${q(-nr*.85)}L${q(nr*.2)} ${q(-nr*1.1)}L${q(nr*1.1)} ${q(-nr*.45)}L${q(nr*1.2)} ${q(nr*.5)}L${q(nr*.35)} ${q(nr*1.05)}L${q(-nr*.75)} ${q(nr*.9)}Z`,"#e9b72c",'stroke="#a67c00" stroke-width="1.4" stroke-linejoin="round"')
+    +P(`M${q(-nr*.6)} ${q(-nr*.6)}L${q(nr*.1)} ${q(-nr*.85)}L${q(-nr*.2)} ${q(-nr*.4)}Z`,"#fff3b0",'opacity=".8"')+svgHead(m.add[0],0,0,nr*1.35,"#ffe27a","#f5d77a")+`</g></g>`;
+  s+=[[px-30,py-26,1],[px+30,py-20,.8],[px+6,py-nr*1.4-10,.9]].map(([a,b,k],j)=>`<g transform="translate(${q(a)} ${q(b)}) scale(${k})"><path class="pf-spark" style="animation-delay:-${j*.5}s" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff6c2"/></g>`).join("");
+  s+=BUB(186,40,62,18,[i===0?"EUREKA!":"GOLD!"],x+h*.5,y-h*.3,10,"#fff","#15203b");
+  return s}
+async function pickGrade(i){const m=pickList[i];if(!m)return;const nm=m.add[0],y=m.y;
+  const lead=`<p class="gd-lead">${esc(m.team)} (${esc(short(m.o))}) picked up ${pn(nm)} <span class="muted">${esc(m.add[1])}</span> ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w} of ${y}. Every week he started for them before he left the roster:</p>`;
+  gradePop(nm,lead+'<p class="muted">Loading the weeks…</p>',"Gold found");
+  const W=await weeksOf(y);if(!W){gdBody(lead+'<p class="muted">The weeks could not be loaded.</p>');return}
+  const tid=Object.keys(W.teams).find(k=>W.teams[k][0]===m.o),key=pnorm(nm),ws=Object.keys(W.weeks).map(Number).filter(w=>w>=m.w).sort((a,b)=>a-b);
+  const rows=[];let seen=0;
+  for(const w of ws){let on=null;for(const g of W.weeks[w])for(const sd of [g.a,g.b])if(sd&&String(sd.t)===tid){const p=sd.r.find(p=>pnorm(p[0])===key);if(p)on=[p,g.tier]}
+    if(!on){if(seen&&W.weeks[w].some(g=>[g.a,g.b].some(sd=>sd&&String(sd.t)===tid)))break;continue}   // he left the roster: the stint is over
+    seen=1;const [p,tier]=on;if(p[2]!=="BE"&&p[2]!=="IR")rows.push([w,p[3]||0,tier])}
+  const tot=rows.reduce((a,r)=>a+r[1],0),best=rows.reduce((a,r)=>r[1]>a[1]?r:a,[0,0]);
+  gdBody(lead+`<div class="gd-key"><div><small>Starts</small><b>${rows.length}</b><small>weeks</small></div><div><small>Best week</small><b>${fmt(best[1])}</b><small>week ${best[0]}</small></div><div><small>Per start</small><b>${rows.length?fmt(tot/rows.length):"–"}</b><small>pts</small></div><div class="tot"><small>Lineup points</small><b>${fmt(m.pts)}</b><small>total</small></div></div>
+    <div class="tablebox"><table class="mtable gd-t"><thead><tr><th class="num">Wk</th><th class="num">Pts</th><th>Gold</th></tr></thead><tbody>${rows.map(([w,v,t])=>`<tr><td class="num">${w}${t?` <span class="rbadge">${t==="Consolation"?"Cons.":"Playoffs"}</span>`:""}</td><td class="num">${fmt(v)}</td><td><span class="gd-bar" style="width:${Math.max(2,Math.round(v/Math.max(1,best[1])*100))}%"></span></td></tr>`).join("")}</tbody></table></div>
+    <p class="muted gd-n">Only weeks he was in ${esc(short(m.o))}'s starting lineup count, from the pickup until he left the roster (dropped or traded). ${m.add[1]!=="RB"&&m.add[1]!=="WR"&&pickPos==="all"?`In the overall list a ${esc(m.add[1])} counts at ${m.add[1]==="TE"?"85%":"60%"}, so his pickup score is ${fmt(m.score)}.`:""}</p>`)}
+function topPickups(){pickList=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
+  const v=m=>pickPos==="all"?m.score:m.pts,top=Math.max(...pickList.map(v),1);
+  return `<div class="soaps golds">${pickList.map((m,i)=>`<article class="soap-card"><button type="button" class="soap-art gold-art" data-pk="${i}" aria-haspopup="dialog" aria-label="${esc(m.add[0])}: show every week he started">${CS.svg(()=>goldArt({...m,score:v(m)},i,top),"0 0 240 180")}<span class="rank">${ROMAN[i]}</span></button><div class="soap-tx"><h4>${pn(m.add[0])} <span class="muted">${esc(m.add[1])} · ${m.y}</span></h4><small class="muted">Struck by ${esc(m.team)} (${esc(short(m.o))})</small><p>Grabbed ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup${m.st?` over ${m.st} start${m.st===1?"":"s"}`:""}.</p><button type="button" class="wbtn big" data-pk="${i}" aria-haspopup="dialog">${pickPos==="all"&&m.score!==m.pts?`Pickup score ${fmt(m.score)}`:`${fmt(m.pts)} pts of gold`}</button></div></article>`).join("")}</div>`}
 function topDrops(){const nm=l=>l.map(o=>esc(short(o))),and=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
   return `<div class="soaps">${DROPS.slice(0,5).map((m,i)=>`<article class="soap-card"><div class="soap-art">${CS.svg(()=>showerArt(m,i),"0 0 240 180")}<span class="rank">${ROMAN[i]}</span></div><div class="soap-tx"><h4>${pn(m.p)} <span class="muted">${esc(m.pos)} · ${m.y}</span></h4><small class="muted">Dropped by ${esc(m.team)} (${esc(short(m.o))})</small><p>Cut before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><button type="button" class="wbtn big" data-wg="d" data-i="${i}" aria-haspopup="dialog">${wf(m.war,false)} wins given away</button></div></article>`).join("")}</div>`}
 function topSeasons(){topSeasonList=bestSeasons().slice(0,10);
@@ -4384,8 +4423,8 @@ function renderTopLists(){
   $("#topGrade").onclick=()=>gradePop(TOPS[topKey].l,`<p>${esc(TOPS[topKey].how)}</p>${TOPS[topKey].tap||""}`);
   const box=$("#topBody");
   box.innerHTML=({rapes:topRapes,pickups:topPickups,drops:topDrops,seasons:topSeasons})[topKey]();
-  box.onclick=e=>{const w=e.target.closest("[data-wg]"),mv=e.target.closest("[data-mv]"),sg=e.target.closest("[data-sg]");
-    if(w)w.dataset.wg==="t"?tradeGrade(w.dataset.id,w.dataset.s,w.dataset.p):dropGrade(+w.dataset.i);
+  box.onclick=e=>{const w=e.target.closest("[data-wg]"),mv=e.target.closest("[data-mv]"),sg=e.target.closest("[data-sg]"),pk=e.target.closest("[data-pk]");
+    if(e.target.closest(".pl"))return;if(pk)pickGrade(+pk.dataset.pk);else if(w)w.dataset.wg==="t"?tradeGrade(w.dataset.id,w.dataset.s,w.dataset.p):dropGrade(+w.dataset.i);
     else if(mv)seasonMovie(+mv.dataset.mv);else if(sg)seasonGrade(+sg.dataset.sg)}}
 // a pickup as a trade-style box: the team adds a player and sends the dropped one to the wire (Kyle 2026-11-23)
 function pickupHTML(m){const d=new Date(m.d+"T12:00:00"),wv=m.k==="Waiver",pl=p=>`<li>${pn(p[0])}<span class="pos">${esc(p[1])}</span></li>`;
