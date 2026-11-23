@@ -74,7 +74,6 @@ section.hall.on{display:block}
 .hero h1 em{font-style:normal;color:inherit}
 .hero p{max-width:52ch;color:#cfd4e4;margin:14px 0 0}
 .hero .eyebrow{color:#e8c574}
-.pediment{width:100%;max-width:380px;justify-self:center}
 .hero-stats{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap}
 .hero-stats div{display:grid}
 .hero-stats b{font-family:var(--f-display);font-weight:400;font-size:2rem;color:#fff}
@@ -114,6 +113,8 @@ section.hall.on{display:block}
 .owner-pill span{font-size:.85rem;font-weight:700;text-align:center}
 .av{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--flamingo-soft);display:grid;place-items:center;font-family:var(--f-display);color:var(--flamingo);font-size:1.3rem;flex:none}
 .owner-pill[aria-pressed="true"] .av{border-color:var(--flamingo);box-shadow:0 0 0 3px var(--flamingo-soft)}
+/* phones: the Teams owner picker is two rows that scroll sideways */
+@media (max-width:640px){#teamPicker{display:grid;grid-template-columns:repeat(var(--cols,9),72px);gap:12px 10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding:4px 16px 6px;scroll-padding-inline:16px}#teamPicker::-webkit-scrollbar{display:none}#teamPicker .owner-pill{width:72px;scroll-snap-align:start}#teamPicker .av{width:58px;height:58px}#teamPicker .owner-pill span{font-size:.8rem}}
 
 /* rules page */
 .commish-now{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:'a h' 'a p';gap:4px 20px;align-items:center;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:20px 22px}
@@ -318,6 +319,11 @@ select{font:inherit;font-family:var(--f-body);font-size:1rem;padding:8px 10px;bo
 .cuz-st{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cuz-st div{background:rgba(255,255,255,.1);border-radius:12px;padding:10px}.cuz-st b{display:block;font-size:1.5rem}.cuz-st small{opacity:.85}
 .trade.vetoed{position:relative;overflow:hidden;border-color:var(--flamingo);border-left:4px solid var(--flamingo)}
 .trade.vetoed .sides{opacity:.6}
+/* a waiver claim or free agent pickup in the same box as a trade (Kyle 2026-11-23): the team on the left, the wire on the right */
+.trade.pu{border-left:4px solid var(--good)}
+.trade.pu .wire h4{color:var(--muted)}
+.tag.wv{background:var(--good);color:#fff}.tag.fa{background:var(--stone);color:var(--ink)}
+.trade.pu .score{margin:0}
 .trade.vetoed::after{content:"VETOED";position:absolute;right:14px;bottom:10px;transform:rotate(-8deg);font-family:var(--f-data);font-weight:700;letter-spacing:.2em;font-size:1rem;color:var(--flamingo);border:2px solid var(--flamingo);border-radius:6px;padding:2px 8px;opacity:.85;pointer-events:none}
 .hist-trades{display:grid;gap:8px;margin-top:4px}
 #chronicle .hist-trades{margin-top:10px}
@@ -603,7 +609,6 @@ details.fold:not([open])>summary{margin-bottom:0}
 @keyframes mpIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @keyframes mdFlip{from{transform:perspective(500px) rotateY(-110deg)}to{transform:none}}
 .rkseg{margin:4px 0 10px}.rkseg button{font-size:.85rem;padding:7px 14px}
-.rkhow{font-size:.85rem;max-width:80ch;margin:0 0 14px}
 /* Rankings podium (Kyle 2026-11-23): 2-1-3 like the Olympics, then the rest of the field stepping down; bobblehead figures made from the cut-outs */
 .pod-wrap{position:relative;margin:4px 0 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:radial-gradient(85% 70% at 50% 0%,color-mix(in srgb,var(--flamingo-soft) 90%,transparent),transparent 72%),var(--slab)}
 .pod-stage{list-style:none;margin:0;padding:24px 10px 0;display:flex;align-items:flex-end;gap:5px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none}
@@ -647,9 +652,66 @@ details.fold:not([open])>summary{margin-bottom:0}
 .pod-card .sc{font-family:var(--f-data);font-size:1.25rem;font-weight:700;text-align:right;white-space:nowrap}
 .pod-card .sc small{display:block;font-weight:400;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .pod-card .meta{margin-top:8px;font-size:.86rem;color:var(--muted);line-height:1.5}
-.pod-how{margin:10px 0 0}
-.pod-how summary{cursor:pointer;font-family:var(--f-data);font-size:.78rem;letter-spacing:.04em;color:var(--aegean);width:max-content;max-width:100%}
-.pod-how .rkhow{margin:8px 0 0}
+/* top lists (Kyle 2026-11-23): cells like the rankings, grading pop-ups, trading cards, the shower and the coach */
+.gradebtn{display:inline-flex;align-items:center;gap:7px;margin:10px 0 0;border:1px solid var(--line);background:var(--slab);border-radius:99px;padding:5px 8px 5px 13px;cursor:pointer;font-family:var(--f-data);font-size:.78rem;letter-spacing:.04em;color:var(--aegean)}
+.gradebtn span{display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--aegean);color:var(--slab);font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:.78rem}
+.gradebtn:hover{border-color:var(--aegean)}
+#topLists .block-head{margin-bottom:8px}
+.tl-sub{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:0 0 14px}.tl-sub .gradebtn{margin:0}.tl-sub .seg[hidden]{display:none}
+dialog.gdlg{border:1px solid var(--line);border-radius:12px;padding:0;width:min(620px,calc(100vw - 24px));max-height:calc(100dvh - 32px);background:var(--slab);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:auto}
+dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
+.gd-h{position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:start;gap:12px;padding:14px 16px 10px;background:var(--slab);border-bottom:1px solid var(--line)}
+.gd-x{border:0;background:none;font-size:1.6rem;line-height:1;cursor:pointer;color:var(--muted);padding:0 4px}
+.gd-b{padding:12px 16px 16px}.gd-b>p{margin:0 0 10px;max-width:68ch}.gd-lead{font-size:1rem}.gd-n{font-size:.82rem}
+.gd-key{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.gd-key div{background:var(--stone);border-radius:var(--r);padding:8px 10px;display:grid;line-height:1.2}.gd-key small{font-size:.68rem;color:var(--muted);font-family:var(--f-data)}.gd-key b{font-family:var(--f-data);font-size:1.15rem}
+.gd-key .tot{background:color-mix(in srgb,var(--gold) 22%,var(--slab))}
+.gd-t td.up{color:var(--good)}.gd-t td.dn{color:var(--bad)}
+@media (max-width:520px){.gd-key{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.wbtn{border:1px solid color-mix(in srgb,var(--gold) 60%,var(--line));background:color-mix(in srgb,var(--gold) 12%,var(--slab));color:var(--ink);border-radius:99px;padding:2px 9px;cursor:pointer;font-family:var(--f-data);font-size:.74rem;white-space:nowrap}
+.wbtn:hover{background:color-mix(in srgb,var(--gold) 28%,var(--slab))}.wbtn.big{font-size:.84rem;padding:5px 12px}
+.tcards{display:grid;gap:18px}
+.ptable{display:grid;gap:6px}
+.pt-top{display:flex;align-items:baseline;gap:10px;font-family:var(--f-data);font-size:.8rem;color:var(--muted)}.pt-top .rank{font-size:1.5rem}
+.pt-felt{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px;padding:16px 44px;border-radius:120px/90px;
+  background:radial-gradient(ellipse at 50% 40%,#2f8f55,#1b6a3c 55%,#0f4527);border:10px solid #6b3f1f;box-shadow:inset 0 0 0 2px #c79a55,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 8px 20px rgba(0,0,0,.25);color:#f4f1ea}
+.ptable.first .pt-felt{border-color:#7a4a22;box-shadow:inset 0 0 0 2px #f2c230,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 0 18px rgba(242,194,48,.35)}
+.pt-side{display:grid;justify-items:center;gap:8px;min-width:0}
+.pt-own{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}.pt-own .av{width:34px;height:34px;border-width:2px}.pt-own>div{display:grid;line-height:1.15;min-width:0}.pt-own b{font-size:.95rem}.pt-own small{font-size:.72rem;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pt-hand{--cw:92px;display:flex;justify-content:center;padding:6px 0 2px}
+.pc{--d:50px;position:relative;flex:none;width:var(--cw);aspect-ratio:5/7;display:grid;justify-items:center;align-content:center;gap:2px;padding:14px 4px 12px;border-radius:8px;border:1px solid #c9c0a8;background:linear-gradient(160deg,#fffdf6,#efe8d6);color:#15203b;cursor:pointer;
+  box-shadow:0 3px 8px rgba(0,0,0,.35);transform:rotate(calc(var(--k) * 5deg)) translateY(calc(var(--k) * var(--k) * 2px));transform-origin:50% 120%;transition:transform .15s;font:inherit}
+.pc+.pc{margin-left:calc(var(--cw) * (.12 - var(--n) * .08))}
+.pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 5deg)) translateY(-10px);z-index:2}
+.pc.dud{filter:grayscale(.7) brightness(.92)}
+.pc-ph{display:block;width:var(--d);height:var(--d);border-radius:50%;background-color:#dfe7ef;background-repeat:no-repeat;border:2px solid #fff;box-shadow:0 0 0 1.5px #c9a24a}
+.pc-ph.ini{display:grid;place-items:center;font-family:var(--f-display);color:var(--muted)}
+.pc-n{font-weight:800;font-size:.74rem;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-w{font-family:var(--f-data);font-size:.72rem;font-weight:700;color:#1b6a3c}.pc.dud .pc-w{color:#8a8f99}
+.pc-i{position:absolute;left:5px;top:4px;display:grid;justify-items:center;line-height:1;font-family:var(--f-data);font-size:.6rem;font-weight:700}.pc-i i{font-style:normal;font-size:.75rem}
+.pc-i.b{left:auto;top:auto;right:5px;bottom:4px;transform:rotate(180deg)}
+.pt-side.won .pc-i{color:#c0392b}
+.pt-tot{display:flex;align-items:center;font-family:var(--f-data);font-size:.8rem;font-weight:700}
+.pt-pot{display:grid;justify-items:center;line-height:1.05;text-align:center}.pt-pot b{font-family:var(--f-data);font-size:1.15rem;color:#f2c230}.pt-pot small{font-size:.65rem;opacity:.8;font-family:var(--f-data)}
+.chips{display:grid;margin-bottom:4px}.chips i{display:block;width:30px;height:9px;border-radius:50%;margin-top:-4px;background:repeating-linear-gradient(90deg,#c0392b 0 5px,#fff 5px 8px);border:1px solid #7d1f14}.chips i:nth-child(2){background:repeating-linear-gradient(90deg,#1d4f91 0 5px,#fff 5px 8px);border-color:#0d2b52}.chips i:nth-child(3){background:repeating-linear-gradient(90deg,#15203b 0 5px,#f2c230 5px 8px);border-color:#000}
+@media (max-width:640px){.pt-felt{padding:12px 8px;border-width:7px;border-radius:70px/56px;gap:2px}.pt-hand{--cw:46px}.pc{--d:26px;padding:9px 2px 7px;border-radius:5px;gap:1px}.pc+.pc{margin-left:calc(var(--cw) * (.1 - var(--n) * .15))}.pc{transform:rotate(calc(var(--k) * 3deg)) translateY(calc(var(--k) * var(--k) * 1px))}.pt-pot{min-width:38px}.pc-n{font-size:.56rem}.pc-w{font-size:.56rem}.pc-i{font-size:.44rem;left:3px;top:2px}.pc-i i{font-size:.5rem}.pc-i.b{right:3px;bottom:2px}
+  .pt-own{flex-direction:column;gap:2px;text-align:center}.pt-own .av{width:28px;height:28px}.pt-own b{font-size:.8rem}.pt-own small{font-size:.6rem;max-width:140px}.pt-tot{font-size:.68rem;flex-direction:column;gap:3px}.tc-stamp{font-size:.72rem;margin:0}.pt-pot b{font-size:.9rem}.chips i{width:22px;height:7px}}
+.tc-stamp{flex:none;font-family:var(--f-fb);font-size:.9rem;letter-spacing:.08em;color:#9ff0b8;border:2px solid currentColor;border-radius:4px;padding:0 5px;transform:rotate(-6deg);margin-right:6px}.tc-stamp.l{color:#ffb0a6;transform:rotate(5deg)}
+.soaps,.coaches{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.soap-card,.coach-card{background:var(--slab);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.soap-art,.coach-art{position:relative;line-height:0}.soap-art svg,.coach-art svg{width:100%;height:auto;display:block}
+.soap-art .rank,.coach-art .rank{position:absolute;left:10px;top:8px;line-height:1;background:rgba(21,32,59,.78);color:#f3dca0;border-radius:6px;padding:4px 8px;font-size:1.25rem}
+.soap-tx,.coach-tx{padding:12px 14px 14px;display:grid;gap:6px;align-content:start}.soap-tx h4,.coach-tx h4{margin:0;font-size:1.05rem}.soap-tx p{margin:0;font-size:.92rem}.soap-tx .wbtn{justify-self:start;margin-top:4px}
+.coach-h{display:flex;gap:10px;align-items:center}.coach-h .tav,.coach-h .av{--s:40px;width:40px;height:40px}.coach-h small{display:block;font-size:.8rem}
+.coach-card.champ{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.coach-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.playbtn{border:0;border-radius:99px;padding:6px 14px;cursor:pointer;background:#1f4d2a;color:#fff;font-family:var(--f-data);font-size:.84rem}.playbtn:hover{background:#2b6a30}
+.sh-water line{animation:shWater .55s linear infinite}@keyframes shWater{to{stroke-dashoffset:-16}}
+.sh-steam{animation:shSteam 3.3s ease-in-out infinite}@keyframes shSteam{0%,100%{transform:translateY(4px);opacity:.3}50%{transform:translateY(-4px);opacity:.9}}
+.soap-fall{animation:soapFall 2.6s cubic-bezier(.5,0,.5,1) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes soapFall{0%{transform:translate(-30px,-74px) rotate(-40deg)}38%{transform:translate(0,0) rotate(8deg)}46%{transform:translate(3px,-7px) rotate(-6deg)}54%,100%{transform:translate(5px,0) rotate(-12deg)}}
+.ch-pl{animation:chPl 2.8s ease-in-out infinite}@keyframes chPl{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
+@media (prefers-reduced-motion:reduce){.sh-water line,.sh-steam,.soap-fall,.ch-pl{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -764,7 +826,6 @@ footer small{color:#99a1b8}
 
 @media (max-width:860px){
   .hero .wrap{grid-template-columns:1fr}
-  .pediment{max-width:260px}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .champ-strip{grid-template-columns:repeat(4,minmax(0,1fr))}
   .profile{grid-template-columns:1fr}
@@ -1069,8 +1130,70 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 
 /* DASHBOARD (home) */
 .hero .wrap{padding-block:30px 24px}
-.hero .pediment{max-width:290px}
 .dash{padding-bottom:40px}
+/* ACROPOLIS hero (Kyle 2026-11-23): all 18 members packed on the Parthenon steps, animated; JS in the ACROPOLIS block.
+   Desktop puts the scene beside the title, tablets under it, phones under the title alone (no intro line or counts). */
+.hero .wrap{grid-template-columns:minmax(0,1fr);gap:18px}
+.hero-txt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 48px;align-items:end}
+.hero-txt p{margin:0}
+.acro-box{border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px rgba(232,197,116,.3),0 14px 30px -18px rgba(0,0,0,.8);background:#0c1430}
+.acro-svg{display:block;width:100%;height:auto}
+.acro .an{transform-origin:0 0}
+.acro .tw{animation:aTw 3s ease-in-out infinite}
+.acro .a-hop{animation:aHop 4s ease-in-out infinite}
+.acro .a-chick{animation:aChick 5s linear infinite}
+.acro .a-ping{animation:aPing 3s ease-out infinite}
+.acro .a-sword{animation:podWave .8s ease-in-out infinite alternate}
+.acro .a-flag{animation:aFlag .9s ease-in-out infinite alternate}
+.acro .a-gavel{animation:aGavel 2.4s infinite}
+.acro .a-order{animation:aOrder 2.4s infinite}
+.acro .a-unroll{animation:aUnroll 7s ease-in-out infinite}
+.acro .a-roller{animation:aRoller 7s ease-in-out infinite}
+.acro .a-rant{animation:aRant .5s ease-in-out infinite}
+.acro .a-say3{animation:aSay3 6s infinite}
+.acro .a-swing{animation:aSwing 1.6s ease-in-out infinite alternate}
+.acro .a-push{animation:aPush 4.5s ease-in-out infinite}
+.acro .a-rock{animation:aRock 4.5s ease-in-out infinite}
+.acro .a-spin{animation:aSpin 4.5s ease-in-out infinite}
+.acro .a-tail{animation:aTail 1.3s ease-in-out infinite alternate}
+.acro .a-thaw{animation:aThaw 8s ease-in-out infinite}
+.acro .a-puddle{animation:aPuddle 8s ease-in-out infinite}
+.acro .a-step{animation:aStep .7s ease-in-out infinite}
+.acro .a-juggle{animation:aJuggle 2.6s linear infinite}
+.acro .a-drib{animation:aDrib .34s cubic-bezier(.55,0,1,.45) infinite alternate}
+.acro .a-kernel{animation:aKernel 2.2s ease-in-out infinite}
+.acro .a-float{animation:aFloat 4s ease-in-out infinite}
+.acro .a-look{animation:aLook 6s step-end infinite}
+@keyframes aTw{50%{opacity:.15}}
+@keyframes aHop{0%,52%,100%{transform:none}62%{transform:translateY(-16px)}72%{transform:scale(1.06,.92)}80%{transform:none}}
+@keyframes aChick{0%{transform:none}45%{transform:translateX(14px)}50%{transform:translateX(14px) scaleX(-1)}95%{transform:scaleX(-1)}100%{transform:none}}
+@keyframes aPing{0%{opacity:0;transform:translateY(6px)}10%,45%{opacity:1;transform:none}60%,100%{opacity:0;transform:translateY(-8px)}}
+@keyframes aFlag{from{transform:skewY(-7deg) scaleX(.9)}to{transform:skewY(5deg)}}
+@keyframes aGavel{0%,58%,100%{transform:rotate(-40deg)}68%{transform:rotate(22deg)}74%{transform:rotate(12deg)}86%{transform:rotate(-40deg)}}
+@keyframes aOrder{0%,64%{opacity:0}69%,90%{opacity:1}96%,100%{opacity:0}}
+@keyframes aUnroll{0%,8%{transform:scaleY(.06)}55%,85%{transform:none}100%{transform:scaleY(.06)}}
+@keyframes aRoller{0%,8%{transform:translateY(-41px)}55%,85%{transform:none}100%{transform:translateY(-41px)}}
+@keyframes aRant{50%{transform:translateY(-4px)}}
+@keyframes aSay3{0%,30%{opacity:1}34%,100%{opacity:0}}
+@keyframes aSwing{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+@keyframes aPush{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(3px)}}
+@keyframes aRock{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(4px)}}
+@keyframes aSpin{0%,100%{transform:none}45%,58%{transform:rotate(-30deg)}80%{transform:rotate(12deg)}}
+@keyframes aTail{from{transform:rotate(-15deg)}to{transform:rotate(22deg)}}
+@keyframes aThaw{0%,15%{opacity:.9}50%,70%{opacity:.08}100%{opacity:.9}}
+@keyframes aPuddle{0%,15%{transform:scaleX(.3)}50%,70%{transform:none}100%{transform:scaleX(.3)}}
+@keyframes aStep{50%{transform:translateY(-3px)}}
+@keyframes aJuggle{to{transform:rotate(1turn)}}
+@keyframes aDrib{to{transform:translateY(17px)}}
+@keyframes aKernel{0%{transform:translate(16px,26px);opacity:0}12%{opacity:1}50%{transform:translate(8px,-44px)}86%{transform:translate(0,-2px);opacity:1}92%,100%{transform:none;opacity:0}}
+@keyframes aFloat{0%,100%{transform:none;opacity:1}50%{transform:translateY(-7px);opacity:.75}}
+@keyframes aLook{0%{transform:none}50%{transform:scaleX(-1)}}
+@media (min-width:900px){.hero .wrap{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:center}.hero-txt{grid-template-columns:minmax(0,1fr)}.hero-txt p{margin-top:14px}}
+@media (max-width:899px){.acro-box{width:100%;max-width:560px;margin-inline:auto}}
+@media (max-width:860px){.hero-txt{grid-template-columns:minmax(0,1fr)}.hero-txt p{margin-top:12px}}
+/* phones: just the title over the scene, no intro line or counts */
+@media (max-width:640px){.acro-box{max-width:none;width:auto;margin-inline:-16px;border-radius:0;box-shadow:none}.hero-txt>div:last-child{display:none}.hero .wrap{padding-block:18px 0;gap:12px}}
+@media (prefers-reduced-motion:reduce){.acro *{animation:none!important}.acro .a-order,.acro .a-ping,.acro .a-say3{display:none}}
 .dash-status{font-family:var(--f-data);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .dash-status .livedot{width:8px;height:8px;border-radius:50%;background:var(--bad);animation:pulse 1.4s infinite}
 @keyframes pulse{50%{opacity:.25}}
@@ -1286,7 +1409,6 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   .hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
   .hero-stats b{font-size:1.6rem}
   .hero-stats span{font-size:.58rem;letter-spacing:.06em}
-  .hero .pediment{max-width:190px}
   section.hall{padding-block:24px 48px}
   .dblock{padding:0 14px}
   .dblock>summary h2{font-size:1.2rem}
@@ -1647,48 +1769,13 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
 <section class="hall" id="hall-home" style="padding-top:0">
   <div class="hero">
     <div class="wrap">
-      <div>
+      <div class="hero-txt"><div>
         <div class="eyebrow" id="heroLine">Year 11 of the republic · 12 teams · 2026 season underway</div>
-        <h1>The <em>Flamingo</em><br>Men</h1>
-        <p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
-        <div class="hero-stats" id="heroStats"></div>
+        <h1>The <em>Flamingo</em><br>Men</h1></div>
+        <div><p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
+        <div class="hero-stats" id="heroStats"></div></div>
       </div>
-      <svg class="pediment" viewBox="0 0 320 260" role="img" aria-label="A flamingo standing inside a Greek temple">
-        <path d="M20 78 160 14 300 78Z" fill="none" stroke="#e8c574" stroke-width="3"/>
-        <rect x="20" y="80" width="280" height="12" fill="#e8c574"/>
-        <g fill="none" stroke="#cfd4e4" stroke-width="2">
-          <path d="M44 96v130M60 96v130M260 96v130M276 96v130"/>
-          <path d="M40 96h24M40 226h24M256 96h24M256 226h24"/>
-        </g>
-        <rect x="16" y="228" width="288" height="10" fill="#e8c574"/>
-        <rect x="6" y="240" width="308" height="10" fill="#e8c574" opacity=".7"/>
-        <g class="flap"><g transform="translate(28 46) scale(.8)">
-          <!-- legs: one straight, one tucked -->
-          <path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M152 226 L170 226" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- tail and body -->
-          <path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/>
-          <ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/>
-          <!-- neck, head, beak -->
-          <path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/>
-          <path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/>
-          <path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/>
-          <circle cx="205" cy="66" r="1.8" fill="#15203b"/>
-          <!-- football tucked under the wing -->
-          <g transform="rotate(-28 190 160)">
-            <ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/>
-            <path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/>
-            <path d="M184 157 V163 M188 157 V163 M192 157 V163 M196 157 V163" stroke="#fff" stroke-width="1.3"/>
-            <path d="M175 155 Q173 160 175 165 M205 155 Q207 160 205 165" fill="none" stroke="#fff" stroke-width="1.3"/>
-          </g>
-          <!-- wing wrapping over the ball -->
-          <path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>
-          <path d="M150 152 C164 146 178 150 188 156" fill="none" stroke="#e0517a" stroke-width="2" stroke-linecap="round"/>
-        </g></g>
-        <text x="160" y="62" text-anchor="middle" fill="#e8c574" font-family="Marcellus SC, Georgia, serif" font-size="15" letter-spacing="3">ΦΛΑΜΙΝΓΚΟ</text>
-      </svg>
+      <div class="acro-box"><div class="acro" id="acro"></div></div>
     </div>
   </div>
   <div class="meander" aria-hidden="true"></div>
@@ -1748,7 +1835,7 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
 <!-- MOVES -->
 <section class="hall" id="hall-records"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
-  <p>League records, the all-time and season standings, and every trade and waiver pickup on record. The top 10 lists live on the <a href="#rankings">Rankings</a> tab.</p></div>
+  <p>League records, the all-time and season standings, and every trade, veto and waiver pickup on record. The top 10 lists live on the <a href="#rankings">Rankings</a> tab.</p></div>
   <div class="block" style="margin-top:0" id="medalBlock"><div class="block-head"><h2>The medal wall</h2></div>
     <div class="mwall-frame"><div class="mwall" id="medalWall">
       <div class="mwall-top"><ul class="mlegend" aria-label="What the metals mean"><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMg)" stroke="#6e4e12"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFg)"/></svg>Gold for glory</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMs)" stroke="#5a6372"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFs)"/></svg>Silver for the odd ones</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMr)" stroke="#45200d"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFr)"/><path d="M15.6 5.2l-2.4 2.3 1.1 1.3-2.6 2.2" fill="none" stroke="#2a1206" stroke-width="1"/></svg>Cracked rust for shame</li></ul><p class="mhint">Tap a medal for its plaque, or a name to light up their medals</p></div>
@@ -1795,14 +1882,10 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
     <div class="controls">
       <label for="tradeOwner">Team<select id="tradeOwner"></select></label>
       <label for="tradeSeason">Season<select id="tradeSeason"></select></label>
-      <label for="moveType">Type<select id="moveType"><option value="all">Trades and pickups</option><option value="trades">Trades</option><option value="pickups">Waiver pickups</option></select></label>
+      <label for="moveType">Type<select id="moveType"><option value="all">All moves</option><option value="trades">Trades</option><option value="Waiver">Waiver claims</option><option value="Free agent">Free agent pickups</option><option value="vetoed">Vetoed</option></select></label>
     </div>
     <div id="moveList"></div>
     <div class="movepg" id="movePg" role="group" aria-label="Moves to show"></div>
-  </div>
-  <div class="block">
-    <div class="block-head"><h2>Vetoed</h2></div>
-    <div class="trades-list" id="vetoList"></div>
   </div>
 </div></section>
 
@@ -1813,29 +1896,12 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
   <div class="seg rkseg" id="rankSeg" role="group" aria-label="Ranking"></div>
   <div class="pod-wrap" id="podWrap"><span class="pod-hint" aria-hidden="true">The rest of the field →</span><ol class="pod-stage" id="rankList" aria-label="Podium"></ol><div class="meander" aria-hidden="true"></div></div>
   <div class="pod-card" id="rankCard" aria-live="polite"></div>
-  <details class="pod-how"><summary>How this ranking works</summary><p class="muted rkhow" id="rankHow"></p></details>
-  <div id="rankRetro"></div>
-  <div class="block" id="topLists"><div class="block-head"><h2>The all-time top lists</h2></div><p class="muted" style="margin:0;font-size:.9rem">Tap a list to open it.</p></div>
-  <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by wins above replacement (WAR), the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.</p>
-    <div class="top5" id="top5rapes"></div>
-  </details>
-  <details class="fold block"><summary><h2>Top 5 waiver pickups of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <div class="seg" id="pickPos" role="group" aria-label="Position" style="margin:0 0 10px"></div>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
-    <div class="top5" id="top5pickups"></div>
-  </details>
-  <details class="fold block"><summary><h2>Top 5 worst drops of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the wins the player added for everyone else after he was cut, using the same WAR as the trade rapes: every week he was in another team's starting lineup in a game that mattered (regular season, plus playoff weeks while that team was alive), his points over a replacement starter, turned into wins. The clock stops if the team that cut him gets him back. Kickers and defenses are left out, since everyone streams them. From ESPN box scores, 2018 on, through the last finished week.</p>
-    <div class="top5" id="top5drops"></div>
-  </details>
-  <details class="fold block"><summary><h2>Top 10 seasons of all time</h2><span class="chev" aria-hidden="true"></span></summary>
-    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup’s season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, ×0.90 for 8 teams, ×0.95 for 10 and ×1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Open a season to see the breakdown and the lineup.</p>
-    <div class="top5" id="topRosters"></div>
-  </details>
-  <details class="fold block"><summary><h2>The five wildest trades</h2><span class="chev" aria-hidden="true"></span></summary>
-    <div class="top5" id="top5"></div>
-  </details>
+  <button type="button" class="gradebtn" id="rankGrade" aria-haspopup="dialog">Grading score<span aria-hidden="true">i</span></button>
+  <div class="block" id="topLists"><div class="block-head"><h2>The all-time top lists</h2></div>
+    <div class="seg rkseg" id="topSeg" role="group" aria-label="Top list"></div>
+    <div class="tl-sub"><div class="seg" id="pickPos" role="group" aria-label="Position" hidden></div><button type="button" class="gradebtn" id="topGrade" aria-haspopup="dialog">Grading score<span aria-hidden="true">i</span></button></div>
+    <div class="tl-body" id="topBody"></div>
+  </div>
 </div></section>
 
 <!-- CHAMPIONS -->
@@ -1969,13 +2035,6 @@ const CHRONICLE = [
   ["The Second Pace Administration, 2026","Lucas returns to the chair he held at the founding and presides over the expansion to 12 teams, double flex and half PPR. The first crisis came fast: Quincy's plan to put every trade to a league vote was laughed off, and when Kyle traded for Romeo Doubs, Quincy let everyone know he felt minimized."]
 ];
 
-const TOP5 = [
-  {id:137,why:"The founding scandal. Kyle sent Julio Jones, Jordan Reed and Mark Ingram to Charles for Calvin Johnson and Marshawn Lynch, who had both retired before the season, plus Alshon Jeffery. Three weeks later Reed came back to Kyle in a three-team trade with Fluff. This is the 2016 collusion."},
-  {id:89,why:"Four starters for one superstar. Jordan's Jerry Jewdys handed over Justin Jefferson and got Kamara, Keenan Allen, Kareem Hunt and Brian Robinson, the biggest trade of 2022."},
-  {id:93,why:"Patrick Mahomes, DJ Moore, Terry McLaurin and Brandon Aiyuk for Dak Prescott, Teddy Bridgewater, Christian Kirk and Tyler Lockett. Eight players, and the only one people remember is Mahomes."},
-  {id:69,why:"A superstar swap: The Monglers sent Nick Chubb, Stefon Diggs and Mike Evans to #dicksoutfor Dolan for Aaron Jones and Tyreek Hill."},
-  {id:118,why:"The title move. The Monglers sent four players, including McLaurin, James Cook and Aaron Jones, to Team Pace for Derrick Henry, and won the 2023 championship."}
-];
 const FLAGS = {...({"159": "Four veto votes; it went through", "22": "Veto overturned by league vote"}), 157:"Joke trade",42:"Reversed 4 days later",43:"Reversal of Oct 30 trade",132:"Reversed hours later",133:"Reversal of earlier trade",112:"Redo of vetoed trade",121:"Fluff sat out 2024 over this veto",122:"Fluff sat out 2024 over this veto",149:"Three teams voted to veto; it went through",155:"ESPN shows nothing sent back",137:"Collusion: Megatron and Lynch were retired",138:"Three-team trade",142:"Luck missed all of 2017",144:"Luck missed all of 2017",147:"Before the 2017 draft. The exact date and the secret were never recorded"};
 
 const CHAMP_STORY = {
@@ -2416,11 +2475,141 @@ function renderHome(){
   {const cy=ALL_YEARS[ALL_YEARS.length-1],yn=cy-2015,nt=Object.keys(LIVE).length||12;   // always the current season
    $("#yearline").textContent=`Year ${yn} · ${cy} season`;$("#heroLine").textContent=`Year ${yn} of the republic · ${nt} teams · ${cy} season underway`}
   $("#heroStats").innerHTML=[[ALL_YEARS.length,"Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
-  careerPicker();if(!dashTimer){dashPrefs();loadDash();wrPicker();
+  acroRender();careerPicker();if(!dashTimer){dashPrefs();loadDash();wrPicker();
     // re-pull every two minutes while a week is being played and the home page is open
     dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
   else renderDash();
 }
+
+/* ---------- ACROPOLIS (Kyle 2026-11-23) ----------
+   The home page hero: all 18 league members packed together on the Parthenon steps like a team photo, three rows deep, each a
+   bobblehead (podFig from the Rankings podium) doing a bit of league lore. Kyle asked for everyone tight together with no empty
+   space, no tapping, and a short scene, so there is one 538 x 336 layout for every screen (beside the title on desktop, under it
+   on phones). The back row's bits sit above their heads, the middle row's on their heads and the front row's at their bodies, so
+   nothing important hides behind the row in front. The league's flamingo stands behind them as a statue, its neck and head peeking
+   out over Lucas (Kyle 2026-11-23). ACRO_LORE lines are hover titles; keep them inside the content rules. */
+const ACRO_LORE={
+  kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
+  fluff:"Perch alert. Floof climbs the back of the couch and perches on whoever is sitting below.",
+  charles:"The busiest trader in league history, never far from Sal's Chickens (four of them this year).",
+  squirm:"Old Hickory, the 2021 champion, fighting on like the Black Knight. 'Tis but a scratch.",
+  dylan:"Lucas's roommate, waving the Sultans of Squirm flag, as always.",
+  lucas:"Commissioner again in 2026, calling the league to order. Nine is his guy.",
+  peanut:"Sitting out 2026 to heal up, but still unrolling team names. The league wants Kad back in 2027.",
+  quincy:"Argues for sport. Any soapbox will do.",
+  dilapi:"The league's biggest swing team: back-to-back Sackos, then 11-2, then 2-11, then first place.",
+  jordan:"Pushing the 1-12 boulder up the steps. It keeps rolling back down.",
+  rod:"The RodFather. Quietly good and rarely trades, but when he does it's an offer you can't refuse.",
+  jerry:"The Encino Man, thawing out for 2026 after a year on ice.",
+  skelly:"Team Kelly, 2019 to 2021, then off to become a doctor.",
+  mateus:"One season, six trades. Still juggling them.",
+  duane:"The first champion, 2016. Collected his pot at a Chaminade basketball game.",
+  keeves:"Played one season, 2017, as Patrick. Has been watching from the steps ever since.",
+  ghost:"Met the league over online games, played the 2015 Wu-Tang league, and floated back for 2026.",
+  vicente:"Just joined the NYPD, and he's keeping an eye on the Flamingo Men."};
+// where everyone's feet are: [x, step]. Each row stands between the heads of the row in front. Floof perches on Kyle's loveseat (drawn with Kyle).
+const ACRO={W:538,H:336,rows:{b:224,m:270,f:316},
+  at:{dilapi:[54,"b"],quincy:[120,"b"],mateus:[185,"b"],lucas:[254,"b"],squirm:[332,"b"],dylan:[413,"b"],
+    jerry:[88,"m"],keeves:[152,"m"],vicente:[222,"m"],ghost:[290,"m"],skelly:[452,"m"],
+    jordan:[120,"f"],duane:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
+// an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
+const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
+const acSay=(x,y,txt,z,cls,d,bg="#fff",fg="#191414")=>{const {R,P,T}=CS.kit,w=txt.length*z*.62+14,h=z*1.5;
+  return `<g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}>${P(`M${x-4} ${y+h/2-1}l-2 9 9-9z`,bg)+R(x-w/2,y-h/2,w,h,bg,`rx="${h/2}" stroke="rgba(0,0,0,.25)" stroke-width="1"`)+T(x,y+z*.36,txt,z,fg,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing=".5"')}</g>`};
+// things worn on the head, drawn in head coordinates (centre 0,0, head height H) so they bob with it
+const AC_3D=(o,H)=>{const {R,HW}=CS.kit,w=HW(o,H);return R(-w*.47,-H*.1,w*.94,H*.19,"#f4f1ea",'rx="2" stroke="#222" stroke-width=".8"')+R(-w*.41,-H*.065,w*.36,H*.12,"#e04848",'opacity=".88"')+R(w*.05,-H*.065,w*.36,H*.12,"#3fb6e0",'opacity=".88"')};
+const AC_MIRROR=(o,H)=>{const {R,C,HW,HOFF}=CS.kit,w=HW(o,H),t=-H*.5+H*(HOFF[o]||0);return R(-w*.5,t+H*.15,w,H*.08,"#2b2f3a",'rx="1.5"')+C(-w*.14,t+H*.19,H*.13,"#dfe6ee",'stroke="#8c96a1" stroke-width="1.2"')+C(-w*.14,t+H*.19,H*.045,"#2b2f3a")};
+// each owner's bit, drawn in podFig's 104 x 150 frame (feet at 52,147)
+const ACRO_ACT={
+  kyle:()=>{const {R,P,TROPHY}=CS.kit;
+    const back=R(-6,82,120,46,"#7b2d43",'rx="12" stroke="#4e1527" stroke-width="1.5"')+R(2,88,104,6,"#94405a",'rx="3" opacity=".6"');
+    const front=R(-6,118,120,24,"#8e3550",'rx="7" stroke="#4e1527" stroke-width="1.5"')+P("M54 120v20","none",'stroke="#5e1d33" stroke-width="1.5"')
+      +R(-14,98,16,46,"#6a2338",'rx="7"')+R(106,98,16,46,"#6a2338",'rx="7"')+R(-10,142,7,7,"#2b1a12")+R(111,142,7,7,"#2b1a12");
+    const tro=[-11,-4,3].map(x=>TROPHY(x,95,.36)).join("");
+    const floof=`<g class="ac" data-o="fluff"><title>${esc(short("fluff")+": "+ACRO_LORE.fluff)}</title><g transform="translate(39 -65)">${acPiv(52,147,"a-hop",podFig("fluff",{pose:"up",d:.4}))}</g></g>`;
+    return back+floof+`<g transform="translate(-8 10)">${podFig("kyle",{pose:"phone",d:1.2})}</g>`+front+tro},
+  charles:()=>{const {CHICK,C,T}=CS.kit;
+    const ch=[[-4,140,0],[100,142,1.6],[30,150,3.1]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.8),d)).join("");
+    const ping=`<g class="an a-ping">${C(88,42,8,"#1f9d55",'stroke="#fff" stroke-width="1.5"')+T(88,46,"✓",11,"#fff",'font-weight="900"')}</g>`;
+    return podFig("charles",{pose:"phone",d:.7})+ping+ch},
+  squirm:()=>{const {P,L,R}=CS.kit;
+    const sword=acPiv(69,80,"a-sword",L(88,46,104,-4,"#d9dee6",4.2)+L(88,46,104,-4,"#fff",1.2)+L(82,52,94,40,"#8a6412",3.4)+L(85,48,91,58,"#8a6412",3.4));
+    const shield=P("M16 96h28v14q0 14-14 20q-14-6-14-20z","#2a2d33",'stroke="#9aa4ae" stroke-width="2"')+R(28,99,4,26,"#b3121f")+R(20,107,20,4,"#b3121f");
+    return podFig("squirm",{fit:"armor",pose:"wave",d:2})+sword+shield},
+  dylan:()=>{const {L,R,TL}=CS.kit;
+    const flag=acPiv(84,-2,"a-flag",R(84,-2,66,34,"#1b6b3a",'stroke="#0f3d21" stroke-width="1"')+TL(117,11,["SULTANS","OF SQUIRM"],10,"#ffe27a",1.05,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'));
+    return L(83,62,84,-4,"#6b4423",3)+flag+podFig("dylan",{fit:"hoodie",pose:"up",d:.2})},
+  lucas:()=>{const {R,T,L,G}=CS.kit;
+    const gavel=acPiv(82,41,"a-gavel",L(82,41,92,20,"#6b4423",3)+R(84,12.5,18,9,"#4a2e1a",'rx="2" transform="rotate(26 93 17)"'));
+    const nine=G(R(-8,-8,16,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-3,-24,6,17,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+T(0,4,"9",10,"#fff",'font-weight="900"'),'transform="translate(22 38) rotate(-8)"');
+    return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(28,-24,"ORDER!",13,"a-order")},
+  peanut:()=>{const {R,TL}=CS.kit,names=["Dr. Kakofonus","A. Dischord","Shivakamini","Somakandarkram","The Yogurtlechefts"];
+    const paper=acPiv(52,116,"a-unroll",R(22,116,60,44,"#f6eed8",'stroke="#cdbf9a" stroke-width="1"')+TL(52,125,names,5.6,"#5b4217",1.3,'font-style="italic" font-weight="700"'));
+    const roller=`<g class="an a-roller">${R(16,158,72,7,"#a0682f",'rx="3.5"')}</g>`;
+    return podFig("peanut",{fit:"hoodie",pose:"down",d:.9})+paper+roller+R(16,110,72,7,"#a0682f",'rx="3.5"')},
+  quincy:()=>{const {R}=CS.kit;
+    const box=R(20,132,64,20,"#a9773f",'stroke="#5e3b17" stroke-width="1.5" rx="1"');
+    const says=["ACTUALLY…","OBJECTION!","WRONG."].map((t,i)=>acSay(40,-17,t,13,"a-say3",i*2)).join("");
+    return box+`<g transform="translate(0 -15)">${acPiv(52,147,"a-rant",podFig("quincy",{pose:"point",d:.3}))}</g>`+says},
+  // the swing hangs from the temple's architrave, just above the back row
+  dilapi:()=>{const {R,C,L}=CS.kit,top=147-(ACRO.rows.b-46);
+    return C(20,top,2.4,"#8a7a5a")+C(84,top,2.4,"#8a7a5a")+acPiv(52,top,"a-swing",L(20,top,20,148,"#d9c9a3",1.6)+L(84,top,84,148,"#d9c9a3",1.6)+podFig("dilapi",{pose:"up",d:1.1})+R(17,146,70,7,"#7a4a2a",'rx="2"'))},
+  jordan:()=>{const {C,T}=CS.kit;
+    const rock=`<g class="an a-rock">${acPiv(-16,117,"a-spin",C(-16,117,30,"#8d8577",'stroke="#5b5448" stroke-width="2"')+C(-27,104,5.5,"#a39b8c")+C(-4,131,4,"#776f62")+T(-16,123,"1-12",16,"#2c2822",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'))}</g>`;
+    return `<g class="an a-push">${podFig("jordan",{pose:"pushL",d:.5})}</g>`+rock},
+  rod:()=>{const {E,C,P}=CS.kit;
+    const tail=acPiv(70,110,"a-tail",P("M70 110q14-2 13-16q-1-7 5-9","none",'stroke="#8f96a3" stroke-width="4.5" stroke-linecap="round"'));
+    const cat=tail+E(54,112,19,10,"#8f96a3")+C(36,104,8.5,"#8f96a3")+P("M29.5 99.5l2-8.5 5.5 5.5zM38 97l5.5-5.5 1 8.5z","#8f96a3")+C(33,103,1.3,"#f2d64b")+C(39,103,1.3,"#f2d64b");
+    return podFig("rod",{fit:"suit",pose:"lap",hat:"fedora",d:2.2})+cat},
+  jerry:()=>{const {R,E,P}=CS.kit;
+    const ice=`<g class="an a-thaw">${R(16,22,72,128,"rgba(176,224,255,.6)",'rx="8" stroke="rgba(235,248,255,.9)" stroke-width="2"')+P("M22 36l10-6M24 50l18-12M72 120l10-8","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"')}</g>`;
+    return acPiv(52,149,"a-puddle",E(52,149,54,5,"rgba(140,200,240,.6)"))+podFig("jerry",{fit:"hoodie",pose:"wave",d:.6})+ice},
+  skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
+  mateus:()=>{const {R}=CS.kit;
+    const cards=Array.from({length:6},(_,i)=>{const a=i/6*Math.PI*2,x=52+Math.cos(a)*20,y=4+Math.sin(a)*20;return R(x-5,y-7,10,14,"#fbf8f0",'rx="1.5" stroke="#c9c0a8" stroke-width=".8"')+R(x-5,y-2.5,10,3.5,i%2?"#ad1457":"#1d4f91")}).join("");
+    return podFig("mateus",{pose:"up",d:2.5})+acPiv(52,4,"a-juggle",cards)},
+  duane:()=>{const {C,P,T,L}=CS.kit;
+    const ball=`<g class="an a-drib">${C(82,124,10,"#e0782d",'stroke="#7a3a10" stroke-width="1.2"')+L(72,124,92,124,"#7a3a10",1)+P("M82 114q-6 10 0 20M82 114q6 10 0 20","none",'stroke="#7a3a10" stroke-width="1"')}</g>`;
+    const bag=P("M16 116q-8 14 2 24h22q10-10 2-24z","#c9a86a",'stroke="#7a5a26" stroke-width="1.5"')+P("M22 116l4-6h8l4 6","none",'stroke="#7a5a26" stroke-width="2"')+T(29,135,"$",14,"#2e6b2e",'font-weight="900"');
+    return podFig("duane",{pose:"ball",hat:"crown",d:.2})+ball+bag},
+  // a popcorn kernel tossed up and caught in the mouth, 3D glasses on
+  keeves:()=>{const {C}=CS.kit;
+    return podFig("keeves",{pose:"chill",d:1.3,headx:AC_3D})+`<g transform="translate(52 68)"><g class="an a-kernel">${C(0,0,3.4,"#fff6d6",'stroke="#e8c574" stroke-width=".8"')}</g></g>`},
+  ghost:()=>{const {R,C}=CS.kit;
+    const pad=R(34,100,36,14,"#2b2f3a",'rx="7"')+C(42,107,2.2,"#9aa4ae")+C(60,105,2,"#e04848")+C(65,109,2,"#4a90d9");
+    return `<g class="an a-float"><g opacity=".8">${podFig("ghost",{fit:"hoodie",pose:"lap",d:.8})}</g>${pad}</g>`},
+  vicente:()=>{const {R,L}=CS.kit;
+    const pad=R(67,52,12,15,"#fbf8f0",'stroke="#c9c0a8" stroke-width=".8"')+L(69,57,77,57,"#9aa4ae",.8)+L(69,61,76,61,"#9aa4ae",.8);
+    return acPiv(52,147,"a-look",podFig("vicente",{fit:"cop",pose:"phone",hat:"cop",d:1.4})+pad)}
+};
+// the league's flamingo (the old hero art) as a pink marble statue, head centred on (hx, hy) at scale k; a spotlight glow
+// behind it and a glint keep it readable against the dark temple. Only its neck and head clear the back row.
+function acroStatue(hx,hy,k){const {E,RG}=CS.kit;
+  const bird=`<path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/><path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/><ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/><path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/><path d="M196 122 C199 114 197 108 190 104 M178 84 C177 76 180 70 186 67" fill="none" stroke="#ffd3df" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/><circle cx="203" cy="65" r="3" fill="#ffd3df" opacity=".7"/><path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/><path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/><circle cx="205" cy="66" r="1.8" fill="#15203b"/><g transform="rotate(-28 190 160)"><ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/><path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/></g><path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>`;
+  return E(hx-8,hy+30,70,62,RG(["#ff7fa0@.38","#ff7fa0@0"]))+`<g transform="translate(${hx} ${hy}) scale(${k}) translate(-206 -68)">${bird}</g>`
+    +`<g transform="translate(${hx+11} ${hy-12})"><path class="pf-spark" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff3b0"/></g>`}
+// the backdrop: night sky in the corners, the Parthenon's pediment and columns, and the three marble steps the rows stand on
+function acroBg(){const {R,P,C,E,T,LG,RG,rng}=CS.kit,{W,H,rows}=ACRO,rnd=rng(7);
+  let s=R(0,0,W,H,LG(["#0c1430","#1c2852"]));
+  for(let i=0;i<28;i++){const x=rnd()*W,y=rnd()*30,r=.4+rnd()*.7;s+=C(x,y,r,"#fff",`opacity="${(.3+rnd()*.6).toFixed(2)}"${i%4?"":` class="tw" style="animation-delay:-${(i%7)*.6}s"`}`)}
+  s+=E(W-26,14,22,22,RG(["#f6e7b8@.3","#f6e7b8@0"]))+C(W-26,14,8,"#f6e7b8");
+  const mb=LG(["#f4efe4","#cfc5b1"],1);
+  s+=R(0,50,W,rows.b-50,"#211a31")+E(W/2,rows.b-50,W*.55,110,RG(["#ffc070@.2","#ffc070@0"]));
+  for(let i=0;i<9;i++){const x=16+i*(W-48)/8;s+=R(x,52,16,rows.b-52,mb)+[4,8,12].map(d=>R(x+d,54,1,rows.b-56,"rgba(120,105,80,.22)")).join("")+R(x-3,48,22,5,"#efe7d6")}
+  s+=R(0,32,W,17,"#ebe3d0")+Array.from({length:Math.ceil(W/22)},(_,i)=>R(6+i*22,35,7,11,"#d3c8b0")).join("")+R(0,48,W,2.5,"#cfc4ad");
+  s+=P(`M-6 33L${W/2} 3L${W+6} 33Z`,"#f3ecdc",'stroke="#d3c8b0" stroke-width="1.5"')+P(`M26 30L${W/2} 8L${W-26} 30Z`,"none",'stroke="#d8c48e" stroke-width="1"');
+  s+=T(W/2,27,"ΦΛΑΜΙΝΓΚΟ",10,"#a8823a",'font-family="Marcellus SC,Georgia,serif" letter-spacing="3"');
+  s+=acroStatue(294,66,1.3);
+  [[rows.b,rows.m,"#e6dfd0","#cdc4b2"],[rows.m,rows.f,"#ddd5c4","#c4baa6"],[rows.f,H,"#d3cab8","#b9ae99"]].forEach(([a,b,c1,c2])=>{
+    s+=R(0,a,W,b-a,LG([c1,c2]))+R(0,a,W,2.5,"#f7f2e8")+R(0,b-3,W,3,"rgba(0,0,0,.12)")});
+  return s}
+function acroScene(){const {W,H,rows,at}=ACRO;
+  return CS.svg(()=>{let s=acroBg();
+    // back row first, then left to right within a row
+    const who=Object.keys(at).sort((a,b)=>rows[at[a][1]]-rows[at[b][1]]||at[a][0]-at[b][0]);
+    s+=who.map(o=>{const [x,r]=at[o];return `<g class="ac" data-o="${o}"><title>${esc(short(o)+": "+ACRO_LORE[o])}</title><g transform="translate(${x-52} ${rows[r]-147})">${ACRO_ACT[o]()}</g></g>`}).join("");
+    return s},`0 0 ${W} ${H}`).replace("<svg ",`<svg class="acro-svg" role="img" aria-label="The Flamingo Men on the Parthenon steps: every league member acting out a bit of league lore" `).replace(' aria-hidden="true"',"")}
+function acroRender(){const box=$("#acro");if(box&&!box.firstChild)box.innerHTML=acroScene()}
 
 /* ---------- HISTORY ---------- */
 const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
@@ -2733,11 +2922,6 @@ const RETRO_YEAR=2021,RETRO_TITLE="Flamingo Men All time rankings 2019-Pre 2021 
 function retroList(){let i=0;
   return `<ol>${RETRO.map(e=>typeof e==="string"?`<li style="display:block"><p class="aside">${esc(e)}</p></li>`:`<li><span class="n">${++i}</span>${av(e[0])}<div><b>${esc(e[1])}</b>${e[0]==="quincy"?'<span class="stamp">Aged poorly</span>':""}<p>${esc(e[2])}</p></div></li>`).join("")}</ol>`}
 function retroFold(y){return y!==RETRO_YEAR?"":`<details class="qfold"><summary><span class="qf-t"><b>Quincy's biased rankings</b><small>His all-time list from just before the ${RETRO_YEAR} playoffs</small></span><span class="chev" aria-hidden="true"></span></summary><div class="qf-body"><div class="qf-h">${esc(RETRO_TITLE)}</div>${retroList()}</div></details>`}
-function retroHTML(){
-  const q=(RANK.alltime||[]).find(r=>r.o==="quincy"),qi=(RANK.alltime||[]).findIndex(r=>r.o==="quincy")+1,n=(RANK.alltime||[]).length;
-  const k=Object.values(CHAMPS).filter(c=>c.o==="kyle").length,qs=Object.entries(SACKOS).filter(([y,c])=>c.o==="quincy").map(([y])=>y);
-  return `<section class="retro"><div class="eyebrow">From the archives · Quincy's biased rankings</div><h3>${esc(RETRO_TITLE)}</h3><div class="rule">————————————————————————————————————————</div>${retroList()}
-  ${q?`<div class="ednote"><div class="eyebrow">Editor's note, 2026</div>Nobody on this list has aged worse than Quincy. Ranked 4th here, he has since added zero titles, zero finals and a second Sacko (${qs.join(" and ")}), and now sits ${qi}th of ${n} in the real all-time rankings above at ${q.rec}. Kyle, who this list calls the second-worst manager in the league, has ${k} titles. Quincy is still waiting on his first finals appearance, and at this point so is the hospital he was carrying on his back.</div>`:""}</section>`}
 function renderRankings(){
   const R=RANK,sg=(n,v)=>(Math.abs(v)<.05?"0":(v>0?"+":"")+fmt(v)),rng=r=>r.lo!=null?`${sg(0,r.lo)} to ${sg(0,r.hi)}`:"–";
   const B={
@@ -2754,9 +2938,8 @@ function renderRankings(){
   $("#rankSeg").innerHTML=Object.entries(B).map(([k,b])=>`<button type="button" data-k="${k}" aria-pressed="${k===rankKey}">${b.l}</button>`).join("");
   $("#rankSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;rankKey=b.dataset.k;renderRankings()};
   const b=B[rankKey];
-  $("#rankHow").textContent=b.how;
-  podRender(b,sg);
-  $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
+  $("#rankGrade").onclick=()=>gradePop(b.l,`<p>${esc(b.how)}</p>`);
+  podRender(b,sg)}
 /* ---------- RANKINGS PODIUM (Kyle 2026-11-23) ----------
    Every ranking is a row of marble podiums: 2-1-3 like the Olympics, then the rest of the field stepping down to the right.
    The top three stand clearly higher; from 4th down the steps are gentle. Each owner is a bobblehead made from his cut-out
@@ -2783,7 +2966,8 @@ const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up
   wave:s=>s>0?[[s*31,68],[s*36,46]]:[[s*22,99],[s*23,115]],flex:s=>[[s*33,84],[s*28,63]],chill:s=>[[s*31,58],[s*13,49]],
   shrug:s=>[[s*27,95],[s*37,83]],point:s=>s>0?[[s*30,70],[s*42,54]]:[[s*31,97],[s*15,110]],slump:s=>[[s*18,102],[s*17,120]],
   cross:s=>[[s*22,101],[-s*12,95]],phone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,97],[s*15,110]],
-  card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]]};
+  card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]],
+  pushL:s=>s>0?[[14,96],[-34,100]]:[[-28,92],[-40,96]],lap:s=>[[s*26,100],[s*8,110]]};
 const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
 const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
 // a gold laurel around the top of a head of height h, centred on (0,0)
@@ -2794,8 +2978,10 @@ function podLaurel(o,h){const {q,E,P,HW,HOFF}=CS.kit,w=HW(o,h)*.52,hh=h*.5,cy=h*
       for(const k of [-1,1]){const g=t+k*32,r=g*Math.PI/180,lx=x+Math.cos(r)*3.3,ly=y+Math.sin(r)*3.3;s+=E(lx,ly,3.7,1.65,"#e3b23c",`stroke="#8a6412" stroke-width=".5" transform="rotate(${q(g)} ${q(lx)} ${q(ly)})"`)}}}
   return s}
 // one owner on his podium: p = {fit, pose, prop, medal, laurel, party, cloud, d (head-bob delay)}; drawn in a 104 x 150 box, feet on the bottom
-function podFig(o,p){const {q,R,C,E,P,L,T,G,F,TROPHY,BALL}=CS.kit,X=52,H=50,c=POD_COL[o]||"#5b6178",fit=p.fit||"jersey",pz=POD_POSE[p.pose]||POD_POSE.down;
-  const dk=podShade(c,-.38),sl=fit==="suit"?"#262935":c,ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
+function podFig(o,p){const {q,R,C,E,P,L,T,G,F,HAT,TROPHY,BALL}=CS.kit,X=52,H=50,c=POD_COL[o]||"#5b6178",fit=p.fit||"jersey",pz=POD_POSE[p.pose]||POD_POSE.down;
+  // extra outfits for the home page Acropolis (Kyle 2026-11-23): toga, lab coat, police uniform, armour
+  const sl={suit:"#262935",toga:"#f4efe2",lab:"#f7f7f5",cop:"#1d2b4a",armor:"#4d535e"}[fit]||c,dk=podShade(sl,-.38),ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
+  const JER=`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,SUIT=`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+16} 116H${X-16}Z`;
   // a sleeve with a darker edge (so arms crossed over the chest still show) ending in a cartoon glove
   const arm=s=>{const [e,h]=pz(s),d=`M${q(X+s*17)} 80L${q(X+e[0])} ${q(e[1])}L${q(X+h[0])} ${q(h[1])}`,j='stroke-linecap="round" stroke-linejoin="round"';
     return P(d,"none",`stroke="${fit==="suit"?"#0b0c10":dk}" stroke-width="10.2" ${j}`)+P(d,"none",`stroke="${sl}" stroke-width="8" ${j}`)+C(X+h[0],h[1],5.2,"#f4f1ea",'stroke="rgba(0,0,0,.3)" stroke-width="1"')};
@@ -2807,12 +2993,16 @@ function podFig(o,p){const {q,R,C,E,P,L,T,G,F,TROPHY,BALL}=CS.kit,X=52,H=50,c=PO
     +P(`M${X-7} 73L${X} 92L${X+7} 73Z`,"#f4f1ea")+P(`M${X-2} 75h4l-1 4 2.5 14-3.5 4-3.5-4 2.5-14z`,c)+P(`M${X-7} 73L${X-1} 100L${X-12} 88Z`,"rgba(255,255,255,.1)")+P(`M${X+7} 73L${X+1} 100L${X+12} 88Z`,"rgba(255,255,255,.1)");
   else if(fit==="hoodie")body=legs("#8b8f99","#8b8f99","#eceef2")+P(`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+17} 116H${X-17}Z`,c,ol)
     +R(X-10,99,20,10,dk,'rx="3" opacity=".5"')+L(X-4,76,X-5,91,"#f4f1ea",1.3)+L(X+4,76,X+5,91,"#f4f1ea",1.3)+P(`M${X-15} 74Q${X} 64 ${X+15} 74Q${X} 81 ${X-15} 74Z`,dk);
+  else if(fit==="toga")body=legs("#e6c3a0","#e6c3a0","#8a5a2b")+P(JER,"#f4efe2",ol)+P(`M${X-15} 74L${X+19} 112L${X+11} 116L${X-21} 84Z`,c)+P(`M${X-9} 73Q${X} 80 ${X+9} 73`,"none",'stroke="#d8cfbd" stroke-width="2"');
+  else if(fit==="lab")body=legs("#3a4150","#3a4150","#16161a")+P(SUIT,"#f7f7f5",ol)+P(`M${X-7} 73L${X} 90L${X+7} 73Z`,c)+L(X,90,X,116,"#d6d6d2",1)+P(`M${X-8} 76Q${X-10} 96 ${X} 98Q${X+8} 96 ${X+6} 76`,"none",'stroke="#2b2f3a" stroke-width="1.6"')+C(X,99,2.6,"#9aa4ae");
+  else if(fit==="cop")body=legs("#1d2b4a","#1d2b4a","#111")+P(SUIT,"#1d2b4a",ol)+P(`M${X-6} 73L${X} 84L${X+6} 73Z`,"#8fa6c9")+P(`M${X+7} 86l4-2 4 2v5l-4 2-4-2z`,"#e8c574")+R(X-16,107,32,4,"#111");
+  else if(fit==="armor")body=legs("#6c7380","#555c68","#2a2d33")+P(JER,"#3b4049",ol)+P(`M${X-14} 78H${X+14}L${X+12} 104H${X-12}Z`,"#4d535e")+R(X-2,80,4,22,"#b3121f")+R(X-9,86,18,4,"#b3121f");
   else body=legs("#ecebe6",c,"#16161a")+[-1,1].map(d=>R(X+d*8.5-.9,111,1.8,15,c)).join("")+P(`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,c,ol)
     +P(`M${X-9} 73Q${X} 82 ${X+9} 73`,"none",'stroke="#f4f1ea" stroke-width="2.6"')+T(X,111,(short(o)||"?")[0],14,podLum(c)>.55?"#191414":"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
   const MED={gold:["#ffe27a","#b8860b"],silver:["#f4f6f8","#8c96a1"],bronze:["#f2b27c","#94551f"]}[p.medal];
   const medal=MED?P(`M${X-8} 74L${X} 89L${X+8} 74`,"none",'stroke="#d6364f" stroke-width="3" stroke-linejoin="round"')+C(X,93,5.8,MED[0],`stroke="${MED[1]}" stroke-width="1.6"`)+C(X,93,2.4,"none",`stroke="${MED[1]}" stroke-width=".8"`):"";
   const slump=p.pose==="slump";
-  const head=E(X,77,9,3,"rgba(0,0,0,.22)")+`<g transform="translate(${X} 78)"><g class="pf-head" style="animation-delay:-${q(p.d||0)}s"><g transform="translate(0 ${slump?-22:-25})${slump?" rotate(9)":""}">${F(o,0,0,H,{sh:0})}${p.laurel?podLaurel(o,H):""}</g></g></g>`;
+  const head=E(X,77,9,3,"rgba(0,0,0,.22)")+`<g transform="translate(${X} 78)"><g class="pf-head" style="animation-delay:-${q(p.d||0)}s"><g transform="translate(0 ${slump?-22:-25})${slump?" rotate(9)":""}">${F(o,0,0,H,{sh:0})}${p.hat?HAT(o,p.hat,0,0,H,p.hc):""}${p.headx?p.headx(o,H):""}${p.laurel?podLaurel(o,H):""}</g></g></g>`;
   const [,hd]=pz(1),hx=X+hd[0],hy=hd[1];let prop="";
   if(p.prop==="trophy")prop=TROPHY(hx,hy-8,.66);
   else if(p.prop==="finger")prop=G(R(-7.5,-14,15,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-2.8,-28,5.6,16,"#e0517a",'rx="2.8" stroke="#a3244b" stroke-width=".8"')+T(0,-3.5,"#1",7.5,"#fff",'font-weight="900"'),`transform="translate(${q(hx)} ${q(hy+1)}) rotate(8)"`);
@@ -2859,16 +3049,6 @@ function bestSeasons(){const max=Math.max(...MV.rosterRank.map(r=>r.score));
     const c={rec:30*pct,po:PO_PTS[res]||0,ros:25*r.score/max,pts:pfRank?15*(pf.length-pfRank)/(pf.length-1):7.5};
     const mult=0.9+0.1*(n-8)/4,total=(c.rec+c.po+c.ros+c.pts)*mult;
     return {...r,w:me.w,l:me.l,est:me.est,res,pfRank,pfN:pf.length,pf:me.pts,n,c,mult,total}}).filter(Boolean).sort((a,b)=>b.total-a.total)}
-function renderTopRosters(){
-  const B=bestSeasons();
-  $("#topRosters").innerHTML=B.slice(0,10).map((r,i)=>{const resTag=r.res==="Champion"?'<span class="crown" style="font-size:1rem">♛</span> Champion':r.res==="Runner-up"?"Runner-up":r.res==="Semifinal"?"Lost in the semis":"Missed the playoffs";
-    const facts=[`${r.w}-${r.l}${r.est?" (est.)":""}`,resTag,r.pfRank?`${fmt(r.pf)} pts, ${r.pfRank===1?"most":ordinal(r.pfRank)} of ${r.pfN}`:null,`${fmt(r.score)} lineup pts over replacement`].filter(Boolean).join(" · ");
-    const bar=(l,v,m)=>`<div class="hs-part"><span>${l}</span><b class="num">${v.toFixed(1)}</b><small class="muted">/ ${m}</small></div>`;
-    return `<details class="toproster"><summary class="hd"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${tav(r.o,r.y)}<div><h3 style="margin:0">${esc(r.team||short(r.o))} <span class="muted" style="font-weight:400">${r.y}</span></h3><span class="muted">${esc(OWNERS[r.o].name)}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</span><div style="font-size:.88rem;margin-top:4px">${facts}</div></div><div style="margin-left:auto;text-align:right"><b class="num" style="font-size:1.5rem">${r.total.toFixed(1)}</b><div class="eyebrow">${r.n}-team league</div></div></summary>
-    <div class="hs-parts">${bar("Record",r.c.rec,30)}${bar("Playoffs",r.c.po,30)}${bar("Roster",r.c.ros,25)}${bar("Points",r.c.pts,15)}<div class="hs-part"><span>League size</span><b class="num">×${r.mult.toFixed(2)}</b><small class="muted">${r.n} teams</small></div></div>
-    <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th class="num">${r.y} pts</th><th class="num">Over repl.</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num">${p[2]==null?"–":fmt(p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
-    <p class="muted" style="margin:0;font-size:.85rem">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count toward the roster score.</p></details>`}).join("");
-}
 const ordinal=n=>n+(["th","st","nd","rd"][(n%100-20)%10]||["th","st","nd","rd"][n%100]||"th");
 
 /* ---------- STATS ---------- */
@@ -2940,8 +3120,12 @@ function logoWall(o,names){const ys=new Set(Object.keys(names).map(Number));ALL_
   <p class="muted lg-note">Logos are the ones each team used on ESPN that season.${why} Tap a season to open it.</p>`}
 function renderTeams(){
   const list=ORDER;
-  $("#teamPicker").innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
+  const tp=$("#teamPicker"),tpx=tp.scrollLeft;
+  tp.style.setProperty("--cols",Math.ceil(list.length/2));
+  tp.innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
   $("#teamPicker").onclick=e=>{const b=e.target.closest("[data-o]");if(!b)return;current=b.dataset.o;teamYear=null;renderTeams();$("#profile").scrollIntoView({behavior:"smooth",block:"start"})};
+  // keep the sideways scroll where it was, and bring the picked owner into view if it is off screen
+  tp.scrollLeft=tpx;{const b=tp.querySelector('[aria-pressed="true"]');if(b&&tp.scrollWidth>tp.clientWidth){const l=b.offsetLeft-tp.offsetLeft,r=l+b.offsetWidth;if(l<tp.scrollLeft||r>tp.scrollLeft+tp.clientWidth)tp.scrollLeft=l-16}}
   const o=current,O=OWNERS[o],t=totals(o),names=teamNames(o),fav=favorites(o),drafted=draftedMost(o);
   const yrs=S[o]?Object.keys(S[o].seasons).map(Number):[];
   Object.keys(names).forEach(y=>{if(!yrs.includes(+y))yrs.push(+y)});
@@ -4036,22 +4220,181 @@ const warP=g=>g[2]==null?"":wf(g[4]||0);
 function pickupRow(m,withTeam=true){const d=new Date(m.d+"T12:00:00");
   return `<tr><td class="nw num">${d.toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"})}</td>${withTeam?`<td>${esc(m.team)} <span class="muted">${esc(short(m.o))}</span></td>`:""}<td><b>${esc(m.add[0])}</b> <span class="muted">${esc(m.add[1])}</span></td><td>${m.drop?`${pn(m.drop[0])} <span class="muted">${esc(m.drop[1])}</span>`:'<span class="muted">–</span>'}</td><td class="nw">${m.k}</td><td class="num">${m.pts?fmt(m.pts):"–"}</td></tr>`}
 function pickupTable(list,withTeam=true){return `<div class="tablebox"><table class="mtable"><thead><tr><th>Date</th>${withTeam?"<th>Team</th>":""}<th>Added</th><th>Dropped</th><th>Type</th><th class="num">Lineup pts</th></tr></thead><tbody>${list.map(m=>pickupRow(m,withTeam)).join("")}</tbody></table></div>`}
-function renderTopLists(){
-  const margin=x=>Math.abs(x.a.war-x.b.war);
+/* ---------- TOP LISTS (Kyle 2026-11-23) ----------
+   The all-time top lists sit under the same row of cells as the rankings above. Trade rapes are trading cards with the
+   players' faces, waiver pickups stay a list (split by position), the worst drops are the owner dropping the soap in the
+   shower (the soap is the player), and the best seasons are the owner coaching with his starters around him, each with
+   a tap-through season movie. "Grading score" opens how a list is graded, and tapping a player's wins opens the
+   week-by-week grading behind that number, rebuilt from data/weeks (players.json weekly stats for 2016 and 2017). */
+let topKey="rapes",topSeasonList=[];
+const ROMAN=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
+const TOP_TAP="<p class=\"muted\">Tap a player's wins on any card to see the week-by-week grading behind it.</p>";
+const TOPS={
+  rapes:{l:"Top 10 trade rapes",how:"Ranked by the gap in wins above replacement (WAR) between the two sides, the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.",tap:TOP_TAP},
+  pickups:{l:"Top 5 waiver pickups",how:"Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points."},
+  drops:{l:"Top 5 worst drops",how:"Ranked by the wins the player added for everyone else after he was cut, using the same WAR as the trade rapes: every week he was in another team's starting lineup in a game that mattered (regular season, plus playoff weeks while that team was alive), his points over a replacement starter, turned into wins. The clock stops if the team that cut him gets him back. Kickers and defenses are left out, since everyone streams them. From ESPN box scores, 2018 on, through the last finished week.",tap:"<p class=\"muted\">Tap the wins given away on any card to see every week he hurt the team that cut him.</p>"},
+  seasons:{l:"Top 10 seasons",how:"Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup's season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, x0.90 for 8 teams, x0.95 for 10 and x1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017.",tap:"<p class=\"muted\">Tap a season's grade for its breakdown and lineup, or play the season to watch its movie.</p>"}};
+// the pop-up behind every "Grading score" button and every tappable number
+function gradePop(title,html,kick="Grading score"){let d=$("#gradeDlg");
+  if(!d){d=document.createElement("dialog");d.id="gradeDlg";d.className="gdlg";d.setAttribute("aria-labelledby","gradeT");document.body.appendChild(d);
+    d.addEventListener("click",e=>{if(e.target===d||e.target.closest(".gd-x"))d.close()})}
+  d.innerHTML=`<div class="gd-h"><div><div class="eyebrow">${esc(kick)}</div><h3 id="gradeT">${esc(title)}</h3></div><button type="button" class="gd-x" aria-label="Close">×</button></div><div class="gd-b">${html}</div>`;
+  if(!d.open)d.showModal();d.scrollTop=0;return d}
+const gdBody=h=>{const b=$("#gradeDlg .gd-b");if(b)b.innerHTML=h};
+// win chance from a points edge: Phi(edge / (sd * sqrt 2)) - 0.5, the same as moves.py and drops.py
+const erf=x=>{const s=x<0?-1:1;x=Math.abs(x);const t=1/(1+.3275911*x);return s*(1-((((1.061405429*t-1.453152027)*t+1.421413741)*t-.284496736)*t+.254829592)*t*Math.exp(-x*x))};
+const winsOf=(edge,sd)=>.5*(1+erf(edge/(sd*Math.SQRT2)/Math.SQRT2))-.5;
+async function weeksOf(y){if(!WEEKS[y]){try{const r=await fetch(`data/weeks/${y}.json`);if(r.ok)WEEKS[y]=await r.json()}catch(e){}}return WEEKS[y]||null}
+// replacement points per start for a season and position, read back from every graded trade (pts - par) / starts
+let RWX=null;
+function rwOf(y,pos){if(!RWX){RWX={};Object.entries(MV.trades).forEach(([id,x])=>{const t=TR[id];if(!t)return;["a","b"].forEach(s=>(x[s]?.got||[]).forEach(g=>{if(g[2]!=null&&g[5]&&g[3]>0)(RWX[t.s+g[1]]??=[]).push((g[2]-g[3])/g[5])}))})}
+  const l=RWX[y+pos];return l?.length?l.sort((a,b)=>a-b)[l.length>>1]:null}
+// the week-by-week table: rows are [week, team, points]
+function gradeTable(rows,rw,sd,tot,withTeam){let sw=0;
+  const body=rows.map(([w,tm,v])=>{const e=v-rw,k=winsOf(e,sd);sw+=k;return `<tr><td class="num">${w}</td>${withTeam?`<td>${esc(tm)}</td>`:""}<td class="num">${fmt(v)}</td><td class="num ${e>=0?"up":"dn"}">${e>=0?"+":"−"}${fmt(Math.abs(e))}</td><td class="num ${k>=0?"up":"dn"}">${wf(k)}</td></tr>`}).join("");
+  return `<div class="gd-key"><div><small>Replacement starter</small><b>${fmt(rw)}</b><small>pts a week</small></div><div><small>Weekly score spread</small><b>${fmt(sd)}</b><small>pts (1 SD)</small></div><div><small>Starts that counted</small><b>${rows.length}</b><small>weeks</small></div><div class="tot"><small>Wins added</small><b>${wf(tot,false)}</b><small>total</small></div></div>
+  <div class="tablebox"><table class="mtable gd-t"><thead><tr><th class="num">Wk</th>${withTeam?"<th>Started for</th>":""}<th class="num">Pts</th><th class="num">Over repl.</th><th class="num">Wins</th></tr></thead><tbody>${body}</tbody></table></div>
+  <p class="muted gd-n">Each week: points minus the replacement starter, then that edge turned into a share of a win using the season's weekly score spread (a 25-point edge is about a quarter of a win). Weeks on the bench, on IR or in the consolation bracket don't count.${Math.abs(sw-tot)>.03&&sw>0?" A player's total never goes below zero, so a bad stretch can't count against the deal.":""}</p>`}
+async function tradeGrade(id,side,nm){const t=TR[id],x=MV.trades[id],g=x?.[side]?.got.find(p=>p[0]===nm);if(!t||!g)return;
+  const y=t.s,team=t[side].team,lead=`<p class="gd-lead">${pn(nm)} <span class="muted">${esc(g[1])}</span> for ${esc(team)}${t[side].o?` (${esc(short(t[side].o))})`:""} after the ${y} trade${x.w>1?` in week ${x.w}`:""}.</p>`;
+  gradePop(nm,lead+'<p class="muted">Loading the weeks…</p>',"Wins added");
+  if(g[2]==null){gdBody(lead+'<p class="muted">This player has no ESPN record for that season, so the trade couldn\'t be graded on him.</p>');return}
+  if(!g[5]){gdBody(lead+`<p>He never made ${esc(team)}'s starting lineup in a game that mattered after the deal, so he added <b>0.00</b> wins.</p>`);return}
+  const rw=g[3]>0?(g[2]-g[3])/g[5]:rwOf(y,g[1]);let rows=[];
+  if(x.est){const P=await loadPlayers(),pid=P?.names[pnorm(nm)],wk=P?.p[pid]?.y?.[y]?.wk||{};
+    for(let w=x.w;w<=16&&rows.length<g[5];w++){const v=wk[w];if(v!=null&&v>rw)rows.push([w,team,v])}}
+  else{const W=await weeksOf(y);if(!W){gdBody(lead+'<p class="muted">The weeks could not be loaded.</p>');return}
+    const key=pnorm(nm),ws=Object.keys(W.weeks).map(Number).filter(w=>w>=x.w).sort((a,b)=>a-b);
+    let tid=Object.keys(W.teams).find(k=>W.teams[k][0]===t[side].o);
+    if(!tid){const giver=Object.keys(W.teams).find(k=>W.teams[k][0]===t[side==="a"?"b":"a"].o);
+      for(const w of ws){for(const m of W.weeks[w])for(const s of [m.a,m.b])if(s&&String(s.t)!==giver&&s.r.some(p=>pnorm(p[0])===key))tid=String(s.t);if(tid)break}}
+    for(const w of ws){if(rows.length>=g[5])break;
+      for(const m of W.weeks[w]){if(m.tier==="Consolation")continue;for(const s of [m.a,m.b]){if(!s||String(s.t)!==tid||s.p==null)continue;
+        const p=s.r.find(p=>pnorm(p[0])===key);if(p&&p[2]!=="BE"&&p[2]!=="IR")rows.push([w,team,p[3]||0])}}}}
+  if(rw==null||!rows.length){gdBody(lead+`<p>${g[5]} start${g[5]===1?"":"s"}, ${fmt(g[2])} points, ${wf(g[4]||0,false)} wins added. The week-by-week lines aren't on file for this one.</p>`);return}
+  gdBody(lead+gradeTable(rows,rw,x.sd,g[4]||0,false)+(x.est?'<p class="muted gd-n">2016 and 2017 have no saved lineups, so every week he beat a replacement starter is counted as a start (an estimate).</p>':""))}
+async function dropGrade(i){const m=DROPS[i];if(!m)return;
+  const lead=`<p class="gd-lead">${esc(m.team)} (${esc(short(m.o))}) cut ${pn(m.p)} <span class="muted">${esc(m.pos)}</span> before week ${m.w} of ${m.y}. Every week he started for someone else after that:</p>`;
+  gradePop(m.p,lead+'<p class="muted">Loading the weeks…</p>',"Wins given away");
+  const W=await weeksOf(m.y);if(!W){gdBody(lead+'<p class="muted">The weeks could not be loaded.</p>');return}
+  const cur=W.cur,key=pnorm(m.p),ws=Object.keys(W.weeks).map(Number).filter(w=>(!cur||w<cur)&&W.weeks[w].every(g=>g.a?.p!=null)).sort((a,b)=>a-b);
+  const sc=[];ws.forEach(w=>W.weeks[w].forEach(g=>{if(!g.tier)[g.a,g.b].forEach(s=>{if(s&&s.p!=null)sc.push(s.p)})}));
+  const mu=sc.reduce((a,b)=>a+b,0)/sc.length,sd=Math.sqrt(sc.reduce((a,v)=>a+(v-mu)**2,0)/(sc.length-1)),rw=(m.pts-m.par)/m.st;
+  // he stops counting once he's back on the team that cut him
+  let end=99;for(const w of ws){if(w<=m.w)continue;for(const g of W.weeks[w])for(const s of [g.a,g.b])if(s&&W.teams[s.t]?.[0]===m.o&&s.r.some(p=>pnorm(p[0])===key))end=Math.min(end,w)}
+  const rows=[];for(const w of ws){if(w<m.w||w>=end)continue;for(const g of W.weeks[w]){if(g.tier==="Consolation")continue;for(const s of [g.a,g.b]){if(!s||s.p==null)continue;const o=W.teams[s.t]?.[0];if(o===m.o)continue;
+    const p=s.r.find(p=>pnorm(p[0])===key);if(p&&p[2]!=="BE"&&p[2]!=="IR")rows.push([w,`${W.teams[s.t][1]} (${short(o)})`,p[3]||0])}}}
+  gdBody(lead+gradeTable(rows,rw,sd,m.war,true))}
+function seasonGrade(i){const r=topSeasonList[i];if(!r)return;
+  const bar=(l,v,mx)=>`<div class="hs-part"><span>${l}</span><b class="num">${v.toFixed(1)}</b><small class="muted">/ ${mx}</small></div>`;
+  gradePop(`${r.team||short(r.o)}, ${r.y}`,`<p class="gd-lead">${esc(OWNERS[r.o].name)} · ${r.w}-${r.l}${r.est?" (est.)":""} · graded <b>${r.total.toFixed(1)}</b> out of 100</p>
+    <div class="hs-parts">${bar("Record",r.c.rec,30)}${bar("Playoffs",r.c.po,30)}${bar("Roster",r.c.ros,25)}${bar("Points",r.c.pts,15)}<div class="hs-part"><span>League size</span><b class="num">×${r.mult.toFixed(2)}</b><small class="muted">${r.n} teams</small></div></div>
+    <div class="tablebox"><table class="mtable"><thead><tr><th>Player</th><th>${r.y} finish</th><th class="num">${r.y} pts</th><th class="num">Over repl.</th></tr></thead><tbody>${r.players.map(p=>`<tr${p[4]?"":' class="dim"'}><td>${pn(p[0])}${p[4]?"":' <span class="rbadge">Bench</span>'}</td><td class="num">${esc(p[1])}</td><td class="num">${p[2]==null?"–":fmt(p[2])}</td><td class="num">${p[4]?fmt(p[3]):"–"}</td></tr>`).join("")}</tbody></table></div>
+    <p class="muted gd-n">${esc(r.note.replace(/\.$/,""))}. Bench players are listed but don't count toward the roster score.</p>`,"Season grade")}
+// NFL headshots: big sprite cells are 264 x 192, so faces crop a centred square
+function hsCell(name){const i=slotOf(null,name);if(i==null)return null;const per=HEADS.cols*HEADS.rows,s=Math.floor(i/per),k=i%per;return {src:`img/nfl/h${s}-${HEADS.v[s]}.webp`,c:k%HEADS.cols,r:Math.floor(k/HEADS.cols)}}
+function bigFace(name,cls="tc-ph"){const h=hsCell(name),[cw,ch]=HEADS.cell||[264,192],k=cw/ch;
+  return h?`<span class="${cls}" style="background-image:url(${h.src});background-size:calc(var(--d) * ${k*HEADS.cols}) calc(var(--d) * ${HEADS.rows});background-position:calc(var(--d) * ${-(h.c*k+(k-1)/2)}) calc(var(--d) * ${-h.r})"></span>`:`<span class="${cls} ini">${esc(initials(name))}</span>`}
+let svgHeadN=0;
+function svgHead(name,x,y,d,ring="#fff",bg="#dfe7ef"){const {q,C,T}=CS.kit,h=hsCell(name),id="shd"+(++svgHeadN),[cw,ch]=HEADS.cell||[264,192],sq=ch;
+  const pic=h?`<svg x="${q(x-d/2)}" y="${q(y-d/2)}" width="${q(d)}" height="${q(d)}" viewBox="${h.c*cw+(cw-sq)/2} ${h.r*ch-4} ${sq} ${sq}"><image href="${h.src}" width="${HEADS.cols*cw}" height="${HEADS.rows*ch}" preserveAspectRatio="none"/></svg>`:T(x,y+d*.14,initials(name),d*.36,"#3a4357",'font-weight="800"');
+  return C(x,y,d/2+1.6,ring)+`<clipPath id="${id}"><circle cx="${q(x)}" cy="${q(y)}" r="${q(d/2)}"/></clipPath>`+C(x,y,d/2,bg)+`<g clip-path="url(#${id})">${pic}</g>`}
+// the shower: the owner in a robe and shower cap, the soap (with the dropped player's face) slipping to the floor
+function showerArt(m,i){const {q,R,C,E,P,L,T,G,CH,HAT,BUB,HW}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",robe=podShade(c,.62),x=92,y=56,h=36;
+  let s=R(-10,-10,260,200,"#d3ecf3");
+  for(let a=0;a<=240;a+=20)s+=L(a,0,a,148,"#b5d8e4",1.2);for(let b=8;b<148;b+=20)s+=L(0,b,240,b,"#b5d8e4",1.2);
+  s+=R(-10,148,260,40,"#eef3f6")+L(-10,148,250,148,"#9fb7c4",2)+[30,70,110,150,190,230].map(a=>L(a,148,a-14,190,"#d5e0e6",1)).join("")+E(128,166,11,3.2,"#8d9aa6")+E(128,166,7,1.8,"#5f6b77");
+  // shower head and the water
+  s+=L(20,-2,20,14,"#8f9aa6",4)+P("M20 14Q20 22 30 24","none",'stroke="#8f9aa6" stroke-width="4" stroke-linecap="round"')+G(E(0,0,12,4.6,"#c3ccd5",'stroke="#8f9aa6" stroke-width="1.2"'),`transform="translate(38 27) rotate(28)"`);
+  s+=`<g class="sh-water">${[0,1,2,3,4,5,6].map(k=>L(30+k*5,34+k*1.5,44+k*9,146,"#7cc4ec",1.3,`opacity=".55" stroke-dasharray="7 9" style="animation-delay:-${(k*.17).toFixed(2)}s"`)).join("")}</g>`;
+  // the curtain, pulled to the right
+  s+=L(150,7,250,7,"#8f9aa6",3)+[176,188,200,212,224,236].map(a=>C(a,8,3,"none",'stroke="#8f9aa6" stroke-width="1.4"')).join("");
+  s+=P("M172 10Q168 80 178 148H250V10Z","#f28db0")+[184,198,212,226,240].map((a,k)=>P(`M${a} 10Q${a-4+k%2*6} 80 ${a+3} 148`,"none",'stroke="rgba(150,30,80,.22)" stroke-width="3"')).join("")+[180,196,212,228,244].map((a,k)=>C(a,30+k%2*40,3,"#fff",'opacity=".55"')).join("");
+  // steam
+  s+=[[60,22],[118,16],[150,40]].map(([a,b],k)=>`<g class="sh-steam" style="animation-delay:-${k*1.1}s">${C(a,b,6,"#fff",'opacity=".55"')+C(a+7,b-3,5,"#fff",'opacity=".5"')}</g>`).join("");
+  // the owner, startled, both hands up after the soap shot out of them
+  s+=CH(o,x,y,h,robe,"robe",{belt:c,arms:[[-1.25,-.2],[1.3,-.1]],len:2.5,w:.78});
+  s+=P(`M${x-h*.24} ${y+h*.36}L${x+h*.06} ${y+h*1.5}M${x+h*.24} ${y+h*.36}L${x-h*.02} ${y+h*1.1}`,"none",`stroke="${podShade(c,.25)}" stroke-width="2.4" stroke-linecap="round"`)+[-1,1].map(d=>R(x+d*h*.42-3,y+h*1.9,6,h*.5,"rgba(0,0,0,.08)")).join("");
+  const w=HW(o,h),top=y-h*.5;
+  s+=HAT(o,"scrub",x,y,h,"#ffd3e3")+[...Array(9)].map((_,k)=>C(x-w*.56+k*w*.14,top+h*.2,h*.07,"#ffd3e3",'stroke="#f2a3c0" stroke-width=".6"')).join("");
+  s+=P(`M${x+20} ${y+2}q6-5 2-10M${x+24} ${y+6}q8-3 6-12`,"none",'stroke="#15203b" stroke-width="1.4" stroke-linecap="round" opacity=".6"');
+  // the soap's path out of his hand and the soap itself, with the player's face on it
+  s+=P(`M${x+42} ${y-4}Q${x+70} ${y-6} ${x+72} ${y+64}`,"none",'stroke="#fff" stroke-width="1.6" stroke-dasharray="3 4" opacity=".9"');
+  const bub=[[-26,-6,3],[24,-10,4],[30,4,2.5],[-22,10,2],[6,-18,2.8],[-8,-20,2]].map(([a,b,r])=>C(a,b,r,"rgba(255,255,255,.75)",'stroke="#9ccfe8" stroke-width=".6"')).join("");
+  s+=`<g transform="translate(${x+72} 132)"><g class="soap-fall">${bub}${R(-30,-17,60,34,"#bfe7ff",'rx="14" stroke="#7fb8d9" stroke-width="1.4"')}${R(-25,-14,50,8,"rgba(255,255,255,.55)",'rx="4"')}${svgHead(m.p,0,1,28,"#fff","#e9f6ff")}</g></g>`;
+  s+=BUB(150,28,52,18,["OOPS"],x+30,y-10,10,"#fff","#15203b");
+  return s}
+// the coach: the owner on the sideline in a cap, headset and his colours, clipboard in hand, his starters around him
+function coachArt(r){const {q,R,C,E,P,L,T,G,CH,HAT,LG,HW}=CS.kit,o=r.o,c=POD_COL[o]||"#5b6178",x=150,y=96,h=36;
+  let s=R(-20,-20,340,240,LG(["#3d8a3f","#2b6a30"]));
+  for(let k=0;k<9;k++)s+=R(-20,k*25-4,340,12.5,"rgba(255,255,255,.035)");
+  for(let a=10;a<=300;a+=40)s+=L(a,0,a,200,"rgba(255,255,255,.28)",1.4);
+  for(let a=30;a<=300;a+=40)for(const b of [60,140])s+=L(a-2,b,a+2,b,"rgba(255,255,255,.35)",1.2);
+  s+=E(x,100,52,26,"rgba(255,255,255,.06)")+T(x,108,"FM",22,"rgba(255,255,255,.12)",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing="2"');
+  // the starters, best first, around the top of the coach
+  const st=r.players.filter(p=>p[4]).sort((a,b)=>b[3]-a[3]).slice(0,9),n=st.length;
+  const seat=[...Array(n).keys()].sort((u,v)=>Math.abs(u-(n-1)/2)-Math.abs(v-(n-1)/2));   // seat 0 is the top of the arc
+  st.forEach((p,k)=>{const sl=seat[k],a=Math.PI*(1.07-1.14*(n>1?sl/(n-1):.5)),px=x+Math.cos(a)*122,py=100-Math.sin(a)*76,d=k===0?31:26,last=p[0].replace(/ (Jr\.|Sr\.|II|III|IV)$/,"").split(" ").slice(-1)[0];
+    s+=G(svgHead(p[0],0,0,d,k===0?"#f2c230":"#fff")+R(-19,d/2+1,38,10,"rgba(10,20,15,.72)",'rx="5"')+T(0,d/2+8.6,last.length>10?last.slice(0,9)+"…":last,7,"#fff",'font-weight="700"'),`transform="translate(${q(px)} ${q(py)})" class="ch-pl" style="animation-delay:-${(k*.37).toFixed(2)}s"`)});
+  // the coach
+  s+=E(x,196,30,4,"rgba(0,0,0,.25)");
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.3,1.45],[1.2,1.0]],len:2.65,w:.78,ac:podShade(c,-.22),top:1});
+  s+=P(`M${x-h*.2} ${y+h*.4}L${x} ${y+h*.62}L${x+h*.2} ${y+h*.4}`,"none",'stroke="rgba(255,255,255,.75)" stroke-width="2"')+C(x,y+h*.75,1.3,"#fff")+C(x,y+h*.95,1.3,"#fff");
+  const w=HW(o,h),top=y-h*.5;
+  s+=HAT(o,"cap",x,y,h,c);
+  // headset: band over the cap, an ear cup and a mic
+  s+=P(`M${q(x-w*.52)} ${q(y)}Q${q(x-w*.6)} ${q(top-h*.12)} ${q(x)} ${q(top-h*.14)}Q${q(x+w*.6)} ${q(top-h*.12)} ${q(x+w*.52)} ${q(y)}`,"none",'stroke="#222" stroke-width="2.2"')
+    +R(x-w*.62,y-h*.12,w*.2,h*.32,"#222",'rx="2.5"')+R(x+w*.42,y-h*.12,w*.2,h*.32,"#222",'rx="2.5"')+P(`M${q(x-w*.55)} ${q(y+h*.16)}Q${q(x-w*.45)} ${q(y+h*.5)} ${q(x-w*.12)} ${q(y+h*.42)}`,"none",'stroke="#222" stroke-width="1.6"')+C(x-w*.12,y+h*.42,2,"#444");
+  // clipboard with a play drawn on it
+  s+=G(R(-13,-18,26,35,"#a8733d",'rx="2"')+R(-10.5,-13,21,27,"#fbf8f0")+R(-5,-20,10,5,"#9aa5b1",'rx="1"')+T(-5,-3,"X",6,"#c0392b",'font-weight="900"')+T(4,4,"O",6,"#1d4f91",'font-weight="900"')+P("M-4 -1Q2 -8 6 -3","none",'stroke="#15203b" stroke-width=".9"')+P("M6 -3l-2.6 .2 1.4-2.2z","#15203b")+L(-7,9,7,9,"#c9c0a8",.8),`transform="translate(${q(x+h*1.25)} ${q(y+h*.86)}) rotate(9)"`);
+  if(r.res==="Champion")s+=G(CS.kit.TROPHY(0,0,.7),`transform="translate(${q(x-h*1.05)} ${q(y+h*1.6)})"`);
+  return s}
+const SEASON_RES=r=>r.res==="Champion"?"Champion":r.res==="Runner-up"?"Runner-up":r.res==="Semifinal"?"Lost in the semis":"Missed the playoffs";
+function seasonMovie(i){const r=topSeasonList[i];if(!r)return;const o=r.o,y=r.y,K=CS.CAREER[o],res=SEASON_RES(r),sl=[];
+  sl.push({c:"cs-poster",st:"--c:#1f4d2a",html:`<div class="cs-leader" aria-hidden="true"><i></i><span>3</span><span>2</span><span>1</span></div><div class="cs-ptag">The ${y} season · No. ${i+1} of all time</div><div class="cs-art">${CS.art(()=>coachArt(r))}</div><div class="cs-ptitle">${esc(r.team||short(o))}</div><div class="cs-bill">The Flamingo Men present · ${esc(OWNERS[o].name)} · ${r.w}-${r.l}${r.est?" (est.)":""} · ${esc(res)}</div><p class="wr-t">One of the ten best seasons the league has ever seen, graded ${r.total.toFixed(1)} out of 100. Head coach ${esc(short(o))} and his ${r.n}-team league, ${y}.</p>`});
+  (K?.scenes||[]).filter(s=>s.k===y||Array.isArray(s.k)&&s.k.includes(y)).forEach(s=>sl.push({c:"cs-sc",st:`--c:${s.c||"#2a1730"}`,html:`${csKicker(o,s.k)}<div class="cs-art">${CS.art(s.a)}<span class="cs-show">${esc(s.m)}</span></div><div class="cs-title">${esc(s.t)}</div><p class="wr-t">${esc(s.x)}</p>`}));
+  const st=r.players.filter(p=>p[4]).sort((a,b)=>b[2]-a[2]);
+  sl.push({c:"cs-sc",st:"--c:#173a5a",html:`<div class="wr-k">${y} · The roster</div><div class="cs-title">The starting lineup</div><ol class="wr-list">${st.slice(0,9).map((p,k)=>`<li><span>${k+1}</span><span>${esc(p[0])}</span><small>${esc(p[1])} · ${fmt(p[2])}</small></li>`).join("")}</ol>`});
+  const stat=[["Record",`${r.w}-${r.l}${r.est?" (est.)":""}`],["Finish",res],["Points",r.pfRank?`${fmt(r.pf)} (${r.pfRank===1?"most":ordinal(r.pfRank)} of ${r.pfN})`:"–"],["Record score",`${r.c.rec.toFixed(1)} / 30`],["Playoff score",`${r.c.po.toFixed(1)} / 30`],["Roster score",`${r.c.ros.toFixed(1)} / 25`],["Points score",`${r.c.pts.toFixed(1)} / 15`],["Final grade",`${r.total.toFixed(1)} / 100`]];
+  sl.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The ${y} season, graded</div><b style="font-size:1.2rem">${esc(r.team||OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">No. ${i+1} on the list of the best seasons of all time.</p>`});
+  openCareer(null,sl)}
+function topRapes(){const margin=x=>Math.abs(x.a.war-x.b.war);
   const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
-  $("#top5rapes").innerHTML=rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
-    return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span><p class="why"><b>${esc(t[w].team)}</b> (${esc(short(t[w].o))}) won by ${wf(margin(x),false)} wins in ${t.s}: ${wf(x[w].war,false)} wins added to ${wf(x[l].war,false)} for ${esc(t[l].team)} (${esc(short(t[l].o))}).</p></div>${tradeScore(t)}`)}).join("");
-  $("#pickPos").innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
-  $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTopLists()};
-  const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
-  $("#top5pickups").innerHTML=best.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(m.o)}<div><h4>${pn(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("");
-  const nm=l=>l.map(o=>esc(short(o))),and=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
-  $("#top5drops").innerHTML=DROPS.slice(0,5).map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(m.o)}<div><h4>${pn(m.p)} <span class="muted" style="font-weight:400">${esc(m.pos)} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) cut him before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><p class="score">Wins given away <b>${wf(m.war,false)}</b></p></div></article>`).join("");
-  $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
-}
+  // each player is a playing card: position and wins in the corners, his face in the middle; tap for the week-by-week grading
+  const card=(id,s,g,k,n,suit)=>{const last=g[0].replace(/ (Jr\.|Sr\.|II|III|IV)$/,"").split(" ").slice(-1)[0],v=g[2]==null?"?":wf(g[4]||0);
+    return `<button type="button" class="pc${(g[4]||0)>0?"":" dud"}" style="--k:${k-(n-1)/2}" data-wg="t" data-id="${id}" data-s="${s}" data-p="${esc(g[0])}" aria-haspopup="dialog" aria-label="${esc(g[0])}, ${v} wins added. Show the grading"><span class="pc-i">${esc(g[1])}<i>${suit}</i></span>${bigFace(g[0],"pc-ph")}<span class="pc-n">${esc(last)}</span><span class="pc-w">${v}</span><span class="pc-i b">${esc(g[1])}<i>${suit}</i></span></button>`};
+  return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
+    const side=(s,won)=>{const g=x[s].got,suit=won?"♥":"♠";return `<div class="pt-side${won?" won":""}"><div class="pt-own">${t[s].o?av(t[s].o):""}<div><b>${esc(t[s].o?short(t[s].o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,suit)).join("")}</div><div class="pt-tot"><span class="tc-stamp${won?"":" l"}">${won?"Won":"Fleeced"}</span>${wf(x[s].war,false)} wins</div></div>`};
+    return `<article class="ptable${i===0?" first":""}"><header class="pt-top"><span class="rank">${ROMAN[i]}</span><span>${t.s} season${x.w>1?` · week ${x.w}`:""}</span></header><div class="pt-felt">${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins"><span class="chips" aria-hidden="true"><i></i><i></i><i></i></span><b>${wf(margin(x),false)}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
+function topPickups(){const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
+  return `<div class="top5">${best.map((m,i)=>`<article class="pickup"><span class="rank">${ROMAN[i]}</span>${av(m.o)}<div><h4>${pn(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("")}</div>`}
+function topDrops(){const nm=l=>l.map(o=>esc(short(o))),and=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
+  return `<div class="soaps">${DROPS.slice(0,5).map((m,i)=>`<article class="soap-card"><div class="soap-art">${CS.svg(()=>showerArt(m,i),"0 0 240 180")}<span class="rank">${ROMAN[i]}</span></div><div class="soap-tx"><h4>${pn(m.p)} <span class="muted">${esc(m.pos)} · ${m.y}</span></h4><small class="muted">Dropped by ${esc(m.team)} (${esc(short(m.o))})</small><p>Cut before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><button type="button" class="wbtn big" data-wg="d" data-i="${i}" aria-haspopup="dialog">${wf(m.war,false)} wins given away</button></div></article>`).join("")}</div>`}
+function topSeasons(){topSeasonList=bestSeasons().slice(0,10);
+  return `<div class="coaches">${topSeasonList.map((r,i)=>`<article class="coach-card${r.res==="Champion"?" champ":""}"><div class="coach-art">${CS.svg(()=>coachArt(r),"0 0 300 200")}<span class="rank">${ROMAN[i]}</span></div><div class="coach-tx"><div class="coach-h">${tav(r.o,r.y)}<div><h4>${esc(r.team||short(r.o))} <span class="muted">${r.y}</span></h4><small class="muted">Coach ${esc(short(r.o))} · ${r.w}-${r.l}${r.est?" (est.)":""} · ${r.res==="Champion"?"♛ ":""}${esc(SEASON_RES(r))}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</small></div></div><div class="coach-btns"><button type="button" class="playbtn" data-mv="${i}">▶ Watch the season</button><button type="button" class="wbtn big" data-sg="${i}" aria-haspopup="dialog">Grade ${r.total.toFixed(1)}</button></div></div></article>`).join("")}</div>`}
+function renderTopLists(){
+  $("#topSeg").innerHTML=Object.entries(TOPS).map(([k,b])=>`<button type="button" data-k="${k}" aria-pressed="${k===topKey}">${b.l}</button>`).join("");
+  $("#topSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;topKey=b.dataset.k;renderTopLists()};
+  const pp=$("#pickPos");pp.hidden=topKey!=="pickups";
+  pp.innerHTML=[["all","Overall"],["QB","QB"],["RB","RB"],["WR","WR"],["TE","TE"]].map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===pickPos}">${l}</button>`).join("");
+  pp.onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTopLists()};
+  $("#topGrade").onclick=()=>gradePop(TOPS[topKey].l,`<p>${esc(TOPS[topKey].how)}</p>${TOPS[topKey].tap||""}`);
+  const box=$("#topBody");
+  box.innerHTML=({rapes:topRapes,pickups:topPickups,drops:topDrops,seasons:topSeasons})[topKey]();
+  box.onclick=e=>{const w=e.target.closest("[data-wg]"),mv=e.target.closest("[data-mv]"),sg=e.target.closest("[data-sg]");
+    if(w)w.dataset.wg==="t"?tradeGrade(w.dataset.id,w.dataset.s,w.dataset.p):dropGrade(+w.dataset.i);
+    else if(mv)seasonMovie(+mv.dataset.mv);else if(sg)seasonGrade(+sg.dataset.sg)}}
+// a pickup as a trade-style box: the team adds a player and sends the dropped one to the wire (Kyle 2026-11-23)
+function pickupHTML(m){const d=new Date(m.d+"T12:00:00"),wv=m.k==="Waiver",pl=p=>`<li>${pn(p[0])}<span class="pos">${esc(p[1])}</span></li>`;
+  return `<article class="trade pu"><div class="trade-top"><span>${d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"})} · week ${m.w}</span><span><span class="tag ${wv?"wv":"fa"}">${wv?"Waiver claim":"Free agent"}</span></span></div>
+    <div class="sides"><div class="side"><h4>${tlogo(m.o,m.y)}${esc(m.team)}</h4><div class="o">${m.o&&OWNERS[m.o]?esc(OWNERS[m.o].name):""}</div><div class="eyebrow" style="margin-top:6px">Adds</div><ul>${pl(m.add)}</ul></div><div class="swap" aria-hidden="true">⇄</div>
+    <div class="side wire"><h4>${wv?"Waiver wire":"Free agency"}</h4><div class="o">&nbsp;</div><div class="eyebrow" style="margin-top:6px">Drops</div><ul>${m.drop?pl(m.drop):'<li class="muted">Nobody (open roster spot)</li>'}</ul></div></div>
+    ${m.pts!=null?`<p class="score">${m.st===0?`${esc(m.team)} never started him`:`Lineup points for ${esc(m.team)}: <b>${fmt(m.pts)}</b>${m.st!=null?` in ${m.st} start${m.st===1?"":"s"}`:""}`}</p>`:""}</article>`}
+// the 2017 collusion attempts have no date or players on file: shown as boxes in that season (Vicente with Rod, then with Keeves)
+const MANUAL_VETO_O=[["vicente","rod"],["vicente","keeves"]];
 function renderTrades(){
   const adds=MV.moves.filter(m=>m.add);
-  const owners=[...new Set([...TR.flatMap(t=>[t.a.o,t.b.o]),...adds.map(m=>m.o)].filter(Boolean))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
+  const owners=[...new Set([...TR.flatMap(t=>[t.a.o,t.b.o]),...adds.map(m=>m.o),...MANUAL_VETO_O.flat()].filter(o=>o&&OWNERS[o]))].sort((a,b)=>OWNERS[a].name.localeCompare(OWNERS[b].name));
   $("#tradeOwner").innerHTML=`<option value="all">All teams</option>${owners.map(o=>`<option value="${o}" ${o===tOwner?"selected":""}>${esc(OWNERS[o].name)}${OWNERS[o].nick?` (${esc(OWNERS[o].nick)})`:""}</option>`).join("")}<option value="unk" ${tOwner==="unk"?"selected":""}>Owner unconfirmed</option>`;
   const ys=[...new Set([...TR.map(t=>t.s),...adds.map(m=>m.y)])].sort((a,b)=>b-a);
   $("#tradeSeason").innerHTML=`<option value="all">All seasons</option>${ys.map(y=>`<option ${String(y)===String(tSeason)?"selected":""}>${y}</option>`).join("")}`;
@@ -4059,19 +4402,23 @@ function renderTrades(){
   $("#tradeOwner").onchange=e=>{tOwner=e.target.value;renderTrades()};
   $("#tradeSeason").onchange=e=>{tSeason=e.target.value;renderTrades()};
   $("#moveType").onchange=e=>{tType=e.target.value;renderTrades()};
-  const match=t=>(tSeason==="all"||t.s==+tSeason)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
-  const byDate=(a,b)=>a.d.localeCompare(b.d)||a.id-b.id;
-  const list=tType==="pickups"?[]:uniqT(TR.filter(t=>t.st==="completed"&&match(t)).sort(byDate).reverse());
-  const pk=tType==="trades"||tOwner==="unk"?[]:adds.filter(m=>(tSeason==="all"||m.y==+tSeason)&&(tOwner==="all"||m.o===tOwner)).slice().reverse();
-  $("#tradeCount").textContent=[tType!=="pickups"?`${list.length} trade${list.length===1?"":"s"}`:"",tType!=="trades"?`${pk.length} pickup${pk.length===1?"":"s"}`:""].filter(Boolean).join(" · ");
-  // show 5 of each list by default; the control under the list picks 5, 10, 20 or all (Kyle 2026-11-22)
-  const cap=moveN||Infinity,more=n=>n>cap?`<p class="muted" style="margin:8px 0 0;font-size:.85rem">Showing ${cap} of ${n.toLocaleString()}.</p>`:"";
-  const noWaivers=tSeason!=="all"&&!MOVE_SEASONS.includes(+tSeason)?`<div class="note" style="margin-bottom:12px">ESPN has no waiver history for ${tSeason}, so only trades are listed.</div>`:"";
-  $("#moveList").innerHTML=noWaivers+(tType!=="pickups"?`${tType==="all"?`<h3 style="margin:0 0 10px">Trades</h3>`:""}<div class="trades-list">${list.slice(0,cap).map(t=>tradeHTML(t,tradeScore(t))).join("")||'<p class="muted">No trades match.</p>'}</div>${more(list.length)}`:"")
-    +(tType!=="trades"&&pk.length?`${tType==="all"?`<h3 style="margin:24px 0 10px">Waiver and free agent pickups</h3>`:""}${pickupTable(pk.slice(0,cap))}${more(pk.length)}`:(tType==="pickups"?'<p class="muted">No pickups match.</p>':""));
+  const inSeason=y=>tSeason==="all"||y==+tSeason;
+  const match=t=>inSeason(t.s)&&(tOwner==="all"||(tOwner==="unk"?(!t.a.o||!t.b.o):(t.a.o===tOwner||t.b.o===tOwner)));
+  // one timeline, newest first: completed trades, vetoed trades and pickups mixed by date (Kyle 2026-11-23)
+  const items=[];
+  if(tType==="all"||tType==="trades")uniqT(TR.filter(t=>t.st==="completed"&&match(t))).forEach(t=>items.push({d:t.d,n:t.id,k:"trade",html:()=>tradeHTML(t,tradeScore(t))}));
+  if(tType==="all"||tType==="vetoed"){TR.filter(t=>t.st==="vetoed"&&match(t)).forEach(t=>items.push({d:t.d,n:t.id,k:"veto",html:()=>tradeHTML(t)}));
+    MANUAL_VETOES.forEach((v,i)=>{const o=MANUAL_VETO_O[i]||[];if(inSeason(v.y)&&(tOwner==="all"||o.includes(tOwner)))items.push({d:`${v.y}-10-15`,n:-1,k:"veto",html:()=>`<article class="trade vetoed"><div class="trade-top"><span>${v.y} season</span><span><span class="tag veto">✕ Vetoed</span></span></div><p style="margin:0">${esc(v.text.replace(/ Vetoed\.$/,""))} <span class="muted">Player details not on file.</span></p></article>`})})}
+  if(tOwner!=="unk"&&(tType==="all"||tType==="Waiver"||tType==="Free agent"))adds.forEach((m,i)=>{if(inSeason(m.y)&&(tOwner==="all"||m.o===tOwner)&&(tType==="all"||m.k===tType))items.push({d:m.d,n:i,k:"pickup",html:()=>pickupHTML(m)})});
+  items.sort((a,b)=>b.d.localeCompare(a.d)||(a.k===b.k?b.n-a.n:a.k==="pickup"?1:-1));
+  const cnt=k=>items.filter(x=>x.k===k).length,pl=(n,w)=>`${n.toLocaleString()} ${w}${n===1?"":"s"}`,nT=cnt("trade"),nV=cnt("veto"),nP=cnt("pickup");
+  $("#tradeCount").textContent=[nT?pl(nT,"trade"):"",nP?pl(nP,"pickup"):"",nV?`${nV} vetoed`:""].filter(Boolean).join(" · ")||"0 moves";
+  // 5 moves by default; the control under the list picks 5, 10, 20 or all (Kyle 2026-11-22)
+  const cap=moveN||Infinity;
+  const noWaivers=tSeason!=="all"&&!MOVE_SEASONS.includes(+tSeason)&&tType!=="trades"&&tType!=="vetoed"?`<div class="note" style="margin-bottom:12px">ESPN has no waiver history for ${tSeason}, so only trades are listed.</div>`:"";
+  $("#moveList").innerHTML=noWaivers+`<div class="trades-list">${items.slice(0,cap).map(x=>x.html()).join("")||'<p class="muted">No moves match.</p>'}</div>${items.length>cap?`<p class="muted" style="margin:8px 0 0;font-size:.85rem">Showing ${cap} of ${items.length.toLocaleString()}.</p>`:""}`;
   $("#movePg").innerHTML=`<span class="muted">Show</span>${[5,10,20,0].map(n=>`<button type="button" data-n="${n}" aria-pressed="${n===moveN}">${n||"All"}</button>`).join("")}`;
   $("#movePg").onclick=e=>{const b=e.target.closest("[data-n]");if(!b)return;moveN=+b.dataset.n;renderTrades()};
-  $("#vetoList").innerHTML=TR.filter(t=>t.st==="vetoed").reverse().map(t=>tradeHTML(t)).join("")+MANUAL_VETOES.map(v=>`<article class="trade"><div class="trade-top"><span>${v.y} season</span><span class="tag veto">Vetoed</span></div><p style="margin:0">${esc(v.text)} <span class="muted">Player details not on file.</span></p></article>`).join("");
 }
 
 /* ---------- CHAMPIONS AND SACKOS (Kyle 2026-11-18) ----------
@@ -5202,7 +5549,7 @@ $("#q").addEventListener("keydown",e=>{const bs=[...$("#sres").querySelectorAll(
 $("#sres").addEventListener("mousedown",e=>{const b=e.target.closest("[data-i]");if(!b)return;e.preventDefault();searchPick(+b.dataset.i)});
 document.addEventListener("click",e=>{if(!e.target.closest(".search"))$("#sres").hidden=true});
 
-const ROUTES={home:renderHome,history:renderHistory,teams:renderTeams,records:()=>{renderRecords();renderStats();renderTrades()},rankings:()=>{renderRankings();renderTopLists();renderTopRosters()},champions:renderChamps,sackos:renderSackos,rules:renderRules};
+const ROUTES={home:renderHome,history:renderHistory,teams:renderTeams,records:()=>{renderRecords();renderStats();renderTrades()},rankings:()=>{renderRankings();renderTopLists()},champions:renderChamps,sackos:renderSackos,rules:renderRules};
 // Old tabs (Kyle 2026-11-18): Stats folded into Records, Drafts into History's year view, Records' top lists into Rankings.
 // Old links land on the new spot: [new tab, element to scroll to, setup]
 const OLD_TABS={trades:["records"],moves:["records"],stats:["records","#allTimeBlock"],drafts:["history","#draftFold",()=>{histMode="year";if(!DRAFTS[histYear])histYear=Math.max(...Object.keys(DRAFTS).map(Number));histWeek=null;openGame=null}],toplists:["rankings","#topLists"]};
