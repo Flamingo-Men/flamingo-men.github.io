@@ -504,19 +504,68 @@ details.fold:not([open])>summary{margin-bottom:0}
 .rec .multi img,.rec .multi span{width:clamp(28px,20cqi,44px);height:clamp(28px,20cqi,44px);border-radius:99px;border:2px solid var(--slab);margin-left:-8px;object-fit:cover}
 .rkseg{margin:4px 0 10px}.rkseg button{font-size:.85rem;padding:7px 14px}
 .rkhow{font-size:.85rem;max-width:80ch;margin:0 0 14px}
-.rklist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.rk{display:grid;grid-template-columns:44px 52px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--slab);border:1px solid var(--line);border-radius:var(--r);padding:10px 14px}
-.rk .n{font-family:var(--f-display);font-size:1.6rem;color:var(--muted);text-align:center}
-.rk:nth-child(1){border-color:var(--gold);border-left:4px solid var(--gold)}.rk:nth-child(1) .n{color:var(--gold)}
-.rk:nth-child(2) .n,.rk:nth-child(3) .n{color:var(--ink)}
-.rk .av{width:52px;height:52px}
-.rk h3{margin:0;font-size:1.05rem}.rk h3 small{font-weight:400;color:var(--muted);font-size:.85rem}
-.rk .bar{height:6px;border-radius:99px;background:var(--line);margin:6px 0 4px;overflow:hidden}.rk .bar i{display:block;height:100%;background:var(--flamingo);border-radius:99px}
-.rk .neg i{background:var(--muted)}
-.rk .meta{font-size:.82rem;color:var(--muted);line-height:1.45}
-.rk .sc{font-family:var(--f-data);font-size:1.15rem;font-weight:700;text-align:right;white-space:nowrap}
-.rk .sc small{display:block;font-weight:400;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-@media (max-width:560px){.rk{grid-template-columns:30px 40px minmax(0,1fr);gap:10px}.rk .av{width:40px;height:40px}.rk .n{font-size:1.2rem}.rk .sc{grid-column:3;text-align:left}.rk .sc small{display:inline;margin-left:6px}}
+/* Rankings podium (Kyle 2026-11-23): 2-1-3 like the Olympics, then the rest of the field stepping down; bobblehead figures made from the cut-outs */
+.pod-wrap{position:relative;margin:4px 0 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:radial-gradient(85% 70% at 50% 0%,color-mix(in srgb,var(--flamingo-soft) 90%,transparent),transparent 72%),var(--slab)}
+.pod-stage{list-style:none;margin:0;padding:24px 10px 0;display:flex;align-items:flex-end;gap:5px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;overscroll-behavior-x:contain;scrollbar-width:none}
+.pod-stage::-webkit-scrollbar{display:none}
+.pod{flex:1 0 72px;min-width:72px;display:flex;scroll-snap-align:center}
+.pod.top{flex:1.3 0 90px;min-width:90px}
+.pod-none{padding:20px 4px}
+.pod-btn{appearance:none;border:0;background:none;padding:0;margin:0;display:flex;flex-direction:column;width:100%;cursor:pointer;color:var(--ink);font:inherit;text-align:center;-webkit-tap-highlight-color:transparent;animation:podRise .8s cubic-bezier(.2,.85,.3,1.04) both;animation-delay:var(--dl)}
+.pod-btn:focus-visible{outline:2px solid var(--flamingo);outline-offset:2px;border-radius:4px}
+.pod-fig{display:block;position:relative;z-index:1;margin:0 -8px -3px;transform-origin:50% 100%;animation:podPop .55s cubic-bezier(.3,1.3,.5,1) both;animation-delay:calc(var(--dl) + .55s)}
+.pod-fig svg{position:relative;display:block;width:100%;height:auto;overflow:visible;transition:transform .2s}
+.pod-btn:hover .pod-fig svg{transform:translateY(-4px)}
+.pod.p1 .pod-fig::before{content:"";position:absolute;inset:-18% -30% 2%;background:repeating-conic-gradient(from 0deg at 50% 58%,rgba(255,200,70,.36) 0 9deg,transparent 9deg 20deg);-webkit-mask:radial-gradient(closest-side at 50% 58%,#000 25%,transparent);mask:radial-gradient(closest-side at 50% 58%,#000 25%,transparent);animation:podSpin 40s linear infinite;pointer-events:none}
+.pod-block{--H:124px;position:relative;display:flex;flex-direction:column;align-items:center;height:calc(128px + var(--H)*var(--f));padding:12px 3px 0;background:linear-gradient(180deg,var(--slab),var(--stone));border:1px solid var(--line);border-bottom:0;border-radius:3px 3px 0 0;box-shadow:inset 0 -22px 26px -22px rgba(0,0,0,.16)}
+.pod-block::before{content:"";position:absolute;left:-4px;right:-4px;top:-6px;height:7px;border-radius:3px 3px 1px 1px;background:inherit;border:1px solid var(--line);box-sizing:border-box}
+.pod-flute{flex:1;align-self:stretch;margin:8px 9px 0;background:repeating-linear-gradient(90deg,transparent 0 6px,color-mix(in srgb,var(--ink) 8%,transparent) 6px 8px);-webkit-mask:linear-gradient(transparent,#000 45%);mask:linear-gradient(transparent,#000 45%)}
+.pod-rk{font-family:var(--f-display);font-size:1.5rem;line-height:1;color:var(--muted)}
+.pod-nm{font-family:var(--f-display);font-size:.9rem;line-height:1.1;margin-top:4px;overflow-wrap:anywhere}
+.pod-sc{font-family:var(--f-data);font-weight:700;font-size:.92rem;line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+.pod-u{font-family:var(--f-data);font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.2;margin-bottom:3px}
+.pod-st{font-size:.72rem;line-height:1.25;color:var(--muted)}
+.pod.top .pod-rk{font-size:2.1rem;color:inherit}.pod.top .pod-sc{font-size:1.08rem}
+.pod.top .pod-u,.pod.top .pod-st{color:inherit;opacity:.78}
+.pod.p1 .pod-block{background:linear-gradient(180deg,#fff4c9,#f2d27c 45%,#d6a73a);border-color:#bf912b;color:#2c2006}
+.pod.p2 .pod-block{background:linear-gradient(180deg,#fdfdfe,#e4e8ed 45%,#bdc5cf);border-color:#a2abb6;color:#1b2230}
+.pod.p3 .pod-block{background:linear-gradient(180deg,#ffe6cf,#edb588 45%,#c7834f);border-color:#ad7141;color:#2d1608}
+.pod.top .pod-block::before{border-color:inherit}
+.pod.top .pod-flute{background:repeating-linear-gradient(90deg,transparent 0 6px,rgba(0,0,0,.09) 6px 8px)}
+.pod-btn[aria-pressed="true"] .pod-block{box-shadow:inset 0 0 0 2px var(--flamingo),inset 0 -22px 26px -22px rgba(0,0,0,.16)}
+.pod-btn[aria-pressed="true"] .pod-nm{text-decoration:underline 2px var(--flamingo);text-underline-offset:3px}
+.pod-hint{position:absolute;z-index:2;top:8px;right:10px;font-family:var(--f-data);font-size:.66rem;letter-spacing:.05em;color:var(--muted);background:color-mix(in srgb,var(--slab) 88%,transparent);border:1px solid var(--line);border-radius:99px;padding:2px 9px;pointer-events:none;opacity:0;transition:opacity .3s}
+.pod-wrap.more-r .pod-hint{opacity:1}
+.pod-wrap.more-r .pod-stage{-webkit-mask:linear-gradient(90deg,#000 calc(100% - 34px),transparent);mask:linear-gradient(90deg,#000 calc(100% - 34px),transparent)}
+.pod-wrap.more-l .pod-stage{-webkit-mask:linear-gradient(90deg,transparent,#000 34px);mask:linear-gradient(90deg,transparent,#000 34px)}
+.pod-wrap.more-l.more-r .pod-stage{-webkit-mask:linear-gradient(90deg,transparent,#000 34px,#000 calc(100% - 34px),transparent);mask:linear-gradient(90deg,transparent,#000 34px,#000 calc(100% - 34px),transparent)}
+.pod-card{margin-top:10px;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--flamingo);border-radius:var(--r);padding:12px 14px}
+.pod-card:empty{display:none}
+.pod-card-h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
+.pod-card .av{width:52px;height:52px}
+.pod-card h3{margin:2px 0 0;font-size:1.1rem}.pod-card h3 small{font-weight:400;color:var(--muted);font-size:.85rem}
+.pod-card .sc{font-family:var(--f-data);font-size:1.25rem;font-weight:700;text-align:right;white-space:nowrap}
+.pod-card .sc small{display:block;font-weight:400;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pod-card .meta{margin-top:8px;font-size:.86rem;color:var(--muted);line-height:1.5}
+.pod-how{margin:10px 0 0}
+.pod-how summary{cursor:pointer;font-family:var(--f-data);font-size:.78rem;letter-spacing:.04em;color:var(--aegean);width:max-content;max-width:100%}
+.pod-how .rkhow{margin:8px 0 0}
+.pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
+.pf-head{animation:podBob 2.8s ease-in-out infinite}
+.pf-wave{animation:podWave .8s ease-in-out infinite alternate}
+.pf-rain line{animation:podRain 1s linear infinite}.pf-rain line:nth-child(2){animation-delay:-.34s}.pf-rain line:nth-child(3){animation-delay:-.67s}
+.pf-conf{animation:podConf 3.6s linear infinite}
+.pf-spark{animation:podSpark 1.9s ease-in-out infinite}
+@keyframes podRise{from{transform:translateY(104%)}to{transform:none}}
+@keyframes podPop{0%{transform:translateY(-30px) scale(.4);opacity:0}50%{opacity:1}72%{transform:translateY(2px) scale(1.06,.94)}100%{transform:none;opacity:1}}
+@keyframes podBob{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes podWave{from{transform:rotate(-18deg)}to{transform:rotate(14deg)}}
+@keyframes podRain{0%{transform:translateY(-4px);opacity:0}30%{opacity:1}100%{transform:translateY(8px);opacity:0}}
+@keyframes podConf{0%{transform:translateY(0) rotate(0);opacity:0}8%{opacity:1}100%{transform:translateY(105px) rotate(340deg);opacity:0}}
+@keyframes podSpark{0%,100%{transform:scale(.2);opacity:0}50%{transform:scale(1);opacity:1}}
+@keyframes podSpin{to{transform:rotate(1turn)}}
+@media (max-width:640px){.pod-wrap{margin-inline:-16px;border-radius:0;border-inline:0}.pod-stage{padding-inline:12px}.pod{flex:0 0 84px;min-width:84px}.pod.top{flex:0 0 102px;min-width:102px}.pod-block{--H:108px}.pod-card .av{width:44px;height:44px}}
+@media (prefers-reduced-motion:reduce){.pod-btn,.pod-fig,.pf-head,.pf-wave,.pf-rain line,.pf-conf,.pf-spark,.pod.p1 .pod-fig::before{animation:none}.pf-conf{opacity:0}}
 .yearbio{margin:0;max-width:70ch;font-size:1.05rem}
 /* league lore cards on History years (Bhavi, Kyle 2026-11-22) */
 .lorecard{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;display:grid;gap:10px;grid-template-columns:1fr;align-items:start}
@@ -1625,8 +1674,9 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
   <div class="hall-head"><span class="eyebrow">The Oracle</span><h2>Rankings</h2>
   <p>Who's best right now, who's best ever, and who is best at each part of the game: the draft, the trade market and the waiver wire.</p></div>
   <div class="seg rkseg" id="rankSeg" role="group" aria-label="Ranking"></div>
-  <p class="muted rkhow" id="rankHow"></p>
-  <ol class="rklist" id="rankList"></ol>
+  <div class="pod-wrap" id="podWrap"><span class="pod-hint" aria-hidden="true">The rest of the field →</span><ol class="pod-stage" id="rankList" aria-label="Podium"></ol><div class="meander" aria-hidden="true"></div></div>
+  <div class="pod-card" id="rankCard" aria-live="polite"></div>
+  <details class="pod-how"><summary>How this ranking works</summary><p class="muted rkhow" id="rankHow"></p></details>
   <div id="rankRetro"></div>
   <div class="block" id="topLists"><div class="block-head"><h2>The all-time top lists</h2></div><p class="muted" style="margin:0;font-size:.9rem">Tap a list to open it.</p></div>
   <details class="fold block"><summary><h2>Top 10 trade rapes of all time</h2><span class="chev" aria-hidden="true"></span></summary>
@@ -2445,10 +2495,95 @@ function renderRankings(){
       meta:r=>`${r.seasons} seasons, ${r.adds} adds, ${r.hits} that started 3+ games and gave 20+ points over replacement · ${fmt(r.perSeason)} pts per season · 90% range ${rng(r)}${r.best?` · best: ${pn(r.best[0])} in ${r.best[2]}, ${r.best[3]} starts`:""}`}};
   $("#rankSeg").innerHTML=Object.entries(B).map(([k,b])=>`<button type="button" data-k="${k}" aria-pressed="${k===rankKey}">${b.l}</button>`).join("");
   $("#rankSeg").onclick=e=>{const b=e.target.closest("[data-k]");if(!b)return;rankKey=b.dataset.k;renderRankings()};
-  const b=B[rankKey],mx=Math.max(...b.rows.map(r=>Math.abs(r.score)),1);
+  const b=B[rankKey];
   $("#rankHow").textContent=b.how;
-  $("#rankList").innerHTML=b.rows.length?b.rows.map((r,i)=>`<li class="rk"><span class="n">${i+1}</span>${av(r.o)}<div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3><div class="bar${r.score<0?" neg":""}"><i style="width:${Math.max(2,Math.abs(r.score)/mx*100)}%"></i></div><div class="meta">${b.meta(r)}</div></div><div class="sc">${b.signed?sg(0,r.score):fmt(r.score)}<small>${b.unit}</small></div></li>`).join(""):`<li class="muted">No data yet.</li>`;
+  podRender(b,sg);
   $("#rankRetro").innerHTML=rankKey==="alltime"?retroHTML():""}
+/* ---------- RANKINGS PODIUM (Kyle 2026-11-23) ----------
+   Every ranking is a row of marble podiums: 2-1-3 like the Olympics, then the rest of the field stepping down to the right.
+   The top three stand clearly higher; from 4th down the steps are gentle. Each owner is a bobblehead made from his cut-out
+   face with the career-story art kit (CS.kit), dressed for the list: jerseys for the power rankings, suits for drafting and
+   trading, hoodies for the waiver wire. Medals for the top three, a laurel and confetti for first, a rain cloud for last.
+   Tap a podium for the full numbers in the card below it. On phones the row scrolls sideways. */
+let podSel=0,podKey=null;
+// one jersey colour per owner
+const POD_COL={charles:"#c8102e",squirm:"#5b2a86",kyle:"#00838f",fluff:"#1d4f91",jerry:"#e87722",dylan:"#1b6b3a",skelly:"#3d4a57",rod:"#7b1f3a",dilapi:"#f2b705",quincy:"#0f6e5c",peanut:"#a0682f",lucas:"#0d2b52",jordan:"#3fa7e0",mateus:"#ad1457",ghost:"#9aa5b1",duane:"#6d4c41",keeves:"#455a64",vicente:"#283593"};
+// what each list wears, what first place holds up, and the poses down the field from 4th (last place always slumps)
+const POD_KIT={current:{fit:"jersey",top:"finger",mid:["hips","chill","flex","ball","cross","point","shrug","hips","chill"]},
+  alltime:{fit:"jersey",top:"trophy",mid:["hips","cross","chill","ball","flex","shrug","point","hips","cross"]},
+  draft:{fit:"suit",top:"card",mid:["card","cross","hips","chill","card","shrug","down","hips","cross"]},
+  trade:{fit:"suit",top:"phone",mid:["phone","cross","hips","shrug","phone","chill","down","hips","cross"]},
+  waiver:{fit:"hoodie",top:"ball",mid:["phone","hips","cross","phone","shrug","chill","down","hips","cross"]}};
+// two short lines of numbers on each podium (and a shorter unit where the full one won't fit); the card underneath has the rest
+const POD_U={waiver:"pts/season"};
+const podPct=v=>v==null?"–":v>=99.95?">99.9%":v<.05?"<0.1%":v>=99.5||v<.5?v.toFixed(1)+"%":Math.round(v)+"%";
+const podN=(n,w)=>`${n} ${w}${n===1?"":"s"}`;
+const POD_ST={current:r=>[r.rec,`${podPct(r.odds)} odds`],alltime:r=>[podN(r.titles,"title"),r.rec],
+  draft:r=>[podN(r.n,"pick"),podN(r.drafts,"draft")],trade:r=>[podN(r.n,"trade"),`${r.won} helped`],waiver:r=>[podN(r.adds,"add"),podN(r.hits,"hit")]};
+// arm poses: [elbow, hand] for each side (s -1 left, 1 right); x from the centre line, y down the figure (shoulders 80, hips 114, feet 147)
+const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up:s=>[[s*27,62],[s*30,41]],
+  wave:s=>s>0?[[s*31,68],[s*36,46]]:[[s*22,99],[s*23,115]],flex:s=>[[s*33,84],[s*28,63]],chill:s=>[[s*31,58],[s*13,49]],
+  shrug:s=>[[s*27,95],[s*37,83]],point:s=>s>0?[[s*30,70],[s*42,54]]:[[s*31,97],[s*15,110]],slump:s=>[[s*18,102],[s*17,120]],
+  cross:s=>[[s*22,101],[-s*12,95]],phone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,97],[s*15,110]],
+  card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]]};
+const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
+const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
+// a gold laurel around the top of a head of height h, centred on (0,0)
+function podLaurel(o,h){const {q,E,P,HW,HOFF}=CS.kit,w=HW(o,h)*.52,hh=h*.5,cy=h*.04+h*(HOFF[o]||0);let s="";
+  for(const d of [-1,1]){const pts=[];for(let a=-.05;a<=1.32;a+=.12)pts.push(`${q(d*w*Math.cos(a))} ${q(cy-hh*Math.sin(a))}`);
+    s+=P("M"+pts.join("L"),"none",'stroke="#8a6412" stroke-width="1.1" stroke-linecap="round"');
+    for(let i=0;i<6;i++){const a=i*.24,x=d*w*Math.cos(a),y=cy-hh*Math.sin(a),t=Math.atan2(-hh*Math.cos(a),-d*w*Math.sin(a))*180/Math.PI;
+      for(const k of [-1,1]){const g=t+k*32,r=g*Math.PI/180,lx=x+Math.cos(r)*3.3,ly=y+Math.sin(r)*3.3;s+=E(lx,ly,3.7,1.65,"#e3b23c",`stroke="#8a6412" stroke-width=".5" transform="rotate(${q(g)} ${q(lx)} ${q(ly)})"`)}}}
+  return s}
+// one owner on his podium: p = {fit, pose, prop, medal, laurel, party, cloud, d (head-bob delay)}; drawn in a 104 x 150 box, feet on the bottom
+function podFig(o,p){const {q,R,C,E,P,L,T,G,F,TROPHY,BALL}=CS.kit,X=52,H=50,c=POD_COL[o]||"#5b6178",fit=p.fit||"jersey",pz=POD_POSE[p.pose]||POD_POSE.down;
+  const dk=podShade(c,-.38),sl=fit==="suit"?"#262935":c,ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
+  // a sleeve with a darker edge (so arms crossed over the chest still show) ending in a cartoon glove
+  const arm=s=>{const [e,h]=pz(s),d=`M${q(X+s*17)} 80L${q(X+e[0])} ${q(e[1])}L${q(X+h[0])} ${q(h[1])}`,j='stroke-linecap="round" stroke-linejoin="round"';
+    return P(d,"none",`stroke="${fit==="suit"?"#0b0c10":dk}" stroke-width="10.2" ${j}`)+P(d,"none",`stroke="${sl}" stroke-width="8" ${j}`)+C(X+h[0],h[1],5.2,"#f4f1ea",'stroke="rgba(0,0,0,.3)" stroke-width="1"')};
+  // a waving arm swings from the shoulder: CSS rotates .pf-wave about its own origin, which the outer group puts on the shoulder
+  const armR=p.pose==="wave"?`<g transform="translate(${X+17} 80)"><g class="pf-wave"><g transform="translate(${-X-17} -80)">${arm(1)}</g></g></g>`:arm(1);
+  const legs=(pc,sc,sh)=>[-1,1].map(d=>R(X+d*8.5-5.5,111,11,17,pc,`rx="3" ${ol}`)+R(X+d*8.5-4.5,126,9,15,sc,'rx="2"')+E(X+d*9.5,143,8.5,4.6,sh,'stroke="rgba(0,0,0,.35)" stroke-width=".8"')).join("");
+  let body;
+  if(fit==="suit")body=legs("#262935","#262935","#111")+P(`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+16} 116H${X-16}Z`,"#262935",ol)
+    +P(`M${X-7} 73L${X} 92L${X+7} 73Z`,"#f4f1ea")+P(`M${X-2} 75h4l-1 4 2.5 14-3.5 4-3.5-4 2.5-14z`,c)+P(`M${X-7} 73L${X-1} 100L${X-12} 88Z`,"rgba(255,255,255,.1)")+P(`M${X+7} 73L${X+1} 100L${X+12} 88Z`,"rgba(255,255,255,.1)");
+  else if(fit==="hoodie")body=legs("#8b8f99","#8b8f99","#eceef2")+P(`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+17} 116H${X-17}Z`,c,ol)
+    +R(X-10,99,20,10,dk,'rx="3" opacity=".5"')+L(X-4,76,X-5,91,"#f4f1ea",1.3)+L(X+4,76,X+5,91,"#f4f1ea",1.3)+P(`M${X-15} 74Q${X} 64 ${X+15} 74Q${X} 81 ${X-15} 74Z`,dk);
+  else body=legs("#ecebe6",c,"#16161a")+[-1,1].map(d=>R(X+d*8.5-.9,111,1.8,15,c)).join("")+P(`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,c,ol)
+    +P(`M${X-9} 73Q${X} 82 ${X+9} 73`,"none",'stroke="#f4f1ea" stroke-width="2.6"')+T(X,111,(short(o)||"?")[0],14,podLum(c)>.55?"#191414":"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
+  const MED={gold:["#ffe27a","#b8860b"],silver:["#f4f6f8","#8c96a1"],bronze:["#f2b27c","#94551f"]}[p.medal];
+  const medal=MED?P(`M${X-8} 74L${X} 89L${X+8} 74`,"none",'stroke="#d6364f" stroke-width="3" stroke-linejoin="round"')+C(X,93,5.8,MED[0],`stroke="${MED[1]}" stroke-width="1.6"`)+C(X,93,2.4,"none",`stroke="${MED[1]}" stroke-width=".8"`):"";
+  const slump=p.pose==="slump";
+  const head=E(X,77,9,3,"rgba(0,0,0,.22)")+`<g transform="translate(${X} 78)"><g class="pf-head" style="animation-delay:-${q(p.d||0)}s"><g transform="translate(0 ${slump?-22:-25})${slump?" rotate(9)":""}">${F(o,0,0,H,{sh:0})}${p.laurel?podLaurel(o,H):""}</g></g></g>`;
+  const [,hd]=pz(1),hx=X+hd[0],hy=hd[1];let prop="";
+  if(p.prop==="trophy")prop=TROPHY(hx,hy-8,.66);
+  else if(p.prop==="finger")prop=G(R(-7.5,-14,15,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-2.8,-28,5.6,16,"#e0517a",'rx="2.8" stroke="#a3244b" stroke-width=".8"')+T(0,-3.5,"#1",7.5,"#fff",'font-weight="900"'),`transform="translate(${q(hx)} ${q(hy+1)}) rotate(8)"`);
+  else if(p.prop==="card"||p.pose==="card")prop=G(R(-9,-12,18,13,"#fbf8f0",'stroke="#c9c0a8" stroke-width=".8"')+T(0,-3.4,"PICK",5.4,"#b3121f",'font-weight="800"'),`transform="translate(${q(hx)} ${q(hy-4)}) rotate(-8)"`);
+  else if(p.prop==="phone"||p.pose==="phone")prop=R(hx-3.2,hy-10,6.4,12.5,"#15161a",'rx="1.6"')+R(hx-2.3,hy-8.8,4.6,9.4,"#5aa9e6",'rx=".8" opacity=".9"');
+  else if(p.prop==="ball")prop=BALL(hx,hy-8,1.15,-35);
+  else if(p.pose==="ball")prop=BALL(X+25,104,1.05,-15);
+  const cross=p.pose==="cross";
+  let s=E(X,147,23,3.2,"rgba(0,0,0,.2)");
+  s+=cross?body+medal+arm(-1)+armR:arm(-1)+armR+body+medal;
+  s+=head+prop;
+  if(p.cloud)s+=`<g transform="translate(${X} 12)">${E(0,0,15,7.5,"#8a95a5")+C(-8,-3,7,"#8a95a5")+C(5,-5.5,8.5,"#97a2b1")}<g class="pf-rain">${[-9,-1,7].map((d,i)=>L(d,9+(i%2)*3,d-1.5,14+(i%2)*3,"#5b9bd5",1.6)).join("")}</g></g>`;
+  if(p.party){const cols=["#f2c230","#e0517a","#4bd5ee","#7ad67a","#ffffff"];
+    for(let i=0;i<14;i++)s+=`<g transform="translate(${4+(i*37)%96} ${-10+(i*23)%34})"><g class="pf-conf" style="animation-delay:-${((i*.61)%3.6).toFixed(2)}s">${R(-1.6,-2.6,3.2,5.2,cols[i%5])}</g></g>`;
+    s+=[[20,30,1],[86,24,.8],[78,58,.6]].map(([x,y,k],i)=>`<g transform="translate(${x} ${y}) scale(${k})"><path class="pf-spark" style="animation-delay:-${i*.6}s" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff3b0"/></g>`).join("")}
+  return s}
+function podRender(b,sg){const n=b.rows.length,K=POD_KIT[rankKey]||POD_KIT.current,st=$("#rankList"),wrap=$("#podWrap");
+  if(podKey!==rankKey){podKey=rankKey;podSel=0}if(podSel>=n)podSel=0;
+  const score=r=>b.signed?sg(0,r.score):fmt(r.score);
+  st.innerHTML=n?b.rows.map((r,i)=>{const last=n>3&&i===n-1,f=i===0?1:i===1?.72:i===2?.6:.32*(n-1-i)/Math.max(1,n-4);
+    const pose=i===0?"up":i===1?"wave":i===2?"flex":last?"slump":K.mid[(i-3)%K.mid.length];
+    const fig=CS.svg(()=>podFig(r.o,{fit:K.fit,pose,prop:i===0?K.top:null,medal:["gold","silver","bronze"][i],laurel:i===0,party:i===0,cloud:last,d:(i*.83)%2.8}),"0 0 104 150");
+    return `<li class="pod${i<3?` top p${i+1}`:""}" style="--f:${f.toFixed(3)};--dl:${(n-1-i)*55}ms;order:${i===1?1:i===0?2:i+1}"><button type="button" class="pod-btn" data-i="${i}" aria-pressed="${i===podSel}"><span class="pod-fig" aria-hidden="true">${fig}</span><span class="pod-block"><span class="pod-rk">${i+1}</span><span class="pod-nm">${esc(short(r.o))}</span><span class="pod-sc">${score(r)}</span><span class="pod-u">${esc(POD_U[rankKey]||b.unit)}</span>${(POD_ST[rankKey]?.(r)||[]).map(x=>`<span class="pod-st">${esc(x)}</span>`).join("")}<span class="pod-flute"></span></span></button></li>`}).join(""):`<li class="muted pod-none">No data yet.</li>`;
+  const card=()=>{const r=b.rows[podSel];$("#rankCard").innerHTML=r?`<div class="pod-card-h">${av(r.o)}<div><div class="eyebrow">${ordinal(podSel+1)} · ${esc(b.l)}</div><h3>${esc(OWNERS[r.o]?.name||short(r.o))} <small>${esc(short(r.o))}</small></h3></div><div class="sc">${score(r)}<small>${esc(b.unit)}</small></div></div><div class="meta">${b.meta(r)}</div>`:""};
+  card();
+  st.onclick=e=>{const x=e.target.closest(".pod-btn");if(!x)return;podSel=+x.dataset.i;st.querySelectorAll(".pod-btn").forEach(y=>y.setAttribute("aria-pressed",y===x));card()};
+  const upd=()=>{const m=st.scrollWidth-st.clientWidth;wrap.classList.toggle("more-l",st.scrollLeft>4);wrap.classList.toggle("more-r",st.scrollLeft<m-4)};
+  st.onscroll=upd;st.scrollLeft=0;requestAnimationFrame(upd)}
+addEventListener("resize",()=>$("#rankList").onscroll?.());
 function pickLabel(y,p){if(!p)return "Not drafted";const n=(DRAFTS[y+1]?.teams.length)||(y+1>=2026?12:10);return `#${p} (${Math.ceil(p/n)}.${String((p-1)%n+1).padStart(2,"0")})`}
 // best seasons of all time (Kyle 2026-11-17): a holistic score out of 100, not just roster points.
 // record 30, playoffs 30 (title 30, final 18, semifinal 10), roster strength 25 (lineup points over
