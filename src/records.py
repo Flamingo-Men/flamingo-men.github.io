@@ -15,21 +15,27 @@ for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
             G.append(dict(y=y,w=int(w),reg=g['tier']=='',a=dict(o=A[0],team=A[1],p=a['p']),b=dict(o=B[0],team=B[1],p=b['p'])))
             for s,S,O in ((a,A,B),(b,B,A)):
                 for r in s['r']:
-                    if r[2] not in('BE','IR'): P.append(dict(y=y,w=int(w),o=S[0],team=S[1],vs=O[0],n=r[0],pos=r[1],p=r[3]))
-                P.append(dict(y=y,w=int(w),o=S[0],team=S[1],vs=O[0],n=None,bench=round(sum(r[3] for r in s['r'] if r[2]=='BE'),2)))
+                    if r[2] not in('BE','IR'): P.append(dict(y=y,w=int(w),o=S[0],team=S[1],vs=O[0],n=r[0],pos=r[1],p=r[3],reg=g['tier']==''))
+                P.append(dict(y=y,w=int(w),o=S[0],team=S[1],vs=O[0],n=None,bench=round(sum(r[3] for r in s['r'] if r[2]=='BE'),2),reg=g['tier']==''))
 tm=[]
 for g in G:
     for me,op in (('a','b'),('b','a')): tm.append(dict(y=g['y'],w=g['w'],o=g[me]['o'],team=g[me]['team'],p=g[me]['p'],vs=g[op]['o'],vsp=g[op]['p'],reg=g['reg']))
 out={}
-out['weekHigh']=max(tm,key=lambda x:x['p'])
+# Records tab splits regular-season and playoff records (Kyle 2026-11-22): the main keys are regular season only,
+# out['po'] holds the same single-week records for winners'-bracket playoff weeks (one week of a two-week round)
+out['weekHigh']=max([x for x in tm if x['reg']],key=lambda x:x['p'])
 out['weekLow']=min([x for x in tm if x['reg'] and x['p']>0],key=lambda x:x['p'])
 reg=[g for g in G if g['reg']]
 bl=max(reg,key=lambda g:abs(g['a']['p']-g['b']['p']));W,L=(bl['a'],bl['b']) if bl['a']['p']>bl['b']['p'] else (bl['b'],bl['a'])
 out['blowout']=dict(y=bl['y'],w=bl['w'],o=W['o'],team=W['team'],p=W['p'],vs=L['o'],vsp=L['p'],m=round(W['p']-L['p'],2))
 cl=min([g for g in reg if g['a']['p']!=g['b']['p']],key=lambda g:abs(g['a']['p']-g['b']['p']));W,L=(cl['a'],cl['b']) if cl['a']['p']>cl['b']['p'] else (cl['b'],cl['a'])
 out['closest']=dict(y=cl['y'],w=cl['w'],o=W['o'],team=W['team'],p=W['p'],vs=L['o'],vsp=L['p'],m=round(W['p']-L['p'],2))
-out['player']=max([x for x in P if x['n']],key=lambda x:x['p'])
-out['bench']=max([x for x in P if not x['n']],key=lambda x:x['bench'])
+out['player']=max([x for x in P if x['n'] and x['reg']],key=lambda x:x['p'])
+out['bench']=max([x for x in P if not x['n'] and x['reg']],key=lambda x:x['bench'])
+pot=[x for x in tm if not x['reg']]
+out['po']=dict(weekHigh=max(pot,key=lambda x:x['p']),weekLow=min(pot,key=lambda x:x['p']),
+  player=max([x for x in P if x['n'] and not x['reg']],key=lambda x:x['p']),
+  bench=max([x for x in P if not x['n'] and not x['reg']],key=lambda x:x['bench']))
 lossHigh=max([x for x in tm if x['reg'] and x['p']<x['vsp']],key=lambda x:x['p']);out['unluckiest']=lossHigh
 # streaks over regular-season games in order
 seq={}
