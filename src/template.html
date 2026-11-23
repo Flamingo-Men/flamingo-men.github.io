@@ -485,7 +485,27 @@ details.fold:not([open])>summary{margin-bottom:0}
 .retro .aside{font-style:italic;color:var(--muted);margin:2px 0;font-size:.92rem}
 .retro .ednote{margin-top:18px;border-left:4px solid var(--flamingo);background:var(--flamingo-soft);padding:12px 14px;border-radius:0 var(--r) var(--r) 0;font-size:.95rem}
 .retro .ednote .eyebrow{color:var(--flamingo)}
-.retro .stamp{display:inline-block;transform:rotate(-4deg);border:2px solid var(--bad);color:var(--bad);font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:1px 6px;margin-left:6px;vertical-align:middle}
+/* Quincy's biased rankings: the archive list as a small fold on History 2021 (Kyle 2026-11-23) */
+.qfold{border:1px dashed color-mix(in srgb,var(--gold) 70%,transparent);border-radius:var(--r);background:color-mix(in srgb,var(--gold) 6%,var(--slab));max-width:70ch}
+.qfold>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r)}
+.qfold>summary::-webkit-details-marker{display:none}
+.qfold>summary:focus-visible{outline:2px solid var(--flamingo);outline-offset:2px}
+.qf-t{display:grid;gap:2px;min-width:0}
+.qf-t b{font-family:var(--f-data);font-size:.92rem;letter-spacing:.03em}
+.qf-t small{color:var(--muted);font-size:.82rem}
+.qfold .chev{margin-left:auto;width:26px;height:26px;border:1px solid var(--line);border-radius:99px;display:grid;place-items:center;flex:none;background:var(--slab)}
+.qfold .chev::before{content:"";width:7px;height:7px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+.qfold[open] .chev::before{transform:translateY(1px) rotate(-135deg)}
+.qf-body{padding:0 14px 14px;display:grid;gap:10px}
+.qf-h{font-family:var(--f-data);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.qfold ol{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.qfold li{display:grid;grid-template-columns:1.3em 28px minmax(0,1fr);gap:8px;align-items:start;font-size:.9rem}
+.qfold li .n{font-family:var(--f-data);color:var(--gold);padding-top:4px}
+.qfold li .av{width:28px;height:28px;font-size:.65rem;border-width:1px}
+.qfold li b{font-family:var(--f-data);letter-spacing:.03em}
+.qfold li p{margin:1px 0 0}
+.qfold .aside{font-style:italic;color:var(--muted);margin:0;font-size:.86rem}
+.retro .stamp,.qfold .stamp{display:inline-block;transform:rotate(-4deg);border:2px solid var(--bad);color:var(--bad);font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:1px 6px;margin-left:6px;vertical-align:middle}
 .recnav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:99px;border:1px solid var(--line);background:var(--slab);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:grid;place-items:center;padding:0 0 3px}
 .recnav.prev{left:-6px}.recnav.next{right:-6px}
 .recnav[disabled]{opacity:0;pointer-events:none}
@@ -2374,6 +2394,7 @@ function renderHistory(){
    ${histStandings(histYear)}
    <div class="facts">${fact("Commissioner",esc(commish(histYear)))}${fact("Champion",c?esc(c.team):histYear===2026?"In progress":"To confirm")}${fact("Sacko",sk?`${sackoMark()} ${esc(sk.team)}`:histYear===2026?"In progress":"To confirm")}${st[0]?fact("Best record",`${esc(short(st[0].o))} ${st[0].w}-${st[0].l}`):""}${DRAFT_SPOT[histYear]?fact("Draft",esc(DRAFT_SPOT[histYear])):""}${nT?fact("Trades",nT):""}${nV?fact("Vetoes",nV):""}</div>
    <div><div class="eyebrow">The full story</div><ul style="margin-top:6px">${h.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul></div>
+   ${retroFold(histYear)}
    ${histTrades((HIST_TRADES[histYear]||[]).filter(id=>id!==HEISTS[histYear]?.id),histYear===2017)}
    ${histYear<2026?`<div class="awards"><div><div class="eyebrow">Trade Rape of the Year${HEISTS[histYear]&&!HEISTS[histYear].official?" · editor's pick":""}</div>${HEISTS[histYear]?`<p style="margin:4px 0 10px">${esc(HEISTS[histYear].why)}</p>${tradeHTML(TR[HEISTS[histYear].id])}`:`<p class="muted" style="margin:4px 0 0">No trade records for ${histYear}.</p>`}</div>
    ${DRAFTS[histYear]?.steals.length?`<div><div class="eyebrow">Steal of the draft</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].steals[0][0])}</b>, round ${DRAFTS[histYear].steals[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].steals[0][2]][0])}). ${esc(DRAFTS[histYear].steals[0][3])}</p></div><div><div class="eyebrow">Worst pick</div><p style="margin:4px 0 0"><b>${esc(DRAFTS[histYear].busts[0][0])}</b>, round ${DRAFTS[histYear].busts[0][1]} (${esc(DRAFTS[histYear].teams[DRAFTS[histYear].busts[0][2]][0])}). ${esc(DRAFTS[histYear].busts[0][3])}</p></div>`:""}
@@ -2474,11 +2495,15 @@ const RETRO=[
  ["mateus","Cruz/Mateus","Two 4-8 seasons under split management with a all time record of 14-22 puts him above the others"],
  ["kyle","Kyle","Holds a All Time record of 12-24 with numerous historical losses, always talks shit but has never backed it up in the history of the league, possesses the worst record in league history at 1-11"],
  ["lucas","Lucas","Uncle Don owns a All Time Record of 10-26 putting him at the bottom of this list, he is Kyles true competitor at who is the worst in the league at fantasy possessing the second worst record ever at 3-10, This would just be a tie at 3-9 if not for the extra week added to the season but he has the extra loss so it must apply"]];
+// Quincy wrote RETRO just before the 2021 playoffs, so History 2021 shows it as a small fold (Kyle 2026-11-23)
+const RETRO_YEAR=2021,RETRO_TITLE="Flamingo Men All time rankings 2019-Pre 2021 Playoffs";
+function retroList(){let i=0;
+  return `<ol>${RETRO.map(e=>typeof e==="string"?`<li style="display:block"><p class="aside">${esc(e)}</p></li>`:`<li><span class="n">${++i}</span>${av(e[0])}<div><b>${esc(e[1])}</b>${e[0]==="quincy"?'<span class="stamp">Aged poorly</span>':""}<p>${esc(e[2])}</p></div></li>`).join("")}</ol>`}
+function retroFold(y){return y!==RETRO_YEAR?"":`<details class="qfold"><summary><span class="qf-t"><b>Quincy's biased rankings</b><small>His all-time list from just before the ${RETRO_YEAR} playoffs</small></span><span class="chev" aria-hidden="true"></span></summary><div class="qf-body"><div class="qf-h">${esc(RETRO_TITLE)}</div>${retroList()}</div></details>`}
 function retroHTML(){
   const q=(RANK.alltime||[]).find(r=>r.o==="quincy"),qi=(RANK.alltime||[]).findIndex(r=>r.o==="quincy")+1,n=(RANK.alltime||[]).length;
   const k=Object.values(CHAMPS).filter(c=>c.o==="kyle").length,qs=Object.entries(SACKOS).filter(([y,c])=>c.o==="quincy").map(([y])=>y);
-  let i=0;
-  return `<section class="retro"><div class="eyebrow">From the archives</div><h3>Flamingo Men All time rankings 2019-Pre 2021 Playoffs</h3><div class="rule">————————————————————————————————————————</div><ol>${RETRO.map(e=>typeof e==="string"?`<li style="display:block"><p class="aside">${esc(e)}</p></li>`:`<li><span class="n">${++i}</span>${av(e[0])}<div><b>${esc(e[1])}</b>${e[0]==="quincy"?'<span class="stamp">Aged poorly</span>':""}<p>${esc(e[2])}</p></div></li>`).join("")}</ol>
+  return `<section class="retro"><div class="eyebrow">From the archives · Quincy's biased rankings</div><h3>${esc(RETRO_TITLE)}</h3><div class="rule">————————————————————————————————————————</div>${retroList()}
   ${q?`<div class="ednote"><div class="eyebrow">Editor's note, 2026</div>Nobody on this list has aged worse than Quincy. Ranked 4th here, he has since added zero titles, zero finals and a second Sacko (${qs.join(" and ")}), and now sits ${qi}th of ${n} in the real all-time rankings above at ${q.rec}. Kyle, who this list calls the second-worst manager in the league, has ${k} titles. Quincy is still waiting on his first finals appearance, and at this point so is the hospital he was carrying on his back.</div>`:""}</section>`}
 function renderRankings(){
   const R=RANK,sg=(n,v)=>(Math.abs(v)<.05?"0":(v>0?"+":"")+fmt(v)),rng=r=>r.lo!=null?`${sg(0,r.lo)} to ${sg(0,r.hi)}`:"–";
