@@ -1112,7 +1112,7 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 @keyframes aRoller{0%,8%{transform:translateY(-41px)}55%,85%{transform:none}100%{transform:translateY(-41px)}}
 @keyframes aRant{50%{transform:translateY(-4px)}}
 @keyframes aSay3{0%,30%{opacity:1}34%,100%{opacity:0}}
-@keyframes aSwing{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+@keyframes aSwing{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
 @keyframes aPush{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(3px)}}
 @keyframes aRock{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(4px)}}
 @keyframes aSpin{0%,100%{transform:none}45%,58%{transform:rotate(-30deg)}80%{transform:rotate(12deg)}}
@@ -2449,9 +2449,10 @@ function renderHome(){
 /* ---------- ACROPOLIS (Kyle 2026-11-23) ----------
    The home page hero: all 18 league members packed together on the Parthenon steps like a team photo, three rows deep, each a
    bobblehead (podFig from the Rankings podium) doing a bit of league lore. Kyle asked for everyone tight together with no empty
-   space, no tapping, and a short scene, so there is one 538 x 292 layout for every screen (beside the title on desktop, under it
+   space, no tapping, and a short scene, so there is one 538 x 336 layout for every screen (beside the title on desktop, under it
    on phones). The back row's bits sit above their heads, the middle row's on their heads and the front row's at their bodies, so
-   nothing important hides behind the row in front. ACRO_LORE lines are hover titles; keep them inside the content rules. */
+   nothing important hides behind the row in front. The league's flamingo stands behind them as a statue, its neck and head peeking
+   out over Lucas (Kyle 2026-11-23). ACRO_LORE lines are hover titles; keep them inside the content rules. */
 const ACRO_LORE={
   kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
   fluff:"Perch alert. Floof climbs the back of the couch and perches on whoever is sitting below.",
@@ -2472,7 +2473,7 @@ const ACRO_LORE={
   ghost:"Met the league over online games, played the 2015 Wu-Tang league, and floated back for 2026.",
   vicente:"Just joined the NYPD, and he's keeping an eye on the Flamingo Men."};
 // where everyone's feet are: [x, step]. Each row stands between the heads of the row in front. Floof perches on Kyle's loveseat (drawn with Kyle).
-const ACRO={W:538,H:292,rows:{b:180,m:226,f:272},
+const ACRO={W:538,H:336,rows:{b:224,m:270,f:316},
   at:{dilapi:[54,"b"],quincy:[120,"b"],mateus:[185,"b"],lucas:[254,"b"],squirm:[332,"b"],dylan:[413,"b"],
     jerry:[88,"m"],keeves:[152,"m"],vicente:[222,"m"],ghost:[290,"m"],skelly:[452,"m"],
     jordan:[120,"f"],duane:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
@@ -2506,7 +2507,7 @@ const ACRO_ACT={
   lucas:()=>{const {R,T,L,G}=CS.kit;
     const gavel=acPiv(82,41,"a-gavel",L(82,41,92,20,"#6b4423",3)+R(84,12.5,18,9,"#4a2e1a",'rx="2" transform="rotate(26 93 17)"'));
     const nine=G(R(-8,-8,16,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-3,-24,6,17,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+T(0,4,"9",10,"#fff",'font-weight="900"'),'transform="translate(22 38) rotate(-8)"');
-    return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(52,-8,"ORDER!",14,"a-order")},
+    return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(28,-24,"ORDER!",13,"a-order")},
   peanut:()=>{const {R,TL}=CS.kit,names=["Dr. Kakofonus","A. Dischord","Shivakamini","Somakandarkram","The Yogurtlechefts"];
     const paper=acPiv(52,116,"a-unroll",R(22,116,60,44,"#f6eed8",'stroke="#cdbf9a" stroke-width="1"')+TL(52,125,names,5.6,"#5b4217",1.3,'font-style="italic" font-weight="700"'));
     const roller=`<g class="an a-roller">${R(16,158,72,7,"#a0682f",'rx="3.5"')}</g>`;
@@ -2517,7 +2518,7 @@ const ACRO_ACT={
     return box+`<g transform="translate(0 -15)">${acPiv(52,147,"a-rant",podFig("quincy",{pose:"point",d:.3}))}</g>`+says},
   // the swing hangs from the temple's architrave, just above the back row
   dilapi:()=>{const {R,C,L}=CS.kit,top=147-(ACRO.rows.b-46);
-    return C(20,top,2.4,"#8a7a5a")+C(84,top,2.4,"#8a7a5a")+acPiv(52,top,"a-swing",L(20,top,20,148,"#d9c9a3",1.6)+L(84,top,84,148,"#d9c9a3",1.6)+podFig("dilapi",{pose:"up",d:1.1})+R(12,146,80,7,"#7a4a2a",'rx="2"'))},
+    return C(20,top,2.4,"#8a7a5a")+C(84,top,2.4,"#8a7a5a")+acPiv(52,top,"a-swing",L(20,top,20,148,"#d9c9a3",1.6)+L(84,top,84,148,"#d9c9a3",1.6)+podFig("dilapi",{pose:"up",d:1.1})+R(17,146,70,7,"#7a4a2a",'rx="2"'))},
   jordan:()=>{const {C,T}=CS.kit;
     const rock=`<g class="an a-rock">${acPiv(-16,117,"a-spin",C(-16,117,30,"#8d8577",'stroke="#5b5448" stroke-width="2"')+C(-27,104,5.5,"#a39b8c")+C(-4,131,4,"#776f62")+T(-16,123,"1-12",16,"#2c2822",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'))}</g>`;
     return `<g class="an a-push">${podFig("jordan",{pose:"pushL",d:.5})}</g>`+rock},
@@ -2546,17 +2547,24 @@ const ACRO_ACT={
     const pad=R(67,52,12,15,"#fbf8f0",'stroke="#c9c0a8" stroke-width=".8"')+L(69,57,77,57,"#9aa4ae",.8)+L(69,61,76,61,"#9aa4ae",.8);
     return acPiv(52,147,"a-look",podFig("vicente",{fit:"cop",pose:"phone",hat:"cop",d:1.4})+pad)}
 };
+// the league's flamingo (the old hero art) as a pink marble statue, head centred on (hx, hy) at scale k; a spotlight glow
+// behind it and a glint keep it readable against the dark temple. Only its neck and head clear the back row.
+function acroStatue(hx,hy,k){const {E,RG}=CS.kit;
+  const bird=`<path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/><path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/><ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/><path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/><path d="M196 122 C199 114 197 108 190 104 M178 84 C177 76 180 70 186 67" fill="none" stroke="#ffd3df" stroke-width="2" stroke-linecap="round" opacity=".75"/><circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/><circle cx="203" cy="65" r="3" fill="#ffd3df" opacity=".7"/><path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/><path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/><circle cx="205" cy="66" r="1.8" fill="#15203b"/><g transform="rotate(-28 190 160)"><ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/><path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/></g><path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>`;
+  return E(hx-8,hy+30,70,62,RG(["#ff7fa0@.38","#ff7fa0@0"]))+`<g transform="translate(${hx} ${hy}) scale(${k}) translate(-206 -68)">${bird}</g>`
+    +`<g transform="translate(${hx+11} ${hy-12})"><path class="pf-spark" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff3b0"/></g>`}
 // the backdrop: night sky in the corners, the Parthenon's pediment and columns, and the three marble steps the rows stand on
 function acroBg(){const {R,P,C,E,T,LG,RG,rng}=CS.kit,{W,H,rows}=ACRO,rnd=rng(7);
   let s=R(0,0,W,H,LG(["#0c1430","#1c2852"]));
   for(let i=0;i<28;i++){const x=rnd()*W,y=rnd()*30,r=.4+rnd()*.7;s+=C(x,y,r,"#fff",`opacity="${(.3+rnd()*.6).toFixed(2)}"${i%4?"":` class="tw" style="animation-delay:-${(i%7)*.6}s"`}`)}
   s+=E(W-26,14,22,22,RG(["#f6e7b8@.3","#f6e7b8@0"]))+C(W-26,14,8,"#f6e7b8");
   const mb=LG(["#f4efe4","#cfc5b1"],1);
-  s+=R(0,50,W,rows.b-50,"#211a31")+E(W/2,130,W*.55,90,RG(["#ffc070@.2","#ffc070@0"]));
+  s+=R(0,50,W,rows.b-50,"#211a31")+E(W/2,rows.b-50,W*.55,110,RG(["#ffc070@.2","#ffc070@0"]));
   for(let i=0;i<9;i++){const x=16+i*(W-48)/8;s+=R(x,52,16,rows.b-52,mb)+[4,8,12].map(d=>R(x+d,54,1,rows.b-56,"rgba(120,105,80,.22)")).join("")+R(x-3,48,22,5,"#efe7d6")}
   s+=R(0,32,W,17,"#ebe3d0")+Array.from({length:Math.ceil(W/22)},(_,i)=>R(6+i*22,35,7,11,"#d3c8b0")).join("")+R(0,48,W,2.5,"#cfc4ad");
   s+=P(`M-6 33L${W/2} 3L${W+6} 33Z`,"#f3ecdc",'stroke="#d3c8b0" stroke-width="1.5"')+P(`M26 30L${W/2} 8L${W-26} 30Z`,"none",'stroke="#d8c48e" stroke-width="1"');
   s+=T(W/2,27,"ΦΛΑΜΙΝΓΚΟ",10,"#a8823a",'font-family="Marcellus SC,Georgia,serif" letter-spacing="3"');
+  s+=acroStatue(294,66,1.3);
   [[rows.b,rows.m,"#e6dfd0","#cdc4b2"],[rows.m,rows.f,"#ddd5c4","#c4baa6"],[rows.f,H,"#d3cab8","#b9ae99"]].forEach(([a,b,c1,c2])=>{
     s+=R(0,a,W,b-a,LG([c1,c2]))+R(0,a,W,2.5,"#f7f2e8")+R(0,b-3,W,3,"rgba(0,0,0,.12)")});
   return s}
