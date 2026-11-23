@@ -113,6 +113,8 @@ section.hall.on{display:block}
 .owner-pill span{font-size:.85rem;font-weight:700;text-align:center}
 .av{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);background:var(--flamingo-soft);display:grid;place-items:center;font-family:var(--f-display);color:var(--flamingo);font-size:1.3rem;flex:none}
 .owner-pill[aria-pressed="true"] .av{border-color:var(--flamingo);box-shadow:0 0 0 3px var(--flamingo-soft)}
+/* phones: the Teams owner picker is two rows that scroll sideways */
+@media (max-width:640px){#teamPicker{display:grid;grid-template-columns:repeat(var(--cols,9),72px);gap:12px 10px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin-inline:-16px;padding:4px 16px 6px;scroll-padding-inline:16px}#teamPicker::-webkit-scrollbar{display:none}#teamPicker .owner-pill{width:72px;scroll-snap-align:start}#teamPicker .av{width:58px;height:58px}#teamPicker .owner-pill span{font-size:.8rem}}
 
 /* rules page */
 .commish-now{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:'a h' 'a p';gap:4px 20px;align-items:center;background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:20px 22px}
@@ -3102,8 +3104,12 @@ function logoWall(o,names){const ys=new Set(Object.keys(names).map(Number));ALL_
   <p class="muted lg-note">Logos are the ones each team used on ESPN that season.${why} Tap a season to open it.</p>`}
 function renderTeams(){
   const list=ORDER;
-  $("#teamPicker").innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
+  const tp=$("#teamPicker"),tpx=tp.scrollLeft;
+  tp.style.setProperty("--cols",Math.ceil(list.length/2));
+  tp.innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
   $("#teamPicker").onclick=e=>{const b=e.target.closest("[data-o]");if(!b)return;current=b.dataset.o;teamYear=null;renderTeams();$("#profile").scrollIntoView({behavior:"smooth",block:"start"})};
+  // keep the sideways scroll where it was, and bring the picked owner into view if it is off screen
+  tp.scrollLeft=tpx;{const b=tp.querySelector('[aria-pressed="true"]');if(b&&tp.scrollWidth>tp.clientWidth){const l=b.offsetLeft-tp.offsetLeft,r=l+b.offsetWidth;if(l<tp.scrollLeft||r>tp.scrollLeft+tp.clientWidth)tp.scrollLeft=l-16}}
   const o=current,O=OWNERS[o],t=totals(o),names=teamNames(o),fav=favorites(o),drafted=draftedMost(o);
   const yrs=S[o]?Object.keys(S[o].seasons).map(Number):[];
   Object.keys(names).forEach(y=>{if(!yrs.includes(+y))yrs.push(+y)});
