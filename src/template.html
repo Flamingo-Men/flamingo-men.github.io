@@ -1176,7 +1176,7 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 @keyframes aChick{0%{transform:none}45%{transform:translateX(14px)}50%{transform:translateX(14px) scaleX(-1)}95%{transform:scaleX(-1)}100%{transform:none}}
 @keyframes aPing{0%{opacity:0;transform:translateY(6px)}10%,45%{opacity:1;transform:none}60%,100%{opacity:0;transform:translateY(-8px)}}
 @keyframes aFlag{from{transform:skewY(-7deg) scaleX(.9)}to{transform:skewY(5deg)}}
-@keyframes aGavel{0%,58%,100%{transform:rotate(-40deg)}68%{transform:rotate(22deg)}74%{transform:rotate(12deg)}86%{transform:rotate(-40deg)}}
+@keyframes aGavel{0%,58%,100%{transform:rotate(-40deg)}68%{transform:rotate(22deg)}74%,90%{transform:rotate(12deg)}98%{transform:rotate(-40deg)}}
 @keyframes aOrder{0%,64%{opacity:0}69%,90%{opacity:1}96%,100%{opacity:0}}
 @keyframes aUnroll{0%,8%{transform:scaleY(.06)}55%,85%{transform:none}100%{transform:scaleY(.06)}}
 @keyframes aRoller{0%,8%{transform:translateY(-41px)}55%,85%{transform:none}100%{transform:translateY(-41px)}}
@@ -2510,7 +2510,8 @@ function renderHome(){
    space, no tapping, and a short scene, so there is one 538 x 336 layout for every screen (beside the title on desktop, under it
    on phones). The back row's bits sit above their heads, the middle row's on their heads and the front row's at their bodies, so
    nothing important hides behind the row in front. The league's flamingo stands behind them as a statue, its neck and head peeking
-   out over Lucas (Kyle 2026-11-23). ACRO_LORE lines are hover titles; keep them inside the content rules. */
+   out over Lucas (Kyle 2026-11-23). Speech bubbles hover centred just above the speaker's head, and Kyle sits on the loveseat
+   with his feet on the floor (podFig p.sit). ACRO_LORE lines are hover titles; keep them inside the content rules. */
 const ACRO_LORE={
   kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
   fluff:"Perch alert. Floof climbs the back of the couch and perches on whoever is sitting below.",
@@ -2537,20 +2538,25 @@ const ACRO={W:538,H:336,rows:{b:224,m:270,f:316},
     jordan:[120,"f"],duane:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
 // an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
 const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
-const acSay=(x,y,txt,z,cls,d,bg="#fff",fg="#191414")=>{const {R,P,T}=CS.kit,w=txt.length*z*.62+14,h=z*1.5;
-  return `<g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}>${P(`M${x-4} ${y+h/2-1}l-2 9 9-9z`,bg)+R(x-w/2,y-h/2,w,h,bg,`rx="${h/2}" stroke="rgba(0,0,0,.25)" stroke-width="1"`)+T(x,y+z*.36,txt,z,fg,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing=".5"')}</g>`};
+// a speech bubble centred on x whose tail points straight down to (x, tip): its bottom sits gap units above the tip, so it hovers
+// just over the speaker's head (Kyle 2026-11-23: centred over the head and close to it, on phones too)
+const acSay=(x,tip,txt,z,cls,d,gap=9)=>{const {R,P,T,q}=CS.kit,w=txt.length*z*.62+14,h=z*1.5,b=tip-gap,y=b-h,ln='stroke="rgba(0,0,0,.28)" stroke-width="1.2" stroke-linejoin="round"',
+    tail=`M${q(x-5)} ${q(b-2)}L${q(x)} ${q(tip)}L${q(x+5)} ${q(b-2)}Z`;
+  return `<g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}>${P(tail,"#fff",ln)+R(x-w/2,y,w,h,"#fff",`rx="${q(h/2)}" ${ln}`)+P(tail,"#fff")+T(x,y+h/2+z*.36,txt,z,"#191414",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing=".5"')}</g>`};
 // things worn on the head, drawn in head coordinates (centre 0,0, head height H) so they bob with it
 const AC_3D=(o,H)=>{const {R,HW}=CS.kit,w=HW(o,H);return R(-w*.47,-H*.1,w*.94,H*.19,"#f4f1ea",'rx="2" stroke="#222" stroke-width=".8"')+R(-w*.41,-H*.065,w*.36,H*.12,"#e04848",'opacity=".88"')+R(w*.05,-H*.065,w*.36,H*.12,"#3fb6e0",'opacity=".88"')};
 const AC_MIRROR=(o,H)=>{const {R,C,HW,HOFF}=CS.kit,w=HW(o,H),t=-H*.5+H*(HOFF[o]||0);return R(-w*.5,t+H*.15,w,H*.08,"#2b2f3a",'rx="1.5"')+C(-w*.14,t+H*.19,H*.13,"#dfe6ee",'stroke="#8c96a1" stroke-width="1.2"')+C(-w*.14,t+H*.19,H*.045,"#2b2f3a")};
 // each owner's bit, drawn in podFig's 104 x 150 frame (feet at 52,147)
 const ACRO_ACT={
-  kyle:()=>{const {R,P,TROPHY}=CS.kit;
-    const back=R(-6,82,120,46,"#7b2d43",'rx="12" stroke="#4e1527" stroke-width="1.5"')+R(2,88,104,6,"#94405a",'rx="3" opacity=".6"');
-    const front=R(-6,118,120,24,"#8e3550",'rx="7" stroke="#4e1527" stroke-width="1.5"')+P("M54 120v20","none",'stroke="#5e1d33" stroke-width="1.5"')
-      +R(-14,98,16,46,"#6a2338",'rx="7"')+R(106,98,16,46,"#6a2338",'rx="7"')+R(-10,142,7,7,"#2b1a12")+R(111,142,7,7,"#2b1a12");
+  kyle:()=>{const {R,P,E,TROPHY}=CS.kit;
+    const back=R(-6,82,120,38,"#7b2d43",'rx="12" stroke="#4e1527" stroke-width="1.5"')+R(2,88,104,6,"#94405a",'rx="3" opacity=".6"');
+    const seat=R(-4,108,116,16,"#a8496a",'rx="6" stroke="#4e1527" stroke-width="1.2"')+P("M54 109v14","none",'stroke="#6e2540" stroke-width="1.2"')
+      +R(-6,121,120,21,"#8e3550",'rx="6" stroke="#4e1527" stroke-width="1.5"')+P("M54 123v17","none",'stroke="#5e1d33" stroke-width="1.5"')
+      +R(-10,142,7,7,"#2b1a12")+R(111,142,7,7,"#2b1a12")+E(44,111,25,4.5,"rgba(0,0,0,.28)");
+    const arms=R(-14,98,16,46,"#6a2338",'rx="7"')+R(106,98,16,46,"#6a2338",'rx="7"');
     const tro=[-11,-4,3].map(x=>TROPHY(x,95,.36)).join("");
     const floof=`<g class="ac" data-o="fluff"><title>${esc(short("fluff")+": "+ACRO_LORE.fluff)}</title><g transform="translate(39 -65)">${acPiv(52,147,"a-hop",podFig("fluff",{pose:"up",d:.4}))}</g></g>`;
-    return back+floof+`<g transform="translate(-8 10)">${podFig("kyle",{pose:"phone",d:1.2})}</g>`+front+tro},
+    return back+floof+seat+`<g transform="translate(-8 4)">${podFig("kyle",{pose:"sitPhone",sit:1,d:1.2})}</g>`+arms+tro},
   charles:()=>{const {CHICK,C,T}=CS.kit;
     const ch=[[-4,140,0],[100,142,1.6],[30,150,3.1]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.8),d)).join("");
     const ping=`<g class="an a-ping">${C(88,42,8,"#1f9d55",'stroke="#fff" stroke-width="1.5"')+T(88,46,"✓",11,"#fff",'font-weight="900"')}</g>`;
@@ -2565,14 +2571,14 @@ const ACRO_ACT={
   lucas:()=>{const {R,T,L,G}=CS.kit;
     const gavel=acPiv(82,41,"a-gavel",L(82,41,92,20,"#6b4423",3)+R(84,12.5,18,9,"#4a2e1a",'rx="2" transform="rotate(26 93 17)"'));
     const nine=G(R(-8,-8,16,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-3,-24,6,17,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+T(0,4,"9",10,"#fff",'font-weight="900"'),'transform="translate(22 38) rotate(-8)"');
-    return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(28,-24,"ORDER!",13,"a-order")},
+    return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(52,25,"ORDER!",12,"a-order")},
   peanut:()=>{const {R,TL}=CS.kit,names=["Dr. Kakofonus","A. Dischord","Shivakamini","Somakandarkram","The Yogurtlechefts"];
     const paper=acPiv(52,116,"a-unroll",R(22,116,60,44,"#f6eed8",'stroke="#cdbf9a" stroke-width="1"')+TL(52,125,names,5.6,"#5b4217",1.3,'font-style="italic" font-weight="700"'));
     const roller=`<g class="an a-roller">${R(16,158,72,7,"#a0682f",'rx="3.5"')}</g>`;
     return podFig("peanut",{fit:"hoodie",pose:"down",d:.9})+paper+roller+R(16,110,72,7,"#a0682f",'rx="3.5"')},
   quincy:()=>{const {R}=CS.kit;
     const box=R(20,132,64,20,"#a9773f",'stroke="#5e3b17" stroke-width="1.5" rx="1"');
-    const says=["ACTUALLY…","OBJECTION!","WRONG."].map((t,i)=>acSay(40,-17,t,13,"a-say3",i*2)).join("");
+    const says=["ACTUALLY…","OBJECTION!","WRONG."].map((t,i)=>acSay(52,8,t,12,"a-say3",i*2)).join("");
     return box+`<g transform="translate(0 -15)">${acPiv(52,147,"a-rant",podFig("quincy",{pose:"point",d:.3}))}</g>`+says},
   // the swing hangs from the temple's architrave, just above the back row
   dilapi:()=>{const {R,C,L}=CS.kit,top=147-(ACRO.rows.b-46);
@@ -2991,7 +2997,8 @@ const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up
   shrug:s=>[[s*27,95],[s*37,83]],point:s=>s>0?[[s*30,70],[s*42,54]]:[[s*31,97],[s*15,110]],slump:s=>[[s*18,102],[s*17,120]],
   cross:s=>[[s*22,101],[-s*12,95]],phone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,97],[s*15,110]],
   card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]],
-  pushL:s=>s>0?[[14,96],[-34,100]]:[[-28,92],[-40,96]],lap:s=>[[s*26,100],[s*8,110]]};
+  pushL:s=>s>0?[[14,96],[-34,100]]:[[-28,92],[-40,96]],lap:s=>[[s*26,100],[s*8,110]],
+  sitPhone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,100],[s*27,113]]};
 const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
 const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
 // a gold laurel around the top of a head of height h, centred on (0,0)
@@ -3007,11 +3014,15 @@ function podFig(o,p){const {q,R,C,E,P,L,T,G,F,HAT,TROPHY,BALL}=CS.kit,X=52,H=50,
   const sl={suit:"#262935",toga:"#f4efe2",lab:"#f7f7f5",cop:"#1d2b4a",armor:"#4d535e"}[fit]||c,dk=podShade(sl,-.38),ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
   const JER=`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,SUIT=`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+16} 116H${X-16}Z`;
   // a sleeve with a darker edge (so arms crossed over the chest still show) ending in a cartoon glove
-  const arm=s=>{const [e,h]=pz(s),d=`M${q(X+s*17)} 80L${q(X+e[0])} ${q(e[1])}L${q(X+h[0])} ${q(h[1])}`,j='stroke-linecap="round" stroke-linejoin="round"';
+  const arm=(s,fore)=>{const [e,h]=pz(s),d=`${fore?"":`M${q(X+s*17)} 80L`}${fore?"M":""}${q(X+e[0])} ${q(e[1])}L${q(X+h[0])} ${q(h[1])}`,j='stroke-linecap="round" stroke-linejoin="round"';
     return P(d,"none",`stroke="${fit==="suit"?"#0b0c10":dk}" stroke-width="10.2" ${j}`)+P(d,"none",`stroke="${sl}" stroke-width="8" ${j}`)+C(X+h[0],h[1],5.2,"#f4f1ea",'stroke="rgba(0,0,0,.3)" stroke-width="1"')};
   // a waving arm swings from the shoulder: CSS rotates .pf-wave about its own origin, which the outer group puts on the shoulder
   const armR=p.pose==="wave"?`<g transform="translate(${X+17} 80)"><g class="pf-wave"><g transform="translate(${-X-17} -80)">${arm(1)}</g></g></g>`:arm(1);
-  const legs=(pc,sc,sh)=>[-1,1].map(d=>R(X+d*8.5-5.5,111,11,17,pc,`rx="3" ${ol}`)+R(X+d*8.5-4.5,126,9,15,sc,'rx="2"')+E(X+d*9.5,143,8.5,4.6,sh,'stroke="rgba(0,0,0,.35)" stroke-width=".8"')).join("");
+  let LC;const legs=(pc,sc,sh)=>(LC=[pc,sc,sh],p.sit?"":[-1,1].map(d=>R(X+d*8.5-5.5,111,11,17,pc,`rx="3" ${ol}`)+R(X+d*8.5-4.5,126,9,15,sc,'rx="2"')+E(X+d*9.5,143,8.5,4.6,sh,'stroke="rgba(0,0,0,.35)" stroke-width=".8"')).join(""));
+  // p.sit (Kyle on the loveseat, 2026-11-23): seen from the front, the thighs come toward the viewer, so they are short and wide
+  // and cover the bottom of the shirt; the knees spread a little and the shins hang straight down to feet flat on the floor
+  const sitLegs=([pc,sc,sh])=>[-1,1].map(d=>R(X+d*14-5,118,10,22,sc,`rx="3" ${ol}`)+E(X+d*15,143,8.5,4.6,sh,'stroke="rgba(0,0,0,.35)" stroke-width=".8"')).join("")
+    +[-1,1].map(d=>`<g transform="rotate(${-d*10} ${X+d*8} 103)">${R(X+d*8-8.5,99,17,24,pc,`rx="8" ${ol}`)+R(X+d*8-.9,100,1.8,21,sc)}</g>`).join("");
   let body;
   if(fit==="suit")body=legs("#262935","#262935","#111")+P(`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+16} 116H${X-16}Z`,"#262935",ol)
     +P(`M${X-7} 73L${X} 92L${X+7} 73Z`,"#f4f1ea")+P(`M${X-2} 75h4l-1 4 2.5 14-3.5 4-3.5-4 2.5-14z`,c)+P(`M${X-7} 73L${X-1} 100L${X-12} 88Z`,"rgba(255,255,255,.1)")+P(`M${X+7} 73L${X+1} 100L${X+12} 88Z`,"rgba(255,255,255,.1)");
@@ -3021,8 +3032,8 @@ function podFig(o,p){const {q,R,C,E,P,L,T,G,F,HAT,TROPHY,BALL}=CS.kit,X=52,H=50,
   else if(fit==="lab")body=legs("#3a4150","#3a4150","#16161a")+P(SUIT,"#f7f7f5",ol)+P(`M${X-7} 73L${X} 90L${X+7} 73Z`,c)+L(X,90,X,116,"#d6d6d2",1)+P(`M${X-8} 76Q${X-10} 96 ${X} 98Q${X+8} 96 ${X+6} 76`,"none",'stroke="#2b2f3a" stroke-width="1.6"')+C(X,99,2.6,"#9aa4ae");
   else if(fit==="cop")body=legs("#1d2b4a","#1d2b4a","#111")+P(SUIT,"#1d2b4a",ol)+P(`M${X-6} 73L${X} 84L${X+6} 73Z`,"#8fa6c9")+P(`M${X+7} 86l4-2 4 2v5l-4 2-4-2z`,"#e8c574")+R(X-16,107,32,4,"#111");
   else if(fit==="armor")body=legs("#6c7380","#555c68","#2a2d33")+P(JER,"#3b4049",ol)+P(`M${X-14} 78H${X+14}L${X+12} 104H${X-12}Z`,"#4d535e")+R(X-2,80,4,22,"#b3121f")+R(X-9,86,18,4,"#b3121f");
-  else body=legs("#ecebe6",c,"#16161a")+[-1,1].map(d=>R(X+d*8.5-.9,111,1.8,15,c)).join("")+P(`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,c,ol)
-    +P(`M${X-9} 73Q${X} 82 ${X+9} 73`,"none",'stroke="#f4f1ea" stroke-width="2.6"')+T(X,111,(short(o)||"?")[0],14,podLum(c)>.55?"#191414":"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
+  else body=legs("#ecebe6",c,"#16161a")+(p.sit?"":[-1,1].map(d=>R(X+d*8.5-.9,111,1.8,15,c)).join(""))+P(`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,c,ol)
+    +P(`M${X-9} 73Q${X} 82 ${X+9} 73`,"none",'stroke="#f4f1ea" stroke-width="2.6"')+T(X,p.sit?98:111,(short(o)||"?")[0],14,podLum(c)>.55?"#191414":"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
   const MED={gold:["#ffe27a","#b8860b"],silver:["#f4f6f8","#8c96a1"],bronze:["#f2b27c","#94551f"]}[p.medal];
   const medal=MED?P(`M${X-8} 74L${X} 89L${X+8} 74`,"none",'stroke="#d6364f" stroke-width="3" stroke-linejoin="round"')+C(X,93,5.8,MED[0],`stroke="${MED[1]}" stroke-width="1.6"`)+C(X,93,2.4,"none",`stroke="${MED[1]}" stroke-width=".8"`):"";
   const slump=p.pose==="slump";
@@ -3031,12 +3042,14 @@ function podFig(o,p){const {q,R,C,E,P,L,T,G,F,HAT,TROPHY,BALL}=CS.kit,X=52,H=50,
   if(p.prop==="trophy")prop=TROPHY(hx,hy-8,.66);
   else if(p.prop==="finger")prop=G(R(-7.5,-14,15,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-2.8,-28,5.6,16,"#e0517a",'rx="2.8" stroke="#a3244b" stroke-width=".8"')+T(0,-3.5,"#1",7.5,"#fff",'font-weight="900"'),`transform="translate(${q(hx)} ${q(hy+1)}) rotate(8)"`);
   else if(p.prop==="card"||p.pose==="card")prop=G(R(-9,-12,18,13,"#fbf8f0",'stroke="#c9c0a8" stroke-width=".8"')+T(0,-3.4,"PICK",5.4,"#b3121f",'font-weight="800"'),`transform="translate(${q(hx)} ${q(hy-4)}) rotate(-8)"`);
-  else if(p.prop==="phone"||p.pose==="phone")prop=R(hx-3.2,hy-10,6.4,12.5,"#15161a",'rx="1.6"')+R(hx-2.3,hy-8.8,4.6,9.4,"#5aa9e6",'rx=".8" opacity=".9"');
+  else if(p.prop==="phone"||p.pose==="phone"||p.pose==="sitPhone")prop=R(hx-3.2,hy-10,6.4,12.5,"#15161a",'rx="1.6"')+R(hx-2.3,hy-8.8,4.6,9.4,"#5aa9e6",'rx=".8" opacity=".9"');
   else if(p.prop==="ball")prop=BALL(hx,hy-8,1.15,-35);
   else if(p.pose==="ball")prop=BALL(X+25,104,1.05,-15);
   const cross=p.pose==="cross";
   let s=E(X,147,23,3.2,"rgba(0,0,0,.2)");
   s+=cross?body+medal+arm(-1)+armR:arm(-1)+armR+body+medal;
+  // seated: the lap goes over the shirt, and a hand resting on it is drawn again on top
+  if(p.sit)s+=sitLegs(LC)+[-1,1].filter(d=>pz(d)[1][1]>100).map(d=>arm(d,1)).join("");
   s+=head+prop;
   if(p.cloud)s+=`<g transform="translate(${X} 12)">${E(0,0,15,7.5,"#8a95a5")+C(-8,-3,7,"#8a95a5")+C(5,-5.5,8.5,"#97a2b1")}<g class="pf-rain">${[-9,-1,7].map((d,i)=>L(d,9+(i%2)*3,d-1.5,14+(i%2)*3,"#5b9bd5",1.6)).join("")}</g></g>`;
   if(p.party){const cols=["#f2c230","#e0517a","#4bd5ee","#7ad67a","#ffffff"];
