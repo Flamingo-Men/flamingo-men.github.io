@@ -1244,6 +1244,15 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .mlu tr.be{opacity:.55}
 dialog.mudlg{border:0;padding:0;margin:auto 0 0;width:100%;max-width:100%;max-height:92dvh;border-radius:16px 16px 0 0;background:var(--slab);color:var(--ink);box-shadow:0 -10px 40px rgba(0,0,0,.35)}
 dialog.mudlg::backdrop{background:rgba(10,14,28,.55)}
+@media (min-width:641px){dialog.mudlg{max-width:760px;margin:auto;border-radius:16px;max-height:88dvh}.mudlg .mush{max-height:88dvh}.mudlg .muvs{font-size:.88rem}.mudlg .muvs col.cp{width:4em}.mudlg .muh-t b{font-size:.95rem}}
+.mun{display:flex;align-items:center;gap:6px;min-width:0}.mun>span:last-child{min-width:0}
+.muvs td.n.r .mun{flex-direction:row-reverse}
+.mun .pface{width:26px;height:26px;box-shadow:0 0 0 1px var(--line)}
+@media (min-width:641px){.mun .pface{width:32px;height:32px}}
+.trfold{max-width:none;margin-top:4px}.trfold .qf-body .trades-list{margin-top:2px}
+#chronicle .trfold{margin-top:12px}
+@media (max-width:640px){.trfold>summary{padding:10px 12px}.trfold .qf-body{padding:0 4px 4px}}
+#chronicle .trfold .trades-list{grid-template-columns:repeat(auto-fill,minmax(min(100%,440px),1fr))}
 /* week card (Kyle 2026-11-17): the play circle plays the story, the rest opens the week page */
 .story-btn[hidden]{display:none}
 .story-btn{display:flex;align-items:stretch;margin:0 0 14px;border:1px solid var(--gold);border-radius:var(--r);background:var(--slab);box-shadow:inset 3px 0 0 var(--gold);overflow:hidden}
@@ -1292,7 +1301,7 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
 .muvs{width:100%;border-collapse:collapse;table-layout:fixed;font-size:.8rem}
 .muvs th{position:static;background:none;font-size:.6rem;padding:10px 4px 4px;text-align:left}
 .muvs td{padding:6px 4px;border-bottom:1px solid var(--line);white-space:normal;vertical-align:middle}
-.muvs col.cp{width:3.3em}.muvs col.cs{width:2.9em}
+.muvs col.cp{width:3.3em}.muvs col.cslot{width:2.9em}
 .muvs td.n{line-height:1.2;overflow-wrap:anywhere}
 .muvs td.n small,.muvs td.p small{display:block;font-family:var(--f-data);font-size:.58rem;color:var(--muted)}
 .muvs td.n.r{text-align:right}
@@ -1823,11 +1832,10 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Every pick by round and team, color-coded like the sticker board. Steals and busts are judged on how that NFL season actually went. Players who missed more than eight games hurt are tagged Injured, not Bust. Photos of the board are in the gallery above.</p>
     <div id="draftBody"></div>
   </details>
-  <div class="block" style="margin-top:24px"><h3 style="margin-bottom:10px">Commissioners</h3><div class="chips" id="commishList"></div></div>
   <div class="block" id="weeksBlock">
     <div class="block-head"><h2>Week by week <span class="muted" id="weeksYear" style="font-family:var(--f-data);font-size:.9rem"></span></h2></div>
     <div class="wkpills" id="weekPills" role="group" aria-label="Week"></div>
-    <p class="muted" style="margin:-4px 0 10px;font-size:.82rem">Pick a week, then click a matchup for both lineups and every player's points. Weeks outlined in gold are playoff weeks.</p>
+    <p class="muted" style="margin:-4px 0 10px;font-size:.82rem">Pick a week, then tap a matchup for both lineups and every player's points. Weeks outlined in gold are playoff weeks.</p>
     <div class="games" id="weekGames"></div>
   </div>
 </div></section>
@@ -2292,7 +2300,7 @@ function renderScoreboard(){const d=DASH,st=(typeof STORYLINES!=="undefined"&&ST
     sb.innerHTML=`<button type="button" class="sb-open"><span><b>Week ${d.week} storylines</b><small>Week ${d.last} awards and this week's matchups</small></span><span class="ar" aria-hidden="true">›</span></button><button type="button" class="sb-play" aria-label="Play the Week ${d.week} story">▶</button>`;
     sb.querySelector(".sb-open").onclick=()=>openStories(lst());sb.querySelector(".sb-play").onclick=()=>openWeekStory(lst())}
   $("#scoreGrid").onclick=e=>{if(e.target.closest(".pl"))return;const m=e.target.closest("[data-mu]");if(!m)return;const i=+m.dataset.mu;
-    if(matchMedia("(max-width:640px)").matches){openMatchup(i);return}muOpen.has(i)?muOpen.delete(i):muOpen.add(i);m.classList.toggle("open");if(m.classList.contains("open"))m.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}}
+    openMatchup(i)}}
 // Weekly story (Kyle 2026-11-17): tap-through recap of last week, then next week's storylines.
 // Gags are driven by the data and each one has variants picked by the week number, so it looks different every week.
 let wsS=[],wsI=0;
@@ -2394,25 +2402,33 @@ function openStories(list){const d=DASH,rec=o=>(d.standings.find(r=>r.o===o)||{}
 // ESPN-app style matchup sheet on phones: both lineups side by side, slot by slot
 const abbr=n=>{const w=String(n).split(" ");return /D\/ST$/.test(n)||w.length<2?n:w[0][0]+". "+w.slice(1).join(" ")};
 let muCur=null;
-function openMatchup(i){const d=DASH,g=d.live[i];if(!g)return;muCur=i;const[a,b]=g,live=d.started,v=r=>live?r[3]:r[4];
-  let dlg=$("#muDlg");
-  if(!dlg){dlg=document.createElement("dialog");dlg.id="muDlg";dlg.className="mudlg";dlg.setAttribute("aria-label","Matchup lineups");document.body.appendChild(dlg);
-    dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest(".mux"))dlg.close();})}
+function openMatchup(i){const d=DASH,g=d.live[i];if(!g)return;muCur=i;const[a,b]=g,live=d.started;
   const rec=o=>(d.standings.find(r=>r.o===o)||{}).rec||"";
   const tot=x=>live?x.p:x.proj,lead=tot(a)>tot(b)?0:tot(b)>tot(a)?1:-1;
-  const st=x=>x.r.filter(r=>r[2]!=="BE"),be=x=>x.r.filter(r=>r[2]==="BE");
-  const cell=(r,side)=>{const n=r?`<td class="n ${side}">${pn(r[0]).replace(">"+esc(r[0])+"<",">"+esc(abbr(r[0]))+"<")}<small>${esc(r[1])}</small></td>`:`<td class="n ${side}"></td>`,
-    pt=r?`<td class="p ${side}">${fmt(v(r))}${live?`<small>${fmt(r[4])}</small>`:""}</td>`:`<td class="p ${side}"></td>`;return side[0]==="r"?pt+n:n+pt};
-  const rows=(A,B,lab)=>{const n=Math.max(A.length,B.length);let h="";for(let k=0;k<n;k++){const ra=A[k],rb=B[k],s=lab||(ra||rb)[2];
-    const wa=ra&&rb&&v(ra)>v(rb),wb=ra&&rb&&v(rb)>v(ra);
-    h+=`<tr>${cell(ra,"l"+(wa?" up":""))}<td class="s">${esc(s)}</td>${cell(rb,"r"+(wb?" up":""))}</tr>`}return h};
-  const hd=(x,k)=>`<div class="muh-t${k?" r":""}${live&&lead===k?" win":""}">${tav(x.o,d.year)}<div><b>${esc(x.team)}</b><small>${nm(x.o)} · ${rec(x.o)}</small></div><div class="muh-s">${fmt(tot(x))}<small>${live?"proj "+fmt(x.proj):"proj"}</small></div></div>`;
-  dlg.innerHTML=`<div class="mush"><div class="muh"><button type="button" class="mux" aria-label="Close">×</button><div class="muh-k">Week ${d.week} · ${live?"Live":"Projected"}${bowlName(d.year,d.week,a.o,b.o)?" · "+bowlName(d.year,d.week,a.o,b.o):""}</div>
-    <div class="muh-row">${hd(a,0)}${hd(b,1)}</div></div>
-    <div class="mubody"><table class="muvs"><colgroup><col><col class="cp"><col class="cs"><col class="cp"><col></colgroup><thead><tr><th colspan="2" class="l">Starters</th><th></th><th colspan="2" class="r"></th></tr></thead><tbody>${rows(st(a),st(b))}</tbody>
-    <tbody class="be"><tr><th colspan="5">Bench</th></tr>${rows(be(a),be(b),"BE")}</tbody></table>
-    <p class="dnote">${live?"Big number is points so far, small is ESPN's projection.":"ESPN projected points."} Tap a player for his card.</p></div></div>`;
-  if(!dlg.open)dlg.showModal()}
+  const hd=(x,k)=>({o:x.o,y:d.year,team:x.team,sub:`${nm(x.o)} · ${rec(x.o)}`,score:fmt(tot(x)),ssub:live?"proj "+fmt(x.proj):"proj",win:live&&lead===k});
+  muShow({k:`Week ${d.week} · ${live?"Live":"Projected"}${bowlName(d.year,d.week,a.o,b.o)?" · "+bowlName(d.year,d.week,a.o,b.o):""}`,A:hd(a,0),B:hd(b,1),
+    a:a.r,b:b.r,bench:r=>r[2]==="BE",pts:r=>live?r[3]:r[4],psub:live?r=>fmt(r[4]):null,
+    note:live?"Big number is points so far, small is ESPN's projection. ":"ESPN projected points. "})}
+// One matchup pop-up for the home scoreboard and History week by week (Kyle 2026-11-23): both lineups side by side, slot by slot, with player photos.
+// Rows are [name, pos, slot, ...]; starters pair up by slot (QB with QB, the first RB with the first RB) so an empty slot can't shift the rows.
+function muShow(c){let dlg=$("#muDlg");
+  if(!dlg){dlg=document.createElement("dialog");dlg.id="muDlg";dlg.className="mudlg";dlg.setAttribute("aria-label","Matchup lineups");document.body.appendChild(dlg);
+    dlg.addEventListener("click",e=>{if(e.target===dlg||e.target.closest(".mux"))dlg.close();});dlg.addEventListener("close",()=>{muCur=null})}
+  const v=c.pts,pair=(A,B,fixed)=>{const order=[],by=[{},{}];[A,B].forEach((L,j)=>L.forEach(r=>{const s=fixed||r[2];if(!(s in by[0])){by[0][s]=[];by[1][s]=[];order.push(s)}by[j][s].push(r)}));
+    const out=[];order.forEach(s=>{const n=Math.max(by[0][s].length,by[1][s].length);for(let k=0;k<n;k++)out.push([by[0][s][k],by[1][s][k],s])});return out};
+  const cell=(r,side)=>{const nmc=r?`<td class="n ${side}"><span class="mun">${faceHTML(r[0])}<span>${pn(r[0]).replace(">"+esc(r[0])+"<",">"+esc(abbr(r[0]))+"<")}<small>${esc(r[1])}</small></span></span></td>`:`<td class="n ${side}"></td>`,
+    pt=r?`<td class="p ${side}">${fmt(v(r))}${c.psub?`<small>${c.psub(r)}</small>`:""}</td>`:`<td class="p ${side}"></td>`;return side[0]==="r"?pt+nmc:nmc+pt};
+  const rows=L=>L.map(([ra,rb,s])=>{const wa=ra&&rb&&v(ra)>v(rb),wb=ra&&rb&&v(rb)>v(ra);
+    return `<tr>${cell(ra,"l"+(wa?" up":""))}<td class="s">${esc(s)}</td>${cell(rb,"r"+(wb?" up":""))}</tr>`}).join("");
+  const st=x=>x.filter(r=>!c.bench(r)),be=x=>x.filter(c.bench);
+  const hd=(x,k)=>`<div class="muh-t${k?" r":""}${x.win?" win":""}">${x.o?tav(x.o,x.y):'<span class="tav-x" aria-hidden="true"></span>'}<div><b>${esc(x.team)}</b><small>${esc(x.sub)}</small></div><div class="muh-s">${x.score}<small>${esc(x.ssub)}</small></div></div>`;
+  const B_=pair(be(c.a),be(c.b),"BE");
+  dlg.innerHTML=`<div class="mush"><div class="muh"><button type="button" class="mux" aria-label="Close">×</button><div class="muh-k">${esc(c.k)}</div>
+    <div class="muh-row">${hd(c.A,0)}${hd(c.B,1)}</div></div>
+    <div class="mubody"><table class="muvs"><colgroup><col><col class="cp"><col class="cslot"><col class="cp"><col></colgroup><thead><tr><th colspan="2" class="l">Starters</th><th></th><th colspan="2" class="r"></th></tr></thead><tbody>${rows(pair(st(c.a),st(c.b)))}</tbody>
+    ${B_.length?`<tbody class="be"><tr><th colspan="5">Bench</th></tr>${rows(B_)}</tbody>`:""}</table>
+    <p class="dnote">${esc(c.note||"")}Tap a player for his card.</p></div></div>`;
+  if(!dlg.open)dlg.showModal();dlg.querySelector(".mubody").scrollTop=0}
 function awardsHTML(){const d=DASH;
   return d.awards.map(a=>{const[v,...rest]=String(a.v).split(" ");
     return `<div class="aw">${av(a.o)}<div class="k">${esc(a.k)}</div><div class="v">${esc(v)} <span>${esc(rest.join(" ")||short(a.o))}</span></div><p>${esc(a.t)}</p></div>`}).join("")}
@@ -2694,7 +2710,6 @@ let histMode="year";   // "era" shows an era's story and its seasons; "year" ope
 const ERA_COLOR=["#7a6a9e","#c08a2e","#d9577c","#2f8f83","#3f6fb5"];
 const TL_YEARS=[2015,...ALL_YEARS];
 function renderHistory(){
-  $("#commishList").innerHTML=ALL_YEARS.map(y=>`<span class="chip">${esc(commish(y))}<small>${y}</small></span>`).join("");
   const era=ERAS.find(e=>e[2].includes(histYear)),eraMode=histMode==="era";
   const col=y=>TL_YEARS.indexOf(y)+1;
   const champ=y=>y===2015?"Charles*":CHAMPS[y]?"♛ "+short(CHAMPS[y].o):y===2026?"In progress":"";
@@ -2741,7 +2756,8 @@ function wuTrade(){const t={id:"wu2015",d:"2015-10-11",st:"completed",a:{team:"O
   return `<div class="hist-trades"><div class="eyebrow">The legendary trade</div><div class="trades-list">${tradeHTML(t)}</div>
   <figure style="margin:14px 0 0"><img src="img/wutang-2015-trade.jpg" alt="ESPN Wu-Tang league page showing the Jamaal Charles trade" loading="lazy" style="width:100%;border-radius:10px;display:block"><figcaption class="muted" style="font-size:.85em;margin-top:6px">The actual Wu-Tang league page. ESPN's top story is "How to replace Jamaal Charles," right above the trade that sent him to Quincy (OREO is Charles, CURR is Quincy).</figcaption></figure></div>`}
 function histTrades(ids,manual){const v=manual?MANUAL_VETOES.filter(m=>m.y===2017):[];if(!(ids&&ids.length)&&!v.length)return "";
-  return `<div class="hist-trades"><div class="eyebrow">Trades mentioned</div><div class="trades-list">${(ids||[]).map(id=>tradeHTML(TR[id])).join("")}${v.map(m=>`<article class="trade vetoed"><div class="trade-top"><span>2017 season</span><span><span class="tag veto">✕ Vetoed</span></span></div><p style="margin:0">${esc(m.text.replace(/ Vetoed\.$/,""))} Trade details were not saved.</p></article>`).join("")}</div></div>`}
+  const n=(ids||[]).length+v.length;
+  return `<details class="qfold trfold"><summary><span class="qf-t"><b>Trades mentioned</b><small>${n} trade${n===1?"":"s"}${v.length?`, ${v.length} vetoed`:""}</small></span><span class="chev" aria-hidden="true"></span></summary><div class="qf-body"><div class="trades-list">${(ids||[]).map(id=>tradeHTML(TR[id])).join("")}${v.map(m=>`<article class="trade vetoed"><div class="trade-top"><span>2017 season</span><span><span class="tag veto">✕ Vetoed</span></span></div><p style="margin:0">${esc(m.text.replace(/ Vetoed\.$/,""))} Trade details were not saved.</p></article>`).join("")}</div></div></details>`}
 const WEEKS={};let histWeek=null,openGame=null;
 function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
   if(y<2018){$("#weekPills").innerHTML="";$("#weekGames").innerHTML=`<p class="muted" style="margin:0">${y===2015?"Nothing from the Wu-Tang season was saved.":`Weekly matchups for ${y} weren't saved. That season ran in an ESPN league that no longer exists.`}</p>`;return}
@@ -2754,14 +2770,15 @@ function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
   const tm=id=>D.teams[id]||[null,"Team "+id];
   const G=D.weeks[histWeek].slice().sort((a,b)=>(a.tier==="Playoffs"?0:a.tier?2:1)-(b.tier==="Playoffs"?0:b.tier?2:1));
   const side=(s,win)=>{const[o,n]=tm(s.t);return `<div class="gt ${win?"w":""}">${o?tav(o,y):'<span class="tav-x" aria-hidden="true"></span>'}<span><b>${esc(n)}</b><small>${esc(o?short(o):"")}</small></span><span class="sc">${s.p!=null?fmt(s.p):"–"}</span></div>`};
-  const lineup=(s)=>{const[o,n]=tm(s.t),st=s.r.filter(r=>r[2]!=="BE"&&r[2]!=="IR"),be=s.r.filter(r=>r[2]==="BE"||r[2]==="IR");
-    const tr=(r,c)=>`<tr class="${c}"><td class="sl">${r[2]}</td><td>${pn(r[0])}${["FLX","BE","IR"].includes(r[2])?`<span class="pos">${esc(r[1])}</span>`:""}</td><td class="pt">${fmt(r[3])}</td></tr>`;
-    return `<div><h4>${tlogo(o,y)}${esc(n)} <span class="muted" style="font-weight:400">${esc(o?short(o):"")}</span></h4><table><tbody>${st.map(r=>tr(r,"")).join("")}<tr class="tot"><td></td><td>Total</td><td class="pt">${s.p!=null?fmt(s.p):"–"}</td></tr>${be.length?`<tr class="bh"><td colspan="3">Bench</td></tr>${be.map(r=>tr(r,"bench")).join("")}`:""}</tbody></table></div>`};
-  $("#weekGames").innerHTML=G.map((g,i)=>{const k=D.weeks[histWeek].indexOf(g),aw=(g.a.p??0)>(g.b.p??0),bw=(g.b.p??0)>(g.a.p??0),op=openGame===k;
+  $("#weekGames").innerHTML=G.map((g,i)=>{const k=D.weeks[histWeek].indexOf(g),aw=(g.a.p??0)>(g.b.p??0),bw=(g.b.p??0)>(g.a.p??0);
     const meta=[D.cur&&histWeek>=D.cur?"In progress":g.tier?`${g.tier}${g.leg?`, week ${g.leg}`:""}`:"Regular season",g.tot?`Two-week total ${fmt(g.tot[0])} to ${fmt(g.tot[1])}`:""].filter(Boolean);
     const bn=bowlName(y,histWeek,tm(g.a.t)[0],tm(g.b.t)[0]);
-    return `<article class="game${op?" open":""}"><button type="button" data-g="${k}" aria-expanded="${op}"><div class="gmeta"><span>${esc(meta[0])}${bn?` · <b class="bowl ${bowlCls(bn)}">${bn}</b>`:""}</span><span>${op?"Hide box score":"Box score"}</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button>${op?`<div class="box">${lineup(g.a)}${lineup(g.b)}</div>`:""}</article>`}).join("");
-  $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
+    return `<article class="game"><button type="button" data-g="${k}" aria-haspopup="dialog"><div class="gmeta"><span>${esc(meta[0])}${bn?` · <b class="bowl ${bowlCls(bn)}">${bn}</b>`:""}</span><span>Box score ›</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button></article>`}).join("");
+  $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g,g=D.weeks[histWeek][k],live=D.cur&&histWeek>=D.cur,meta=g.tier?`${g.tier}${g.leg?`, week ${g.leg}`:""}`:"Regular season",bn=bowlName(y,histWeek,tm(g.a.t)[0],tm(g.b.t)[0]);
+    const hd=(s,win)=>{const[o,n]=tm(s.t);return {o,y,team:n,sub:o?nm(o):"",score:s.p!=null?fmt(s.p):"–",ssub:live?"so far":"final",win}};
+    const bnch=r=>r[2]==="BE"||r[2]==="IR";
+    muShow({k:`${y} · Week ${histWeek} · ${live?"In progress":meta}${bn?" · "+bn:""}`,A:hd(g.a,(g.a.p??0)>(g.b.p??0)),B:hd(g.b,(g.b.p??0)>(g.a.p??0)),
+      a:g.a.r,b:g.b.r,bench:bnch,pts:r=>r[3],note:g.tot?`Two-week total ${fmt(g.tot[0])} to ${fmt(g.tot[1])}. `:""})};
 }
 /* ---------- MEDAL WALL (Kyle 2026-11-23) ----------
    The top of Records is a wall of small medals, one per record built in renderRecords: the holder's cut-out face in the medal (placed with
