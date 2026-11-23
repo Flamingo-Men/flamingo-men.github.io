@@ -118,12 +118,17 @@ t=t.replace('/*DATA*/',json.dumps(league,ensure_ascii=False,separators=(',',':')
 # ESPN waiver/roster history and the rebuilt seasons, from src/moves.py
 t=t.replace('/*MOVES*/',open(os.path.join(root,'data','moves.json')).read())
 t=t.replace('/*PLAYOFFS*/',open(os.path.join(root,'data','playoffs.json')).read())
+# every team's logo by season, from src/logos.py
+t=t.replace('/*LOGOS*/',open(os.path.join(root,'data','logos.json')).read() if os.path.exists(os.path.join(root,'data','logos.json')) else '{}')
+# a photo for every player (sprite sheet slots and each name's slot), from src/headshots.py
+t=t.replace('/*HEADS*/',open(os.path.join(root,'data','heads.json')).read() if os.path.exists(os.path.join(root,'data','heads.json')) else '{}')
 t=t.replace('/*RECORDS*/',open(os.path.join(root,'data','records.json')).read())
 t=t.replace('/*RANKINGS*/',open(os.path.join(root,'data','rankings.json')).read() if os.path.exists(os.path.join(root,'data','rankings.json')) else '{}')
 t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() if os.path.exists(os.path.join(root,'data','stories.json')) else '{}')
 # biggest rival per owner and the head-to-head bouts behind the boxing story, from src/rivals.py
 t=t.replace('/*RIVALS*/',open(os.path.join(root,'data','rivals.json')).read() if os.path.exists(os.path.join(root,'data','rivals.json')) else '{}')
 # each season's divisions (full / by-division standings toggle), from src/divisions.py
+t=t.replace('/*DROPS*/',open(os.path.join(root,'data','drops.json')).read() if os.path.exists(os.path.join(root,'data','drops.json')) else '[]')
 t=t.replace('/*SACKOBR*/',open(os.path.join(root,'data','sacko.json')).read() if os.path.exists(os.path.join(root,'data','sacko.json')) else '{}')
 t=t.replace('/*DIVISIONS*/',open(os.path.join(root,'data','divisions.json')).read() if os.path.exists(os.path.join(root,'data','divisions.json')) else '{}')
 # week-by-week facts behind the Game of Thrones title stories and the Sacko walks of shame, from src/thrones.py
