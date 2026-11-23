@@ -1074,14 +1074,6 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .hero-txt p{margin:0}
 .acro-box{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(#0c1430,#1c2852 58%,#2c2547);box-shadow:inset 0 0 0 1px rgba(232,197,116,.25)}
 .acro-svg{display:block;width:100%;height:auto;-webkit-tap-highlight-color:transparent}
-.acro-hint{position:absolute;top:10px;left:14px;font-family:var(--f-data);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:#cfd4e4;opacity:.75;pointer-events:none}
-.acro-cap{display:flex;gap:12px;align-items:center;padding:10px 14px;background:rgba(6,10,20,.6);border-top:1px solid rgba(232,197,116,.22);min-height:68px}
-.acro-cap .av{width:42px;height:42px;flex:none}
-.hero .acro-cap p{margin:0;font-size:.92rem;line-height:1.4;color:#e7e9f2;max-width:none}
-.acro-cap b{color:#ffd76a}
-.acro-cap .muted{color:#aeb6cc;font-size:.78rem}
-.acro .ac{cursor:pointer;outline:none}
-.acro .ac.on>g,.acro .ac:focus-visible>g{filter:drop-shadow(0 0 2px #ffd76a) drop-shadow(0 0 7px rgba(255,215,106,.75))}
 .acro .an{transform-origin:0 0}
 .acro .tw{animation:aTw 3s ease-in-out infinite}
 .acro .a-hop{animation:aHop 4s ease-in-out infinite}
@@ -1137,7 +1129,8 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 @keyframes aPatrol{0%{transform:none}45%{transform:translateX(40px)}50%{transform:translateX(40px) scaleX(-1)}95%{transform:scaleX(-1)}100%{transform:none}}
 @keyframes aFire{from{transform:scale(.92,1.04)}to{transform:scale(1.06,.9)}}
 @media (max-width:860px){.hero-txt{grid-template-columns:minmax(0,1fr)}.hero-txt p{margin-top:12px}}
-@media (max-width:640px){.acro-box{margin-inline:-16px;border-radius:0;box-shadow:none}.acro-cap{padding:10px 16px}.hero .acro-cap p{font-size:.86rem}.acro-hint{left:16px;top:8px}}
+/* phones: just the title over the scene, no intro line or counts */
+@media (max-width:640px){.acro-box{margin-inline:-16px;border-radius:0;box-shadow:none}.hero-txt>div:last-child{display:none}.hero .wrap{padding-block:18px 0;gap:12px}}
 @media (prefers-reduced-motion:reduce){.acro *{animation:none!important}.acro .a-perch,.acro .a-order,.acro .a-ping,.acro .a-say3{display:none}}
 .dash-status{font-family:var(--f-data);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .dash-status .livedot{width:8px;height:8px;border-radius:50%;background:var(--bad);animation:pulse 1.4s infinite}
@@ -1720,7 +1713,7 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
         <div><p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
         <div class="hero-stats" id="heroStats"></div></div>
       </div>
-      <div class="acro-box"><div class="acro" id="acro"></div><span class="acro-hint" aria-hidden="true">Tap anyone</span><div class="acro-cap" id="acroCap" aria-live="polite"></div></div>
+      <div class="acro-box"><div class="acro" id="acro"></div></div>
     </div>
   </div>
   <div class="meander" aria-hidden="true"></div>
@@ -2456,8 +2449,9 @@ function renderHome(){
 
 /* ---------- ACROPOLIS (Kyle 2026-11-23) ----------
    The home page hero is a night scene on the Acropolis with every league member on it as a small bobblehead (podFig from the
-   Rankings podium), each acting out a bit of league lore. Tap anyone for a caption; the caption also cycles on its own.
+   Rankings podium), each acting out a bit of league lore. Each owner's ACRO_LORE line is his hover title.
    Two layouts: "wide" (1000 x 400) for tablets and desktops, "tall" (400 x 470) for phones, so nobody is cut off on an iPhone.
+   Everyone is packed tight in two or three rows so the scene stays short (Kyle 2026-11-23: no tapping needed, keep it small).
    Positions are feet (x, y) and scale in scene units. Keep captions inside the content rules (no crimes, no old team names). */
 const ACRO_LORE={
   kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
@@ -2480,16 +2474,14 @@ const ACRO_LORE={
   vicente:"Just joined the NYPD, and he's keeping an eye on the Flamingo Men."};
 // [x, y, scale] of each owner's feet; dilapi's 4th value is how far up (in scene units) his swing's branch is
 const ACRO_POS={
-  wide:{W:1000,H:400,temple:[500,244,.9],plat:[120,190,810,880,244,300],stairs:[260,244,480,5,11],
-    ghost:[252,152,.4],vicente:[212,248,.42],peanut:[408,248,.42],lucas:[500,248,.44],quincy:[592,248,.42],skelly:[788,248,.42],
-    keeves:[296,270,.42],jordan:[716,302,.46],dilapi:[112,318,.46,160],duane:[206,384,.54],kyle:[322,386,.54],charles:[444,386,.54],
-    mateus:[536,386,.54],squirm:[618,386,.54],dylan:[684,386,.54],jerry:[806,386,.54],rod:[918,388,.54]},
-  tall:{W:400,H:432,temple:[200,186,.6],plat:[12,40,360,388,186,226],stairs:[84,186,232,4,10],
-    ghost:[46,104,.31],vicente:[38,188,.3],peanut:[138,188,.31],lucas:[200,188,.32],quincy:[262,188,.31],skelly:[356,188,.3],
-    keeves:[96,206,.31],jordan:[320,228,.33],dilapi:[58,316,.44,238],duane:[142,316,.44],charles:[228,318,.44],mateus:[306,316,.44],rod:[364,320,.44],
-    kyle:[82,418,.46],squirm:[194,418,.46],dylan:[252,418,.46],jerry:[342,418,.46]}};
-const ACRO_ORDER=["lucas","kyle","fluff","charles","dilapi","jordan","quincy","peanut","squirm","dylan","rod","jerry","mateus","duane","vicente","skelly","keeves","ghost"];
-let acroLay=null,acroSel=-1,acroTimer=null,acroHold=0;
+  wide:{W:1000,H:282,temple:[500,160,.6],plat:[150,200,800,850,160,200],stairs:[330,160,340,4,10],
+    ghost:[236,96,.34],vicente:[146,198,.4],keeves:[236,198,.4],peanut:[316,198,.4],lucas:[500,198,.42],quincy:[700,198,.4],jordan:[806,200,.42],skelly:[926,198,.4],
+    dilapi:[58,274,.46,172],duane:[150,274,.46],kyle:[256,276,.46],charles:[372,276,.46],mateus:[472,274,.46],squirm:[562,276,.46],dylan:[626,276,.46],jerry:[760,276,.46],rod:[886,278,.46]},
+  tall:{W:400,H:312,temple:[200,112,.42],plat:[6,30,370,394,112,150],stairs:[132,112,136,4,9.5],
+    ghost:[40,62,.28],keeves:[76,150,.29],peanut:[132,150,.29],lucas:[200,150,.3],quincy:[256,150,.29],jordan:[316,154,.3],skelly:[364,150,.29],
+    dilapi:[34,228,.35,166],duane:[106,228,.35],charles:[182,230,.35],mateus:[264,228,.35],rod:[348,230,.35],
+    kyle:[62,306,.37],squirm:[150,306,.37],dylan:[204,306,.37],jerry:[282,306,.37],vicente:[352,306,.37]}};
+let acroLay=null,acroWatch=0;
 // an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
 const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
 const acSay=(x,y,txt,z,cls,d,bg="#fff",fg="#191414")=>{const {R,P,T}=CS.kit,w=txt.length*z*.62+14,h=z*1.5;
@@ -2501,7 +2493,7 @@ const ACRO_ACT={
     const front=R(-24,118,152,24,"#8e3550",'rx="7" stroke="#4e1527" stroke-width="1.5"')+P("M52 120v20","none",'stroke="#5e1d33" stroke-width="1.5"')
       +R(-34,98,18,46,"#6a2338",'rx="8"')+R(120,98,18,46,"#6a2338",'rx="8"')+R(-28,142,8,7,"#2b1a12")+R(124,142,8,7,"#2b1a12")+E(52,150,86,4,"rgba(0,0,0,.25)");
     const tro=[-12,4,20].map((x,i)=>TROPHY(x,84,.5)).join("");
-    const floof=`<g class="ac" data-o="fluff" tabindex="0" role="button" aria-label="${esc(short("fluff"))}"><g transform="translate(50 -62)">${R(14,18,76,84,"#000",'fill-opacity="0"')}${acPiv(52,147,"a-hop",podFig("fluff",{pose:"up",d:.4}))}${acSay(104,4,"PERCH ALERT!",15,"a-perch")}</g></g>`;
+    const floof=`<g class="ac" data-o="fluff"><title>${esc(short("fluff")+": "+ACRO_LORE.fluff)}</title><g transform="translate(50 -62)">${acPiv(52,147,"a-hop",podFig("fluff",{pose:"up",d:.4}))}${acSay(104,4,"PERCH ALERT!",15,"a-perch")}</g></g>`;
     return back+tro+floof+`<g transform="translate(-8 16)">${podFig("kyle",{pose:"phone",d:1.2})}</g>`+front},
   charles:()=>{const {CHICK,T,R}=CS.kit;
     const ch=[[-26,140,0],[124,138,1.6],[-8,152,3.1],[112,154,.8]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.85),d)).join("");
@@ -2594,20 +2586,11 @@ function acroScene(lay){const {R,P,C,E,LG,RG}=CS.kit,Z=ACRO_POS[lay],{W,H}=Z;
   // owners from back (small y) to front
   const who=Object.keys(ACRO_ACT).sort((a,b)=>Z[a][1]-Z[b][1]);
   s+=who.map(o=>{const L_=Z[o],[x,y,k]=L_;
-    return `<g class="ac" data-o="${o}" tabindex="0" role="button" aria-label="${esc(OWNERS[o]?.name||o)}"><g transform="translate(${(x-52*k).toFixed(1)} ${(y-147*k).toFixed(1)}) scale(${k})">${R(-6,6,116,146,"#000",'fill-opacity="0"')}${ACRO_ACT[o](lay,k,L_)}</g></g>`}).join("");
+    return `<g class="ac" data-o="${o}"><title>${esc(short(o)+": "+ACRO_LORE[o])}</title><g transform="translate(${(x-52*k).toFixed(1)} ${(y-147*k).toFixed(1)}) scale(${k})">${ACRO_ACT[o](lay,k,L_)}</g></g>`}).join("");
   return s},`0 0 ${W} ${H}`).replace("<svg ",`<svg class="acro-svg" role="img" aria-label="The Flamingo Men on the Acropolis: every league member acting out a bit of league lore" `).replace(' aria-hidden="true"',"")}
-function acroCap(i,user){const o=ACRO_ORDER[(i+ACRO_ORDER.length)%ACRO_ORDER.length];acroSel=ACRO_ORDER.indexOf(o);
-  document.querySelectorAll("#acro .ac").forEach(g=>g.classList.toggle("on",g.dataset.o===o));
-  $("#acroCap").innerHTML=`${av(o)}<p><b>${esc(short(o))}</b> <span class="muted">${esc(OWNERS[o]?.name||"")}</span><br>${esc(ACRO_LORE[o]||"")}</p>`;
-  if(user)acroHold=Date.now()}
 function acroRender(){const box=$("#acro");if(!box)return;const lay=matchMedia("(max-width:640px)").matches?"tall":"wide";
-  if(lay!==acroLay){acroLay=lay;box.innerHTML=acroScene(lay);
-    box.onclick=e=>{const g=e.target.closest(".ac");if(g){e.stopPropagation();acroCap(ACRO_ORDER.indexOf(g.dataset.o),1)}};
-    box.onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&e.target.closest?.(".ac")){e.preventDefault();acroCap(ACRO_ORDER.indexOf(e.target.closest(".ac").dataset.o),1)}};
-    acroCap(acroSel<0?0:acroSel)}
-  if(!acroTimer){acroTimer=setInterval(()=>{if(document.hidden||Date.now()-acroHold<20000||(location.hash||"#home")!=="#home")return;acroCap(acroSel+1)},5500);
-    matchMedia("(max-width:640px)").addEventListener?.("change",acroRender)}}
-
+  if(lay!==acroLay){acroLay=lay;box.innerHTML=acroScene(lay)}
+  if(!acroWatch){acroWatch=1;matchMedia("(max-width:640px)").addEventListener?.("change",acroRender)}}
 /* ---------- HISTORY ---------- */
 const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
 // Era group photos (Kyle, 2026-11-13), keyed by ERAS index; pos = object-position for the wide desktop crop
