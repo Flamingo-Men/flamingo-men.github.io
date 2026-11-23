@@ -126,6 +126,7 @@ t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() 
 # biggest rival per owner and the head-to-head bouts behind the boxing story, from src/rivals.py
 t=t.replace('/*RIVALS*/',open(os.path.join(root,'data','rivals.json')).read() if os.path.exists(os.path.join(root,'data','rivals.json')) else '{}')
 # each season's divisions (full / by-division standings toggle), from src/divisions.py
+t=t.replace('/*DROPS*/',open(os.path.join(root,'data','drops.json')).read() if os.path.exists(os.path.join(root,'data','drops.json')) else '[]')
 t=t.replace('/*SACKOBR*/',open(os.path.join(root,'data','sacko.json')).read() if os.path.exists(os.path.join(root,'data','sacko.json')) else '{}')
 t=t.replace('/*DIVISIONS*/',open(os.path.join(root,'data','divisions.json')).read() if os.path.exists(os.path.join(root,'data','divisions.json')) else '{}')
 # week-by-week facts behind the Game of Thrones title stories and the Sacko walks of shame, from src/thrones.py
