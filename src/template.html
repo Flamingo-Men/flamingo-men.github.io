@@ -470,14 +470,10 @@ details.fold:not([open])>summary{margin-bottom:0}
 .box tr.bh td{font-family:var(--f-data);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:10px}
 .box .pos{font-size:.66rem;color:var(--muted);margin-left:4px;font-family:var(--f-data)}
 @media (max-width:640px){.box{grid-template-columns:1fr}}
-.recwrap{position:relative;padding:0 26px}
-.recgrid{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(160px,15vw,172px);gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:2px 2px 6px}
-.recgrid::-webkit-scrollbar{display:none}
 .movepg{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
 .movepg span{margin-right:4px;font-size:.9rem}
 .movepg button{min-width:44px;padding:7px 12px;border-radius:99px;border:1px solid var(--line);background:var(--slab);color:var(--ink);cursor:pointer;font:inherit;font-size:.9rem}
 .movepg button[aria-pressed="true"]{background:var(--ink);color:var(--marble);border-color:var(--ink)}
-.recgrid .rec{scroll-snap-align:start}
 .retro{margin-top:28px;border:2px dashed var(--gold);border-radius:var(--r);padding:20px 18px;background:repeating-linear-gradient(0deg,transparent 0 27px,color-mix(in srgb,var(--gold) 12%,transparent) 27px 28px),color-mix(in srgb,var(--gold) 6%,var(--slab))}
 .retro h3{font-family:var(--f-data);font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:4px 0 2px}
 .retro .rule{font-family:var(--f-data);color:var(--muted);letter-spacing:.2em;overflow:hidden;white-space:nowrap;margin-bottom:10px}
@@ -490,22 +486,74 @@ details.fold:not([open])>summary{margin-bottom:0}
 .retro .ednote{margin-top:18px;border-left:4px solid var(--flamingo);background:var(--flamingo-soft);padding:12px 14px;border-radius:0 var(--r) var(--r) 0;font-size:.95rem}
 .retro .ednote .eyebrow{color:var(--flamingo)}
 .retro .stamp{display:inline-block;transform:rotate(-4deg);border:2px solid var(--bad);color:var(--bad);font-family:var(--f-data);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:1px 6px;margin-left:6px;vertical-align:middle}
-.recnav{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:38px;height:38px;border-radius:99px;border:1px solid var(--line);background:var(--slab);color:var(--ink);font-size:1.5rem;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:grid;place-items:center;padding:0 0 3px}
-.recnav.prev{left:-6px}.recnav.next{right:-6px}
-.recnav[disabled]{opacity:0;pointer-events:none}
-@media (max-width:640px){.recwrap{padding:0 20px}.recnav{width:32px;height:32px}.recnav.prev{left:-8px}.recnav.next{right:-8px}}
 .story{background:var(--slab);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:var(--r);padding:12px 14px}
 .story p{margin:4px 0 0;max-width:75ch;line-height:1.55}
-.rec{position:relative;aspect-ratio:1/1;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:linear-gradient(160deg,var(--slab) 0%,var(--flamingo-soft) 100%);container-type:inline-size}
-.rec img.cut,.rec .big{position:absolute;right:-6%;bottom:0;height:72%;width:62%;object-fit:contain;object-position:100% 100%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2));border:0;border-radius:0}
-.rec .big{display:grid;place-items:center;font-family:var(--f-display);font-size:2.4rem;color:var(--flamingo);background:none}
-.rec .rt{position:absolute;left:12px;top:12px;right:12px;display:grid;gap:2px}
-.rec .rt .eyebrow{font-size:clamp(.58rem,5.2cqi,.7rem);line-height:1.25}
-.rec .rv{font-family:var(--f-display);font-size:clamp(1.3rem,15cqi,2.3rem);line-height:1;color:var(--ink);margin-top:4px}
-.rec .rw{font-weight:700;font-size:clamp(.8rem,7cqi,1rem);margin-top:4px;max-width:60%}
-.rec .rc{position:absolute;left:10px;bottom:10px;max-width:56%;font-size:clamp(.62rem,5.4cqi,.78rem);line-height:1.3;color:var(--muted);background:color-mix(in srgb,var(--slab) 80%,transparent);border-radius:6px;padding:3px 5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.rec .multi{position:absolute;right:8px;bottom:8px;display:flex}
-.rec .multi img,.rec .multi span{width:clamp(28px,20cqi,44px);height:clamp(28px,20cqi,44px);border-radius:99px;border:2px solid var(--slab);margin-left:-8px;object-fit:cover}
+/* Medal wall (Kyle 2026-11-23): the top of Records is a wall of small medals, one per league record, each with the holder's face and the record on a banner.
+   Gold for glory, silver for the odd ones, cracked rust for shame; the ribbon colour marks the group. Tap a medal and its plaque opens under that row. */
+.mwall-frame{border-radius:14px;padding:5px;background:linear-gradient(135deg,#7a5612,#f3d27a 20%,#a97c22 45%,#f6dd92 70%,#7a5612);box-shadow:0 16px 34px -14px rgba(13,19,34,.6)}
+.mwall{--ink:#eef0f7;--muted:#aab2c8;position:relative;border-radius:10px;padding:14px 10px 20px;color:var(--ink);background:radial-gradient(120% 55% at 50% -8%,rgba(255,255,255,.11),transparent 62%),repeating-linear-gradient(45deg,rgba(255,255,255,.022) 0 2px,transparent 2px 5px),repeating-linear-gradient(-45deg,rgba(0,0,0,.12) 0 2px,transparent 2px 5px),linear-gradient(180deg,#1d2a52,#131b35 58%,#0b1125);box-shadow:inset 0 0 0 1px rgba(0,0,0,.55),inset 0 12px 28px rgba(0,0,0,.45),inset 0 -12px 28px rgba(0,0,0,.35)}
+.mwall-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 18px;font-size:.82rem;color:var(--muted)}
+.mlegend{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;list-style:none;margin:0;padding:0}
+.mlegend li{display:flex;align-items:center;gap:5px}.mlegend svg{width:16px;height:16px;flex:none}
+.mhint{margin:0;font-style:italic;text-align:center;text-wrap:balance}
+.mtally{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:12px 0 0}
+.mtally button{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 3px;border-radius:99px;border:1px solid rgba(243,210,122,.35);background:rgba(255,255,255,.06);color:var(--ink);cursor:pointer;font-size:.82rem;font-weight:700;line-height:1.1}
+.mtally button:hover{border-color:#f3d27a}
+.mtally button[aria-pressed="true"]{background:#f3d27a;border-color:#f3d27a;color:#2a1d05}
+.mtally .av{width:26px;height:26px;border-width:1.5px;font-size:.7rem}
+.mtc{display:inline-flex;gap:6px}
+.mtc i{display:inline-flex;align-items:center;gap:3px;font-style:normal;font-family:var(--f-data);font-size:.74rem;font-weight:600}
+.mtc i::before{content:"";width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6d8,#d9ac4b 60%,#8a6416)}
+.mtc i.s::before{background:radial-gradient(circle at 35% 35%,#fff,#c3cad4 60%,#6d7684)}
+.mtc i.r::before{background:radial-gradient(circle at 35% 35%,#f0c09a,#b06a3a 60%,#5a2a12)}
+.mwall[data-focus] .md:not(.on){opacity:.2;filter:saturate(.2)}
+.mgroup{margin-top:18px}
+.mplate{display:table;margin:0 auto 10px;position:relative;padding:5px 24px 4px;border-radius:3px;font-family:var(--f-display);font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:#3b2a08;text-shadow:0 1px 0 rgba(255,255,255,.5);background:linear-gradient(180deg,#fbe9ad,#deb253 46%,#bf8f30 54%,#e8c46e);box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(0,0,0,.25),0 3px 7px rgba(0,0,0,.5)}
+.mplate::before,.mplate::after{content:"";position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff6d6,#7a5612 75%)}
+.mplate::before{left:8px}.mplate::after{right:8px}
+.mgrid{position:relative;display:grid;grid-template-columns:repeat(var(--cols,8),minmax(0,50px));justify-content:center;row-gap:12px}
+.md{grid-column:auto/span 2;transition:opacity .25s,filter .25s;display:flex;flex-direction:column;align-items:center;min-width:0;padding:0 3px;margin:0;border:0;background:none;color:inherit;font:inherit;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.md .mhang{display:block;width:100%;max-width:94px;transform-origin:50% 0;transition:transform .25s ease}
+.md svg{display:block;width:100%;height:auto;transform-origin:50% 0;filter:drop-shadow(0 4px 3px rgba(0,0,0,.55))}
+.mval{font-family:var(--f-display)}
+.md .mlab{margin-top:3px;font-size:.74rem;line-height:1.15;color:#dde2ee;max-width:100%;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.md .mwho{margin-top:1px;font-size:.74rem;font-weight:700;line-height:1.2;color:#f3d27a;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.md.s .mwho{color:#e4e8f0}.md.r .mwho{color:#eaa47a}
+.md:focus-visible{outline:2px solid #f3d27a;outline-offset:3px;border-radius:8px}
+.md[aria-expanded="true"] .mhang{transform:translateY(-4px) scale(1.07)}
+.md[aria-expanded="true"] svg{filter:drop-shadow(0 0 7px rgba(243,210,122,.75)) drop-shadow(0 4px 3px rgba(0,0,0,.55))}
+.mplac{grid-column:1/-1;position:relative;margin:6px 2px 4px;--ink:#15203b;--muted:#5b6178;--aegean:#1d4f91;--gold:#8a6416;--line:#d9c48e;color:var(--ink);background:linear-gradient(180deg,#fffaf0,#f3e8cf);border:1px solid #c9a24a;border-radius:10px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.65),0 12px 26px rgba(0,0,0,.5);padding:14px 16px 16px;display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 16px;align-items:start;text-align:left}
+.mplac::before{content:"";position:absolute;top:-8px;left:var(--px,50%);width:14px;height:14px;margin-left:-7px;background:#fffaf0;border-left:1px solid #c9a24a;border-top:1px solid #c9a24a;transform:rotate(45deg)}
+.mplac .pmed svg{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
+.mplac .pmed span{display:block;margin-top:4px;text-align:center;font-family:var(--f-data);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:#8a6416}
+.mplac.s .pmed span{color:#4e5664}.mplac.r .pmed span{color:#8c3f17}
+.mplac .eyebrow{display:block;padding-right:34px}
+.mplac .pbody{min-width:0;max-width:62ch}
+.mplac h4{font-family:var(--f-display);font-weight:400;font-size:1.25rem;line-height:1.15;margin:2px 0 0}
+.mplac .pv{font-family:var(--f-display);font-size:2rem;line-height:1.05;margin:4px 0 0}
+.mplac.g .pv{color:#8a6416}.mplac.s .pv{color:#4e5664}.mplac.r .pv{color:#8c3f17}
+.mplac .pctx{margin:6px 0 0;font-size:.95rem;line-height:1.4}
+.mplac .pwho{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.mplac .pwho button{display:inline-flex;align-items:center;gap:7px;padding:3px 12px 3px 3px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:.88rem;font-weight:700;cursor:pointer}
+.mplac .pwho button:hover{border-color:#a97c22}
+.mplac .pwho .av{width:28px;height:28px;border-width:1.5px;font-size:.75rem}
+.mplac .pwho small{font-weight:400;color:var(--muted);font-size:.78rem}
+.mplac .pwho b{font-weight:400;color:var(--muted);display:none}
+.mplac-x{position:absolute;top:6px;right:6px;width:36px;height:36px;border-radius:99px;border:0;background:none;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer}
+.mplac-x:hover{color:var(--ink);background:rgba(0,0,0,.06)}
+@media (max-width:640px){.mtally{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;margin-inline:-6px;padding:2px 6px 4px;scroll-snap-type:x proximity}.mtally::-webkit-scrollbar{display:none}.mtally button{flex:none;scroll-snap-align:start}.mwall{padding:12px 6px 16px}.mgroup{margin-top:14px}.md{padding:0 2px}.md .mlab,.md .mwho{font-size:.68rem}.mplac{grid-template-columns:76px minmax(0,1fr);gap:4px 12px;padding:12px 12px 14px}.mplac h4{font-size:1.08rem}.mplac .pv{font-size:1.6rem}.mplac .pctx{font-size:.88rem}.mplac .pwho small{display:none}.mplac .pwho b{display:inline}.mplac .pwho{gap:5px}.mplac .pwho button{gap:5px;padding:2px 9px 2px 2px;font-size:.82rem}.mplac .pwho .av{width:24px;height:24px}}
+@media (prefers-reduced-motion:no-preference){
+  .md .mhang{animation:mdIn 1.15s cubic-bezier(.25,.8,.35,1) var(--d,0s) backwards}
+  .md:hover svg{animation:mdSway 1.5s ease-in-out}
+  .md.g .mglint{animation:mdShine 1.1s ease-out calc(var(--d,0s) + 1s) backwards}
+  .md:hover .mshine{animation:mdShine .9s ease-out}
+  .mplac{animation:mpIn .28s ease-out}
+  .mplac .pmed svg{animation:mdFlip .7s cubic-bezier(.2,.8,.3,1.15)}}
+@keyframes mdIn{0%{opacity:0;transform:translateY(-10px) rotate(-16deg)}30%{opacity:1;transform:rotate(9deg)}55%{transform:rotate(-4deg)}78%{transform:rotate(1.5deg)}100%{transform:none}}
+@keyframes mdSway{0%,100%{transform:none}25%{transform:rotate(5deg)}60%{transform:rotate(-3deg)}85%{transform:rotate(1deg)}}
+@keyframes mdShine{from{transform:translateX(0)}to{transform:translateX(118px)}}
+@keyframes mpIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes mdFlip{from{transform:perspective(500px) rotateY(-110deg)}to{transform:none}}
 .rkseg{margin:4px 0 10px}.rkseg button{font-size:.85rem;padding:7px 14px}
 .rkhow{font-size:.85rem;max-width:80ch;margin:0 0 14px}
 .rklist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -1592,15 +1640,34 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
 <section class="hall" id="hall-records"><div class="wrap">
   <div class="hall-head"><span class="eyebrow">The Agora</span><h2>Records</h2>
   <p>League records, the all-time and season standings, and every trade and waiver pickup on record. The top 10 lists live on the <a href="#rankings">Rankings</a> tab.</p></div>
-  <div class="block" style="margin-top:0"><div class="block-head"><h2>League records</h2></div>
-    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous league records">‹</button><div class="recgrid" id="recLeague" tabindex="0" aria-label="League records"></div><button type="button" class="recnav next" aria-label="More league records">›</button></div>
-  </div>
-  <div class="block"><div class="block-head"><h2>Regular season records</h2></div>
-    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous regular season records">‹</button><div class="recgrid" id="recReg" tabindex="0" aria-label="Regular season records"></div><button type="button" class="recnav next" aria-label="More regular season records">›</button></div>
-  </div>
-  <div class="block"><div class="block-head"><h2>Playoff records</h2></div>
-    <div class="recwrap"><button type="button" class="recnav prev" aria-label="Previous playoff records">‹</button><div class="recgrid" id="recPo" tabindex="0" aria-label="Playoff records"></div><button type="button" class="recnav next" aria-label="More playoff records">›</button></div>
+  <div class="block" style="margin-top:0" id="medalBlock"><div class="block-head"><h2>The medal wall</h2></div>
+    <div class="mwall-frame"><div class="mwall" id="medalWall">
+      <div class="mwall-top"><ul class="mlegend" aria-label="What the metals mean"><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMg)" stroke="#6e4e12"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFg)"/></svg>Gold for glory</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMs)" stroke="#5a6372"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFs)"/></svg>Silver for the odd ones</li><li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="url(#mdMr)" stroke="#45200d"/><circle cx="10" cy="10" r="5.8" fill="url(#mdFr)"/><path d="M15.6 5.2l-2.4 2.3 1.1 1.3-2.6 2.2" fill="none" stroke="#2a1206" stroke-width="1"/></svg>Cracked rust for shame</li></ul><p class="mhint">Tap a medal for its plaque, or a name to light up his medals</p></div>
+      <div class="mtally" id="mTally" role="group" aria-label="Medals by owner"></div>
+      <section class="mgroup" aria-labelledby="mgL"><h3 class="mplate" id="mgL">League</h3><div class="mgrid" id="recLeague"></div></section>
+      <section class="mgroup" aria-labelledby="mgR"><h3 class="mplate" id="mgR">Regular season</h3><div class="mgrid" id="recReg"></div></section>
+      <section class="mgroup" aria-labelledby="mgP"><h3 class="mplate" id="mgP">Playoffs</h3><div class="mgrid" id="recPo"></div></section>
+    </div></div>
     <p class="muted" style="font-size:.8rem;margin:10px 0 0;max-width:80ch">League records cover whole careers: career wins, losses and win rate count regular-season games. Regular season records count regular-season games only. Playoff records count the winners' bracket from 2016 on; a playoff round played over two weeks is one game, decided by the two-week total, and playoff-week records use single weeks of those rounds. Single-week records and streaks use ESPN box scores from 2018 on, and playoff scores were saved from 2018 on (plus the 2016 final). Pickups come from ESPN for 2018 to 2026. Season and career records run from 2016 through the last completed week of 2026. A week still being played never counts.</p>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+      <linearGradient id="mdSLa" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="32.09" y2="-10.34"><stop offset="0.0" stop-color="#a3284f"/><stop offset="0.08" stop-color="#a3284f"/><stop offset="0.08" stop-color="#e0517a"/><stop offset="0.32" stop-color="#e0517a"/><stop offset="0.32" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ffffff"/><stop offset="0.4" stop-color="#f3c95b"/><stop offset="0.6" stop-color="#f3c95b"/><stop offset="0.6" stop-color="#ffffff"/><stop offset="0.68" stop-color="#ffffff"/><stop offset="0.68" stop-color="#e0517a"/><stop offset="0.92" stop-color="#e0517a"/><stop offset="0.92" stop-color="#a3284f"/><stop offset="1.0" stop-color="#a3284f"/></linearGradient>
+      <linearGradient id="mdSLb" gradientUnits="userSpaceOnUse" x1="62" y1="0" x2="80.09" y2="10.34"><stop offset="0.0" stop-color="#a3284f"/><stop offset="0.08" stop-color="#a3284f"/><stop offset="0.08" stop-color="#e0517a"/><stop offset="0.32" stop-color="#e0517a"/><stop offset="0.32" stop-color="#ffffff"/><stop offset="0.4" stop-color="#ffffff"/><stop offset="0.4" stop-color="#f3c95b"/><stop offset="0.6" stop-color="#f3c95b"/><stop offset="0.6" stop-color="#ffffff"/><stop offset="0.68" stop-color="#ffffff"/><stop offset="0.68" stop-color="#e0517a"/><stop offset="0.92" stop-color="#e0517a"/><stop offset="0.92" stop-color="#a3284f"/><stop offset="1.0" stop-color="#a3284f"/></linearGradient>
+      <linearGradient id="mdSRa" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="32.09" y2="-10.34"><stop offset="0.0" stop-color="#0f2d5c"/><stop offset="0.08" stop-color="#0f2d5c"/><stop offset="0.08" stop-color="#1d4f91"/><stop offset="0.34" stop-color="#1d4f91"/><stop offset="0.34" stop-color="#ffffff"/><stop offset="0.42" stop-color="#ffffff"/><stop offset="0.42" stop-color="#c8102e"/><stop offset="0.58" stop-color="#c8102e"/><stop offset="0.58" stop-color="#ffffff"/><stop offset="0.66" stop-color="#ffffff"/><stop offset="0.66" stop-color="#1d4f91"/><stop offset="0.92" stop-color="#1d4f91"/><stop offset="0.92" stop-color="#0f2d5c"/><stop offset="1.0" stop-color="#0f2d5c"/></linearGradient>
+      <linearGradient id="mdSRb" gradientUnits="userSpaceOnUse" x1="62" y1="0" x2="80.09" y2="10.34"><stop offset="0.0" stop-color="#0f2d5c"/><stop offset="0.08" stop-color="#0f2d5c"/><stop offset="0.08" stop-color="#1d4f91"/><stop offset="0.34" stop-color="#1d4f91"/><stop offset="0.34" stop-color="#ffffff"/><stop offset="0.42" stop-color="#ffffff"/><stop offset="0.42" stop-color="#c8102e"/><stop offset="0.58" stop-color="#c8102e"/><stop offset="0.58" stop-color="#ffffff"/><stop offset="0.66" stop-color="#ffffff"/><stop offset="0.66" stop-color="#1d4f91"/><stop offset="0.92" stop-color="#1d4f91"/><stop offset="0.92" stop-color="#0f2d5c"/><stop offset="1.0" stop-color="#0f2d5c"/></linearGradient>
+      <linearGradient id="mdSPa" gradientUnits="userSpaceOnUse" x1="14" y1="0" x2="32.09" y2="-10.34"><stop offset="0.0" stop-color="#5c0d18"/><stop offset="0.08" stop-color="#5c0d18"/><stop offset="0.08" stop-color="#a8182c"/><stop offset="0.28" stop-color="#a8182c"/><stop offset="0.28" stop-color="#e8b84f"/><stop offset="0.38" stop-color="#e8b84f"/><stop offset="0.38" stop-color="#a8182c"/><stop offset="0.62" stop-color="#a8182c"/><stop offset="0.62" stop-color="#e8b84f"/><stop offset="0.72" stop-color="#e8b84f"/><stop offset="0.72" stop-color="#a8182c"/><stop offset="0.92" stop-color="#a8182c"/><stop offset="0.92" stop-color="#5c0d18"/><stop offset="1.0" stop-color="#5c0d18"/></linearGradient>
+      <linearGradient id="mdSPb" gradientUnits="userSpaceOnUse" x1="62" y1="0" x2="80.09" y2="10.34"><stop offset="0.0" stop-color="#5c0d18"/><stop offset="0.08" stop-color="#5c0d18"/><stop offset="0.08" stop-color="#a8182c"/><stop offset="0.28" stop-color="#a8182c"/><stop offset="0.28" stop-color="#e8b84f"/><stop offset="0.38" stop-color="#e8b84f"/><stop offset="0.38" stop-color="#a8182c"/><stop offset="0.62" stop-color="#a8182c"/><stop offset="0.62" stop-color="#e8b84f"/><stop offset="0.72" stop-color="#e8b84f"/><stop offset="0.72" stop-color="#a8182c"/><stop offset="0.92" stop-color="#a8182c"/><stop offset="0.92" stop-color="#5c0d18"/><stop offset="1.0" stop-color="#5c0d18"/></linearGradient>
+      <linearGradient id="mdMg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset="0.2" stop-color="#f2cf6b"/><stop offset="0.45" stop-color="#b8892e"/><stop offset="0.62" stop-color="#f6dd92"/><stop offset="0.82" stop-color="#a97c22"/><stop offset="1" stop-color="#6e4e12"/></linearGradient>
+      <radialGradient id="mdFg" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#fff7dc"/><stop offset="0.45" stop-color="#f3d278"/><stop offset="0.8" stop-color="#cda043"/><stop offset="1" stop-color="#9d7424"/></radialGradient>
+      <linearGradient id="mdMs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="0.2" stop-color="#d9dfe8"/><stop offset="0.45" stop-color="#8d97a7"/><stop offset="0.62" stop-color="#f3f6fa"/><stop offset="0.82" stop-color="#9ba5b4"/><stop offset="1" stop-color="#5a6372"/></linearGradient>
+      <radialGradient id="mdFs" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset="0.45" stop-color="#e4e8ee"/><stop offset="0.8" stop-color="#b3bbc7"/><stop offset="1" stop-color="#858e9c"/></radialGradient>
+      <linearGradient id="mdMr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b98c"/><stop offset="0.2" stop-color="#c4743f"/><stop offset="0.45" stop-color="#7a3b1b"/><stop offset="0.62" stop-color="#cf8650"/><stop offset="0.82" stop-color="#8a4824"/><stop offset="1" stop-color="#45200d"/></linearGradient>
+      <radialGradient id="mdFr" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#f0c09a"/><stop offset="0.45" stop-color="#cd8752"/><stop offset="0.8" stop-color="#9a542b"/><stop offset="1" stop-color="#6c3518"/></radialGradient>
+      <radialGradient id="mdIn"><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient>
+      <linearGradient id="mdShine"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="mdSh" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".2"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".25"/></linearGradient>
+      <linearGradient id="mdBan" x2="0" y2="1"><stop offset="0" stop-color="#2b3c68"/><stop offset="1" stop-color="#0f1731"/></linearGradient>
+      <clipPath id="mdClip"><circle cx="50" cy="68" r="29.6"/></clipPath><clipPath id="mdDisk"><circle cx="50" cy="68" r="36"/></clipPath>
+    </defs></svg>
   </div>
   <div class="block" id="allTimeBlock"><div class="block-head"><h2>All-time standings</h2></div>
   <p class="muted" style="margin:0 0 10px;font-size:.9rem;max-width:80ch">Regular season records and points from 2016 through the current season. 2026 counts every completed week, so the totals move each week. Trades include every completed trade on record, 2026 included. Click a column to sort.</p>
@@ -2369,14 +2436,90 @@ function renderWeeks(){const y=histYear;$("#weeksYear").textContent=y;
     return `<article class="game${op?" open":""}"><button type="button" data-g="${k}" aria-expanded="${op}"><div class="gmeta"><span>${esc(meta[0])}${bn?` · <b class="bowl ${bowlCls(bn)}">${bn}</b>`:""}</span><span>${op?"Hide box score":"Box score"}</span></div>${side(g.a,aw)}${side(g.b,bw)}${meta[1]?`<div class="gmeta"><span>${esc(meta[1])}</span></div>`:""}</button>${op?`<div class="box">${lineup(g.a)}${lineup(g.b)}</div>`:""}</article>`}).join("");
   $("#weekGames").onclick=e=>{const b=e.target.closest("[data-g]");if(!b)return;const k=+b.dataset.g;openGame=openGame===k?null:k;renderWeeks()};
 }
+/* ---------- MEDAL WALL (Kyle 2026-11-23) ----------
+   The top of Records is a wall of small medals, one per record built in renderRecords: the holder's cut-out face in the medal (placed with
+   the career story's face map, CS.kit.HD) and the record on its banner. Gold for glory, silver for the odd ones, cracked rust for shame
+   (mdTier reads the label); the ribbon colour marks the group (pink League, blue Regular season, crimson Playoffs; the gradients sit in the
+   Records markup). Rows are balanced per group (mdLayout) and a tap opens the medal's plaque under its row (mdShow). A new record gets a
+   medal on its own; give it a short caption in MD_SHORT if its label is long. */
+const MD_SHORT={"Most wins, all time":"Most wins","Most losses, all time":"Most losses","Best career win rate":"Best win rate","Worst career win rate":"Worst win rate",
+  "Most trades, all time":"Most trades","Most waiver pickups, all time":"Most pickups","Best record, one season":"Best record","Worst record, one season":"Worst record",
+  "Most points, one season":"Most points, season","Fewest points, one season":"Fewest points, season","Most points, one week":"Most points, week","Fewest points, one week":"Fewest points, week",
+  "Most points left on the bench":"Most bench points","Most playoff trips":"Most trips","Longest playoff drought":"Longest drought","Most playoff wins":"Most wins",
+  "Best playoff record":"Best record","Worst playoff record":"Worst record","Most points, playoff game":"Most points, game","Fewest points, playoff game":"Fewest points, game",
+  "Biggest playoff blowout":"Biggest blowout","Closest playoff game":"Closest game","Most points in a playoff loss":"Most points in a loss","Highest-scoring title game":"Most points, final",
+  "Most points, playoff week":"Most points, week","Fewest points, playoff week":"Fewest points, week","Best player week, playoffs":"Best player week","Most bench points, playoff week":"Most bench points"};
+const mdTier=l=>/^(Worst|Fewest|Most losses|Most Sackos|Longest losing|Longest playoff drought|Unluckiest|Most points left|Most bench)/.test(l)?"r":/^(Closest|Most trades|Most waiver|Luckiest|Most points in a|Best player week)/.test(l)?"s":"g";
+const MD_TIER={g:"Gold",s:"Silver",r:"Rust"},MD_GRP={L:"League",R:"Regular season",P:"Playoffs"};
+const MD_TAIL={L:"#8f2246",R:"#123a73",P:"#7a1222"},MD_EDGE={g:"#6e4e12",s:"#4e5664",r:"#3d1d0c"},MD_MID={g:"#d9ac4b",s:"#b3bbc7",r:"#c27a48"},MD_INK={g:"#ffe7a3",s:"#f4f6fa",r:"#ffcba6"};
+// where the faces sit for 1 to 4 holders: [x, y of the head's centre, head height] in the medal's 100-wide drawing
+const MD_AT={1:[[50,62.5,31]],2:[[35.5,64,24],[64.5,64,24]],3:[[30.5,67,20],[69.5,67,20],[50,61,21]],4:[[39.5,55.5,17],[60.5,55.5,17],[30.5,77,17.5],[69.5,77,17.5]]};
+let MEDALS={},mdOpen=null,mdRO=null,mdW0=0;
+const mdq=v=>Math.round(v*100)/100;
+function mdFace(o,x,y,h){const H=(typeof CS!=="undefined"&&CS.kit&&CS.kit.HD||{})[o],src=CUT[o];
+  if(H&&src){const [w,ih,cx,t,c]=H,s=h/((c-t)*ih),W=w*s,Hh=ih*s;return `<image href="${src}" x="${mdq(x-cx*W)}" y="${mdq(y-(t+c)/2*Hh)}" width="${mdq(W)}" height="${mdq(Hh)}" preserveAspectRatio="none"/>`}
+  if(IMG[o])return `<image href="${IMG[o]}" x="${mdq(x-h)}" y="${mdq(y-h*.8)}" width="${mdq(h*2)}" height="${mdq(h*2)}" preserveAspectRatio="xMidYMid slice"/>`;
+  return `<text x="${x}" y="${mdq(y+h*.2)}" font-size="${mdq(h*.6)}" text-anchor="middle" fill="#3b2a08">${esc((OWNERS[o]?.name||"?")[0])}</text>`}
+// rough width in ems of a string in the display face, to fit the value on the banner
+const mdEm=s=>[...s].reduce((a,c)=>a+(/\d/.test(c)?.6:/[.,:' ]/.test(c)?.3:c==="%"?.85:/[-–]/.test(c)?.42:/[+−]/.test(c)?.62:.68),0);
+function medalSVG(m){const t=m.tier,g=m.g,v=String(m.val),u=v.match(/^(.*\d\S*)\s+([A-Za-z]+)$/),num=u?u[1]:v,unit=u?u[2]:"";
+  const fs=Math.min(15.5,64/(mdEm(num)+(unit?.25+mdEm(unit)*.62:0))),n=Math.min(m.os.length,4);
+  const faces=m.os.slice(0,4).map((o,i)=>mdFace(o,...MD_AT[n][i])).join("");
+  return `<svg viewBox="0 6 100 112" aria-hidden="true" focusable="false"><polygon points="14,0 38,0 62,42 38,42" fill="url(#mdS${g}a)"/><polygon points="14,0 38,0 62,42 38,42" fill="#000" opacity=".22"/><polygon points="62,0 86,0 62,42 38,42" fill="url(#mdS${g}b)"/><polygon points="62,0 86,0 62,42 38,42" fill="url(#mdSh)"/>`
+   +`<circle cx="50" cy="29.5" r="4.4" fill="none" stroke="url(#mdM${t})" stroke-width="2.6"/><circle cx="50" cy="68" r="36" fill="url(#mdM${t})"/><circle cx="50" cy="68" r="35.5" fill="none" stroke="${MD_EDGE[t]}"/><circle cx="50" cy="68" r="33" fill="none" stroke="${MD_EDGE[t]}" stroke-width="1.6" stroke-dasharray=".01 3.45" stroke-linecap="round" opacity=".75"/>`
+   +(t==="r"?`<circle cx="22" cy="52" r="2.4" fill="#5f7d5d" opacity=".6"/><circle cx="80.5" cy="83" r="1.8" fill="#5f7d5d" opacity=".55"/><circle cx="26" cy="89" r="1.5" fill="#3a1a08" opacity=".5"/>`:"")
+   +`<circle cx="50" cy="68" r="30" fill="url(#mdF${t})"/><g clip-path="url(#mdClip)">${faces}</g><circle cx="50" cy="68" r="30" fill="url(#mdIn)"/><circle cx="50" cy="68" r="30" fill="none" stroke="${MD_EDGE[t]}" stroke-width=".9"/>`
+   +(t==="r"?`<path d="M77.6 44.9l-5.4 5.2 2.6 2.9-6.2 5.1 1.4 3.2" fill="none" stroke="#2a1206" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M78.4 45.6l-5.4 5.2 2.6 2.9-6.2 5.1" fill="none" stroke="#ffd9b8" stroke-width=".5" opacity=".55"/>`:"")
+   +`<g clip-path="url(#mdDisk)"><polygon class="mshine" points="-22,106 -10,106 10,30 -2,30" fill="url(#mdShine)"/><polygon class="mglint" points="-22,106 -10,106 10,30 -2,30" fill="url(#mdShine)"/></g>`
+   +`<polygon points="3,99 16,99 16,115 3,115 8,107" fill="${MD_TAIL[g]}"/><polygon points="97,99 84,99 84,115 97,115 92,107" fill="${MD_TAIL[g]}"/><rect x="10" y="95" width="80" height="16" rx="2" fill="url(#mdBan)" stroke="${MD_MID[t]}" stroke-width=".9"/>`
+   +`<text class="mval" x="50" y="${mdq(103+fs*.36)}" font-size="${mdq(fs)}" text-anchor="middle" fill="${MD_INK[t]}">${esc(num)}${unit?`<tspan font-size="${mdq(fs*.62)}" dx="${mdq(fs*.2)}">${esc(unit)}</tspan>`:""}</text></svg>`}
+const mdWho=os=>os.length===1?short(os[0]):os.length===2?`${short(os[0])} & ${short(os[1])}`:`${os.length}-way tie`;
+const mdNames=os=>os.length<2?short(os[0]):os.slice(0,-1).map(short).join(", ")+" and "+short(os[os.length-1]);
+function renderMedals(groups){MEDALS={};mdOpen=null;let k=0;
+  groups.forEach(([g,id,cs])=>{const el=$(id);delete el.dataset.per;
+    el.innerHTML=cs.map((c,i)=>{const m={...c,g,key:g+i,tier:mdTier(c.label)};MEDALS[m.key]=m;
+      return `<button type="button" class="md ${m.tier}" data-md="${m.key}" aria-expanded="false" aria-controls="mPlac" aria-label="${esc(`${m.label}: ${m.val}, ${mdNames(m.os)}`)}" style="--d:${k++*20}ms"><span class="mhang">${medalSVG(m)}</span><span class="mlab">${esc(MD_SHORT[m.label]||m.label)}</span><span class="mwho">${esc(mdWho(m.os))}</span></button>`}).join("")});
+  const wall=$("#medalWall");delete wall.dataset.focus;
+  // the medal table: every owner on the wall (a tie counts for each holder), gold first, then silver, then the fewest rust
+  const T={};Object.values(MEDALS).forEach(m=>m.os.forEach(o=>{(T[o]??={o,g:0,s:0,r:0})[m.tier]++}));
+  $("#mTally").innerHTML=Object.values(T).sort((a,b)=>b.g-a.g||b.s-a.s||a.r-b.r||short(a.o).localeCompare(short(b.o))).map(x=>`<button type="button" data-mo="${x.o}" aria-pressed="false" aria-label="${esc(`${short(x.o)}: ${x.g} gold, ${x.s} silver, ${x.r} rust. Light up his medals`)}">${av(x.o)}<span>${esc(short(x.o))}</span><span class="mtc">${["g","s","r"].filter(k=>x[k]).map(k=>`<i class="${k}">${x[k]}</i>`).join("")}</span></button>`).join("");
+  wall.onclick=e=>{const tm=e.target.closest("[data-team]");if(tm){goTeam(tm.dataset.team);return}
+    const mo=e.target.closest("[data-mo]");if(mo){mdFocus(wall.dataset.focus===mo.dataset.mo?null:mo.dataset.mo);return}
+    if(e.target.closest("[data-mdx]")){mdClose(true);return}
+    const b=e.target.closest("[data-md]");if(b){if(mdOpen===b.dataset.md)mdClose();else mdShow(b.dataset.md,true)}};
+  wall.onkeydown=e=>{if(e.key==="Escape"&&mdOpen){e.preventDefault();mdClose(true)}};
+  if(!mdRO&&window.ResizeObserver){mdRO=new ResizeObserver(es=>{const w=es[0].contentRect.width;if(Math.abs(w-mdW0)<1)return;mdW0=w;requestAnimationFrame(mdLayout)});mdRO.observe(wall)}
+  mdLayout()}
+// balanced rows: as many medals a row as fit (3 to 10), the same count in every row, and a short last row centred
+function mdLayout(){const wall=$("#medalWall");if(!wall||!wall.clientWidth)return;let moved=false;
+  wall.querySelectorAll(".mgrid").forEach(gr=>{const ms=[...gr.querySelectorAll(".md")],n=ms.length;if(!n)return;
+    const max=Math.max(3,Math.min(10,Math.floor(gr.parentElement.clientWidth/76))),rows=Math.ceil(n/max),per=Math.ceil(n/rows),last=n-(rows-1)*per;
+    if(+gr.dataset.per===per)return;moved=true;gr.dataset.per=per;gr.style.setProperty("--cols",per*2);
+    ms.forEach((b,i)=>{b.style.gridColumnStart=i===(rows-1)*per&&last<per?per-last+1:""})});
+  if(moved&&mdOpen)mdShow(mdOpen)}
+function mdPlac(m){return `<div class="mplac ${m.tier}" id="mPlac" role="region" aria-label="${esc(m.label)}"><button type="button" class="mplac-x" data-mdx aria-label="Close">×</button>
+  <div class="pmed">${medalSVG(m)}<span>${MD_TIER[m.tier]} medal</span></div><div class="pbody"><span class="eyebrow">${MD_GRP[m.g]}</span><h4>${esc(m.label)}</h4><p class="pv">${esc(m.val)}</p>${m.ctx?`<p class="pctx">${m.ctx}</p>`:""}
+  <div class="pwho">${m.os.map(o=>`<button type="button" data-team="${o}">${av(o)}<span>${esc(short(o))}</span><small>Team page ›</small><b aria-hidden="true">›</b></button>`).join("")}</div></div></div>`}
+function mdShow(key,scroll){const m=MEDALS[key],b=document.querySelector(`.md[data-md="${key}"]`);if(!m||!b)return;
+  $("#mPlac")?.remove();document.querySelectorAll('.md[aria-expanded="true"]').forEach(x=>x.setAttribute("aria-expanded","false"));
+  mdOpen=key;b.setAttribute("aria-expanded","true");
+  const ms=[...b.parentElement.querySelectorAll(".md")],i=ms.indexOf(b),per=+b.parentElement.dataset.per||ms.length;
+  ms[Math.min(ms.length-1,Math.floor(i/per)*per+per-1)].insertAdjacentHTML("afterend",mdPlac(m));
+  const p=$("#mPlac");p.style.setProperty("--px",`${b.offsetLeft+b.offsetWidth/2-p.offsetLeft}px`);
+  if(scroll)p.scrollIntoView({block:"nearest",behavior:"smooth"})}
+// light up one owner's medals and dim the rest; null clears it
+function mdFocus(o){const wall=$("#medalWall");if(o)wall.dataset.focus=o;else delete wall.dataset.focus;
+  wall.querySelectorAll("[data-mo]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mo===o)));
+  wall.querySelectorAll(".md").forEach(b=>b.classList.toggle("on",!!o&&MEDALS[b.dataset.md].os.includes(o)))}
+function mdClose(refocus){const k=mdOpen;$("#mPlac")?.remove();document.querySelectorAll('.md[aria-expanded="true"]').forEach(x=>x.setAttribute("aria-expanded","false"));mdOpen=null;
+  if(refocus&&k)document.querySelector(`.md[data-md="${k}"]`)?.focus()}
 function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
   const seas=[];for(const o in S)for(const y in S[o].seasons){const r=S[o].seasons[y];if(OWNERS[o])seas.push({o,y:+y,...r})}
   const T=Object.keys(S).filter(o=>OWNERS[o]).map(o=>({o,...totals(o),trades:tradeCount(o)}));
   const top=(arr,f,dir=-1)=>{const v=arr.map(f).filter(x=>x!=null);const b=dir<0?Math.max(...v):Math.min(...v);return arr.filter(x=>f(x)===b)};
   const names=a=>a.map(x=>short(x.o)).join(" and ");
-  const card=(label,val,rows,ctx)=>{const os=[...new Set(rows.map(r=>r.o))];
-    const face=os.length===1?cutout(os[0]).replace(/<svg[^>]*>.*?<\/svg>/,""):`<div class="multi">${os.map(o=>av(o)).join("")}</div>`;
-    return `<article class="rec">${face}<div class="rt"><span class="eyebrow">${label}</span><span class="rv">${val}</span><span class="rw">${esc(os.map(short).join(" & "))}</span></div>${ctx?`<span class="rc">${ctx}</span>`:""}</article>`};
+  // one medal per record (renderMedals): label, value, holders, and the plaque's context line (HTML)
+  const card=(label,val,rows,ctx)=>({label,val,ctx,os:[...new Set(rows.map(r=>r.o))]});
   const tn=x=>esc(x.team||"");
   const withPts=seas.filter(r=>r.pts!=null),pct=r=>r.w/(r.w+r.l),yl=r=>r.live?`${r.y} so far`:r.y;
   const hiS=top(withPts,r=>r.pts),loS=top(withPts.filter(r=>!r.live),r=>r.pts,1),bestR=top(seas,pct),worstR=top(seas,pct,1);
@@ -2440,11 +2583,7 @@ function renderRecords(){const R=RECW,wk=(y,w)=>`${y}, week ${w}`;
       card("Fewest points, playoff week",fmt(PW.weekLow.p),[PW.weekLow],`${tn(PW.weekLow)} vs ${esc(short(PW.weekLow.vs))}, ${wk(PW.weekLow.y,PW.weekLow.w)}`),
       card("Best player week, playoffs",fmt(PW.player.p),[PW.player],`${pn(PW.player.n)} (${PW.player.pos}) for ${tn(PW.player)}, ${wk(PW.player.y,PW.player.w)}`),
       card("Most bench points, playoff week",fmt(PW.bench.bench),[PW.bench],`${tn(PW.bench)}, ${wk(PW.bench.y,PW.bench.w)}`)]:[])];
-  [["#recLeague",LEAGUE],["#recReg",REG],["#recPo",PLAY]].forEach(([id,cs])=>{const g=$(id);g.innerHTML=cs.join("");
-    const wrap=g.parentElement,pv=wrap.querySelector(".prev"),nx=wrap.querySelector(".next");
-    const upd=()=>{pv.disabled=g.scrollLeft<=4;nx.disabled=g.scrollLeft+g.clientWidth>=g.scrollWidth-4};
-    pv.onclick=()=>g.scrollBy({left:-g.clientWidth*.9});nx.onclick=()=>g.scrollBy({left:g.clientWidth*.9});
-    g.onscroll=upd;requestAnimationFrame(upd)})}
+  renderMedals([["L","#recLeague",LEAGUE],["R","#recReg",REG],["P","#recPo",PLAY]])}
 let rankKey="current";
 const RETRO=[
  ["charles","Chuck","2 Time Champ, Enough said"],
