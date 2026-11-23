@@ -1638,6 +1638,10 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points.</p>
     <div class="top5" id="top5pickups"></div>
   </details>
+  <details class="fold block"><summary><h2>Top 5 worst drops of all time</h2><span class="chev" aria-hidden="true"></span></summary>
+    <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:70ch">Ranked by the wins the player added for everyone else after he was cut, using the same WAR as the trade rapes: every week he was in another team's starting lineup in a game that mattered (regular season, plus playoff weeks while that team was alive), his points over a replacement starter, turned into wins. The clock stops if the team that cut him gets him back. Kickers and defenses are left out, since everyone streams them. From ESPN box scores, 2018 on, through the last finished week.</p>
+    <div class="top5" id="top5drops"></div>
+  </details>
   <details class="fold block"><summary><h2>Top 10 seasons of all time</h2><span class="chev" aria-hidden="true"></span></summary>
     <p class="muted" style="margin:0 0 12px;font-size:.9rem;max-width:72ch">Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup’s season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, ×0.90 for 8 teams, ×0.95 for 10 and ×1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017. Open a season to see the breakdown and the lineup.</p>
     <div class="top5" id="topRosters"></div>
@@ -1747,6 +1751,7 @@ const RIVALS = /*RIVALS*/;
 // each season's divisions from ESPN (src/divisions.py): {year:{names:[...],o:{owner:index}}}; 2016-17 had none saved
 const DIVS = /*DIVISIONS*/;
 const SACKO_BR = /*SACKOBR*/;
+const DROPS = /*DROPS*/;   // worst drops of all time, from src/drops.py (data/drops.json)
 const THRONES = /*THRONES*/;
 const RANK = /*RANKINGS*/;
 
@@ -3640,6 +3645,8 @@ function renderTopLists(){
   $("#pickPos").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;pickPos=b.dataset.p;renderTopLists()};
   const best=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
   $("#top5pickups").innerHTML=best.map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V","VI","VII","VIII","IX","X"][i]}</span>${av(m.o)}<div><h4>${pn(m.add[0])} <span class="muted" style="font-weight:400">${esc(m.add[1])} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) grabbed him ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup.</p>${pickPos==="all"&&m.score!==m.pts?`<p class="score">Pickup score <b>${fmt(m.score)}</b> (${m.add[1]} weighted)</p>`:""}</div></article>`).join("");
+  const nm=l=>l.map(o=>esc(short(o))),and=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
+  $("#top5drops").innerHTML=DROPS.slice(0,5).map((m,i)=>`<article class="pickup"><span class="rank">${["I","II","III","IV","V"][i]}</span>${av(m.o)}<div><h4>${pn(m.p)} <span class="muted" style="font-weight:400">${esc(m.pos)} · ${m.y}</span></h4><p style="margin:4px 0 0">${esc(m.team)} (${esc(short(m.o))}) cut him before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><p class="score">Wins given away <b>${wf(m.war,false)}</b></p></div></article>`).join("");
   $("#top5").innerHTML=TOP5.map((x,i)=>{const t=TR[x.id];return tradeHTML(t,`<div style="display:flex;gap:14px;align-items:start"><span class="rank">${["I","II","III","IV","V"][i]}</span><p class="why">${esc(x.why)}</p></div>`)}).join("");
 }
 function renderTrades(){
@@ -4746,7 +4753,7 @@ function renderPlayer(){const r=PLAYERS.p[plCur],ys=Object.keys(r.y).map(Number)
   $("#plBody").onclick=e=>{const b=e.target.closest("[data-y]");if(!b)return;plYear=b.dataset.y==="all"?"all":+b.dataset.y;renderPlayer();$("#plDlg").scrollTop=0}}
 
 /* ---------- SEARCH ---------- */
-const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, draft boards, weekly matchups"],["Draft boards","#drafts","Every draft board, in History"],["Teams","#teams","Owner profiles"],["Records","#records","League records, stats, all-time and season standings, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers, top 10 trade rapes, pickups and seasons"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
+const PAGES=[["Home","#home","Front page"],["History","#history","Eras, brackets, draft boards, weekly matchups"],["Draft boards","#drafts","Every draft board, in History"],["Teams","#teams","Owner profiles"],["Records","#records","League records, stats, all-time and season standings, all moves"],["Rankings","#rankings","Power, drafting, trading, waivers, top 10 trade rapes, pickups, worst drops and seasons"],["Champions","#champions","Every title"],["Sackos","#sackos","Every last place"],["Rules","#rules","League rules, commissioners and votes"]];
 let sSel=0,sItems=[];
 function goTeam(o){current=o;teamYear=null;if(location.hash==="#teams")route();else location.hash="#teams"}
 function goYear(y){histYear=y;histMode="year";histWeek=null;openGame=null;if(location.hash==="#history")route();else location.hash="#history"}
