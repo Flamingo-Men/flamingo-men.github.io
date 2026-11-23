@@ -66,6 +66,8 @@ section.hall{display:none;padding-block:36px 64px}
 section.hall.on{display:block}
 .hall-head{display:grid;gap:6px;margin-bottom:24px}
 .hall-head p{max-width:65ch;margin:0;color:var(--muted)}
+/* phones (Kyle 2026-11-23): History, Records, Sacko winners and League champions open straight on their content (timeline, medal wall, toilets, plaques), so their headers are hidden */
+@media (max-width:640px){#hall-history .hall-head,#hall-records .hall-head,#hall-sackos .hall-head,#hall-champions .hall-head{display:none}}
 
 /* hero */
 .hero{position:relative;background:var(--night);color:#f6f3f4;overflow:hidden}
