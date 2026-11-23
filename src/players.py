@@ -87,14 +87,21 @@ for t in L['trades']:
             if not r: continue
             season(r,t['s'])
             r['mv'].append(dict(y=t['s'],d=t['d'],k='trade',o=t[side]['o'],to=t[other]['o'],id=tri.get(t['id'],[t['id']])[0],st=t['st']))
-# 2016 and 2017 have no weekly lineups: use the rebuilt end-of-season rosters, plus the roster screenshots (snap), the only place some players show up (Mike Wallace)
+# 2016 and 2017 have no weekly lineups: use the rebuilt end-of-season rosters
 for y in (2016,2017):
     for o,R in MV['rosters'].get(str(y),{}).items():
-        for p in R['players']+(R.get('snap') or {}).get('players',[]):
+        for p in R['players']:
             r=rec(y,p[1],p[2] or None)
-            if r:
-                own=season(r,y).setdefault('roster',[])
-                if o not in own: own.append(o)
+            if r: season(r,y).setdefault('roster',[]).append(o)
+# a player seen nowhere but a team page's roster screenshot still gets a card (Mike Wallace, on Kyle's 2016 week 17 roster)
+snap_only=set()
+for y in (2016,2017):
+    for o,R in MV['rosters'].get(str(y),{}).items():
+        for p in (R.get('snap') or {}).get('players',[]):
+            pid=M.find(y,p[1],p[2] or None)
+            if pid is None or (pid in P and pid not in snap_only): continue
+            snap_only.add(pid);own=season(rec(y,p[1],p[2] or None),y).setdefault('roster',[])
+            if o not in own: own.append(o)
 
 # stats for every season each player has, not just the league ones
 for y in YEARS:
