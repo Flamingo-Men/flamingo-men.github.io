@@ -61,6 +61,7 @@ def index(y):
     for pid,p in players(y).items():
         ix[norm(p['n'])].append(pid)
         if p['pos']=='D/ST': ix[norm(p['n'].replace(' D/ST',''))].append(pid)
+        if pid==-16028: ix['washington'].append(pid)   # ESPN has called it Redskins, Football Team and Commanders D/ST; the 2021 draft board says Washington
     return ix
 IX={}
 def find(y,name,pos=None):
