@@ -74,7 +74,6 @@ section.hall.on{display:block}
 .hero h1 em{font-style:normal;color:inherit}
 .hero p{max-width:52ch;color:#cfd4e4;margin:14px 0 0}
 .hero .eyebrow{color:#e8c574}
-.pediment{width:100%;max-width:380px;justify-self:center}
 .hero-stats{display:flex;gap:28px;margin-top:22px;flex-wrap:wrap}
 .hero-stats div{display:grid}
 .hero-stats b{font-family:var(--f-display);font-weight:400;font-size:2rem;color:#fff}
@@ -764,7 +763,6 @@ footer small{color:#99a1b8}
 
 @media (max-width:860px){
   .hero .wrap{grid-template-columns:1fr}
-  .pediment{max-width:260px}
   .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
   .champ-strip{grid-template-columns:repeat(4,minmax(0,1fr))}
   .profile{grid-template-columns:1fr}
@@ -1069,8 +1067,78 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 
 /* DASHBOARD (home) */
 .hero .wrap{padding-block:30px 24px}
-.hero .pediment{max-width:290px}
 .dash{padding-bottom:40px}
+/* ACROPOLIS hero (Kyle 2026-11-23): every member as a small animated bobblehead acting out league lore; JS in the ACROPOLIS block */
+.hero .wrap{grid-template-columns:minmax(0,1fr);gap:18px}
+.hero-txt{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 48px;align-items:end}
+.hero-txt p{margin:0}
+.acro-box{position:relative;border-radius:14px;overflow:hidden;background:linear-gradient(#0c1430,#1c2852 58%,#2c2547);box-shadow:inset 0 0 0 1px rgba(232,197,116,.25)}
+.acro-svg{display:block;width:100%;height:auto;-webkit-tap-highlight-color:transparent}
+.acro-hint{position:absolute;top:10px;left:14px;font-family:var(--f-data);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:#cfd4e4;opacity:.75;pointer-events:none}
+.acro-cap{display:flex;gap:12px;align-items:center;padding:10px 14px;background:rgba(6,10,20,.6);border-top:1px solid rgba(232,197,116,.22);min-height:68px}
+.acro-cap .av{width:42px;height:42px;flex:none}
+.hero .acro-cap p{margin:0;font-size:.92rem;line-height:1.4;color:#e7e9f2;max-width:none}
+.acro-cap b{color:#ffd76a}
+.acro-cap .muted{color:#aeb6cc;font-size:.78rem}
+.acro .ac{cursor:pointer;outline:none}
+.acro .ac.on>g,.acro .ac:focus-visible>g{filter:drop-shadow(0 0 2px #ffd76a) drop-shadow(0 0 7px rgba(255,215,106,.75))}
+.acro .an{transform-origin:0 0}
+.acro .tw{animation:aTw 3s ease-in-out infinite}
+.acro .a-hop{animation:aHop 4s ease-in-out infinite}
+.acro .a-perch{animation:aPerch 4s infinite}
+.acro .a-chick{animation:aChick 5s linear infinite}
+.acro .a-ping{animation:aPing 3s ease-out infinite}
+.acro .a-sword{animation:podWave .8s ease-in-out infinite alternate}
+.acro .a-flag{animation:aFlag .9s ease-in-out infinite alternate}
+.acro .a-gavel{animation:aGavel 2.4s infinite}
+.acro .a-order{animation:aOrder 2.4s infinite}
+.acro .a-unroll{animation:aUnroll 7s ease-in-out infinite}
+.acro .a-roller{animation:aRoller 7s ease-in-out infinite}
+.acro .a-rant{animation:aRant .5s ease-in-out infinite}
+.acro .a-say3{animation:aSay3 6s infinite}
+.acro .a-swing{animation:aSwing 1.7s ease-in-out infinite alternate}
+.acro .a-sisy{animation:aSisy 9s ease-in-out infinite}
+.acro .a-rock{animation:aRock 9s ease-in-out infinite}
+.acro .a-spin{animation:aSpin 9s ease-in-out infinite}
+.acro .a-tail{animation:aTail 1.3s ease-in-out infinite alternate}
+.acro .a-thaw{animation:aThaw 8s ease-in-out infinite}
+.acro .a-puddle{animation:aPuddle 8s ease-in-out infinite}
+.acro .a-step{animation:aStep .7s ease-in-out infinite}
+.acro .a-juggle{animation:aJuggle 2.6s linear infinite}
+.acro .a-drib{animation:aDrib .34s cubic-bezier(.55,0,1,.45) infinite alternate}
+.acro .a-pop{animation:aPop 1.6s ease-out infinite}
+.acro .a-float{animation:aFloat 4s ease-in-out infinite}
+.acro .a-patrol{animation:aPatrol 9s linear infinite}
+.acro .a-fire{animation:aFire .5s ease-in-out infinite alternate}
+@keyframes aTw{50%{opacity:.15}}
+@keyframes aHop{0%,52%,100%{transform:none}62%{transform:translateY(-24px)}72%{transform:scale(1.06,.92)}80%{transform:none}}
+@keyframes aPerch{0%,60%{opacity:0;transform:translateY(6px)}66%,90%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes aChick{0%{transform:none}45%{transform:translateX(16px)}50%{transform:translateX(16px) scaleX(-1)}95%{transform:scaleX(-1)}100%{transform:none}}
+@keyframes aPing{0%{opacity:0;transform:translateY(8px)}10%,45%{opacity:1;transform:none}60%,100%{opacity:0;transform:translateY(-10px)}}
+@keyframes aFlag{from{transform:skewY(-7deg) scaleX(.9)}to{transform:skewY(5deg)}}
+@keyframes aGavel{0%,58%,100%{transform:rotate(-50deg)}68%{transform:rotate(18deg)}74%{transform:rotate(8deg)}86%{transform:rotate(-50deg)}}
+@keyframes aOrder{0%,64%{opacity:0}69%,88%{opacity:1}94%,100%{opacity:0}}
+@keyframes aUnroll{0%,8%{transform:scaleY(.06)}55%,85%{transform:none}100%{transform:scaleY(.06)}}
+@keyframes aRoller{0%,8%{transform:translateY(-105px)}55%,85%{transform:none}100%{transform:translateY(-105px)}}
+@keyframes aRant{50%{transform:translateY(-4px)}}
+@keyframes aSay3{0%,30%{opacity:1}34%,100%{opacity:0}}
+@keyframes aSwing{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+@keyframes aSisy{0%{transform:none}60%,68%{transform:translate(-60px,-70px)}96%,100%{transform:none}}
+@keyframes aRock{0%{transform:none}60%,64%{transform:translate(-60px,-70px)}80%{transform:translate(8px,4px)}86%,100%{transform:none}}
+@keyframes aSpin{0%{transform:none}60%,64%{transform:rotate(-260deg)}80%,100%{transform:rotate(40deg)}}
+@keyframes aTail{from{transform:rotate(-15deg)}to{transform:rotate(22deg)}}
+@keyframes aThaw{0%,15%{opacity:.9}50%,70%{opacity:.08}100%{opacity:.9}}
+@keyframes aPuddle{0%,15%{transform:scaleX(.3)}50%,70%{transform:none}100%{transform:scaleX(.3)}}
+@keyframes aStep{50%{transform:translateY(-3px)}}
+@keyframes aJuggle{to{transform:rotate(1turn)}}
+@keyframes aDrib{to{transform:translateY(17px)}}
+@keyframes aPop{0%{opacity:0;transform:none}20%{opacity:1}100%{opacity:0;transform:translateY(-20px)}}
+@keyframes aFloat{0%,100%{transform:none;opacity:1}50%{transform:translateY(-10px);opacity:.7}}
+@keyframes aPatrol{0%{transform:none}45%{transform:translateX(40px)}50%{transform:translateX(40px) scaleX(-1)}95%{transform:scaleX(-1)}100%{transform:none}}
+@keyframes aFire{from{transform:scale(.92,1.04)}to{transform:scale(1.06,.9)}}
+@media (max-width:860px){.hero-txt{grid-template-columns:minmax(0,1fr)}.hero-txt p{margin-top:12px}}
+@media (max-width:640px){.acro-box{margin-inline:-16px;border-radius:0;box-shadow:none}.acro-cap{padding:10px 16px}.hero .acro-cap p{font-size:.86rem}.acro-hint{left:16px;top:8px}}
+@media (prefers-reduced-motion:reduce){.acro *{animation:none!important}.acro .a-perch,.acro .a-order,.acro .a-ping,.acro .a-say3{display:none}}
 .dash-status{font-family:var(--f-data);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:18px 0 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .dash-status .livedot{width:8px;height:8px;border-radius:50%;background:var(--bad);animation:pulse 1.4s infinite}
 @keyframes pulse{50%{opacity:.25}}
@@ -1286,7 +1354,6 @@ dialog.stdlg{max-height:none;height:100dvh;margin:0;border-radius:0;font-size:15
   .hero-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:16px}
   .hero-stats b{font-size:1.6rem}
   .hero-stats span{font-size:.58rem;letter-spacing:.06em}
-  .hero .pediment{max-width:190px}
   section.hall{padding-block:24px 48px}
   .dblock{padding:0 14px}
   .dblock>summary h2{font-size:1.2rem}
@@ -1647,48 +1714,13 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
 <section class="hall" id="hall-home" style="padding-top:0">
   <div class="hero">
     <div class="wrap">
-      <div>
+      <div class="hero-txt"><div>
         <div class="eyebrow" id="heroLine">Year 11 of the republic · 12 teams · 2026 season underway</div>
-        <h1>The <em>Flamingo</em><br>Men</h1>
-        <p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
-        <div class="hero-stats" id="heroStats"></div>
+        <h1>The <em>Flamingo</em><br>Men</h1></div>
+        <div><p>A league of long memories, loud group chats and trades that should have been vetoed. Every title, Sacko, heist and veto since 2016 lives here.</p>
+        <div class="hero-stats" id="heroStats"></div></div>
       </div>
-      <svg class="pediment" viewBox="0 0 320 260" role="img" aria-label="A flamingo standing inside a Greek temple">
-        <path d="M20 78 160 14 300 78Z" fill="none" stroke="#e8c574" stroke-width="3"/>
-        <rect x="20" y="80" width="280" height="12" fill="#e8c574"/>
-        <g fill="none" stroke="#cfd4e4" stroke-width="2">
-          <path d="M44 96v130M60 96v130M260 96v130M276 96v130"/>
-          <path d="M40 96h24M40 226h24M256 96h24M256 226h24"/>
-        </g>
-        <rect x="16" y="228" width="288" height="10" fill="#e8c574"/>
-        <rect x="6" y="240" width="308" height="10" fill="#e8c574" opacity=".7"/>
-        <g class="flap"><g transform="translate(28 46) scale(.8)">
-          <!-- legs: one straight, one tucked -->
-          <path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M152 226 L170 226" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/>
-          <path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <!-- tail and body -->
-          <path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/>
-          <ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/>
-          <!-- neck, head, beak -->
-          <path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/>
-          <circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/>
-          <path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/>
-          <path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/>
-          <circle cx="205" cy="66" r="1.8" fill="#15203b"/>
-          <!-- football tucked under the wing -->
-          <g transform="rotate(-28 190 160)">
-            <ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/>
-            <path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/>
-            <path d="M184 157 V163 M188 157 V163 M192 157 V163 M196 157 V163" stroke="#fff" stroke-width="1.3"/>
-            <path d="M175 155 Q173 160 175 165 M205 155 Q207 160 205 165" fill="none" stroke="#fff" stroke-width="1.3"/>
-          </g>
-          <!-- wing wrapping over the ball -->
-          <path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>
-          <path d="M150 152 C164 146 178 150 188 156" fill="none" stroke="#e0517a" stroke-width="2" stroke-linecap="round"/>
-        </g></g>
-        <text x="160" y="62" text-anchor="middle" fill="#e8c574" font-family="Marcellus SC, Georgia, serif" font-size="15" letter-spacing="3">ΦΛΑΜΙΝΓΚΟ</text>
-      </svg>
+      <div class="acro-box"><div class="acro" id="acro"></div><span class="acro-hint" aria-hidden="true">Tap anyone</span><div class="acro-cap" id="acroCap" aria-live="polite"></div></div>
     </div>
   </div>
   <div class="meander" aria-hidden="true"></div>
@@ -2416,11 +2448,165 @@ function renderHome(){
   {const cy=ALL_YEARS[ALL_YEARS.length-1],yn=cy-2015,nt=Object.keys(LIVE).length||12;   // always the current season
    $("#yearline").textContent=`Year ${yn} · ${cy} season`;$("#heroLine").textContent=`Year ${yn} of the republic · ${nt} teams · ${cy} season underway`}
   $("#heroStats").innerHTML=[[ALL_YEARS.length,"Seasons"],[Object.keys(S).length,"Owners on record"],[done,"Trades logged"],[vet,"Vetoes"]].map(([b,s])=>`<div><b>${b}</b><span>${s}</span></div>`).join("");
-  careerPicker();if(!dashTimer){dashPrefs();loadDash();wrPicker();
+  acroRender();careerPicker();if(!dashTimer){dashPrefs();loadDash();wrPicker();
     // re-pull every two minutes while a week is being played and the home page is open
     dashTimer=setInterval(()=>{if(DASH?.started&&!document.hidden&&(location.hash||"#home")==="#home")loadDash()},120000)}
   else renderDash();
 }
+
+/* ---------- ACROPOLIS (Kyle 2026-11-23) ----------
+   The home page hero is a night scene on the Acropolis with every league member on it as a small bobblehead (podFig from the
+   Rankings podium), each acting out a bit of league lore. Tap anyone for a caption; the caption also cycles on its own.
+   Two layouts: "wide" (1000 x 400) for tablets and desktops, "tall" (400 x 470) for phones, so nobody is cut off on an iPhone.
+   Positions are feet (x, y) and scale in scene units. Keep captions inside the content rules (no crimes, no old team names). */
+const ACRO_LORE={
+  kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
+  fluff:"Perch alert. Floof climbs the back of the couch and perches on whoever is sitting below.",
+  charles:"The busiest trader in league history, never far from Sal's Chickens (four of them this year).",
+  squirm:"Old Hickory, the 2021 champion, fighting on like the Black Knight. 'Tis but a scratch.",
+  dylan:"Lucas's roommate, waving the Sultans of Squirm flag, as always.",
+  lucas:"Commissioner again in 2026, calling the league to order. Nine is his guy.",
+  peanut:"Sitting out 2026 to heal up, but still unrolling team names. The league wants Kad back in 2027.",
+  quincy:"Argues for sport. Any soapbox will do.",
+  dilapi:"The league's biggest swing team: back-to-back Sackos, then 11-2, then 2-11, then first place.",
+  jordan:"Pushing the 1-12 boulder up the steps. It keeps rolling back down.",
+  rod:"The RodFather. Quietly good and rarely trades, but when he does it's an offer you can't refuse.",
+  jerry:"The Encino Man, thawing out for 2026 after a year on ice.",
+  skelly:"Team Kelly, 2019 to 2021, then off to become a doctor.",
+  mateus:"One season, six trades. Still juggling them.",
+  duane:"The first champion, 2016. Collected his pot at a Chaminade basketball game.",
+  keeves:"Played one season, 2017, as Patrick. Has been watching from the steps ever since.",
+  ghost:"Met the league over online games, played the 2015 Wu-Tang league, and floated back for 2026.",
+  vicente:"Just joined the NYPD, and he's keeping an eye on the Flamingo Men."};
+// [x, y, scale] of each owner's feet; dilapi's 4th value is how far up (in scene units) his swing's branch is
+const ACRO_POS={
+  wide:{W:1000,H:400,temple:[500,244,.9],plat:[120,190,810,880,244,300],stairs:[260,244,480,5,11],
+    ghost:[252,152,.4],vicente:[212,248,.42],peanut:[408,248,.42],lucas:[500,248,.44],quincy:[592,248,.42],skelly:[788,248,.42],
+    keeves:[296,270,.42],jordan:[716,302,.46],dilapi:[112,318,.46,160],duane:[206,384,.54],kyle:[322,386,.54],charles:[444,386,.54],
+    mateus:[536,386,.54],squirm:[618,386,.54],dylan:[684,386,.54],jerry:[806,386,.54],rod:[918,388,.54]},
+  tall:{W:400,H:432,temple:[200,186,.6],plat:[12,40,360,388,186,226],stairs:[84,186,232,4,10],
+    ghost:[46,104,.31],vicente:[38,188,.3],peanut:[138,188,.31],lucas:[200,188,.32],quincy:[262,188,.31],skelly:[356,188,.3],
+    keeves:[96,206,.31],jordan:[320,228,.33],dilapi:[58,316,.44,238],duane:[142,316,.44],charles:[228,318,.44],mateus:[306,316,.44],rod:[364,320,.44],
+    kyle:[82,418,.46],squirm:[194,418,.46],dylan:[252,418,.46],jerry:[342,418,.46]}};
+const ACRO_ORDER=["lucas","kyle","fluff","charles","dilapi","jordan","quincy","peanut","squirm","dylan","rod","jerry","mateus","duane","vicente","skelly","keeves","ghost"];
+let acroLay=null,acroSel=-1,acroTimer=null,acroHold=0;
+// an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
+const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
+const acSay=(x,y,txt,z,cls,d,bg="#fff",fg="#191414")=>{const {R,P,T}=CS.kit,w=txt.length*z*.62+14,h=z*1.5;
+  return `<g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}>${P(`M${x-4} ${y+h/2-1}l-2 9 9-9z`,bg)+R(x-w/2,y-h/2,w,h,bg,`rx="${h/2}" stroke="rgba(0,0,0,.25)" stroke-width="1"`)+T(x,y+z*.36,txt,z,fg,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing=".5"')}</g>`};
+// each owner's bit, drawn in podFig's 104 x 150 frame (feet at 52,147); L = the layout row, for the few that need it
+const ACRO_ACT={
+  kyle:L=>{const {R,E,P,TROPHY}=CS.kit;
+    const back=R(-24,84,152,44,"#7b2d43",'rx="12" stroke="#4e1527" stroke-width="1.5"')+R(-16,90,136,6,"#94405a",'rx="3" opacity=".6"');
+    const front=R(-24,118,152,24,"#8e3550",'rx="7" stroke="#4e1527" stroke-width="1.5"')+P("M52 120v20","none",'stroke="#5e1d33" stroke-width="1.5"')
+      +R(-34,98,18,46,"#6a2338",'rx="8"')+R(120,98,18,46,"#6a2338",'rx="8"')+R(-28,142,8,7,"#2b1a12")+R(124,142,8,7,"#2b1a12")+E(52,150,86,4,"rgba(0,0,0,.25)");
+    const tro=[-12,4,20].map((x,i)=>TROPHY(x,84,.5)).join("");
+    const floof=`<g class="ac" data-o="fluff" tabindex="0" role="button" aria-label="${esc(short("fluff"))}"><g transform="translate(50 -62)">${R(14,18,76,84,"#000",'fill-opacity="0"')}${acPiv(52,147,"a-hop",podFig("fluff",{pose:"up",d:.4}))}${acSay(104,4,"PERCH ALERT!",15,"a-perch")}</g></g>`;
+    return back+tro+floof+`<g transform="translate(-8 16)">${podFig("kyle",{pose:"phone",d:1.2})}</g>`+front},
+  charles:()=>{const {CHICK,T,R}=CS.kit;
+    const ch=[[-26,140,0],[124,138,1.6],[-8,152,3.1],[112,154,.8]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.85),d)).join("");
+    const ping=(y,t,d)=>acSay(104,y,t,13,"a-ping",d,"#1f9d55","#fff");
+    return podFig("charles",{pose:"phone",d:.7})+ch+ping(34,"TRADE ✓",0)+ping(14,"ACCEPTED",1.5)},
+  squirm:()=>{const {P,L,R,G}=CS.kit;
+    const sword=acPiv(69,80,"a-sword",L(88,46,104,-4,"#d9dee6",4.2)+L(88,46,104,-4,"#fff",1.2)+L(82,52,94,40,"#8a6412",3.4)+L(85,48,91,58,"#8a6412",3.4));
+    const shield=P("M16 96h28v14q0 14-14 20q-14-6-14-20z","#2a2d33",'stroke="#9aa4ae" stroke-width="2"')+R(28,99,4,26,"#b3121f")+R(20,107,20,4,"#b3121f");
+    return podFig("squirm",{fit:"armor",pose:"wave",d:2})+sword+shield},
+  dylan:()=>{const {L,R,TL}=CS.kit;
+    const flag=acPiv(84,-26,"a-flag",R(84,-26,70,38,"#1b6b3a",'stroke="#0f3d21" stroke-width="1"')+TL(119,-12,["SULTANS","OF SQUIRM"],10.5,"#ffe27a",1.05,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'));
+    return L(83,62,84,-28,"#6b4423",3)+flag+podFig("dylan",{fit:"hoodie",pose:"up",d:.2})},
+  lucas:()=>{const {R,T,P,L}=CS.kit;
+    const gavel=acPiv(85,47,"a-gavel",L(85,47,104,30,"#6b4423",3.2)+R(98,20,16,10,"#4a2e1a",'rx="2" transform="rotate(-42 106 25)"'));
+    const lect=P("M22 104h60l-6 44H28z","#e9e1cf",'stroke="#b9ae96" stroke-width="1.5"')+R(18,100,68,7,"#d8cfbd",'rx="2"')+T(52,138,"9",26,"#0d2b52",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
+    return podFig("lucas",{fit:"toga",pose:"card",laurel:1,d:1.6})+gavel+lect+acSay(30,26,"ORDER!",16,"a-order")},
+  peanut:()=>{const {R,TL,E}=CS.kit,names=["Dr. Kakofonus","A. Dischord","Shivakamini","Somakandarkram","The Yogurt-","lechefts","Pirate King","The Bengali","Bhavi Bangalore"];
+    const paper=acPiv(52,116,"a-unroll",R(22,116,60,112,"#f6eed8",'stroke="#cdbf9a" stroke-width="1"')+TL(52,128,names,7.4,"#5b4217",1.45,'font-style="italic" font-weight="700"'));
+    const roller=`<g class="an a-roller">${R(16,224,72,8,"#a0682f",'rx="4"')}</g>`;
+    return podFig("peanut",{fit:"hoodie",pose:"down",d:.9})+paper+roller+R(16,110,72,8,"#a0682f",'rx="4"')},
+  quincy:()=>{const {R,T}=CS.kit;
+    const box=R(20,132,64,20,"#a9773f",'stroke="#5e3b17" stroke-width="1.5" rx="1"')+T(52,147,"SOAP",12,"#3a230b",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing="1"');
+    const says=["ACTUALLY…","OBJECTION!","WRONG."].map((t,i)=>acSay(100,16,t,15,"a-say3",i*2)).join("");
+    return box+`<g transform="translate(0 -15)">${acPiv(52,147,"a-rant",podFig("quincy",{pose:"point",d:.3}))}</g>`+says},
+  dilapi:(L,s,lay)=>{const {R,E,P,L:Ln}=CS.kit,[x,y,k,by]=lay,top=147+(by-y)/k;
+    const tree=P(`M-78 160Q-70 ${top+60} -64 ${top+6}Q-40 ${top-6} 40 ${top+2}L120 ${top+4}`,"none",`stroke="#5a3d22" stroke-width="13" stroke-linecap="round"`)
+      +[[-70,top-18,40,22],[-20,top-22,46,24],[40,top-16,40,20],[100,top-10,34,18],[-56,top+16,26,14],[118,top+10,24,13]].map(([a,b,c,d])=>E(a,b,c,d,"#4f6b3a",'opacity=".95"')).join("")
+      +[[-44,top-26],[10,top-30],[70,top-20],[118,top-16]].map(([a,b])=>E(a,b,22,10,"#6d8a4e")).join("");
+    const swing=acPiv(52,top+4,"a-swing",Ln(22,top+4,20,148,"#d9c9a3",1.6)+Ln(82,top+4,84,148,"#d9c9a3",1.6)+podFig("dilapi",{pose:"up",d:1.1})+R(12,146,80,7,"#7a4a2a",'rx="2"'));
+    return tree+swing},
+  jordan:()=>{const {C,T,G,E}=CS.kit;
+    const rock=`<g class="an a-rock">${acPiv(-18,112,"a-spin",C(-18,112,30,"#8d8577",'stroke="#5b5448" stroke-width="2"')+C(-28,100,6,"#a39b8c")+C(-6,124,4,"#776f62")+T(-18,118,"1-12",16,"#2c2822",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'))}</g>`;
+    return `<g class="an a-sisy">${podFig("jordan",{pose:"pushL",d:.5})}</g>`+rock},
+  rod:()=>{const {R,E,C,P}=CS.kit;
+    const chair=R(4,52,96,96,"#5a1f2e",'rx="18" stroke="#3a0f1c" stroke-width="2"')+R(14,60,76,40,"#6e2838",'rx="12"');
+    const arms=R(-6,104,22,46,"#4a1724",'rx="9"')+R(88,104,22,46,"#4a1724",'rx="9"')+R(10,128,84,20,"#6e2838",'rx="6"');
+    const tail=acPiv(72,118,"a-tail",P("M72 118q16-4 14-20q-1-8 6-10","none",'stroke="#8f96a3" stroke-width="5" stroke-linecap="round"'));
+    const cat=tail+E(54,120,20,11,"#8f96a3")+C(36,111,9,"#8f96a3")+P("M29 106l2-9 6 6zM38 103l6-6 1 9z","#8f96a3")+C(33,110,1.3,"#f2d64b")+C(39,110,1.3,"#f2d64b");
+    return chair+`<g transform="translate(0 12)">${podFig("rod",{fit:"suit",pose:"lap",hat:"fedora",d:2.2})}</g>`+arms+cat},
+  jerry:()=>{const {R,E,P}=CS.kit;
+    const ice=`<g class="an a-thaw">${R(2,16,100,134,"rgba(176,224,255,.62)",'rx="8" stroke="rgba(235,248,255,.9)" stroke-width="2"')+P("M12 30l14-8M14 46l26-18M80 120l14-10","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"')}</g>`;
+    return acPiv(52,149,"a-puddle",E(52,149,60,5,"rgba(140,200,240,.6)"))+podFig("jerry",{fit:"hoodie",pose:"wave",d:.6})+ice},
+  skelly:()=>{const {R,L,T}=CS.kit;
+    const sign=L(-14,150,-14,70,"#6b4423",3)+R(-46,66,62,18,"#f4efe2",'rx="2" stroke="#b9ae96"')+T(-15,79,"MED SCHOOL",9.5,"#1d4f91",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"')+`<path d="M16 66l10 9-10 9z" fill="#f4efe2"/>`;
+    const bag=R(12,112,26,20,"#7a4a2a",'rx="3" stroke="#4a2e1a" stroke-width="1.5"')+R(20,108,10,5,"none",'stroke="#4a2e1a" stroke-width="2" rx="2"');
+    return sign+`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9})+bag}</g>`},
+  mateus:()=>{const {R,G}=CS.kit;
+    const cards=Array.from({length:6},(_,i)=>{const a=i/6*Math.PI*2,x=52+Math.cos(a)*40,y=8+Math.sin(a)*26;return R(x-6,y-8,12,16,"#fbf8f0",`rx="1.5" stroke="#c9c0a8" stroke-width=".8"`)+R(x-6,y-3,12,4,i%2?"#ad1457":"#1d4f91")}).join("");
+    return podFig("mateus",{pose:"up",d:2.5})+acPiv(52,8,"a-juggle",cards)},
+  duane:()=>{const {C,P,T,L}=CS.kit;
+    const ball=`<g class="an a-drib">${C(82,124,10,"#e0782d",'stroke="#7a3a10" stroke-width="1.2"')+L(72,124,92,124,"#7a3a10",1)+P("M82 114q-6 10 0 20M82 114q6 10 0 20","none",'stroke="#7a3a10" stroke-width="1"')}</g>`;
+    const bag=P("M16 116q-8 14 2 24h22q10-10 2-24z","#c9a86a",'stroke="#7a5a26" stroke-width="1.5"')+P("M22 116l4-6h8l4 6","none",'stroke="#7a5a26" stroke-width="2"')+T(29,135,"$",14,"#2e6b2e",'font-weight="900"');
+    return podFig("duane",{pose:"ball",hat:"crown",d:.2})+ball+bag},
+  keeves:()=>{const {P,R,C}=CS.kit;
+    const pops=[[40,96,0],[52,92,.45],[64,96,.9],[46,94,1.2]].map(([x,y,d])=>`<g class="an a-pop" style="animation-delay:-${d}s">${C(x,y,3.6,"#fff6d6",'stroke="#e8c574" stroke-width=".8"')}</g>`).join("");
+    const bucket=P("M36 100h32l-4 26H40z","#fff")+[40,48,56,64].map(x=>P(`M${x} 100h4l-1 26h-3z`,"#d22f3d")).join("")+C(44,99,4,"#fff6d6")+C(52,97,4.5,"#fff6d6")+C(60,99,4,"#fff6d6");
+    return podFig("keeves",{pose:"lap",d:1.3})+pops+bucket},
+  ghost:()=>{const {R,C}=CS.kit;
+    const pad=R(34,100,36,14,"#2b2f3a",'rx="7"')+C(42,107,2.2,"#9aa4ae")+C(60,105,2,"#e04848")+C(65,109,2,"#4a90d9");
+    return `<g class="an a-float"><g opacity=".82">${podFig("ghost",{fit:"hoodie",pose:"lap",d:.8})}</g>${pad}</g>`},
+  vicente:()=>{const {R,L}=CS.kit;
+    const pad=R(67,52,12,15,"#fbf8f0",'stroke="#c9c0a8" stroke-width=".8"')+L(69,57,77,57,"#9aa4ae",.8)+L(69,61,76,61,"#9aa4ae",.8);
+    return acPiv(52,147,"a-patrol",podFig("vicente",{fit:"cop",pose:"phone",hat:"cop",d:1.4})+pad)}
+};
+// the temple, centred on cx with its bottom step at by, k = scale; a glowing flamingo statue stands between the middle columns
+const ACRO_FLAMINGO=`<path d="M160 172 L162 200 L160 226" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M152 226 L170 226" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round"/><path d="M168 172 L182 196 L164 192" fill="none" stroke="#f48fb1" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M126 150 L106 142 L112 152 L102 156 L122 160 Z" fill="#e0517a"/><ellipse cx="160" cy="154" rx="40" ry="23" fill="#ff7fa0" transform="rotate(-12 160 154)"/><path d="M188 146 C206 128 206 112 192 102 C176 91 174 72 190 64 C200 59 210 62 213 70" fill="none" stroke="#ff7fa0" stroke-width="8" stroke-linecap="round"/><circle cx="206" cy="68" r="8.5" fill="#ff7fa0"/><path d="M212 63 L230 70 Q231 76 226 84 Q221 76 212 74 Z" fill="#fff3f6"/><path d="M224 68 L230 70 Q231 76 226 84 L222 78 Z" fill="#15203b"/><circle cx="205" cy="66" r="1.8" fill="#15203b"/><g transform="rotate(-28 190 160)"><ellipse cx="190" cy="160" rx="19" ry="11" fill="#8b4a2b" stroke="#5e2f18" stroke-width="1.5"/><path d="M180 160 H200" stroke="#fff" stroke-width="1.6"/><path d="M184 157 V163 M188 157 V163 M192 157 V163 M196 157 V163" stroke="#fff" stroke-width="1.3"/></g><path d="M136 146 C150 132 178 134 196 150 C190 164 176 170 162 168 C150 166 140 158 136 146 Z" fill="#f06292"/>`;
+function acroTemple(cx,by,k){const {R,P,T,E,LG,RG}=CS.kit,mb=LG(["#fbf7ee","#d8cdb6"],1),cols=[-170,-124,-78,60,106,152];
+  let s=E(0,-110,250,150,RG(["#ffd98a@.28","#ffd98a@0"]));
+  s+=R(-160,-150,320,124,"#231d35")+E(0,-40,70,40,RG(["#ff7fa0@.35","#ff7fa0@0"]));
+  s+=R(-26,-52,52,24,"#d8cfbd",'stroke="#b9ae96" stroke-width="1"')+`<g class="flap-s"><g transform="translate(-91 -178) scale(.56)">${ACRO_FLAMINGO}</g></g>`;
+  s+=cols.map(x=>R(x,-148,18,120,mb)+[5,9,13].map(d=>R(x+d,-146,1,116,"rgba(120,105,80,.25)")).join("")+R(x-3,-153,24,6,"#efe7d6")+R(x-3,-30,24,4,"#e4dbc8")).join("");
+  s+=R(-178,-170,356,17,"#ebe3d0")+Array.from({length:16},(_,i)=>R(-170+i*22.5,-167,7,11,"#cfc4ad")).join("");
+  s+=P("M-188 -170L0 -224L188 -170Z","#f3ecdc",'stroke="#d3c8b0" stroke-width="2"')+P("M-160 -174L0 -217L160 -174Z","none",'stroke="#d8c48e" stroke-width="1.2"');
+  s+=T(0,-180,"ΦΛΑΜΙΝΓΚΟ",15,"#a8823a",'font-family="Marcellus SC,Georgia,serif" letter-spacing="3"');
+  s+=R(-184,-28,368,8,"#eee6d4")+R(-192,-20,384,10,"#e4dbc8")+R(-200,-10,400,10,"#d9cfbb");
+  return `<g transform="translate(${cx} ${by}) scale(${k})">${s}</g>`}
+function acroScene(lay){const {R,P,C,E,LG,RG}=CS.kit,Z=ACRO_POS[lay],{W,H}=Z;
+  // everything is drawn inside CS.svg's callback so the gradients and face clips land in its <defs>
+  return CS.svg(()=>{const rnd=CS.kit.rng(7);let s=`<g class="acro-sky">${Array.from({length:Math.round(W/9)},(_,i)=>{const x=rnd()*W,y=rnd()*H*.52,r=.5+(i%3)*.35;return C(x,y,r,"#fff",`class="${i%4?"":"tw"}" opacity="${(.35+(i%5)*.12).toFixed(2)}" style="animation-delay:-${(i%7)*.6}s"`)}).join("")}</g>`;
+  s+=C(W-70,58,24,"#f6e7b8")+E(W-70,58,60,60,RG(["#f6e7b8@.25","#f6e7b8@0"]));
+  s+=P(`M0 ${H*.62}Q${W*.15} ${H*.47} ${W*.3} ${H*.56}T${W*.6} ${H*.54}T${W} ${H*.58}V${H}H0Z`,"#1b2448");
+  const [ax,bx,cx2,dx,ty,gy]=Z.plat;
+  s+=R(0,gy,W,H-gy,LG(["#3d3656","#2a2540"]))+Array.from({length:9},(_,i)=>P(`M${W/2+(i-4)*W*.06} ${gy}L${W/2+(i-4)*W*.2} ${H}`,"none",'stroke="rgba(255,255,255,.05)" stroke-width="1"')).join("");
+  s+=P(`M${ax} ${gy}L${bx} ${ty}H${cx2}L${dx} ${gy}Z`,LG(["#8a7c92","#51476a"]))+R(bx,ty-2,cx2-bx,4,"#a99cb0");
+  s+=acroTemple(...Z.temple);
+  const [sx,sy,sw,sn,sh]=Z.stairs;for(let i=0;i<sn;i++)s+=R(sx-i*6,sy+i*sh,sw+i*12,sh,i%2?"#cbc1ad":"#ddd4c2",'stroke="rgba(0,0,0,.12)" stroke-width=".6"');
+  // torches either side of the temple
+  const tk=Z.temple[2];for(const d of [-1,1]){const x=Z.temple[0]+d*215*tk,y=Z.temple[1];
+    s+=R(x-2.5*tk*1.4,y-58*tk,5*tk*1.4,58*tk,"#6b5a3a")+`<g transform="translate(${x} ${y-58*tk}) scale(${tk*1.4})">${E(0,-4,14,14,RG(["#ffb347@.5","#ffb347@0"]))}<g class="an a-fire" style="animation-delay:-${d>0?.3:0}s">${P("M0 2q-7-5-3-12q1 4 3 4q-1-6 4-10q-1 6 3 9q3 5-1 9z","#ffb347")+P("M0 2q-3-3-1-7q2 3 3 2q2 3-2 5z","#fff1b8")}</g></g>`}
+  // owners from back (small y) to front
+  const who=Object.keys(ACRO_ACT).sort((a,b)=>Z[a][1]-Z[b][1]);
+  s+=who.map(o=>{const L_=Z[o],[x,y,k]=L_;
+    return `<g class="ac" data-o="${o}" tabindex="0" role="button" aria-label="${esc(OWNERS[o]?.name||o)}"><g transform="translate(${(x-52*k).toFixed(1)} ${(y-147*k).toFixed(1)}) scale(${k})">${R(-6,6,116,146,"#000",'fill-opacity="0"')}${ACRO_ACT[o](lay,k,L_)}</g></g>`}).join("");
+  return s},`0 0 ${W} ${H}`).replace("<svg ",`<svg class="acro-svg" role="img" aria-label="The Flamingo Men on the Acropolis: every league member acting out a bit of league lore" `).replace(' aria-hidden="true"',"")}
+function acroCap(i,user){const o=ACRO_ORDER[(i+ACRO_ORDER.length)%ACRO_ORDER.length];acroSel=ACRO_ORDER.indexOf(o);
+  document.querySelectorAll("#acro .ac").forEach(g=>g.classList.toggle("on",g.dataset.o===o));
+  $("#acroCap").innerHTML=`${av(o)}<p><b>${esc(short(o))}</b> <span class="muted">${esc(OWNERS[o]?.name||"")}</span><br>${esc(ACRO_LORE[o]||"")}</p>`;
+  if(user)acroHold=Date.now()}
+function acroRender(){const box=$("#acro");if(!box)return;const lay=matchMedia("(max-width:640px)").matches?"tall":"wide";
+  if(lay!==acroLay){acroLay=lay;box.innerHTML=acroScene(lay);
+    box.onclick=e=>{const g=e.target.closest(".ac");if(g){e.stopPropagation();acroCap(ACRO_ORDER.indexOf(g.dataset.o),1)}};
+    box.onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&e.target.closest?.(".ac")){e.preventDefault();acroCap(ACRO_ORDER.indexOf(e.target.closest(".ac").dataset.o),1)}};
+    acroCap(acroSel<0?0:acroSel)}
+  if(!acroTimer){acroTimer=setInterval(()=>{if(document.hidden||Date.now()-acroHold<20000||(location.hash||"#home")!=="#home")return;acroCap(acroSel+1)},5500);
+    matchMedia("(max-width:640px)").addEventListener?.("change",acroRender)}}
 
 /* ---------- HISTORY ---------- */
 const ERAS=[["The Wu-Tang Prequel","2015, unofficial",[2015],0],["The Founding Era","2016 to 2018",[2016,2017,2018],1],["The Sal's 12 Chickens Dynasty Era","2019 to 2022",[2019,2020,2021,2022],2],["The Monglers Era","2023 to 2025",[2023,2024,2025],3],["The Second Pace Administration","2026",[2026],4]];
@@ -2783,7 +2969,8 @@ const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up
   wave:s=>s>0?[[s*31,68],[s*36,46]]:[[s*22,99],[s*23,115]],flex:s=>[[s*33,84],[s*28,63]],chill:s=>[[s*31,58],[s*13,49]],
   shrug:s=>[[s*27,95],[s*37,83]],point:s=>s>0?[[s*30,70],[s*42,54]]:[[s*31,97],[s*15,110]],slump:s=>[[s*18,102],[s*17,120]],
   cross:s=>[[s*22,101],[-s*12,95]],phone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,97],[s*15,110]],
-  card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]]};
+  card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]],
+  pushL:s=>s>0?[[14,92],[-38,90]]:[[-28,86],[-44,86]],lap:s=>[[s*26,100],[s*8,110]]};
 const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
 const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
 // a gold laurel around the top of a head of height h, centred on (0,0)
@@ -2794,8 +2981,10 @@ function podLaurel(o,h){const {q,E,P,HW,HOFF}=CS.kit,w=HW(o,h)*.52,hh=h*.5,cy=h*
       for(const k of [-1,1]){const g=t+k*32,r=g*Math.PI/180,lx=x+Math.cos(r)*3.3,ly=y+Math.sin(r)*3.3;s+=E(lx,ly,3.7,1.65,"#e3b23c",`stroke="#8a6412" stroke-width=".5" transform="rotate(${q(g)} ${q(lx)} ${q(ly)})"`)}}}
   return s}
 // one owner on his podium: p = {fit, pose, prop, medal, laurel, party, cloud, d (head-bob delay)}; drawn in a 104 x 150 box, feet on the bottom
-function podFig(o,p){const {q,R,C,E,P,L,T,G,F,TROPHY,BALL}=CS.kit,X=52,H=50,c=POD_COL[o]||"#5b6178",fit=p.fit||"jersey",pz=POD_POSE[p.pose]||POD_POSE.down;
-  const dk=podShade(c,-.38),sl=fit==="suit"?"#262935":c,ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
+function podFig(o,p){const {q,R,C,E,P,L,T,G,F,HAT,TROPHY,BALL}=CS.kit,X=52,H=50,c=POD_COL[o]||"#5b6178",fit=p.fit||"jersey",pz=POD_POSE[p.pose]||POD_POSE.down;
+  // extra outfits for the home page Acropolis (Kyle 2026-11-23): toga, lab coat, police uniform, armour
+  const sl={suit:"#262935",toga:"#f4efe2",lab:"#f7f7f5",cop:"#1d2b4a",armor:"#4d535e"}[fit]||c,dk=podShade(sl,-.38),ol='stroke="rgba(0,0,0,.22)" stroke-width=".8"';
+  const JER=`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,SUIT=`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+16} 116H${X-16}Z`;
   // a sleeve with a darker edge (so arms crossed over the chest still show) ending in a cartoon glove
   const arm=s=>{const [e,h]=pz(s),d=`M${q(X+s*17)} 80L${q(X+e[0])} ${q(e[1])}L${q(X+h[0])} ${q(h[1])}`,j='stroke-linecap="round" stroke-linejoin="round"';
     return P(d,"none",`stroke="${fit==="suit"?"#0b0c10":dk}" stroke-width="10.2" ${j}`)+P(d,"none",`stroke="${sl}" stroke-width="8" ${j}`)+C(X+h[0],h[1],5.2,"#f4f1ea",'stroke="rgba(0,0,0,.3)" stroke-width="1"')};
@@ -2807,12 +2996,16 @@ function podFig(o,p){const {q,R,C,E,P,L,T,G,F,TROPHY,BALL}=CS.kit,X=52,H=50,c=PO
     +P(`M${X-7} 73L${X} 92L${X+7} 73Z`,"#f4f1ea")+P(`M${X-2} 75h4l-1 4 2.5 14-3.5 4-3.5-4 2.5-14z`,c)+P(`M${X-7} 73L${X-1} 100L${X-12} 88Z`,"rgba(255,255,255,.1)")+P(`M${X+7} 73L${X+1} 100L${X+12} 88Z`,"rgba(255,255,255,.1)");
   else if(fit==="hoodie")body=legs("#8b8f99","#8b8f99","#eceef2")+P(`M${X-19} 82Q${X-21} 75 ${X-12} 73H${X+12}Q${X+21} 75 ${X+19} 82L${X+17} 116H${X-17}Z`,c,ol)
     +R(X-10,99,20,10,dk,'rx="3" opacity=".5"')+L(X-4,76,X-5,91,"#f4f1ea",1.3)+L(X+4,76,X+5,91,"#f4f1ea",1.3)+P(`M${X-15} 74Q${X} 64 ${X+15} 74Q${X} 81 ${X-15} 74Z`,dk);
+  else if(fit==="toga")body=legs("#e6c3a0","#e6c3a0","#8a5a2b")+P(JER,"#f4efe2",ol)+P(`M${X-15} 74L${X+19} 112L${X+11} 116L${X-21} 84Z`,c)+P(`M${X-9} 73Q${X} 80 ${X+9} 73`,"none",'stroke="#d8cfbd" stroke-width="2"');
+  else if(fit==="lab")body=legs("#3a4150","#3a4150","#16161a")+P(SUIT,"#f7f7f5",ol)+P(`M${X-7} 73L${X} 90L${X+7} 73Z`,c)+L(X,90,X,116,"#d6d6d2",1)+P(`M${X-8} 76Q${X-10} 96 ${X} 98Q${X+8} 96 ${X+6} 76`,"none",'stroke="#2b2f3a" stroke-width="1.6"')+C(X,99,2.6,"#9aa4ae");
+  else if(fit==="cop")body=legs("#1d2b4a","#1d2b4a","#111")+P(SUIT,"#1d2b4a",ol)+P(`M${X-6} 73L${X} 84L${X+6} 73Z`,"#8fa6c9")+P(`M${X+7} 86l4-2 4 2v5l-4 2-4-2z`,"#e8c574")+R(X-16,107,32,4,"#111");
+  else if(fit==="armor")body=legs("#6c7380","#555c68","#2a2d33")+P(JER,"#3b4049",ol)+P(`M${X-14} 78H${X+14}L${X+12} 104H${X-12}Z`,"#4d535e")+R(X-2,80,4,22,"#b3121f")+R(X-9,86,18,4,"#b3121f");
   else body=legs("#ecebe6",c,"#16161a")+[-1,1].map(d=>R(X+d*8.5-.9,111,1.8,15,c)).join("")+P(`M${X-22} 84Q${X-23} 75 ${X-12} 73H${X+12}Q${X+23} 75 ${X+22} 84L${X+16} 116H${X-16}Z`,c,ol)
     +P(`M${X-9} 73Q${X} 82 ${X+9} 73`,"none",'stroke="#f4f1ea" stroke-width="2.6"')+T(X,111,(short(o)||"?")[0],14,podLum(c)>.55?"#191414":"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"');
   const MED={gold:["#ffe27a","#b8860b"],silver:["#f4f6f8","#8c96a1"],bronze:["#f2b27c","#94551f"]}[p.medal];
   const medal=MED?P(`M${X-8} 74L${X} 89L${X+8} 74`,"none",'stroke="#d6364f" stroke-width="3" stroke-linejoin="round"')+C(X,93,5.8,MED[0],`stroke="${MED[1]}" stroke-width="1.6"`)+C(X,93,2.4,"none",`stroke="${MED[1]}" stroke-width=".8"`):"";
   const slump=p.pose==="slump";
-  const head=E(X,77,9,3,"rgba(0,0,0,.22)")+`<g transform="translate(${X} 78)"><g class="pf-head" style="animation-delay:-${q(p.d||0)}s"><g transform="translate(0 ${slump?-22:-25})${slump?" rotate(9)":""}">${F(o,0,0,H,{sh:0})}${p.laurel?podLaurel(o,H):""}</g></g></g>`;
+  const head=E(X,77,9,3,"rgba(0,0,0,.22)")+`<g transform="translate(${X} 78)"><g class="pf-head" style="animation-delay:-${q(p.d||0)}s"><g transform="translate(0 ${slump?-22:-25})${slump?" rotate(9)":""}">${F(o,0,0,H,{sh:0})}${p.hat?HAT(o,p.hat,0,0,H,p.hc):""}${p.laurel?podLaurel(o,H):""}</g></g></g>`;
   const [,hd]=pz(1),hx=X+hd[0],hy=hd[1];let prop="";
   if(p.prop==="trophy")prop=TROPHY(hx,hy-8,.66);
   else if(p.prop==="finger")prop=G(R(-7.5,-14,15,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-2.8,-28,5.6,16,"#e0517a",'rx="2.8" stroke="#a3244b" stroke-width=".8"')+T(0,-3.5,"#1",7.5,"#fff",'font-weight="900"'),`transform="translate(${q(hx)} ${q(hy+1)}) rotate(8)"`);
