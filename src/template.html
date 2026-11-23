@@ -1654,6 +1654,13 @@ button.plaque:hover .pl-frame,button.plaque:focus-visible .pl-frame{box-shadow:0
 /* a video or a photo in place of a drawing */
 .got .cs-art.got-vid{width:auto;height:min(46vh,400px);max-width:100%;aspect-ratio:3/4;align-self:center;background:#000}
 .got-vid video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 42%}
+/* career movie: a real-footage scene (Kyle 2026-11-23) */
+.cs .cs-art.cs-vid{width:auto;height:min(52vh,480px);max-width:100%;aspect-ratio:444/792;align-self:center;background:#000}
+.cs-vid .got-cap{white-space:nowrap}
+.cs-vid video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.cs-snd{position:absolute;top:24px;right:52px;z-index:4;border:0;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:600 .7rem var(--f-data);padding:6px 10px;cursor:pointer}
+.cs-snd[hidden]{display:none}.cs-snd:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media (max-height:700px){.cs .cs-art.cs-vid{height:36vh}}
 .got-cap{position:absolute;left:8px;bottom:8px;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.62);font-family:var(--f-data);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:#fff}
 .got-ph{flex:none;margin:0;align-self:center;width:auto;height:min(46vh,420px);max-width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:10px;border:2px solid var(--t-ln);box-shadow:0 0 0 1px rgba(0,0,0,.6),0 12px 28px rgba(0,0,0,.55)}
 .got-ph img{display:block;width:100%;height:100%;object-fit:cover}
@@ -2119,7 +2126,7 @@ const YEAR_PHOTOS = {
   2019:[{src:"img/bhavi-2019-poster.jpg",vid:"img/bhavi-2019.mp4",t:"Bhavi Bitch era",cap:"Video: 2019, at the height of the Bhavi Bitch era."},{src:"img/superbowl-2020.jpg",t:"Super Bowl party",cap:"The Flamingos at the February 2020 Super Bowl party hosted by Floof's girlfriend Diana. That Super Bowl closed the 2019 NFL season."}],
   2020:[{src:"img/era-2020.jpg",t:"Floof's basement",cap:"Doing shenanigans in Floof's basement."},{src:"img/graduation-2020.jpg",t:"Graduation",cap:"Graduation in 2020, in white dinner jackets under the 2020 balloon arch."}],
   2021:[{src:"img/usd-movein.jpg",t:"Move-in day",cap:"Kyle and Jerry on their first day of move-in at the University of San Diego, the start of the college roommates."}],
-  2022:[{src:"img/era-2022.jpg",t:"At the bar",cap:"The league at the bar in 2022."}],
+  2022:[{src:"img/era-2022.jpg",t:"At the bar",cap:"The league at the bar in 2022."},{src:"img/liver-king-2022.jpg",vid:"img/liver-king-2022.mp4",t:"The Liver King",cap:"Video: August 2022. While he sat out the season studying abroad in London, Lucas ran into the Liver King on the street and told him \"I'm your guy.\""}],
   2023:[{src:"img/era-2023.jpg",t:"The cabin",cap:"The league in the cabin in 2023."},{src:"img/crawl-2024-mcsorleys.jpg",t:"Bar crawl",cap:"The January 2024 NYC bar crawl, right after the 2023 season, around a table at McSorley's Old Ale House."},{src:"img/crawl-2024-selfie.jpg",t:"Bar crawl, later",cap:"Another stop on the January 2024 NYC bar crawl."},{src:"img/trophy-2023.jpg",t:"The 2023 trophy",cap:"The 2023 trophy, acquired from Christopher Morley by Peanut and Fluff. Questions about its origins will not be taken."}],
   2024:[{src:"img/jordan-grad-2024.jpg",t:"Jordan's graduation",cap:"Flamingos at Jordan's graduation party in 2024."},{src:"img/squirm-tackle-2024-poster.jpg",vid:"img/squirm-tackle-2024-full.mp4",t:"The tackle",cap:"Video: Squirm tackling DiLapi."},{src:"img/mcsorleys-2025.jpg",t:"McSorley's",cap:"A 2025 night at McSorley's, right after the 2024 season."}],
   2026:[{src:"img/era-2026.jpg",t:"Out together",cap:"The league out together in 2026, the first 12-team year."},{src:"img/trophy-2026.jpg",t:"The new trophy",cap:"The league's new trophy: a glass flamingo on a crystal base engraved \"Flamingo Men, Fantasy Football Champion.\""},{src:"img/brull-dinner-2026.jpg",t:"Brull Foundation dinner",cap:"The Flamingo Men at the Brull Foundation dinner in 2026."}],
@@ -3777,6 +3784,8 @@ lucas:{poster:"The Founder",tag:"He got everybody into the room.",
    +G(R(0,0,40,26,"#7a4a12")+R(4,-20,32,20,"#a0672f")+L(0,26,-14,10,"#555",2.5)+C(8,30,5,"#222")+C(34,30,5,"#222"),tr(232,128))+R(270,40,50,130,"#c0392b",'rx="6"')+C(290,60,12,"#2b2b2b")
    +CH("lucas",108,98,42,"#2b2b33","coat",{arms:[null,[1.2,.9]]})+[0,1,2,3,4].map(i=>R(88+i*8,116,8,10,i%2?"#d4a937":"#7b1f2b")).join("")+R(116,122,9,34,"#7b1f2b")+[0,1,2].map(i=>R(116,128+i*9,9,4,"#d4a937")).join("")
    +G(R(-12,-8,24,16,"#012169")+P("M-12-8L12 8M12-8L-12 8","none",'stroke="#fff" stroke-width="3"')+P("M-12-8L12 8M12-8L-12 8","none",'stroke="#c8102e" stroke-width="1.2"')+L(0,-8,0,8,"#fff",5)+L(-12,0,12,0,"#fff",5)+L(0,-8,0,8,"#c8102e",3)+L(-12,0,12,0,"#c8102e",3),tr(46,110,-8))+L(36,118,36,150,"#5a3a22",1.5)},
+ {k:"2022 · London",m:"Real footage",t:"\"I'm your guy\"",c:"#5a3428",vid:{src:"img/liver-king-2022.mp4",poster:"img/liver-king-2022.jpg",cap:"London · Aug 2022"},
+  x:"No fantasy team that year, but Sal still found a way to sign on with somebody. In London he runs into the Liver King on the street and tells him, \"I'm your guy.\""},
  {k:[2023,2024],m:"Black Swan",t:"The Swan",c:"#24182e",
   x:"Back from London, Lucas shows up to the 2023 draft in his Sacko punishment costume, zebra ears and a tutu. Then he goes 3-10, then 5-8, and the 2024 Sacko is his. Again.",
   a:()=>SKY("#120d18","#24182e")+P("M110 0L60 200H240L190 0Z","rgba(255,250,230,.08)")+E(150,186,90,12,"rgba(255,250,230,.15)")+FLOOR(176,"#2a1f2e")+CURTAIN("#3a1030")
@@ -4156,7 +4165,10 @@ function svg(fn,vb,vg){D="";const body=fn()+(vg?VIGN():"");return `<svg viewBox=
 function build(o){const K=CAREER[o];if(!K)return [];const tot=totals(o)||{w:0,l:0,pct:0,seasons:0,titles:0,sackos:0},nm=esc(short(o)),out=[],c0=K.scenes[0]?.c||"#3a1730";
   const ti=tot.titles||0,sk=tot.sackos||0;
   out.push({c:"cs-poster",st:`--c:${c0}`,html:`<div class="cs-leader" aria-hidden="true"><i></i><span>3</span><span>2</span><span>1</span></div><div class="cs-ptag">${esc(K.tag||"")}</div><div class="cs-art">${art(()=>POSTER(o,c0,ti,sk))}</div><div class="cs-ptitle">${esc(K.poster||OWNERS[o].name)}</div><div class="cs-bill">The Flamingo Men present · ${esc(OWNERS[o].name)} · ${tot.seasons} season${tot.seasons===1?"":"s"}${ti?` · ${ti} title${ti===1?"":"s"}`:""}</div><p class="wr-t">${esc(K.crawl)}</p>`});
-  K.scenes.forEach(s=>out.push({c:"cs-sc",st:`--c:${s.c||"#2a1730"}`,html:`${csKicker(o,s.k)}<div class="cs-art">${art(s.a)}<span class="cs-show">${esc(s.m)}</span></div><div class="cs-title">${esc(s.t)}</div><p class="wr-t">${esc(s.x)}</p>`}));
+  // a scene can be real footage instead of a drawing (vid: {src, poster, cap}), Lucas and the Liver King (Kyle 2026-11-23)
+  const media=s=>s.vid?`<div class="cs-art cs-vid"><video src="${s.vid.src}" poster="${s.vid.poster||""}" autoplay muted loop playsinline preload="auto" aria-label="${esc(s.vid.cap||s.t)}"></video><span class="cs-show">${esc(s.m)}</span>${s.vid.cap?`<span class="got-cap">${esc(s.vid.cap)}</span>`:""}</div>`
+    :`<div class="cs-art">${art(s.a)}<span class="cs-show">${esc(s.m)}</span></div>`;
+  K.scenes.forEach(s=>out.push({c:"cs-sc",st:`--c:${s.c||"#2a1730"}`,html:`${csKicker(o,s.k)}${media(s)}<div class="cs-title">${esc(s.t)}</div><p class="wr-t">${esc(s.x)}</p>`}));
   const po=RANK?.playoffs?.[o]?.po,stat=[["Seasons",tot.seasons],["Record",`${tot.w}-${tot.l}`],["Win rate",tot.w+tot.l?(tot.pct*100).toFixed(1)+"%":"–"],["Titles",ti],["Sackos",sk],["Playoff trips",po??"–"],["Trades",tradeCount(o)],["Waiver pickups",pickupCount(o)]];
   out.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The career so far</div><b style="font-size:1.2rem">${esc(OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">Records include estimates for 2016 and 2017, and the 2026 season so far.</p>`});
   const [mn,mt,mw]=K.marvel;
@@ -4180,16 +4192,23 @@ function csKicker(o,k){if(typeof k==="string")return `<div class="wr-k">${esc(k)
   const r=S[o]?.seasons?.[k],t=csTeam(o,k),[res,c]=csResult(o,k);
   const rec=r?`${r.w}-${r.l}${r.est?" (est.)":""}`:"";
   return `<div class="wr-k">${k}${t?` · ${esc(t)}`:""}${rec?` · ${rec}`:""}</div><span class="cs-res ${c}">${c==="ch"?"🏆 ":c==="sk"?"🚽 ":""}${esc(res)}</span>`}
-let csS=[],csI=0;
+let csS=[],csI=0,csSnd=false;
+// the sound button shows only on a real-footage scene
+function csSndBtn(){const st=$("#csStage"),b=st.querySelector(".cs-snd"),v=st.querySelector(".cs-vid video");b.hidden=!v;if(!v)return;
+  b.textContent=v.muted?"🔇 Tap for sound":"🔊 Sound on";b.setAttribute("aria-label",v.muted?"Turn the sound on":"Turn the sound off")}
 function csShow(){const st=$("#csStage"),s=csS[csI];st.querySelector(".wr-bars").innerHTML=csS.map((_,i)=>`<i class="${i<=csI?"on":""}"></i>`).join("");
   st.querySelector(".wr-body").innerHTML=`<div class="wr-slide cs ${s.c} wr-in${s.seen?" cs-seen":""}"${s.st?` style="${s.st}"`:""}>${s.html}</div>`;s.seen=1;
+  const v=st.querySelector(".cs-vid video");if(v&&csSnd){v.muted=false;v.play().catch(()=>{v.muted=true;v.play().catch(()=>{});csSndBtn()})}csSndBtn()
   st.querySelector(".wr-hint").textContent=csI<csS.length-1?"Tap to continue":"Tap to close"}
 function csStep(k){const n=csI+k;if(n<0)return;if(n>=csS.length){$("#csDlg").close();return}csI=n;csShow()}
 function openCareer(o,slides){let dlg=$("#csDlg");
   if(!dlg){dlg=document.createElement("dialog");dlg.id="csDlg";dlg.className="wrdlg";dlg.setAttribute("aria-label","Career story");
-    dlg.innerHTML=`<div class="wr-stage" id="csStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
+    dlg.innerHTML=`<div class="wr-stage" id="csStage"><div class="wr-bars"></div><button type="button" class="wr-x" aria-label="Close">×</button><button type="button" class="cs-snd" hidden></button><div class="wr-body" aria-live="polite"></div><button type="button" class="wr-nav prev" aria-label="Previous"></button><button type="button" class="wr-nav next" aria-label="Next"></button><div class="wr-hint"></div></div>`;
     document.body.appendChild(dlg);
-    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>csStep(-1);dlg.querySelector(".next").onclick=()=>csStep(1);
+    dlg.querySelector(".wr-x").onclick=()=>dlg.close();dlg.querySelector(".prev").onclick=()=>csStep(-1);
+    // real-footage scenes start muted; the sound button turns it on (and stays on for the rest of the story)
+    dlg.querySelector(".cs-snd").onclick=()=>{const v=dlg.querySelector(".cs-vid video");if(!v)return;v.muted=!v.muted;csSnd=!v.muted;if(!v.muted)v.play().catch(()=>{});csSndBtn()};
+    dlg.addEventListener("close",()=>dlg.querySelectorAll("video").forEach(v=>v.pause()));dlg.querySelector(".next").onclick=()=>csStep(1);
     dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
     dlg.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key===" "){e.preventDefault();csStep(1)}else if(e.key==="ArrowLeft"){e.preventDefault();csStep(-1)}});
     let x0=null;dlg.addEventListener("touchstart",e=>{x0=e.touches[0].clientX},{passive:true});
