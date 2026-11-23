@@ -120,6 +120,8 @@ t=t.replace('/*MOVES*/',open(os.path.join(root,'data','moves.json')).read())
 t=t.replace('/*PLAYOFFS*/',open(os.path.join(root,'data','playoffs.json')).read())
 # every team's logo by season, from src/logos.py
 t=t.replace('/*LOGOS*/',open(os.path.join(root,'data','logos.json')).read() if os.path.exists(os.path.join(root,'data','logos.json')) else '{}')
+# a photo for every player (sprite sheet slots and each name's slot), from src/headshots.py
+t=t.replace('/*HEADS*/',open(os.path.join(root,'data','heads.json')).read() if os.path.exists(os.path.join(root,'data','heads.json')) else '{}')
 t=t.replace('/*RECORDS*/',open(os.path.join(root,'data','records.json')).read())
 t=t.replace('/*RANKINGS*/',open(os.path.join(root,'data','rankings.json')).read() if os.path.exists(os.path.join(root,'data','rankings.json')) else '{}')
 t=t.replace('/*STORIES*/',open(os.path.join(root,'data','stories.json')).read() if os.path.exists(os.path.join(root,'data','stories.json')) else '{}')

@@ -780,14 +780,25 @@ footer small{color:#99a1b8}
 /* player links, player card, search */
 .pl{cursor:pointer;text-decoration:underline;text-decoration-color:color-mix(in srgb,currentColor 30%,transparent);text-underline-offset:3px;text-decoration-thickness:1px}
 .pl:hover,.pl:focus-visible{color:var(--flamingo);text-decoration-color:currentColor;outline:none}
+.pface{display:inline-block;width:22px;height:22px;border-radius:50%;flex:none;background-color:var(--slab);background-repeat:no-repeat}
+.chip.pl{display:inline-flex;align-items:center;gap:6px;text-decoration:none;transition:background-color .15s,box-shadow .15s}
+.chip.pl.wf{padding-left:4px}
+.chip.pl small{margin-left:-2px}
+.chip.pl:hover,.chip.pl:focus-visible{color:var(--ink);background:color-mix(in srgb,var(--flamingo) 20%,var(--flamingo-soft));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--flamingo) 55%,transparent)}
+.chip.pl:focus-visible{outline:2px solid var(--flamingo);outline-offset:2px}
 dialog.pldlg{border:1px solid var(--line);border-radius:10px;padding:0;width:min(760px,calc(100vw - 24px));max-height:calc(100dvh - 32px);background:var(--slab);color:var(--ink);box-shadow:0 20px 60px rgba(0,0,0,.35)}
 dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
 .plhead{display:flex;gap:14px;align-items:center;padding:16px 18px;background:var(--night);color:#fff;position:sticky;top:0;z-index:2}
-.plhead .shot{width:64px;height:64px;border-radius:999px;background:rgba(255,255,255,.12);object-fit:cover;flex:none}
+.plphoto{--tc:#5b6178;position:relative;flex:none;align-self:flex-end;width:121px;height:88px;margin:-4px -4px -16px -8px;background:radial-gradient(58% 70% at 50% 82%,color-mix(in srgb,var(--tc) 80%,transparent),color-mix(in srgb,var(--tc) 28%,transparent) 62%,transparent 78%)}
+.plphoto .ph{position:absolute;inset:0;width:100%;height:100%;background-repeat:no-repeat;object-fit:contain}
+.plphoto.logo{align-self:center;width:88px;height:64px;margin:0;background:radial-gradient(50% 50% at 50% 50%,rgba(255,255,255,.16),transparent 72%)}
+.plphoto .ini{inset:auto;left:50%;bottom:16px;width:58px;height:58px;transform:translateX(-50%);border-radius:50%;display:grid;place-items:center;background:var(--tc);border:2px solid rgba(255,255,255,.55);color:#fff;font-family:var(--f-display);font-size:1.35rem;letter-spacing:.04em}
+.plphoto.logo .ini{bottom:auto;top:50%;transform:translate(-50%,-50%)}
 .plhead h2{color:#fff;font-size:1.5rem;line-height:1.1}
 .plhead .sub{font-family:var(--f-data);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#aeb6cc;margin-top:4px}
 .plhead .x{margin-left:auto;align-self:flex-start;background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:99px;width:34px;height:34px;font-size:1.2rem;line-height:1;cursor:pointer;flex:none}
 .plbody{padding:14px 18px 20px;display:grid;gap:16px}
+.plbody>*{min-width:0}
 .plyrs{display:flex;gap:4px;flex-wrap:wrap}
 .plyrs button{font-family:var(--f-data);font-size:.74rem;border:1px solid var(--line);background:var(--marble);color:var(--ink);border-radius:99px;padding:4px 10px;cursor:pointer}
 .plyrs button[aria-pressed="true"]{background:var(--flamingo);border-color:var(--flamingo);color:#fff}
@@ -825,9 +836,10 @@ dialog.pldlg::backdrop{background:rgba(10,14,28,.55)}
 .sres button[aria-selected="true"],.sres button:hover{background:var(--marble)}
 .sres button small{margin-left:auto;color:var(--muted);font-family:var(--f-data);font-size:.7rem}
 .sres .av{width:24px;height:24px;font-size:.6rem}
+.sres .pface{width:28px;height:28px;margin:-2px 0}
 .sres .empty{padding:10px 8px;color:var(--muted);font-size:.9rem}
 @media (max-width:860px){.search{order:3;flex:1 1 100%}.sres{width:100%}}
-@media (max-width:560px){.pltiles{grid-template-columns:repeat(2,minmax(0,1fr))}.mvlist li{grid-template-columns:auto auto minmax(0,1fr);row-gap:2px}.mvlist .d{white-space:nowrap}.mvlist li>span:last-child{grid-column:1/-1}.plhead .shot{width:48px;height:48px}.plhead h2{font-size:1.25rem}}
+@media (max-width:560px){.pltiles{grid-template-columns:repeat(2,minmax(0,1fr))}.mvlist li{grid-template-columns:auto auto minmax(0,1fr);row-gap:2px}.mvlist .d{white-space:nowrap}.mvlist li>span:last-child{grid-column:1/-1}.plhead{padding:12px 14px;gap:10px}.plhead .sub{font-size:.66rem;letter-spacing:.06em}.plphoto{width:88px;height:64px;margin:-2px -2px -12px -6px}.plphoto.logo{width:66px;height:48px;margin:0}.plphoto .ini{width:46px;height:46px;bottom:12px;font-size:1.1rem}.plhead h2{font-size:1.25rem}}
 @media (prefers-reduced-motion:no-preference){
   .flap{transform-origin:50% 90%;animation:sway 6s ease-in-out infinite}
   @keyframes sway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
@@ -2950,9 +2962,9 @@ function renderTeams(){
      </div>
      <p style="max-width:65ch;margin:0 0 14px">${esc(O.desc)}</p>
      ${rivalCard(o)}
-     ${O.favs?`<div class="eyebrow" style="margin-bottom:6px">${esc(O.favNote||"Favorite players")}</div><div class="chips" style="margin-bottom:14px">${O.favs.map(p=>`<span class="chip">${esc(p)}</span>`).join("")}</div>`:""}
-     ${drafted.length?`<div class="eyebrow" style="margin-bottom:6px">Keeps drafting · picked in more than one draft</div><div class="chips" style="margin-bottom:14px">${drafted.map(([p,ys])=>`<span class="chip" title="${ys.join(", ")}">${esc(p)}<small>×${ys.length}</small></span>`).join("")}</div>`:""}
-     ${fav.length?`<div class="eyebrow" style="margin-bottom:6px">Can't quit them · acquired more than once</div><div class="chips">${fav.map(([p,n])=>`<span class="chip">${esc(p.split("|")[0])}<small>×${n}</small></span>`).join("")}</div>`:""}
+     ${O.favs?`<div class="eyebrow" style="margin-bottom:6px">${esc(O.favNote||"Favorite players")}</div><div class="chips" style="margin-bottom:14px">${O.favs.map(p=>pchip(p)).join("")}</div>`:""}
+     ${drafted.length?`<div class="eyebrow" style="margin-bottom:6px">Keeps drafting · picked in more than one draft</div><div class="chips" style="margin-bottom:14px">${drafted.map(([p,ys])=>pchip(p,`<small>×${ys.length}</small>`,`Drafted in ${ys.join(", ")}`)).join("")}</div>`:""}
+     ${fav.length?`<div class="eyebrow" style="margin-bottom:6px">Can't quit them · acquired more than once</div><div class="chips">${fav.map(([p,n])=>pchip(p.split("|")[0],`<small>×${n}</small>`,`Traded for ${n} times`)).join("")}</div>`:""}
      ${logoWall(o,names)}
      ${yrs.length?`<div class="season-panel"><div class="controls" style="margin:0"><label for="teamYear">Season<select id="teamYear">${yrs.map(y=>`<option ${y===teamYear?"selected":""}>${y}</option>`).join("")}</select></label></div><div id="seasonDetail"></div></div>`:""}
    </div></div>`;
@@ -5077,6 +5089,27 @@ function renderRules(){
 }
 
 /* ---------- router & lightbox ---------- */
+/* ---------- PLAYER PHOTOS ---------- */
+// A photo for every player on the site (src/headshots.py): ESPN's headshot, or the team logo for a D/ST, packed into sprite sheets
+// that ship with the site. Card photos: img/nfl/h{sheet}-{v}.webp (cols x rows per sheet); faces: img/nfl/faces-{v}.webp.
+// HEADS.ids is the slot order and HEADS.names maps pnorm(name) to a slot, so a face can show before players.json loads.
+const HEADS = /*HEADS*/;
+const HSLOT={};(HEADS.ids||[]).forEach((p,i)=>HSLOT[p]=i);
+const slotOf=(pid,name)=>pid!=null&&HSLOT[pid]!=null?HSLOT[pid]:name?HEADS.names?.[pnorm(name)]:undefined;
+const sprite=(src,c,r,cols,rows)=>`background-image:url(${src});background-size:${cols*100}% ${rows*100}%;background-position:${cols>1?c/(cols-1)*100:0}% ${rows>1?r/(rows-1)*100:0}%`;
+function faceHTML(name,pid,cls="pface"){const i=slotOf(pid,name),F=HEADS.faces;if(i==null||!F)return "";
+  return `<span class="${cls}" aria-hidden="true" style="${sprite(`img/nfl/faces-${F.v}.webp`,i%F.cols,Math.floor(i/F.cols),F.cols,F.rows)}"></span>`}
+// a player chip (team pages) that opens the player card, with his face
+const pchip=(name,extra="",title="")=>{const f=faceHTML(name);return `<span class="chip pl${f?" wf":""}" data-pl="${esc(name)}" role="button" tabindex="0"${title?` title="${esc(title)}"`:""}>${f}${esc(name)}${extra}</span>`};
+// glow behind the card photo, in the player's NFL team color (lightened where the real one disappears on the dark header)
+const NFLC={ARI:"#97233F",ATL:"#A71930",BAL:"#6A48B8",BUF:"#1F5BC4",CAR:"#0085CA",CHI:"#C83803",CIN:"#FB4F14",CLE:"#FF3C00",DAL:"#2F6BD1",DEN:"#FB4F14",DET:"#0076B6",GB:"#FFB612",HOU:"#A71930",IND:"#2F6BC2",JAX:"#00838F",KC:"#E31837",LV:"#A5ACAF",OAK:"#A5ACAF",LAC:"#0080C6",SD:"#0080C6",LAR:"#3060D0",MIA:"#008E97",MIN:"#6B3FA0",NE:"#C60C30",NO:"#D3BC8D",NYG:"#3051C9",NYJ:"#2E8B57",PHI:"#1E8C95",PIT:"#FFB612",SF:"#C8102E",SEA:"#69BE28",TB:"#D50A0A",TEN:"#4B92DB",WSH:"#A0283C"};
+const initials=n=>String(n||"").replace(/ D\/ST$/,"").replace(/ (jr|sr|ii|iii|iv|v)\.?$/i,"").split(/\s+/).map(w=>w[0]||"").join("").slice(0,2).toUpperCase();
+function plPhoto(pid,name,team,dst){const i=slotOf(pid,name),lab=`${esc(name)}${dst?" logo":""}`;let inner;
+  if(i!=null){const per=HEADS.cols*HEADS.rows,s=Math.floor(i/per),k=i%per;
+    inner=`<span class="ph" role="img" aria-label="${lab}" style="${sprite(`img/nfl/h${s}-${HEADS.v[s]}.webp`,k%HEADS.cols,Math.floor(k/HEADS.cols),HEADS.cols,HEADS.rows)}"></span>`}
+  else inner=`<span class="ph ini" aria-hidden="true">${esc(initials(name))}</span>`+(pid&&+pid>0&&!(HEADS.none||[]).includes(String(pid))?`<img class="ph" src="https://a.espncdn.com/i/headshots/nfl/players/full/${pid}.png" alt="${lab}" onerror="this.remove()">`:"");   // a player added since the last photo run: try ESPN directly
+  return `<div class="plphoto${dst?" logo":""}"${NFLC[team]?` style="--tc:${NFLC[team]}"`:""}>${inner}</div>`}
+
 /* ---------- PLAYER CARDS ---------- */
 let PLAYERS=null,plLoad=null,plCur=null,plYear="all";
 function loadPlayers(){return plLoad??=fetch("data/players.json").then(r=>r.json()).then(d=>{PLAYERS=d;return d}).catch(()=>{plLoad=null;return null})}
@@ -5088,7 +5121,7 @@ document.addEventListener("click",e=>{const el=e.target.closest(".pl");if(!el)re
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const el=e.target.closest?.(".pl");if(!el)return;e.preventDefault();e.stopPropagation();openPlayer(el.dataset.pl)},true);
 async function openPlayer(name,pid){
   const dlg=$("#plDlg");
-  $("#plHead").innerHTML=`<div><h2 id="plName">${esc(name||"")}</h2><div class="sub">Loading…</div></div><button class="x" type="button" aria-label="Close" onclick="plDlg.close()">×</button>`;$("#plBody").innerHTML="";
+  $("#plHead").innerHTML=`${plPhoto(pid,name,"",/ D\/ST$/.test(name||""))}<div><h2 id="plName">${esc(name||"")}</h2><div class="sub">Loading…</div></div><button class="x" type="button" aria-label="Close" onclick="plDlg.close()">×</button>`;$("#plBody").innerHTML="";
   if(!dlg.open)dlg.showModal();
   const d=await loadPlayers();
   if(!d){$("#plBody").innerHTML=`<p class="muted">Couldn't load player data.</p>`;return}
@@ -5116,7 +5149,7 @@ function renderPlayer(){const r=PLAYERS.p[plCur],ys=Object.keys(r.y).map(Number)
   const latest=ys.find(y=>r.y[y].nfl),nflT=latest?r.y[latest].nfl:"";
   const lg=ys.filter(y=>r.y[y].own||r.y[y].roster),teams=new Set(lg.flatMap(y=>r.y[y].own?Object.values(r.y[y].own).map(v=>v[0]):r.y[y].roster));
   const nT=new Set(r.mv.filter(m=>m.k==="trade"&&m.st==="completed").map(m=>m.id)).size,nD=r.mv.filter(m=>m.k==="draft").length;
-  $("#plHead").innerHTML=`${r.pos!=="D/ST"?`<img class="shot" src="https://a.espncdn.com/i/headshots/nfl/players/full/${pid}.png" alt="" onerror="this.remove()">`:""}<div><h2 id="plName">${esc(r.n)}</h2><div class="sub">${esc(r.pos)}${nflT?` · ${esc(nflT)}`:""} · ${lg.length} league season${lg.length===1?"":"s"} · ${teams.size} league team${teams.size===1?"":"s"} · drafted ${nD}× · traded ${nT}×</div></div><button class="x" type="button" aria-label="Close" onclick="plDlg.close()">×</button>`;
+  $("#plHead").innerHTML=`${plPhoto(pid,r.n,nflT,r.pos==="D/ST")}<div><h2 id="plName">${esc(r.n)}</h2><div class="sub">${esc(r.pos)}${nflT?` · ${esc(nflT)}`:""} · ${lg.length} league season${lg.length===1?"":"s"} · ${teams.size} league team${teams.size===1?"":"s"} · drafted ${nD}× · traded ${nT}×</div></div><button class="x" type="button" aria-label="Close" onclick="plDlg.close()">×</button>`;
   const seg=`<div class="plyrs" role="group" aria-label="Season">${["all",...ys].map(y=>`<button type="button" data-y="${y}" aria-pressed="${String(y)===String(plYear)}">${y==="all"?"All years":y}</button>`).join("")}</div>`;
   let body="";
   if(plYear==="all"){
@@ -5155,9 +5188,9 @@ function searchRun(){const q=pnorm($("#q").value),raw=$("#q").value.trim().toLow
   const years=ALL_YEARS.filter(y=>String(y).includes(raw)).map(y=>({g:"Seasons",l:`${y} season`,s:CHAMPS[y]?`Champion: ${short(CHAMPS[y].o)}`:"",go:()=>goYear(y)}));
   let players=[];
   if(PLAYERS&&q.length>=2){const seen=new Set();for(const [pid,r] of Object.entries(PLAYERS.p)){const n=pnorm(r.n);if(!n.includes(q))continue;const ys=Object.keys(r.y).map(Number);players.push({pid,r,sc:(n.startsWith(q)?0:n.split(" ").some(w=>w.startsWith(q))?1:2),lg:ys.filter(y=>r.y[y].own||r.y[y].roster).length})}
-    players=players.sort((a,b)=>a.sc-b.sc||b.lg-a.lg||a.r.n.localeCompare(b.r.n)).slice(0,8).map(x=>({g:"Players",l:x.r.n,s:`${x.r.pos} · ${x.lg} league season${x.lg===1?"":"s"}`,go:()=>openPlayer(x.r.n,x.pid)}))}
+    players=players.sort((a,b)=>a.sc-b.sc||b.lg-a.lg||a.r.n.localeCompare(b.r.n)).slice(0,8).map(x=>({g:"Players",l:x.r.n,pid:x.pid,s:`${x.r.pos} · ${x.lg} league season${x.lg===1?"":"s"}`,go:()=>openPlayer(x.r.n,x.pid)}))}
   sItems=[...players,...owners.slice(0,6),...pages,...years.slice(0,4)];sSel=0;
-  let g="";box.innerHTML=sItems.length?sItems.map((it,i)=>(it.g!==g?`<div class="grp">${(g=it.g)}</div>`:"")+`<button type="button" role="option" data-i="${i}" aria-selected="${i===0}">${it.o?av(it.o):""}<span>${esc(it.l)}</span>${it.s?`<small>${esc(it.s)}</small>`:""}</button>`).join(""):`<div class="empty">${PLAYERS||q.length<2?"No matches":"Loading players…"}</div>`;
+  let g="";box.innerHTML=sItems.length?sItems.map((it,i)=>(it.g!==g?`<div class="grp">${(g=it.g)}</div>`:"")+`<button type="button" role="option" data-i="${i}" aria-selected="${i===0}">${it.pid?faceHTML(it.l,it.pid):it.o?av(it.o):""}<span>${esc(it.l)}</span>${it.s?`<small>${esc(it.s)}</small>`:""}</button>`).join(""):`<div class="empty">${PLAYERS||q.length<2?"No matches":"Loading players…"}</div>`;
   box.hidden=false;$("#q").setAttribute("aria-expanded","true")}
 function searchPick(i){const it=sItems[i];if(!it)return;$("#sres").hidden=true;$("#q").value="";$("#q").blur();it.go()}
 $("#q").addEventListener("focus",()=>loadPlayers().then(()=>{if($("#q").value)searchRun()}));
