@@ -6,8 +6,8 @@ idx=open(D('index.html')).read();i=idx.index('const LEAGUE');L=json.loads(idx[i:
 S=L['stats'];TR={t['id']:t for t in L['trades']}
 CHAMPS={2016:'duane',2017:'kyle',2018:'fluff',2019:'charles',2020:'charles',2021:'squirm',2022:'charles',2023:'kyle',2024:'dylan',2025:'kyle'}
 SACKOS={2016:'fluff',2017:'peanut',2018:'quincy',2019:'dilapi',2020:'dilapi',2021:'lucas',2022:'jordan',2023:'peanut',2024:'lucas',2025:'quincy'}
-PLAYOFF={2016:{'charles','peanut','duane','squirm'},2017:{'kyle','charles','vicente','squirm'}}
-FINAL={2016:{'duane','charles'},2017:{'kyle'}}
+PLAYOFF={2016:{'charles','peanut','duane','squirm'},2017:{'kyle','charles','vicente','fluff'}}
+FINAL={2016:{'duane','charles'},2017:{'kyle','vicente'}}
 for y,P in PO.items():
     y=int(y)
     if not P.get('rounds'): continue
