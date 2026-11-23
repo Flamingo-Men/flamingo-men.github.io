@@ -166,10 +166,10 @@ MAN={2016:{'charles':"Charles went 12-1 with a super team and beat Peanut in the
            'peanut':"Made the playoffs and lost to Charles in the first round.",'squirm':"Made the playoffs and lost to Duane in the first round.",
            'fluff':"Lost the losers' bracket and took the league's first Sacko.",
            'kyle':"The Salty Andres went 6-7 and finished 7th of 8, with 52 pickups and 4 trades on ESPN (the three-team deal with Fluff and Charles went in as two ESPN trades)."},
-     2017:{'kyle':"The NYC Klugeys went 10-2, beat Charles in the first round and won the title.",'charles':"Made the playoffs and lost to Kyle in the first round.",
-           'vicente':"Made the playoffs in his only season and played Squirm in the first round.",'squirm':"Made the playoffs and played Vicente in the first round.",
+     2017:{'kyle':"The NYC Klugeys went 10-2, beat Charles in the first round, then beat Vicente in the final to win the title.",'charles':"Made the playoffs and lost to Kyle in the first round.",
+           'vicente':"Quleefie Beefies made the playoffs in his only season, beat Fluff in the first round, then lost the final to Kyle.",'squirm':"Missed the playoffs.",
            'peanut':"Lost the losers' bracket and took the Sacko.",
-           'fluff':"Duane Bernard Jr went 9-3, with David Johnson, Jordy Nelson and Cam Newton on the roster."}}
+           'fluff':"Duane Bernard Jr went 9-3, with David Johnson, Jordy Nelson and Cam Newton on the roster, made the playoffs and lost to Vicente in the first round."}}
 for y in (2016,2017):
     owners={o for o in (MV['rosters'].get(str(y)) or {})}|set(MAN[y])
     for o in owners:

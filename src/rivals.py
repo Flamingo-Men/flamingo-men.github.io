@@ -40,7 +40,7 @@ for f in sorted(glob.glob(os.path.join(root,'data','weeks','*.json'))):
             if len(r['wks'])>1: r['leg']=f"Weeks {min(r['wks'])}-{max(r['wks'])}"
 # 2016 and 2017 brackets, same as BRACKET_MANUAL in template.html (Kyle); no scores except the 2016 final total
 MAN={2016:[('charles','peanut','charles','po',None,None),('duane','squirm','duane','po',None,None),('duane','charles','duane','final',242,190)],
-     2017:[('kyle','charles','kyle','po',None,None),('vicente','squirm',None,'po',None,None)]}
+     2017:[('kyle','charles','kyle','po',None,None),('vicente','fluff','vicente','po',None,None),('kyle','vicente','kyle','final',None,None)]}
 for y,L in MAN.items():
     for i,(a,b,win,k,pa,pb) in enumerate(L):
         G.append(dict(y=y,w=None,k=k,a=a,b=b,pa=pa,pb=pb,win=win,rd=f"{y}-m{i}",leg=''))
