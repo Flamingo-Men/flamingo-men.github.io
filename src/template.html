@@ -1777,7 +1777,7 @@ const DIVS = /*DIVISIONS*/;
 const SACKO_BR = /*SACKOBR*/;
 const THRONES = /*THRONES*/;
 const RANK = /*RANKINGS*/;
-// every team's logo by season (Kyle 2026-11-23), from src/logos.py: {year:{owner:{n:team name,u:ESPN's link,f:copy in img/logos}}}
+// every team's logo by season (Kyle 2026-11-23), from src/logos.py: {year:{owner:{n:team name,u:ESPN's link,f:copy in img/logos,x:set when the link can't be shown}}}
 const LOGOS = /*LOGOS*/;
 
 const HISTORY = {
@@ -1945,7 +1945,7 @@ function av(o,cls="av"){const p=IMG[o];const n=OWNERS[o]?.name||"?";
 // Team logos (Kyle 2026-11-23): each team-season shows that season's logo. A saved copy (f) wins over ESPN's link (u);
 // if a link has died, logoFail swaps in the owner's face (or the team's initials on the team page). 2016 and 2017 have none.
 const LOGO_BAD=new Set();   // links that failed to load this visit, so later renders skip them
-const logoOf=(o,y)=>{const L=o&&LOGOS[y]?.[o];return L&&(L.f||L.u)&&!LOGO_BAD.has(L.f||L.u)?L:null};
+const logoOf=(o,y)=>{const L=o&&LOGOS[y]?.[o];return L&&(L.f||(L.u&&!L.x))&&!LOGO_BAD.has(L.f||L.u)?L:null};
 const logoImg=(L,cls,ph)=>`<img class="${cls}" src="${esc(L.f||L.u)}" alt="" loading="lazy" decoding="async"${L.f?"":' referrerpolicy="no-referrer"'}${ph!=null?` data-ph="${esc(ph)}"`:""} onerror="logoFail(this)">`;
 function tlogo(o,y,cls="tl"){const L=logoOf(o,y);return L?logoImg(L,cls):""}
 // the season's logo with the owner's face tucked into the corner; just the face when that season has no logo
@@ -2578,15 +2578,16 @@ function draftedMost(o){
   return Object.entries(m).filter(([,ys])=>ys.length>1).sort((a,b)=>b[1].length-a[1].length||Math.max(...b[1])-Math.max(...a[1])).slice(0,8);
 }
 // Team names and logos (Kyle 2026-11-23): one tile per season, newest first, with every name that team used that year.
-// Tapping a tile opens that season below. Seasons without a logo (2016-17, a few in 2018) show the team's initials.
+// Tapping a tile opens that season below. Seasons without a logo (2016-17, and a few later ones that are lost) show the team's initials.
 function logoWall(o,names){const ys=new Set(Object.keys(names).map(Number));ALL_YEARS.forEach(y=>{if(LOGOS[y]?.[o]||MV.rosters[y]?.[o])ys.add(y)});
   const list=[...ys].sort((a,b)=>b-a).map(y=>({y,all:[...new Set([LOGOS[y]?.[o]?.n||MV.rosters[y]?.[o]?.team,...(names[y]||[])].filter(Boolean))]})).filter(x=>x.all.length);
   if(!list.length)return "";
   const ini=n=>n.replace(/[^A-Za-z0-9 ]/g," ").split(/\s+/).filter(Boolean).map(w=>w[0]).join("").slice(0,2).toUpperCase()||"?";
-  const early=list.some(x=>x.y<2018);
+  const early=list.some(x=>x.y<2018),lost=list.some(x=>x.y>=2018&&!logoOf(o,x.y));
+  const why=early&&lost?" The 2016 and 2017 leagues are gone from ESPN and a few later logos are lost, so those seasons show initials.":early?" The 2016 and 2017 leagues are gone from ESPN, so those years show initials.":lost?" A few logos are lost, so those seasons show initials.":"";
   return `<div class="eyebrow" style="margin:14px 0 6px">Team names and logos</div><div class="lgwall">${list.map(({y,all})=>{const L=logoOf(o,y);
     return `<button type="button" class="lg" data-ty="${y}" aria-pressed="${y===teamYear}" aria-label="${y}: ${esc(all.join(" / "))}. Open this season.">${L?logoImg(L,"lg-i",ini(all[0])):`<span class="lg-i ph" aria-hidden="true">${esc(ini(all[0]))}</span>`}<small>${y}</small><b>${esc(all[0])}</b>${all.length>1?`<span class="lg-x">also ${esc(all.slice(1).join(" / "))}</span>`:""}</button>`}).join("")}</div>
-  <p class="muted lg-note">Logos are the ones each team used on ESPN that season.${early?" The 2016 and 2017 leagues are gone from ESPN, so those years have only the names.":""} Tap a season to open it.</p>`}
+  <p class="muted lg-note">Logos are the ones each team used on ESPN that season.${why} Tap a season to open it.</p>`}
 function renderTeams(){
   const list=ORDER;
   $("#teamPicker").innerHTML=list.map(o=>`<button type="button" class="owner-pill" data-o="${o}" aria-pressed="${o===current}">${av(o)}<span>${esc(short(o))}</span></button>`).join("");
