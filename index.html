@@ -1174,6 +1174,8 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .an{transform-origin:0 0}
 .acro .tw{animation:aTw 3s ease-in-out infinite}
 .acro .a-hop{animation:aHop 4s ease-in-out infinite}
+.acro .a-boat{animation:aBoat 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}@keyframes aBoat{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-1.5px)}}
+.acro .a-wave{animation:aWave 2s ease-in-out infinite alternate}@keyframes aWave{to{transform:translateX(5px)}}
 .acro .a-steer{animation:aSteer 1.1s ease-in-out infinite alternate}@keyframes aSteer{from{transform:rotate(-28deg)}to{transform:rotate(24deg)}}
 .acro .a-smoke{animation:aSmoke 2.7s ease-out infinite}@keyframes aSmoke{0%{transform:none;opacity:0}15%{opacity:.9}100%{transform:translate(5px,-16px) scale(2.2);opacity:0}}
 .acro .a-road{animation:aRoad .5s linear infinite}@keyframes aRoad{to{transform:translateY(4px)}}
@@ -1185,8 +1187,6 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .a-rant{animation:aRant .5s ease-in-out infinite}
 .acro .a-say3{animation:aSay3 6s infinite}
 .acro .a-tail{animation:aTail 1.3s ease-in-out infinite alternate}
-.acro .a-thaw{animation:aThaw 8s ease-in-out infinite}
-.acro .a-puddle{animation:aPuddle 8s ease-in-out infinite}
 .acro .a-step{animation:aStep .7s ease-in-out infinite}
 .acro .a-sip{animation:aSip 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:90% 10%}@keyframes aSip{0%,100%{transform:rotate(0)}45%,70%{transform:rotate(12deg)}}
 .acro .a-jugs{animation:aJugs 2.2s cubic-bezier(.3,.6,.6,1) infinite}@keyframes aJugs{0%{transform:scale(.6);opacity:0}6%{opacity:1}70%{transform:translate(30px,-80px) rotate(300deg) scale(.9);opacity:1}78%,100%{transform:translate(34px,-90px) rotate(340deg) scale(.9);opacity:0}}
@@ -1208,8 +1208,6 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 @keyframes aRant{50%{transform:translateY(-4px)}}
 @keyframes aSay3{0%,30%{opacity:1}34%,100%{opacity:0}}
 @keyframes aTail{from{transform:rotate(-15deg)}to{transform:rotate(22deg)}}
-@keyframes aThaw{0%,15%{opacity:.9}50%,70%{opacity:.08}100%{opacity:.9}}
-@keyframes aPuddle{0%,15%{transform:scaleX(.3)}50%,70%{transform:none}100%{transform:scaleX(.3)}}
 @keyframes aStep{50%{transform:translateY(-3px)}}
 @keyframes aDrib{to{transform:translateY(17px)}}
 @keyframes aKernel{0%{transform:translate(16px,26px);opacity:0}12%{opacity:1}50%{transform:translate(8px,-44px)}86%{transform:translate(0,-2px);opacity:1}92%,100%{transform:none;opacity:0}}
@@ -2544,7 +2542,7 @@ const ACRO_LORE={
   dilapi:"Back-to-back Sackos, then 11-2, then 2-11, then first place. Still jumping at the bait.",
   jordan:"Tending bar for the Flamingo Men, shaking up the drinks.",
   rod:"The RodFather. Quietly good and rarely trades, but when he does it's an offer you can't refuse.",
-  jerry:"The Encino Man, thawing out for 2026 after a year on ice.",
+  jerry:"The Encino Man, thawed out and back on the boat for 2026.",
   skelly:"Team Kelly, 2019 to 2021, then off to become a doctor.",
   mateus:"One season, six trades, and a BeatBox.",
   duane:"The first champion, 2016. Collected his pot at a Chaminade basketball game.",
@@ -2636,9 +2634,13 @@ const ACRO_ACT={
     const tail=acPiv(70,110,"a-tail",P("M70 110q14-2 13-16q-1-7 5-9","none",'stroke="#8f96a3" stroke-width="4.5" stroke-linecap="round"'));
     const cat=tail+E(54,112,19,10,"#8f96a3")+C(36,104,8.5,"#8f96a3")+P("M29.5 99.5l2-8.5 5.5 5.5zM38 97l5.5-5.5 1 8.5z","#8f96a3")+C(33,103,1.3,"#f2d64b")+C(39,103,1.3,"#f2d64b");
     return podFig("rod",{fit:"suit",pose:"lap",hat:"fedora",d:2.2})+cat},
-  jerry:()=>{const {R,E,P}=CS.kit;
-    const ice=`<g class="an a-thaw">${R(16,22,72,128,"rgba(176,224,255,.6)",'rx="8" stroke="rgba(235,248,255,.9)" stroke-width="2"')+P("M22 36l10-6M24 50l18-12M72 120l10-8","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"')}</g>`;
-    return acPiv(52,149,"a-puddle",E(52,149,54,5,"rgba(140,200,240,.6)"))+podFig("jerry",{fit:"hoodie",pose:"wave",d:.6})+ice},
+  // out on a rowboat, joint in his mouth and an AK-47 resting on his shoulder, bobbing on the water (Kyle 2026-11-24)
+  jerry:()=>{const {R,P,L,E,G}=CS.kit;
+    const ak=G(R(-26,-2.6,13,6.5,"#8a5a2e",'rx="1.5" stroke="#4a2e14" stroke-width=".7"')+R(-14,-3,20,6,"#2b2f36",'rx="1"')+R(5,-2.4,12,4.8,"#8a5a2e",'rx="1.2" stroke="#4a2e14" stroke-width=".7"')
+      +L(17,-.5,34,-.5,"#2b2f36",2)+L(31,-.5,31,-4,"#2b2f36",1.4)+P("M-2 3q3 7 -1 13h-5q3-6 1-13z","#2b2f36")+P("M-12 3l-2 6h3l2-6z","#4a2e14"),'transform="translate(84 50) rotate(-62)"');
+    const water=`<g class="an a-wave">${[0,1,2].map(k=>P(`M${-6+k*36} 133q9-5 18 0t18 0`,"none",'stroke="#7cc4ec" stroke-width="2" stroke-linecap="round" opacity=".8"')).join("")}</g>`;
+    const boat=R(4,106,96,5,"#6b4423",'rx="2.5"')+P("M6 110H98L88 130H16Z","#a0682f",'stroke="#5b3a1e" stroke-width="1.2" stroke-linejoin="round"')+L(12,119,92,119,"#8a5a2e",1.2);
+    return E(52,134,58,7,"rgba(70,140,200,.45)")+`<g class="an a-boat">${podFig("jerry",{fit:"hoodie",pose:"card",d:.6,headx:AC_JOINT})+ak+boat}</g>`+water},
   skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
   // tipping back a 500ml BeatBox party punch carton (tall carton, white screw cap, big BEATBOX wordmark) (Kyle 2026-11-24)
   mateus:()=>{const {R,T,P,C,G}=CS.kit;
