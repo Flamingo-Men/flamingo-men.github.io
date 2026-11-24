@@ -673,33 +673,100 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 @media (max-width:520px){.gd-key{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .wbtn{border:1px solid color-mix(in srgb,var(--gold) 60%,var(--line));background:color-mix(in srgb,var(--gold) 12%,var(--slab));color:var(--ink);border-radius:99px;padding:2px 9px;cursor:pointer;font-family:var(--f-data);font-size:.74rem;white-space:nowrap}
 .wbtn:hover{background:color-mix(in srgb,var(--gold) 28%,var(--slab))}.wbtn.big{font-size:.84rem;padding:5px 12px}
-.tcards{display:grid;gap:18px}
-.ptable{display:grid;gap:6px}
-.pt-top{display:flex;align-items:baseline;gap:10px;font-family:var(--f-data);font-size:.8rem;color:var(--muted)}.pt-top .rank{font-size:1.5rem}
-.pt-felt{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px;padding:16px 44px;border-radius:120px/90px;
-  background:radial-gradient(ellipse at 50% 40%,#2f8f55,#1b6a3c 55%,#0f4527);border:10px solid #6b3f1f;box-shadow:inset 0 0 0 2px #c79a55,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 8px 20px rgba(0,0,0,.25);color:#f4f1ea}
-.ptable.first .pt-felt{border-color:#7a4a22;box-shadow:inset 0 0 0 2px #f2c230,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 0 18px rgba(242,194,48,.35)}
-.pt-side{display:grid;justify-items:center;gap:8px;min-width:0}
-.pt-own{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}.pt-own .av{width:34px;height:34px;border-width:2px}.pt-own>div{display:grid;line-height:1.15;min-width:0}.pt-own b{font-size:.95rem}.pt-own small{font-size:.72rem;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pt-hand{--cw:92px;display:flex;justify-content:center;padding:6px 0 2px}
-.pc{--d:50px;position:relative;flex:none;width:var(--cw);aspect-ratio:5/7;display:grid;justify-items:center;align-content:center;gap:2px;padding:14px 4px 12px;border-radius:8px;border:1px solid #c9c0a8;background:linear-gradient(160deg,#fffdf6,#efe8d6);color:#15203b;cursor:pointer;
-  box-shadow:0 3px 8px rgba(0,0,0,.35);transform:rotate(calc(var(--k) * 5deg)) translateY(calc(var(--k) * var(--k) * 2px));transform-origin:50% 120%;transition:transform .15s;font:inherit}
-.pc+.pc{margin-left:calc(var(--cw) * (.12 - var(--n) * .08))}
-.pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 5deg)) translateY(-10px);z-index:2}
-.pc.dud{filter:grayscale(.7) brightness(.92)}
-.pc-ph{display:block;width:var(--d);height:var(--d);border-radius:50%;background-color:#dfe7ef;background-repeat:no-repeat;border:2px solid #fff;box-shadow:0 0 0 1.5px #c9a24a}
-.pc-ph.ini{display:grid;place-items:center;font-family:var(--f-display);color:var(--muted)}
-.pc-n{font-weight:800;font-size:.74rem;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pc-w{font-family:var(--f-data);font-size:.72rem;font-weight:700;color:#1b6a3c}.pc.dud .pc-w{color:#8a8f99}
-.pc-i{position:absolute;left:5px;top:4px;display:grid;justify-items:center;line-height:1;font-family:var(--f-data);font-size:.6rem;font-weight:700}.pc-i i{font-style:normal;font-size:.75rem}
-.pc-i.b{left:auto;top:auto;right:5px;bottom:4px;transform:rotate(180deg)}
-.pt-side.won .pc-i{color:#c0392b}
-.pt-tot{display:flex;align-items:center;font-family:var(--f-data);font-size:.8rem;font-weight:700}
-.pt-pot{display:grid;justify-items:center;line-height:1.05;text-align:center}.pt-pot b{font-family:var(--f-data);font-size:1.15rem;color:#f2c230}.pt-pot small{font-size:.65rem;opacity:.8;font-family:var(--f-data)}
-.chips{display:grid;margin-bottom:4px}.chips i{display:block;width:30px;height:9px;border-radius:50%;margin-top:-4px;background:repeating-linear-gradient(90deg,#c0392b 0 5px,#fff 5px 8px);border:1px solid #7d1f14}.chips i:nth-child(2){background:repeating-linear-gradient(90deg,#1d4f91 0 5px,#fff 5px 8px);border-color:#0d2b52}.chips i:nth-child(3){background:repeating-linear-gradient(90deg,#15203b 0 5px,#f2c230 5px 8px);border-color:#000}
-@media (max-width:640px){.pt-felt{padding:12px 8px;border-width:7px;border-radius:70px/56px;gap:2px}.pt-hand{--cw:46px}.pc{--d:26px;padding:9px 2px 7px;border-radius:5px;gap:1px}.pc+.pc{margin-left:calc(var(--cw) * (.1 - var(--n) * .15))}.pc{transform:rotate(calc(var(--k) * 3deg)) translateY(calc(var(--k) * var(--k) * 1px))}.pt-pot{min-width:38px}.pc-n{font-size:.56rem}.pc-w{font-size:.56rem}.pc-i{font-size:.44rem;left:3px;top:2px}.pc-i i{font-size:.5rem}.pc-i.b{right:3px;bottom:2px}
-  .pt-own{flex-direction:column;gap:2px;text-align:center}.pt-own .av{width:28px;height:28px}.pt-own b{font-size:.8rem}.pt-own small{font-size:.6rem;max-width:140px}.pt-tot{font-size:.68rem;flex-direction:column;gap:3px}.tc-stamp{font-size:.72rem;margin:0}.pt-pot b{font-size:.9rem}.chips i{width:22px;height:7px}}
-.tc-stamp{flex:none;font-family:var(--f-fb);font-size:.9rem;letter-spacing:.08em;color:#9ff0b8;border:2px solid currentColor;border-radius:4px;padding:0 5px;transform:rotate(-6deg);margin-right:6px}.tc-stamp.l{color:#ffb0a6;transform:rotate(5deg)}
+/* ---------- Top 10 trade rapes as poker tables (Kyle 2026-11-24: polished) ----------
+   Each trade is a showdown at a padded-rail table: a brass plaque on the rail with the rank, each owner's seat over his hand, and
+   the pot in the middle sized by the margin. Every player is a playing card; the hands fan and overlap like real cards, and the
+   strip of each card that stays visible holds his face, his wins (the card's rank), position and suit, and his full name down the
+   edge. Card sizes all scale from --cw. Two tables a row on wide screens, one on phones. */
+.tcards{display:grid;justify-items:center;gap:30px 22px;padding-top:14px}
+@media (min-width:1000px){.tcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ptable{--rail:11px;--rx:96px;position:relative;width:100%;max-width:640px;padding:var(--rail);border-radius:var(--rx)/50%;
+  background:radial-gradient(120% 140% at 50% -20%,#6b4329 0%,#3a2213 42%,#1b0f07 100%);
+  box-shadow:inset 0 2px 0 rgba(255,226,186,.3),inset 0 -3px 6px rgba(0,0,0,.7),inset 0 0 0 1px rgba(0,0,0,.6),0 14px 26px -10px rgba(0,0,0,.55),0 3px 0 #0b0603}
+.pt-felt{position:relative;isolation:isolate;display:grid;align-items:center;gap:8px;height:100%;padding:16px 26px 13px;
+  border-radius:calc(var(--rx) - var(--rail))/50%;color:#f4f1ea;
+  background:radial-gradient(60% 75% at 50% 40%,rgba(255,255,255,.14),rgba(255,255,255,0) 72%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 50%,#2f9159 0%,#1e7143 50%,#0f4a2a 100%);
+  box-shadow:0 0 0 1.5px #e2b86a,0 0 0 3.5px #5e3a1d,inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 30px rgba(0,0,0,.6)}
+.pt-felt::before{content:"";position:absolute;inset:7px;z-index:-1;border-radius:inherit;border:1px solid rgba(240,207,120,.26);pointer-events:none}
+.pt-logo{position:absolute;left:50%;top:50%;z-index:-1;width:86px;height:108px;transform:translate(-50%,-50%);color:#fff;opacity:.06;pointer-events:none}
+.ptable.first{box-shadow:inset 0 2px 0 rgba(255,226,186,.3),inset 0 -3px 6px rgba(0,0,0,.7),inset 0 0 0 1px rgba(0,0,0,.6),0 0 0 2px rgba(242,194,48,.55),0 0 26px rgba(242,194,48,.35),0 14px 26px -10px rgba(0,0,0,.55)}
+.ptable.first .pt-felt{box-shadow:0 0 0 1.5px #f7d774,0 0 0 3.5px #5e3a1d,inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 30px rgba(0,0,0,.6)}
+/* the brass plaque on the rail */
+.pt-plq{position:absolute;left:50%;top:0;z-index:3;transform:translate(-50%,-52%);display:flex;align-items:center;gap:7px;white-space:nowrap;
+  padding:3px 9px 2px;border-radius:5px;border:1px solid #6d4b0e;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:.72rem;line-height:1.25;letter-spacing:.09em;text-transform:uppercase;color:#3b2905;
+  background:linear-gradient(180deg,#fff0bd 0%,#e6c26b 38%,#c09239 70%,#9c7224 100%);text-shadow:0 1px 0 rgba(255,246,214,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.2),0 2px 5px rgba(0,0,0,.5)}
+.pt-plq b{font-size:1.1rem;font-weight:900;line-height:1;letter-spacing:.04em}
+.pt-plq i{width:3px;height:3px;border-radius:50%;background:#6b4a10;opacity:.75}
+.pt-plq::before,.pt-plq::after{content:"";flex:none;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#8a6416 70%);box-shadow:0 0 0 .5px rgba(0,0,0,.4)}
+.ptable.first .pt-plq b::before{content:"♛ ";font-size:.8em}
+/* the seats, the stacks and the pot */
+.pt-side{display:grid;justify-items:center;align-content:center;gap:7px;min-width:0}
+.pt-seat{display:flex;align-items:center;gap:7px;min-width:0;max-width:100%;padding:2px 11px 2px 2px;border-radius:99px;background:rgba(4,22,12,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09)}
+.pt-seat .av{width:30px;height:30px;border:2px solid var(--pc);box-shadow:0 0 0 1px rgba(0,0,0,.45);font-size:.72rem}
+.pt-seat>div{display:grid;line-height:1.12;min-width:0}
+.pt-seat b{font-size:.9rem;color:#fff;white-space:nowrap}
+.pt-seat small{font-size:.68rem;color:rgba(244,241,234,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pt-side.won .pt-seat{box-shadow:inset 0 0 0 1px rgba(247,215,116,.6),0 0 12px rgba(247,215,116,.18)}
+.pt-stack{display:flex;align-items:center;gap:6px;font-family:var(--f-fb);font-size:.95rem;letter-spacing:.05em;line-height:1;color:rgba(244,241,234,.8)}
+.pt-stack b{font-weight:400;font-size:1.12em;color:#fff}
+.pt-stamp{padding:2px 5px 1px;border:1.5px solid currentColor;border-radius:3px;font-size:.84em;letter-spacing:.12em;color:#ffd75e;transform:rotate(-5deg)}
+.pt-side:not(.won) .pt-stamp{color:#ff958c;transform:rotate(4deg)}
+.pt-pot{display:grid;justify-items:center;line-height:1;text-align:center}
+.pt-chips{display:block;width:50px;height:44px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.45))}
+.pt-pot b{margin-top:2px;font-family:var(--f-fb);font-weight:400;font-size:1.75rem;letter-spacing:.02em;color:#ffd75e;text-shadow:0 1px 0 #6b4a10,0 0 12px rgba(255,200,60,.35)}
+.pt-pot small{font-family:var(--f-fb);font-size:.72rem;letter-spacing:.2em;color:rgba(244,241,234,.75)}
+/* the hand: overlap from the side's width, between a minimum and a maximum visible strip */
+.pt-hand{display:flex;justify-content:center;width:100%;padding:4px 0 6px}
+.pc{--cw:84px;position:relative;flex:none;width:var(--cw);height:calc(var(--cw) * 1.5);padding:0;margin:0;font:inherit;font-size:calc(var(--cw) / 6);line-height:1;text-align:left;color:#15203b;cursor:pointer;
+  border-radius:calc(var(--cw) * .09);border:1px solid #cbc0a2;background:linear-gradient(165deg,#fffef9 0%,#f6efdc 100%);
+  box-shadow:-1px 0 2px rgba(0,0,0,.2),0 3px 7px rgba(0,0,0,.4);
+  transform:rotate(calc(var(--k) * 3.5deg)) translateY(calc(var(--k) * var(--k) * 1.6px));transform-origin:50% 125%;
+  transition:translate .18s ease,box-shadow .18s ease;animation:pcDeal .5s cubic-bezier(.2,.9,.3,1.15) backwards;animation-delay:calc(var(--j) * 55ms)}
+.pc+.pc{margin-left:clamp(calc(var(--cw) * -.58),calc((100% - var(--cw)) / (var(--n) - 1) - var(--cw) * 1.1),calc(var(--cw) * -.4))}
+.pc:hover,.pc:focus-visible{translate:0 -9px;z-index:5;box-shadow:-1px 0 2px rgba(0,0,0,.2),0 10px 16px rgba(0,0,0,.45)}
+.pc:focus-visible{outline:2px solid #ffd75e;outline-offset:2px}
+@keyframes pcDeal{from{opacity:0;translate:0 -26px;rotate:-14deg}}
+.pc.dud{background:linear-gradient(165deg,#f4f2ec 0%,#e6e1d4 100%)}.pc.dud .pc-ph{filter:grayscale(1) contrast(.9)}.pc.dud .pc-n b{color:#4a4f5c}
+/* the open face of the card: a printed frame with the big suit (only the top card shows it in full) */
+.pc::after{content:"";position:absolute;left:calc(var(--cw) * .47);top:calc(var(--cw) * .07);right:calc(var(--cw) * .07);bottom:calc(var(--cw) * .07);border-radius:calc(var(--cw) * .05);
+  border:1px solid rgba(169,124,34,.4);background:repeating-linear-gradient(45deg,rgba(169,124,34,.06) 0 2px,transparent 2px 5px);pointer-events:none}
+.pc:not(:last-child):not(:hover):not(:focus-visible)::after,.pc:not(:last-child):not(:hover):not(:focus-visible) .pc-pip,.pc:not(:last-child):not(:hover):not(:focus-visible) .pc-i.b{display:none}
+.pc-pip{position:absolute;left:calc(var(--cw) * .47);right:calc(var(--cw) * .07);top:0;bottom:0;display:grid;place-items:center;z-index:1;font-size:2.6em;line-height:1}
+.pc-ph{--d:calc(var(--cw) * .4);position:absolute;z-index:2;left:calc(var(--cw) * .04);top:calc(var(--cw) * .05);width:var(--d);height:var(--d);border-radius:50%;
+  background-color:#dfe7ef;background-repeat:no-repeat;box-shadow:0 0 0 1.5px #fff,0 0 0 2.5px #c9a24a}
+.pc-ph.ini{display:grid;place-items:center;font-family:var(--f-display);font-size:.9em;color:var(--muted)}
+.pc-w{position:absolute;z-index:3;left:calc(var(--cw) * .24);top:calc(var(--cw) * .365);transform:translateX(-50%);padding:.16em .34em .06em;border-radius:99px;white-space:nowrap;
+  font-family:var(--f-fb);font-size:.9em;letter-spacing:.03em;color:#fff;background:#18794a;box-shadow:0 0 0 1px #fff}
+.pc.dud .pc-w{background:#7d838f}
+.pc-i{position:absolute;z-index:2;left:calc(var(--cw) * .04);top:calc(var(--cw) * .6);width:calc(var(--cw) * .4);display:flex;justify-content:center;align-items:center;gap:.14em;
+  font-family:var(--f-fb);font-size:.86em;letter-spacing:.06em;color:#1d2433}
+.pc-i i{font-style:normal;font-size:.95em;line-height:1}
+.pc-i.b{left:auto;top:auto;right:calc(var(--cw) * .04);bottom:calc(var(--cw) * .05);width:auto;transform:rotate(180deg)}
+.pt-side.won .pc-i,.pt-side.won .pc-pip{color:#c0262d}
+.pt-side:not(.won) .pc-pip{color:#1d2433}
+/* the name: down the visible edge, last name big, first name small beside it */
+.pc-n{position:absolute;z-index:2;left:calc(var(--cw) * .05);top:calc(var(--cw) * .76);bottom:calc(var(--cw) * .06);width:calc(var(--cw) * .38);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  writing-mode:vertical-rl;font-family:var(--f-fb);line-height:.95;letter-spacing:.03em;white-space:nowrap;text-transform:uppercase}
+.pc-n b{font-weight:400;font-size:calc(1.02em * var(--fit));color:#15203b}
+.pc-n small{font-size:calc(.78em * var(--fit));color:#6b5a3a;margin-left:.08em}
+@media (prefers-reduced-motion:reduce){.pc{animation:none;transition:none}}
+@media (max-width:640px){
+  .tcards{gap:24px;padding-top:10px}
+  .ptable{--rail:7px;--rx:54px}
+  .pt-felt{gap:2px;padding:12px 6px 8px}
+  .pt-felt::before{inset:5px}
+  .pt-logo{width:60px;height:76px}
+  .pt-plq{font-size:.6rem;gap:5px;padding:2px 7px 1px}.pt-plq b{font-size:.9rem}
+  .pt-side{gap:4px}
+  .pt-seat{gap:5px;padding:1px 8px 1px 1px}.pt-seat .av{width:24px;height:24px;border-width:1.5px}.pt-seat b{font-size:.76rem}.pt-seat small{font-size:.56rem}
+  .pt-wl{display:none}
+  .pt-stack{font-size:.66rem;gap:3px;letter-spacing:.03em}.pt-stack b{font-size:1.2em}.pt-stamp{border-width:1px;padding:1px 3px 0;letter-spacing:.07em}
+  .pt-chips{width:32px;height:28px}.pt-pot b{font-size:1.16rem}.pt-pot small{font-size:.54rem;letter-spacing:.12em}
+  .pt-hand{padding:2px 0 3px}
+  .pc{--cw:clamp(48px,15.4vw,60px);box-shadow:-1px 0 1.5px rgba(0,0,0,.2),0 2px 5px rgba(0,0,0,.4);transform:rotate(calc(var(--k) * 3.5deg)) translateY(calc(var(--k) * var(--k) * 1.2px))}
+  .pc-ph{box-shadow:0 0 0 1px #fff,0 0 0 1.8px #c9a24a}}
 .soaps,.coaches{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .soap-card,.coach-card{background:var(--slab);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
 .soap-art,.coach-art{position:relative;line-height:0}.soap-art svg,.coach-art svg{width:100%;height:auto;display:block}
@@ -725,25 +792,9 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 .soap-art{align-self:stretch;min-height:100%}.soap-art svg{height:100%}
 .soap-art .rank{left:6px;top:6px;padding:2px 6px;font-size:1rem}
 .soap-tx{padding:10px 12px;gap:4px;align-content:center}.soap-tx h4{font-size:.98rem;line-height:1.2}.soap-tx small{line-height:1.25}.soap-tx p{font-size:.84rem;line-height:1.35}.soap-tx .wbtn{margin-top:2px}
-.ptable{gap:2px}.pt-felt{padding:10px 40px}.pt-side{gap:4px}.pt-hand{padding:2px 0 0}
-.pc-n{white-space:normal;overflow-wrap:anywhere;text-align:center}
 @media (max-width:640px){.soaps{grid-template-columns:1fr;gap:10px}
   .soap-card{grid-template-columns:minmax(0,44%) minmax(0,1fr)}
-  .soap-tx{padding:7px 9px;gap:2px}.soap-tx h4{font-size:.86rem}.soap-tx small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}.soap-tx .wbtn.big{font-size:.72rem;padding:3px 9px}
-  .pt-top{font-size:.7rem;gap:6px}.pt-top .rank{font-size:1.1rem}
-  .pt-felt{padding:6px 6px;border-width:6px;border-radius:56px/44px}.pt-side{gap:2px}
-  .pt-own{flex-direction:row;gap:4px;text-align:left}.pt-own .av{width:22px;height:22px;border-width:1.5px}.pt-own b{font-size:.74rem}.pt-own small{font-size:.56rem;max-width:96px}
-  .pt-tot{flex-direction:row;gap:0;font-size:.64rem}.tc-stamp{font-size:.6rem;padding:0 3px;margin-right:4px;border-width:1.5px}
-  /* phones: a real fanned hand, each card tucked under the next; the name runs down the visible left edge like a card index */
-  .pt-side{justify-items:stretch}.pt-own,.pt-tot{justify-self:center}
-  .pt-hand{--cw:52px;padding:4px 0 6px}
-  .pc{display:block;aspect-ratio:5/7;padding:0;border-radius:5px;transform:rotate(calc(var(--k) * 4deg)) translateY(calc(var(--k) * var(--k) * 1.2px));transform-origin:50% 130%}
-  .pc+.pc{margin-left:clamp(calc(var(--cw) * -.6),calc((100% - var(--n) * var(--cw)) / (var(--n) - 1) - 5px),calc(var(--cw) * -.42))}
-  .pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 4deg)) translateY(-8px)}
-  .pc-i{left:2px;top:2px}.pc-i.b{right:2px;bottom:2px}
-  .pc .pc-ph{--d:18px;position:absolute;left:10px;top:5px;border-width:1.5px}
-  .pc-n{position:absolute;left:1px;top:19px;writing-mode:vertical-rl;font-size:.5rem;line-height:1;max-height:52px;white-space:nowrap;overflow:visible;text-align:start;letter-spacing:-.01em}
-  .pc-w{position:absolute;left:9px;top:26px;font-size:.47rem;letter-spacing:-.02em}}
+  .soap-tx{padding:7px 9px;gap:2px}.soap-tx h4{font-size:.86rem}.soap-tx small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}.soap-tx .wbtn.big{font-size:.72rem;padding:3px 9px}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -4445,14 +4496,28 @@ function seasonMovie(i){const r=topSeasonList[i];if(!r)return;const o=r.o,y=r.y,
   const stat=[["Record",`${r.w}-${r.l}${r.est?" (est.)":""}`],["Finish",res],["Points",r.pfRank?`${fmt(r.pf)} (${r.pfRank===1?"most":ordinal(r.pfRank)} of ${r.pfN})`:"–"],["Record score",`${r.c.rec.toFixed(1)} / 30`],["Playoff score",`${r.c.po.toFixed(1)} / 30`],["Roster score",`${r.c.ros.toFixed(1)} / 25`],["Points score",`${r.c.pts.toFixed(1)} / 15`],["Final grade",`${r.total.toFixed(1)} / 100`]];
   sl.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The ${y} season, graded</div><b style="font-size:1.2rem">${esc(r.team||OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">No. ${i+1} on the list of the best seasons of all time.</p>`});
   openCareer(null,sl)}
+// the pot: three chip stacks that grow with the margin
+const q1=v=>Math.round(v*10)/10;
+function potChips(m){const n=Math.max(4,Math.min(15,Math.round(m*6))),a=Math.ceil(n*.42),b=Math.max(1,Math.round(n*.3)),c=Math.max(1,n-a-b);
+  const chip=(cx,y,col,dk)=>`<path d="M${cx-7} ${y}A7 2.5 0 0 0 ${cx+7} ${y}V${q1(y+2.3)}A7 2.5 0 0 1 ${cx-7} ${q1(y+2.3)}Z" fill="${dk}"/><path d="M${cx-7} ${y}A7 2.5 0 0 0 ${cx+7} ${y}V${q1(y+1.5)}A7 2.5 0 0 1 ${cx-7} ${q1(y+1.5)}Z" fill="${col}"/>`+[-4.6,-.9,2.8].map(d=>`<rect x="${q1(cx+d)}" y="${q1(y+.55)}" width="1.8" height="1.5" fill="#fff" opacity=".9"/>`).join("");
+  const stack=(cx,base,h,col,dk)=>{let s="";for(let j=0;j<h;j++)s+=chip(cx,q1(base-j*2.3),col,dk);const ty=q1(base-h*2.3);
+    return s+`<ellipse cx="${cx}" cy="${ty}" rx="7" ry="2.5" fill="${col}"/><ellipse cx="${cx}" cy="${ty}" rx="4.8" ry="1.6" fill="none" stroke="#fff" stroke-width=".9" stroke-dasharray="1.7 1.3" opacity=".95"/><ellipse cx="${cx}" cy="${ty}" rx="2.6" ry=".85" fill="rgba(255,255,255,.22)"/>`};
+  return `<svg class="pt-chips" viewBox="0 0 46 40" aria-hidden="true">${stack(12,33,b,"#1f5fae","#123a6d")+stack(34,33,c,"#26262c","#0b0b0e")+stack(23,37,a,"#d0392b","#86190f")}</svg>`}
+// a card's name: the first name small, the last name big, both running down the card's visible left edge
+function cardName(nm){const p=nm.trim().split(/\s+/),first=p.length>1?p[0]:"",last=p.length>1?p.slice(1).join(" "):p[0];
+  return {first,last,fit:Math.min(1,10/Math.max(last.length,first.length*.8,1))}}
 function topRapes(){const margin=x=>Math.abs(x.a.war-x.b.war);
   const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
-  // each player is a playing card: position and wins in the corners, his face in the middle; tap for the week-by-week grading
-  const card=(id,s,g,k,n,suit)=>{const last=g[0].replace(/ (Jr\.|Sr\.|II|III|IV)$/,"").split(" ").slice(-1)[0],v=g[2]==null?"?":wf(g[4]||0);
-    return `<button type="button" class="pc${(g[4]||0)>0?"":" dud"}" style="--k:${k-(n-1)/2}" data-wg="t" data-id="${id}" data-s="${s}" data-p="${esc(g[0])}" aria-haspopup="dialog" aria-label="${esc(g[0])}, ${v} wins added. Show the grading"><span class="pc-i">${esc(g[1])}<i>${suit}</i></span>${bigFace(g[0],"pc-ph")}<span class="pc-n">${esc(last)}</span><span class="pc-w">${v}</span><span class="pc-i b">${esc(g[1])}<i>${suit}</i></span></button>`};
-  return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
-    const side=(s,won)=>{const g=x[s].got,suit=won?"♥":"♠";return `<div class="pt-side${won?" won":""}"><div class="pt-own">${t[s].o?av(t[s].o):""}<div><b>${esc(t[s].o?short(t[s].o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,suit)).join("")}</div><div class="pt-tot"><span class="tc-stamp${won?"":" l"}">${won?"Won":"Fleeced"}</span>${wf(x[s].war,false)} wins</div></div>`};
-    return `<article class="ptable${i===0?" first":""}"><header class="pt-top"><span class="rank">${ROMAN[i]}</span><span>${t.s} season${x.w>1?` · week ${x.w}`:""}</span></header><div class="pt-felt">${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins"><span class="chips" aria-hidden="true"><i></i><i></i><i></i></span><b>${wf(margin(x),false)}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
+  // each player is a playing card. The strip that stays visible when the hand fans out holds his face, his wins (the card's
+  // rank), his position and suit, and his full name down the edge; the top card also shows the big suit and the far index.
+  let deal=0;
+  const card=(id,s,g,k,n,won)=>{const v=g[2]==null?"?":wf(g[4]||0),suit=won?"♥":"♠",{first,last,fit}=cardName(g[0]);
+    return `<button type="button" class="pc${(g[4]||0)>0?"":" dud"}" style="--k:${k-(n-1)/2};--j:${deal++};--fit:${fit.toFixed(2)}" data-wg="t" data-id="${id}" data-s="${s}" data-p="${esc(g[0])}" aria-haspopup="dialog" aria-label="${esc(g[0])}, ${esc(g[1])}, ${v} wins added. Show the grading">${bigFace(g[0],"pc-ph")}<span class="pc-w">${v}</span><span class="pc-i">${esc(g[1])}<i>${suit}</i></span><span class="pc-n">${first?`<small>${esc(first)}</small>`:""}<b>${esc(last)}</b></span><span class="pc-pip" aria-hidden="true">${suit}</span><span class="pc-i b" aria-hidden="true">${esc(g[1])}<i>${suit}</i></span></button>`};
+  // each side gets table room in proportion to how many cards it holds, so a five-card hand still fans out cleanly
+  const room=n=>Math.max(1.6,1+(n-1)*.6).toFixed(2);
+  return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";deal=0;
+    const side=(s,won)=>{const g=x[s].got,o=t[s].o;return `<div class="pt-side${won?" won":""}"><div class="pt-seat" style="--pc:${POD_COL[o]||"#d6ac5e"}">${o?av(o):""}<div><b>${esc(o?short(o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,won)).join("")}</div><div class="pt-stack"><span class="pt-stamp">${won?"Won":"Fleeced"}</span><b>${wf(x[s].war,false)}</b><span class="pt-wl"> wins</span></div></div>`};
+    return `<article class="ptable${i===0?" first":""}" aria-label="Number ${i+1}: ${esc(short(t[w].o))} over ${esc(short(t[l].o))}, ${t.s}"><div class="pt-plq"><b>${ROMAN[i]}</b><i></i><span>${t.s}</span>${x.w>1?`<i></i><span>Week ${x.w}</span>`:""}</div><div class="pt-felt" style="grid-template-columns:minmax(0,${room(x[w].got.length)}fr) auto minmax(0,${room(x[l].got.length)}fr)"><svg class="pt-logo" aria-hidden="true"><use href="#flamingoBig"/></svg>${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins">${potChips(margin(x))}<b>${wf(margin(x))}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
 // Top 5 waiver pickups as a gold rush (Kyle 2026-11-23): the owner panning a river, the player's face as the gold nugget,
 // sized by pickup score against the best of the five. Tap the nugget for the week-by-week points in that owner's lineup.
 let pickList=[];
