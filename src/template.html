@@ -673,33 +673,100 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 @media (max-width:520px){.gd-key{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .wbtn{border:1px solid color-mix(in srgb,var(--gold) 60%,var(--line));background:color-mix(in srgb,var(--gold) 12%,var(--slab));color:var(--ink);border-radius:99px;padding:2px 9px;cursor:pointer;font-family:var(--f-data);font-size:.74rem;white-space:nowrap}
 .wbtn:hover{background:color-mix(in srgb,var(--gold) 28%,var(--slab))}.wbtn.big{font-size:.84rem;padding:5px 12px}
-.tcards{display:grid;gap:18px}
-.ptable{display:grid;gap:6px}
-.pt-top{display:flex;align-items:baseline;gap:10px;font-family:var(--f-data);font-size:.8rem;color:var(--muted)}.pt-top .rank{font-size:1.5rem}
-.pt-felt{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px;padding:16px 44px;border-radius:120px/90px;
-  background:radial-gradient(ellipse at 50% 40%,#2f8f55,#1b6a3c 55%,#0f4527);border:10px solid #6b3f1f;box-shadow:inset 0 0 0 2px #c79a55,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 8px 20px rgba(0,0,0,.25);color:#f4f1ea}
-.ptable.first .pt-felt{border-color:#7a4a22;box-shadow:inset 0 0 0 2px #f2c230,inset 0 0 40px rgba(0,0,0,.45),0 0 0 2px #3d2410,0 0 18px rgba(242,194,48,.35)}
-.pt-side{display:grid;justify-items:center;gap:8px;min-width:0}
-.pt-own{display:flex;align-items:center;gap:8px;min-width:0;max-width:100%}.pt-own .av{width:34px;height:34px;border-width:2px}.pt-own>div{display:grid;line-height:1.15;min-width:0}.pt-own b{font-size:.95rem}.pt-own small{font-size:.72rem;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pt-hand{--cw:92px;display:flex;justify-content:center;padding:6px 0 2px}
-.pc{--d:50px;position:relative;flex:none;width:var(--cw);aspect-ratio:5/7;display:grid;justify-items:center;align-content:center;gap:2px;padding:14px 4px 12px;border-radius:8px;border:1px solid #c9c0a8;background:linear-gradient(160deg,#fffdf6,#efe8d6);color:#15203b;cursor:pointer;
-  box-shadow:0 3px 8px rgba(0,0,0,.35);transform:rotate(calc(var(--k) * 5deg)) translateY(calc(var(--k) * var(--k) * 2px));transform-origin:50% 120%;transition:transform .15s;font:inherit}
-.pc+.pc{margin-left:calc(var(--cw) * (.12 - var(--n) * .08))}
-.pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 5deg)) translateY(-10px);z-index:2}
-.pc.dud{filter:grayscale(.7) brightness(.92)}
-.pc-ph{display:block;width:var(--d);height:var(--d);border-radius:50%;background-color:#dfe7ef;background-repeat:no-repeat;border:2px solid #fff;box-shadow:0 0 0 1.5px #c9a24a}
-.pc-ph.ini{display:grid;place-items:center;font-family:var(--f-display);color:var(--muted)}
-.pc-n{font-weight:800;font-size:.74rem;line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pc-w{font-family:var(--f-data);font-size:.72rem;font-weight:700;color:#1b6a3c}.pc.dud .pc-w{color:#8a8f99}
-.pc-i{position:absolute;left:5px;top:4px;display:grid;justify-items:center;line-height:1;font-family:var(--f-data);font-size:.6rem;font-weight:700}.pc-i i{font-style:normal;font-size:.75rem}
-.pc-i.b{left:auto;top:auto;right:5px;bottom:4px;transform:rotate(180deg)}
-.pt-side.won .pc-i{color:#c0392b}
-.pt-tot{display:flex;align-items:center;font-family:var(--f-data);font-size:.8rem;font-weight:700}
-.pt-pot{display:grid;justify-items:center;line-height:1.05;text-align:center}.pt-pot b{font-family:var(--f-data);font-size:1.15rem;color:#f2c230}.pt-pot small{font-size:.65rem;opacity:.8;font-family:var(--f-data)}
-.chips{display:grid;margin-bottom:4px}.chips i{display:block;width:30px;height:9px;border-radius:50%;margin-top:-4px;background:repeating-linear-gradient(90deg,#c0392b 0 5px,#fff 5px 8px);border:1px solid #7d1f14}.chips i:nth-child(2){background:repeating-linear-gradient(90deg,#1d4f91 0 5px,#fff 5px 8px);border-color:#0d2b52}.chips i:nth-child(3){background:repeating-linear-gradient(90deg,#15203b 0 5px,#f2c230 5px 8px);border-color:#000}
-@media (max-width:640px){.pt-felt{padding:12px 8px;border-width:7px;border-radius:70px/56px;gap:2px}.pt-hand{--cw:46px}.pc{--d:26px;padding:9px 2px 7px;border-radius:5px;gap:1px}.pc+.pc{margin-left:calc(var(--cw) * (.1 - var(--n) * .15))}.pc{transform:rotate(calc(var(--k) * 3deg)) translateY(calc(var(--k) * var(--k) * 1px))}.pt-pot{min-width:38px}.pc-n{font-size:.56rem}.pc-w{font-size:.56rem}.pc-i{font-size:.44rem;left:3px;top:2px}.pc-i i{font-size:.5rem}.pc-i.b{right:3px;bottom:2px}
-  .pt-own{flex-direction:column;gap:2px;text-align:center}.pt-own .av{width:28px;height:28px}.pt-own b{font-size:.8rem}.pt-own small{font-size:.6rem;max-width:140px}.pt-tot{font-size:.68rem;flex-direction:column;gap:3px}.tc-stamp{font-size:.72rem;margin:0}.pt-pot b{font-size:.9rem}.chips i{width:22px;height:7px}}
-.tc-stamp{flex:none;font-family:var(--f-fb);font-size:.9rem;letter-spacing:.08em;color:#9ff0b8;border:2px solid currentColor;border-radius:4px;padding:0 5px;transform:rotate(-6deg);margin-right:6px}.tc-stamp.l{color:#ffb0a6;transform:rotate(5deg)}
+/* ---------- Top 10 trade rapes as poker tables (Kyle 2026-11-24: polished) ----------
+   Each trade is a showdown at a padded-rail table: a brass plaque on the rail with the rank, each owner's seat over his hand, and
+   the pot in the middle sized by the margin. Every player is a playing card; the hands fan and overlap like real cards, and the
+   strip of each card that stays visible holds his face, his wins (the card's rank), position and suit, and his full name down the
+   edge. Card sizes all scale from --cw. Two tables a row on wide screens, one on phones. */
+.tcards{display:grid;justify-items:center;gap:30px 22px;padding-top:14px}
+@media (min-width:1000px){.tcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ptable{--rail:11px;--rx:96px;position:relative;width:100%;max-width:640px;padding:var(--rail);border-radius:var(--rx)/50%;
+  background:radial-gradient(120% 140% at 50% -20%,#6b4329 0%,#3a2213 42%,#1b0f07 100%);
+  box-shadow:inset 0 2px 0 rgba(255,226,186,.3),inset 0 -3px 6px rgba(0,0,0,.7),inset 0 0 0 1px rgba(0,0,0,.6),0 14px 26px -10px rgba(0,0,0,.55),0 3px 0 #0b0603}
+.pt-felt{position:relative;isolation:isolate;display:grid;align-items:center;gap:8px;height:100%;padding:16px 26px 13px;
+  border-radius:calc(var(--rx) - var(--rail))/50%;color:#f4f1ea;
+  background:radial-gradient(60% 75% at 50% 40%,rgba(255,255,255,.14),rgba(255,255,255,0) 72%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 0 0 0 -.2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% 50%,#2f9159 0%,#1e7143 50%,#0f4a2a 100%);
+  box-shadow:0 0 0 1.5px #e2b86a,0 0 0 3.5px #5e3a1d,inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 30px rgba(0,0,0,.6)}
+.pt-felt::before{content:"";position:absolute;inset:7px;z-index:-1;border-radius:inherit;border:1px solid rgba(240,207,120,.26);pointer-events:none}
+.pt-logo{position:absolute;left:50%;top:50%;z-index:-1;width:86px;height:108px;transform:translate(-50%,-50%);color:#fff;opacity:.06;pointer-events:none}
+.ptable.first{box-shadow:inset 0 2px 0 rgba(255,226,186,.3),inset 0 -3px 6px rgba(0,0,0,.7),inset 0 0 0 1px rgba(0,0,0,.6),0 0 0 2px rgba(242,194,48,.55),0 0 26px rgba(242,194,48,.35),0 14px 26px -10px rgba(0,0,0,.55)}
+.ptable.first .pt-felt{box-shadow:0 0 0 1.5px #f7d774,0 0 0 3.5px #5e3a1d,inset 0 0 0 1px rgba(0,0,0,.35),inset 0 0 30px rgba(0,0,0,.6)}
+/* the brass plaque on the rail */
+.pt-plq{position:absolute;left:50%;top:0;z-index:3;transform:translate(-50%,-52%);display:flex;align-items:center;gap:7px;white-space:nowrap;
+  padding:3px 9px 2px;border-radius:5px;border:1px solid #6d4b0e;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:.72rem;line-height:1.25;letter-spacing:.09em;text-transform:uppercase;color:#3b2905;
+  background:linear-gradient(180deg,#fff0bd 0%,#e6c26b 38%,#c09239 70%,#9c7224 100%);text-shadow:0 1px 0 rgba(255,246,214,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.2),0 2px 5px rgba(0,0,0,.5)}
+.pt-plq b{font-size:1.1rem;font-weight:900;line-height:1;letter-spacing:.04em}
+.pt-plq i{width:3px;height:3px;border-radius:50%;background:#6b4a10;opacity:.75}
+.pt-plq::before,.pt-plq::after{content:"";flex:none;width:4px;height:4px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe8,#8a6416 70%);box-shadow:0 0 0 .5px rgba(0,0,0,.4)}
+.ptable.first .pt-plq b::before{content:"♛ ";font-size:.8em}
+/* the seats, the stacks and the pot */
+.pt-side{display:grid;justify-items:center;align-content:center;gap:7px;min-width:0}
+.pt-seat{display:flex;align-items:center;gap:7px;min-width:0;max-width:100%;padding:2px 11px 2px 2px;border-radius:99px;background:rgba(4,22,12,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.09)}
+.pt-seat .av{width:30px;height:30px;border:2px solid var(--pc);box-shadow:0 0 0 1px rgba(0,0,0,.45);font-size:.72rem}
+.pt-seat>div{display:grid;line-height:1.12;min-width:0}
+.pt-seat b{font-size:.9rem;color:#fff;white-space:nowrap}
+.pt-seat small{font-size:.68rem;color:rgba(244,241,234,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pt-side.won .pt-seat{box-shadow:inset 0 0 0 1px rgba(247,215,116,.6),0 0 12px rgba(247,215,116,.18)}
+.pt-stack{display:flex;align-items:center;gap:6px;font-family:var(--f-fb);font-size:.95rem;letter-spacing:.05em;line-height:1;color:rgba(244,241,234,.8)}
+.pt-stack b{font-weight:400;font-size:1.12em;color:#fff}
+.pt-stamp{padding:2px 5px 1px;border:1.5px solid currentColor;border-radius:3px;font-size:.84em;letter-spacing:.12em;color:#ffd75e;transform:rotate(-5deg)}
+.pt-side:not(.won) .pt-stamp{color:#ff958c;transform:rotate(4deg)}
+.pt-pot{display:grid;justify-items:center;line-height:1;text-align:center}
+.pt-chips{display:block;width:50px;height:44px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.45))}
+.pt-pot b{margin-top:2px;font-family:var(--f-fb);font-weight:400;font-size:1.75rem;letter-spacing:.02em;color:#ffd75e;text-shadow:0 1px 0 #6b4a10,0 0 12px rgba(255,200,60,.35)}
+.pt-pot small{font-family:var(--f-fb);font-size:.72rem;letter-spacing:.2em;color:rgba(244,241,234,.75)}
+/* the hand: overlap from the side's width, between a minimum and a maximum visible strip */
+.pt-hand{display:flex;justify-content:center;width:100%;padding:4px 0 6px}
+.pc{--cw:84px;position:relative;flex:none;width:var(--cw);height:calc(var(--cw) * 1.5);padding:0;margin:0;font:inherit;font-size:calc(var(--cw) / 6);line-height:1;text-align:left;color:#15203b;cursor:pointer;
+  border-radius:calc(var(--cw) * .09);border:1px solid #cbc0a2;background:linear-gradient(165deg,#fffef9 0%,#f6efdc 100%);
+  box-shadow:-1px 0 2px rgba(0,0,0,.2),0 3px 7px rgba(0,0,0,.4);
+  transform:rotate(calc(var(--k) * 3.5deg)) translateY(calc(var(--k) * var(--k) * 1.6px));transform-origin:50% 125%;
+  transition:translate .18s ease,box-shadow .18s ease;animation:pcDeal .5s cubic-bezier(.2,.9,.3,1.15) backwards;animation-delay:calc(var(--j) * 55ms)}
+.pc+.pc{margin-left:clamp(calc(var(--cw) * -.58),calc((100% - var(--cw)) / (var(--n) - 1) - var(--cw) * 1.1),calc(var(--cw) * -.4))}
+.pc:hover,.pc:focus-visible{translate:0 -9px;z-index:5;box-shadow:-1px 0 2px rgba(0,0,0,.2),0 10px 16px rgba(0,0,0,.45)}
+.pc:focus-visible{outline:2px solid #ffd75e;outline-offset:2px}
+@keyframes pcDeal{from{opacity:0;translate:0 -26px;rotate:-14deg}}
+.pc.dud{background:linear-gradient(165deg,#f4f2ec 0%,#e6e1d4 100%)}.pc.dud .pc-ph{filter:grayscale(1) contrast(.9)}.pc.dud .pc-n b{color:#4a4f5c}
+/* the open face of the card: a printed frame with the big suit (only the top card shows it in full) */
+.pc::after{content:"";position:absolute;left:calc(var(--cw) * .47);top:calc(var(--cw) * .07);right:calc(var(--cw) * .07);bottom:calc(var(--cw) * .07);border-radius:calc(var(--cw) * .05);
+  border:1px solid rgba(169,124,34,.4);background:repeating-linear-gradient(45deg,rgba(169,124,34,.06) 0 2px,transparent 2px 5px);pointer-events:none}
+.pc:not(:last-child):not(:hover):not(:focus-visible)::after,.pc:not(:last-child):not(:hover):not(:focus-visible) .pc-pip,.pc:not(:last-child):not(:hover):not(:focus-visible) .pc-i.b{display:none}
+.pc-pip{position:absolute;left:calc(var(--cw) * .47);right:calc(var(--cw) * .07);top:0;bottom:0;display:grid;place-items:center;z-index:1;font-size:2.6em;line-height:1}
+.pc-ph{--d:calc(var(--cw) * .4);position:absolute;z-index:2;left:calc(var(--cw) * .04);top:calc(var(--cw) * .05);width:var(--d);height:var(--d);border-radius:50%;
+  background-color:#dfe7ef;background-repeat:no-repeat;box-shadow:0 0 0 1.5px #fff,0 0 0 2.5px #c9a24a}
+.pc-ph.ini{display:grid;place-items:center;font-family:var(--f-display);font-size:.9em;color:var(--muted)}
+.pc-w{position:absolute;z-index:3;left:calc(var(--cw) * .24);top:calc(var(--cw) * .365);transform:translateX(-50%);padding:.16em .34em .06em;border-radius:99px;white-space:nowrap;
+  font-family:var(--f-fb);font-size:.9em;letter-spacing:.03em;color:#fff;background:#18794a;box-shadow:0 0 0 1px #fff}
+.pc.dud .pc-w{background:#7d838f}
+.pc-i{position:absolute;z-index:2;left:calc(var(--cw) * .04);top:calc(var(--cw) * .6);width:calc(var(--cw) * .4);display:flex;justify-content:center;align-items:center;gap:.14em;
+  font-family:var(--f-fb);font-size:.86em;letter-spacing:.06em;color:#1d2433}
+.pc-i i{font-style:normal;font-size:.95em;line-height:1}
+.pc-i.b{left:auto;top:auto;right:calc(var(--cw) * .04);bottom:calc(var(--cw) * .05);width:auto;transform:rotate(180deg)}
+.pt-side.won .pc-i,.pt-side.won .pc-pip{color:#c0262d}
+.pt-side:not(.won) .pc-pip{color:#1d2433}
+/* the name: down the visible edge, last name big, first name small beside it */
+.pc-n{position:absolute;z-index:2;left:calc(var(--cw) * .05);top:calc(var(--cw) * .76);bottom:calc(var(--cw) * .06);width:calc(var(--cw) * .38);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  writing-mode:vertical-rl;font-family:var(--f-fb);line-height:.95;letter-spacing:.03em;white-space:nowrap;text-transform:uppercase}
+.pc-n b{font-weight:400;font-size:calc(1.02em * var(--fit));color:#15203b}
+.pc-n small{font-size:calc(.78em * var(--fit));color:#6b5a3a;margin-left:.08em}
+@media (prefers-reduced-motion:reduce){.pc{animation:none;transition:none}}
+@media (max-width:640px){
+  .tcards{gap:24px;padding-top:10px}
+  .ptable{--rail:7px;--rx:54px}
+  .pt-felt{gap:2px;padding:12px 6px 8px}
+  .pt-felt::before{inset:5px}
+  .pt-logo{width:60px;height:76px}
+  .pt-plq{font-size:.6rem;gap:5px;padding:2px 7px 1px}.pt-plq b{font-size:.9rem}
+  .pt-side{gap:4px}
+  .pt-seat{gap:5px;padding:1px 8px 1px 1px}.pt-seat .av{width:24px;height:24px;border-width:1.5px}.pt-seat b{font-size:.76rem}.pt-seat small{font-size:.56rem}
+  .pt-wl{display:none}
+  .pt-stack{font-size:.66rem;gap:3px;letter-spacing:.03em}.pt-stack b{font-size:1.2em}.pt-stamp{border-width:1px;padding:1px 3px 0;letter-spacing:.07em}
+  .pt-chips{width:32px;height:28px}.pt-pot b{font-size:1.16rem}.pt-pot small{font-size:.54rem;letter-spacing:.12em}
+  .pt-hand{padding:2px 0 3px}
+  .pc{--cw:clamp(48px,15.4vw,60px);box-shadow:-1px 0 1.5px rgba(0,0,0,.2),0 2px 5px rgba(0,0,0,.4);transform:rotate(calc(var(--k) * 3.5deg)) translateY(calc(var(--k) * var(--k) * 1.2px))}
+  .pc-ph{box-shadow:0 0 0 1px #fff,0 0 0 1.8px #c9a24a}}
 .soaps,.coaches{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .soap-card,.coach-card{background:var(--slab);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
 .soap-art,.coach-art{position:relative;line-height:0}.soap-art svg,.coach-art svg{width:100%;height:auto;display:block}
@@ -718,32 +785,27 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 .soap-fall{animation:soapFall 2.6s cubic-bezier(.5,0,.5,1) infinite;transform-box:fill-box;transform-origin:center}
 @keyframes soapFall{0%{transform:translate(-30px,-74px) rotate(-40deg)}38%{transform:translate(0,0) rotate(8deg)}46%{transform:translate(3px,-7px) rotate(-6deg)}54%,100%{transform:translate(5px,0) rotate(-12deg)}}
 .ch-pl{animation:chPl 2.8s ease-in-out infinite}@keyframes chPl{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
-@media (prefers-reduced-motion:reduce){.gr-wave,.gr-nug,.sh-water line,.sh-steam,.soap-fall,.ch-pl{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
+.sc-pulse{animation:scPulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes scPulse{50%{transform:scale(1.05)}}
+.sc-buzz{animation:scBuzz 1.1s linear infinite}@keyframes scBuzz{25%{transform:translate(4px,-3px)}50%{transform:translate(0,-6px)}75%{transform:translate(-4px,-3px)}}
+.sc-beep{animation:scBeep 1s ease-out infinite}@keyframes scBeep{0%{opacity:.2}30%{opacity:1}100%{opacity:.15}}
+.sc-sway{animation:scSway 3s ease-in-out infinite}@keyframes scSway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+.sc-rise{animation:scRise 2.4s linear infinite}@keyframes scRise{0%{transform:translateY(6px);opacity:0}20%{opacity:1}100%{transform:translateY(-18px);opacity:0}}
+.sc-swim{animation:scSwim 4s ease-in-out infinite}@keyframes scSwim{50%{transform:translateX(-10px)}}
+.sc-plop{animation:scPlop 2.8s cubic-bezier(.5,0,.5,1) infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes scPlop{0%{transform:translate(-34px,-62px) rotate(-30deg)}36%{transform:translate(0,0) rotate(0)}44%{transform:scale(1.18,.8)}54%,100%{transform:scale(1.04,.95)}}
+.sc-tumble{animation:scTumble 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes scTumble{0%,100%{transform:rotate(-14deg) translateY(2px)}50%{transform:rotate(16deg) translateY(-5px)}}
+.sc-float{animation:scFloat 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}@keyframes scFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+.sc-rock{animation:scRock 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes scRock{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@media (prefers-reduced-motion:reduce){.gr-wave,.gr-nug,.sh-water line,.sh-steam,.soap-fall,.ch-pl,.sc-pulse,.sc-buzz,.sc-beep,.sc-sway,.sc-rise,.sc-swim,.sc-plop,.sc-tumble,.sc-float,.sc-rock{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
 /* Compact top lists (Kyle 2026-11-24): drops and gold rush show the art beside the words; top 10 seasons stay as they were */
 .soaps{gap:12px;grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
 .soap-card{grid-template-rows:none;grid-template-columns:minmax(0,46%) minmax(0,1fr)}
 .soap-art{align-self:stretch;min-height:100%}.soap-art svg{height:100%}
 .soap-art .rank{left:6px;top:6px;padding:2px 6px;font-size:1rem}
 .soap-tx{padding:10px 12px;gap:4px;align-content:center}.soap-tx h4{font-size:.98rem;line-height:1.2}.soap-tx small{line-height:1.25}.soap-tx p{font-size:.84rem;line-height:1.35}.soap-tx .wbtn{margin-top:2px}
-.ptable{gap:2px}.pt-felt{padding:10px 40px}.pt-side{gap:4px}.pt-hand{padding:2px 0 0}
-.pc-n{white-space:normal;overflow-wrap:anywhere;text-align:center}
 @media (max-width:640px){.soaps{grid-template-columns:1fr;gap:10px}
   .soap-card{grid-template-columns:minmax(0,44%) minmax(0,1fr)}
-  .soap-tx{padding:7px 9px;gap:2px}.soap-tx h4{font-size:.86rem}.soap-tx small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}.soap-tx .wbtn.big{font-size:.72rem;padding:3px 9px}
-  .pt-top{font-size:.7rem;gap:6px}.pt-top .rank{font-size:1.1rem}
-  .pt-felt{padding:6px 6px;border-width:6px;border-radius:56px/44px}.pt-side{gap:2px}
-  .pt-own{flex-direction:row;gap:4px;text-align:left}.pt-own .av{width:22px;height:22px;border-width:1.5px}.pt-own b{font-size:.74rem}.pt-own small{font-size:.56rem;max-width:96px}
-  .pt-tot{flex-direction:row;gap:0;font-size:.64rem}.tc-stamp{font-size:.6rem;padding:0 3px;margin-right:4px;border-width:1.5px}
-  /* phones: a real fanned hand, each card tucked under the next; the name runs down the visible left edge like a card index */
-  .pt-side{justify-items:stretch}.pt-own,.pt-tot{justify-self:center}
-  .pt-hand{--cw:52px;padding:4px 0 6px}
-  .pc{display:block;aspect-ratio:5/7;padding:0;border-radius:5px;transform:rotate(calc(var(--k) * 4deg)) translateY(calc(var(--k) * var(--k) * 1.2px));transform-origin:50% 130%}
-  .pc+.pc{margin-left:clamp(calc(var(--cw) * -.6),calc((100% - var(--n) * var(--cw)) / (var(--n) - 1) - 5px),calc(var(--cw) * -.42))}
-  .pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 4deg)) translateY(-8px)}
-  .pc-i{left:2px;top:2px}.pc-i.b{right:2px;bottom:2px}
-  .pc .pc-ph{--d:18px;position:absolute;left:10px;top:5px;border-width:1.5px}
-  .pc-n{position:absolute;left:1px;top:19px;writing-mode:vertical-rl;font-size:.5rem;line-height:1;max-height:52px;white-space:nowrap;overflow:visible;text-align:start;letter-spacing:-.01em}
-  .pc-w{position:absolute;left:9px;top:26px;font-size:.47rem;letter-spacing:-.02em}}
+  .soap-tx{padding:7px 9px;gap:2px}.soap-tx h4{font-size:.86rem}.soap-tx small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}.soap-tx .wbtn.big{font-size:.72rem;padding:3px 9px}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -4318,7 +4380,7 @@ const TOP_TAP="<p class=\"muted\">Tap a player's wins on any card to see the wee
 const TOPS={
   rapes:{l:"Top 10 trade rapes",how:"Ranked by the gap in wins above replacement (WAR) between the two sides, the way baseball grades players. For every week after the deal, a player only counts if he was in his new team's starting lineup, and only in games that mattered: the regular season, plus playoff weeks while that team was still alive. His edge that week is his points minus a replacement starter at his position for that season's league size (in a 10-team league, the QB11, RB26, WR26 and TE12; kickers and defenses against the average started one). Each week's edge turns into wins using how spread out that season's weekly scores were, so 25 extra points in a week is worth about a quarter of a win. 2016 and 2017 have no saved lineups, so they're estimated from weekly stats.",tap:TOP_TAP},
   pickups:{l:"Top 5 waiver pickups",how:"Ranked by the points the player scored in the starting lineup of the team that picked him up, from ESPN box scores (2018 to 2026). In the overall list, running backs and wide receivers count in full, tight ends at 85% and quarterbacks at 60%, because a starting QB is easy to find on waivers and an RB or WR is not. Pick a position to see its top 5 by raw points."},
-  drops:{l:"Top 5 worst drops",how:"Ranked by the wins the player added for everyone else after he was cut, using the same WAR as the trade rapes: every week he was in another team's starting lineup in a game that mattered (regular season, plus playoff weeks while that team was alive), his points over a replacement starter, turned into wins. The clock stops if the team that cut him gets him back. Kickers and defenses are left out, since everyone streams them. From ESPN box scores, 2018 on, through the last finished week.",tap:"<p class=\"muted\">Tap the wins given away on any card to see every week he hurt the team that cut him.</p>"},
+  drops:{l:"Top 5 worst drops",how:"Ranked by the wins the player added for everyone else after he was cut, using the same WAR as the trade rapes: every week he was in another team's starting lineup in a game that mattered (regular season, plus playoff weeks while that team was alive), his points over a replacement starter, turned into wins. The clock stops if the team that cut him gets him back. Kickers and defenses are left out, since everyone streams them. From ESPN box scores, 2018 on, through the last finished week.",tap:"<p class=\"muted\">Tap the wins on any card to see every week he hurt the team that cut him.</p>"},
   seasons:{l:"Top 10 seasons",how:"Every team-season is scored out of 100 on the whole year: regular-season record (30), how far it went in the playoffs (30 for a title, 18 for the final, 10 for the semis), roster strength (25: the best lineup's season points over a replacement starter for that league size, against the best roster ever) and points scored (15, by rank in that season). The total is then scaled for league size, x0.90 for 8 teams, x0.95 for 10 and x1.00 for 12, since a bigger league is harder to win. Rosters are the final ESPN rosters for 2018 to 2025, plus the champion and Sacko rosters on file for 2016 and 2017.",tap:"<p class=\"muted\">Tap a season's grade for its breakdown and lineup, or play the season to watch its movie.</p>"}};
 // the pop-up behind every "Grading score" button and every tappable number
 function gradePop(title,html,kick="Grading score"){let d=$("#gradeDlg");
@@ -4444,18 +4506,32 @@ function seasonMovie(i){const r=topSeasonList[i];if(!r)return;const o=r.o,y=r.y,
   const stat=[["Record",`${r.w}-${r.l}${r.est?" (est.)":""}`],["Finish",res],["Points",r.pfRank?`${fmt(r.pf)} (${r.pfRank===1?"most":ordinal(r.pfRank)} of ${r.pfN})`:"–"],["Record score",`${r.c.rec.toFixed(1)} / 30`],["Playoff score",`${r.c.po.toFixed(1)} / 30`],["Roster score",`${r.c.ros.toFixed(1)} / 25`],["Points score",`${r.c.pts.toFixed(1)} / 15`],["Final grade",`${r.total.toFixed(1)} / 100`]];
   sl.push({c:"cs-sum",html:`<div class="wr-sum"><div class="wr-head">${av(o)}<div><div class="wr-k">The ${y} season, graded</div><b style="font-size:1.2rem">${esc(r.team||OWNERS[o].name)}</b></div></div><dl>${stat.map(x=>`<div><dt>${esc(x[0])}</dt><dd>${esc(String(x[1]))}</dd></div>`).join("")}</dl></div><p class="wr-t" style="opacity:.85">No. ${i+1} on the list of the best seasons of all time.</p>`});
   openCareer(null,sl)}
+// the pot: three chip stacks that grow with the margin
+const q1=v=>Math.round(v*10)/10;
+function potChips(m){const n=Math.max(4,Math.min(15,Math.round(m*6))),a=Math.ceil(n*.42),b=Math.max(1,Math.round(n*.3)),c=Math.max(1,n-a-b);
+  const chip=(cx,y,col,dk)=>`<path d="M${cx-7} ${y}A7 2.5 0 0 0 ${cx+7} ${y}V${q1(y+2.3)}A7 2.5 0 0 1 ${cx-7} ${q1(y+2.3)}Z" fill="${dk}"/><path d="M${cx-7} ${y}A7 2.5 0 0 0 ${cx+7} ${y}V${q1(y+1.5)}A7 2.5 0 0 1 ${cx-7} ${q1(y+1.5)}Z" fill="${col}"/>`+[-4.6,-.9,2.8].map(d=>`<rect x="${q1(cx+d)}" y="${q1(y+.55)}" width="1.8" height="1.5" fill="#fff" opacity=".9"/>`).join("");
+  const stack=(cx,base,h,col,dk)=>{let s="";for(let j=0;j<h;j++)s+=chip(cx,q1(base-j*2.3),col,dk);const ty=q1(base-h*2.3);
+    return s+`<ellipse cx="${cx}" cy="${ty}" rx="7" ry="2.5" fill="${col}"/><ellipse cx="${cx}" cy="${ty}" rx="4.8" ry="1.6" fill="none" stroke="#fff" stroke-width=".9" stroke-dasharray="1.7 1.3" opacity=".95"/><ellipse cx="${cx}" cy="${ty}" rx="2.6" ry=".85" fill="rgba(255,255,255,.22)"/>`};
+  return `<svg class="pt-chips" viewBox="0 0 46 40" aria-hidden="true">${stack(12,33,b,"#1f5fae","#123a6d")+stack(34,33,c,"#26262c","#0b0b0e")+stack(23,37,a,"#d0392b","#86190f")}</svg>`}
+// a card's name: the first name small, the last name big, both running down the card's visible left edge
+function cardName(nm){const p=nm.trim().split(/\s+/),first=p.length>1?p[0]:"",last=p.length>1?p.slice(1).join(" "):p[0];
+  return {first,last,fit:Math.min(1,10/Math.max(last.length,first.length*.8,1))}}
 function topRapes(){const margin=x=>Math.abs(x.a.war-x.b.war);
   const rapes=Object.entries(MV.trades).map(([id,x])=>({t:TR[id],x})).filter(r=>r.t&&r.t.st==="completed"&&!TRI_OF[r.t.id]).sort((p,q)=>margin(q.x)-margin(p.x)).slice(0,10);
-  // each player is a playing card: position and wins in the corners, his face in the middle; tap for the week-by-week grading
-  const card=(id,s,g,k,n,suit)=>{const last=g[0].replace(/ (Jr\.|Sr\.|II|III|IV)$/,"").split(" ").slice(-1)[0],v=g[2]==null?"?":wf(g[4]||0);
-    return `<button type="button" class="pc${(g[4]||0)>0?"":" dud"}" style="--k:${k-(n-1)/2}" data-wg="t" data-id="${id}" data-s="${s}" data-p="${esc(g[0])}" aria-haspopup="dialog" aria-label="${esc(g[0])}, ${v} wins added. Show the grading"><span class="pc-i">${esc(g[1])}<i>${suit}</i></span>${bigFace(g[0],"pc-ph")}<span class="pc-n">${esc(last)}</span><span class="pc-w">${v}</span><span class="pc-i b">${esc(g[1])}<i>${suit}</i></span></button>`};
-  return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";
-    const side=(s,won)=>{const g=x[s].got,suit=won?"♥":"♠";return `<div class="pt-side${won?" won":""}"><div class="pt-own">${t[s].o?av(t[s].o):""}<div><b>${esc(t[s].o?short(t[s].o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,suit)).join("")}</div><div class="pt-tot"><span class="tc-stamp${won?"":" l"}">${won?"Won":"Fleeced"}</span>${wf(x[s].war,false)} wins</div></div>`};
-    return `<article class="ptable${i===0?" first":""}"><header class="pt-top"><span class="rank">${ROMAN[i]}</span><span>${t.s} season${x.w>1?` · week ${x.w}`:""}</span></header><div class="pt-felt">${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins"><span class="chips" aria-hidden="true"><i></i><i></i><i></i></span><b>${wf(margin(x),false)}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
-// Top 5 waiver pickups as a gold rush (Kyle 2026-11-23): the owner panning a river, the player's face as the gold nugget,
-// sized by pickup score against the best of the five. Tap the nugget for the week-by-week points in that owner's lineup.
+  // each player is a playing card. The strip that stays visible when the hand fans out holds his face, his wins (the card's
+  // rank), his position and suit, and his full name down the edge; the top card also shows the big suit and the far index.
+  let deal=0;
+  const card=(id,s,g,k,n,won)=>{const v=g[2]==null?"?":wf(g[4]||0),suit=won?"♥":"♠",{first,last,fit}=cardName(g[0]);
+    return `<button type="button" class="pc${(g[4]||0)>0?"":" dud"}" style="--k:${k-(n-1)/2};--j:${deal++};--fit:${fit.toFixed(2)}" data-wg="t" data-id="${id}" data-s="${s}" data-p="${esc(g[0])}" aria-haspopup="dialog" aria-label="${esc(g[0])}, ${esc(g[1])}, ${v} wins added. Show the grading">${bigFace(g[0],"pc-ph")}<span class="pc-w">${v}</span><span class="pc-i">${esc(g[1])}<i>${suit}</i></span><span class="pc-n">${first?`<small>${esc(first)}</small>`:""}<b>${esc(last)}</b></span><span class="pc-pip" aria-hidden="true">${suit}</span><span class="pc-i b" aria-hidden="true">${esc(g[1])}<i>${suit}</i></span></button>`};
+  // each side gets table room in proportion to how many cards it holds, so a five-card hand still fans out cleanly
+  const room=n=>Math.max(1.6,1+(n-1)*.6).toFixed(2);
+  return `<div class="tcards">${rapes.map(({t,x},i)=>{const w=x.a.war>=x.b.war?"a":"b",l=w==="a"?"b":"a";deal=0;
+    const side=(s,won)=>{const g=x[s].got,o=t[s].o;return `<div class="pt-side${won?" won":""}"><div class="pt-seat" style="--pc:${POD_COL[o]||"#d6ac5e"}">${o?av(o):""}<div><b>${esc(o?short(o):"Unknown")}</b><small>${esc(t[s].team)}</small></div></div><div class="pt-hand" style="--n:${g.length}">${g.map((p,k)=>card(t.id,s,p,k,g.length,won)).join("")}</div><div class="pt-stack"><span class="pt-stamp">${won?"Won":"Fleeced"}</span><b>${wf(x[s].war,false)}</b><span class="pt-wl"> wins</span></div></div>`};
+    return `<article class="ptable${i===0?" first":""}" aria-label="Number ${i+1}: ${esc(short(t[w].o))} over ${esc(short(t[l].o))}, ${t.s}"><div class="pt-plq"><b>${ROMAN[i]}</b><i></i><span>${t.s}</span>${x.w>1?`<i></i><span>Week ${x.w}</span>`:""}</div><div class="pt-felt" style="grid-template-columns:minmax(0,${room(x[w].got.length)}fr) auto minmax(0,${room(x[l].got.length)}fr)"><svg class="pt-logo" aria-hidden="true"><use href="#flamingoBig"/></svg>${side(w,1)}<div class="pt-pot" aria-label="Won by ${wf(margin(x),false)} wins">${potChips(margin(x))}<b>${wf(margin(x))}</b><small>wins</small></div>${side(l,0)}</div></article>`}).join("")}</div>`}
+// the gold rush (Kyle 2026-11-23): the owner panning a river, the player's face as the gold nugget. Tap any card's find
+// for the week-by-week points in that owner's lineup.
 let pickList=[];
-function goldArt(m,i,top){const {q,R,C,E,P,L,T,G,CH,HAT,BUB,LG,HW}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=78,y=58,h=34,f=.5+.5*Math.pow((m.score||m.pts)/top,2);
+function goldArt(m,i,f){const {q,R,C,E,P,L,T,G,CH,HAT,BUB,LG,HW}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=78,y=58,h=34;
   let s=R(-10,-10,260,200,LG(["#9fd3f2","#f7e3b5"]));
   s+=P("M-10 92L30 52L58 74L96 30L134 70L160 48L200 84L250 60V110H-10Z","#8a9bb0")+P("M-10 100L40 70L78 90L120 58L170 92L210 72L250 96V118H-10Z","#6f8a6a")+C(206,26,13,"#ffe28a",'opacity=".9"');
   s+=[[28,96],[52,92],[190,98],[226,94]].map(([a,b])=>P(`M${a} ${b}l-7 16h14z`,"#2f5d3a")+P(`M${a} ${b+6}l-9 18h18z`,"#2a5233")).join("");
@@ -4471,11 +4547,289 @@ function goldArt(m,i,top){const {q,R,C,E,P,L,T,G,CH,HAT,BUB,LG,HW}=CS.kit,o=m.o,
   s+=`<g transform="translate(${q(px)} ${q(py-nr*.55)})"><g class="gr-nug">`+P(`M${q(-nr*1.15)} ${q(nr*.2)}L${q(-nr*.7)} ${q(-nr*.85)}L${q(nr*.2)} ${q(-nr*1.1)}L${q(nr*1.1)} ${q(-nr*.45)}L${q(nr*1.2)} ${q(nr*.5)}L${q(nr*.35)} ${q(nr*1.05)}L${q(-nr*.75)} ${q(nr*.9)}Z`,"#e9b72c",'stroke="#a67c00" stroke-width="1.4" stroke-linejoin="round"')
     +P(`M${q(-nr*.6)} ${q(-nr*.6)}L${q(nr*.1)} ${q(-nr*.85)}L${q(-nr*.2)} ${q(-nr*.4)}Z`,"#fff3b0",'opacity=".8"')+svgHead(m.add[0],0,0,nr*1.35,"#ffe27a","#f5d77a")+`</g></g>`;
   s+=[[px-30,py-26,1],[px+30,py-20,.8],[px+6,py-nr*1.4-10,.9]].map(([a,b,k],j)=>`<g transform="translate(${q(a)} ${q(b)}) scale(${k})"><path class="pf-spark" style="animation-delay:-${j*.5}s" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff6c2"/></g>`).join("");
-  s+=BUB(186,40,62,18,[i===0?"EUREKA!":"GOLD!"],x+h*.5,y-h*.3,10,"#fff","#15203b");
+  s+=BUB(180,40,62,18,[i===0?"EUREKA!":"GOLD!"],x+h*.5,y-h*.3,10,"#fff","#15203b");
   return s}
+// Top 5 pickups and worst drops as scenes (Kyle 2026-11-24): every card on a tab is a different way of finding something
+// (pickups) or dropping something (drops), so the lists never repeat. The found thing carries the player's face and grows
+// with his score against the best of the five (f runs from .5 to 1).
+const SPARK=(x,y,k,j)=>`<g transform="translate(${q1(x)} ${q1(y)}) scale(${k})"><path class="pf-spark" style="animation-delay:-${(j*.5).toFixed(1)}s" d="M0-6L1.4-1.4L6 0L1.4 1.4L0 6L-1.4 1.4L-6 0L-1.4-1.4Z" fill="#fff6c2"/></g>`;
+const BOB=(x,y,inner,cls="gr-nug")=>`<g transform="translate(${q1(x)} ${q1(y)})"><g class="${cls}">${inner}</g></g>`;
+const CLOUD=(x,y,k=1)=>`<g transform="translate(${q1(x)} ${q1(y)}) scale(${k})" opacity=".92"><ellipse cx="0" cy="0" rx="17" ry="6" fill="#fff"/><ellipse cx="-8" cy="-4" rx="8" ry="6.5" fill="#fff"/><ellipse cx="5" cy="-6" rx="9.5" ry="8" fill="#fff"/></g>`;
+const COIN=(nm,r)=>`<circle r="${q1(r+2)}" fill="#a67c00"/><circle r="${q1(r+.7)}" fill="#f2c230"/><circle r="${q1(r-2.2)}" fill="none" stroke="#a67c00" stroke-width="1" stroke-dasharray="2.2 1.6"/>`+svgHead(nm,0,0,(r-4)*2,"#ffe27a","#f5d77a");
+// buried treasure: a pirate with his map and his parrot has dug up the chest, and the player is the doubloon rising out of it
+function chestArt(m,i,f){const {q,R,C,E,P,L,G,CH,HAT,BUB,LG,RG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=58,y=62,h=33,cx=152;
+  let s=R(-10,-10,260,200,LG(["#5dbdea","#c8edfb"]))+CLOUD(178,22)+CLOUD(224,46,.7);
+  // the sea, a pirate ship on the horizon, the beach and a palm
+  s+=R(-10,72,260,28,"#2b85bc")+[[24,82],[66,92],[126,84],[196,92]].map(([a,b])=>P(`M${a} ${b}q5-3 10 0t10 0`,"none",'stroke="#bfe6f7" stroke-width="1.2" stroke-linecap="round" opacity=".8"')).join("");
+  s+=G(P("M-13 0h27l-5 6h-17z","#3b2414")+L(0,0,0,-18,"#3b2414",1.3)+P("M1.5-16.5q9 6 0 13.5z","#f4efe2")+P("M-1.5-15.5q-7 5 0 11z","#e6dfcc")+R(0,-21,5,3.2,"#111"),'transform="translate(98 74)"');
+  s+=P("M-10 98Q70 88 140 96T250 92V190H-10Z",LG(["#f6dfa6","#e2bf7b"]));
+  s+=P("M226 186Q222 124 206 66","none",'stroke="#8b5a2b" stroke-width="7" stroke-linecap="round"')+[.15,.3,.45,.6,.75].map(t=>{const a=(1-t)*(1-t)*226+2*(1-t)*t*222+t*t*206,b=(1-t)*(1-t)*186+2*(1-t)*t*124+t*t*66;return L(a-3.4,b+1,a+3.4,b-1,"#6e4320",1.2)}).join("");
+  s+=[[160,26],[-160,30],[-120,28],[-75,24],[-35,30],[0,28],[30,24]].map(([a,l])=>G(P(`M0 0Q${l*.45} -10 ${l} 3Q${l*.5} -2 0 0Z`,"#2f8f4e")+P(`M2-1Q${l*.45} -7 ${l-2} 2`,"none",'stroke="#1f6b39" stroke-width="1"'),`transform="translate(206 66) rotate(${a})"`)).join("")+C(203,70,3.6,"#6b4423")+C(210,71,3.4,"#7a5230");
+  // the hole and the dirt thrown out of it; the chest, lid back, gold heaped inside and spilled on the sand
+  s+=E(cx,154,50,10,"#c39a5d")+E(cx,155,42,7.5,"#6e5130")+P("M90 160Q100 138 122 158Z","#c99b5e")+C(97,152,2.4,"#b0864c")+C(111,147,2,"#b0864c")+C(188,166,2,"#b0864c");
+  s+=E(cx,110,56,38,RG(["#fff3a0@.9","#fff3a0@0"]));
+  s+=P(`M${cx-30} 130L${cx-25} 108Q${cx} 99 ${cx+25} 108L${cx+30} 130Z`,"#6e3a17",'stroke="#4a260d" stroke-width="1.2"')+P(`M${cx-25} 108Q${cx} 99 ${cx+25} 108`,"none",'stroke="#d4a937" stroke-width="3"');
+  s+=[[-22,128],[-12,125],[-2,123],[8,124],[18,127],[-16,121],[4,118],[12,120],[-6,119]].map(([a,b],k)=>E(cx+a,b,6,2.6,k%3?"#f2c230":"#ffd95a",'stroke="#a67c00" stroke-width=".7"')).join("")+P(`M${cx-27} 126l4-6 4 6z`,"#d62f5e")+C(cx+22,121,2.6,"#4bd5ee");
+  s+=R(cx-32,128,64,28,"#8b4f24",'rx="3" stroke="#4a260d" stroke-width="1.2"')+R(cx-32,128,64,5,"#d4a937")+R(cx-22,128,5,28,"#d4a937")+R(cx+17,128,5,28,"#d4a937")+R(cx-5,135,10,11,"#e7c24a",'rx="2" stroke="#a67c00" stroke-width=".8"')+C(cx,139.5,1.4,"#5a3a10")+R(cx-.7,140,1.4,3,"#5a3a10");
+  s+=[[112,164,-10],[194,161,14],[184,171,0]].map(([a,b,r])=>E(a,b,5,2.2,"#f2c230",`stroke="#a67c00" stroke-width=".7" transform="rotate(${r} ${a} ${b})"`)).join("");
+  const r=12+8*f;
+  s+=BOB(cx,104-r*.55,COIN(m.add[0],r))+SPARK(cx-38,98,1,0)+SPARK(cx+38,92,.8,1)+SPARK(cx+6,104-r*1.75,.9,2);
+  // the pirate: shovel planted beside him, the map in his other hand, a parrot on his shoulder
+  s+=G(L(0,-40,0,24,"#8b5a2b",3)+L(-6,-40,6,-40,"#8b5a2b",3.2)+P("M-6.5 22H6.5V33Q0 42-6.5 33Z","#a3acb6",'stroke="#5f6b77" stroke-width="1"'),`transform="translate(${q(x-h*1.12)} ${q(y+h*1.62)}) rotate(5)"`);
+  s+=G(R(-1,-10,26,19,"#f1deb0",'stroke="#b08a4a" stroke-width=".9"')+P("M3 6q5-9 10-4t8-7","none",'stroke="#8a5a2b" stroke-width="1" stroke-dasharray="2 1.6"')+L(18,-7,22,-3,"#d62828",1.6)+L(22,-7,18,-3,"#d62828",1.6),`transform="translate(${q(x+h*1.3)} ${q(y+h*.95)}) rotate(-8)"`);
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.08,1.45],[1.3,.95]],len:2.45,w:.8,ac:podShade(c,-.18)})+R(x-h*.75,y+h*1.6,h*1.5,h*.2,"#c1121f")+HAT(o,"tricorn",x,y,h);
+  s+=G(P("M-2 6l-3 10 5-3z","#1d6fd1")+E(0,0,5,7.5,"#e63946")+E(-1.5,1.5,3,5.5,"#1d6fd1",'transform="rotate(12)"')+C(1,-8,4.4,"#e63946")+P("M4.5-9.5q4 1 2.6 5l-2.6-1.6z","#f2c230")+C(2.2,-9,1.3,"#fff")+C(2.5,-9,.6,"#111"),`transform="translate(${q(x+h*.76)} ${q(y+h*.6)})"`);
+  s+=BUB(i===0?104:98,26,i===0?72:50,18,[i===0?"TREASURE!":"ARRR!"],x+h*.35,y-h*.55,10,"#fff","#15203b");
+  return s}
+// the diamond mine: a miner with his headlamp on finds the player's face glowing in a diamond in the rock
+function mineArt(m,i,f){const {q,R,C,E,P,L,G,CH,BUB,LG,RG,HW,HOFF,rng}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=62,y=66,h=33,cx=160,cy=84,d=17+11*f;
+  let s=R(-10,-10,260,200,LG(["#3d322a","#1d1713"]));
+  const rr=rng(5+i);
+  for(let k=0;k<18;k++){const a=rr()*250-5,b=rr()*150,w=10+rr()*24;s+=P(`M${q(a)} ${q(b)}l${q(w*.5)} ${q(-w*.3)} ${q(w*.6)} ${q(w*.2)} ${q(-w*.2)} ${q(w*.45)} ${q(-w*.7)} ${q(w*.05)}Z`,k%2?"#4a3d33":"#2d241e",'opacity=".8"')}
+  // the timbers and a lantern
+  s+=R(-6,0,12,160,"#7a5230")+R(234,0,12,160,"#7a5230")+R(-10,4,260,11,"#8a5e36")+L(6,26,26,8,"#6e4a2a",4)+L(234,26,214,8,"#6e4a2a",4)+C(14,9.5,1.6,"#3a2a18")+C(226,9.5,1.6,"#3a2a18");
+  s+=E(50,34,22,18,RG(["#ffd36b@.5","#ffd36b@0"]))+L(50,15,50,23,"#222",1)+R(45,23,10,14,"#f9d77a",'rx="2" stroke="#3a2a18" stroke-width="1.4"')+R(44,22,12,3,"#3a2a18")+R(44,36,12,2.6,"#3a2a18");
+  // the floor, the rail and a cart of gems
+  s+=R(-10,150,260,40,"#2a211b")+[...Array(12)].map((_,k)=>R(k*22-6,160,12,5,"#5a4030")).join("")+L(-10,159,250,159,"#aab0b6",2.4);
+  s+=R(186,128,44,24,"#6b7078",'rx="2" stroke="#3d4148" stroke-width="1.2"')+P("M190 128l5-7 6 7zM200 128l6-9 6 9zM212 128l5-6 5 6z","#55c8ef")+P("M196 128l4-5 4 5z","#e63946")+C(194,154,4.2,"#333")+C(222,154,4.2,"#333");
+  // the rock face, lit by the headlamp, with the diamond in it
+  const w=HW(o,h),top=y-h*.5+h*(HOFF[o]||0),ly=top-h*.1;
+  s+=P("M118 70Q122 42 156 38Q196 36 206 66Q214 104 188 122Q154 136 128 118Q112 96 118 70Z","#56473a",'stroke="#2a201a" stroke-width="1.5"')+P("M126 76l10 6M198 70l-8 8M146 124l4-10M188 110l8 6M140 46l6 8","none",'stroke="#2a201a" stroke-width="1.2"');
+  s+=P(`M${q(x)} ${q(ly)}L214 40L214 134Z`,LG(["#fff3b0@.55","#fff3b0@.05"],1));
+  s+=E(cx,cy,d*2,d*1.7,RG(["#c8f6ff@.85","#c8f6ff@0"]));
+  s+=BOB(cx,cy,P(`M${q(-d)} ${q(-d*.12)}L${q(-d*.56)} ${q(-d*.6)}H${q(d*.56)}L${q(d)} ${q(-d*.12)}L0 ${q(d*1.05)}Z`,LG(["#f2feff","#a6ebfa","#56c2e6"]),'stroke="#2b8fb8" stroke-width="1.4" stroke-linejoin="round"')
+    +P(`M${q(-d)} ${q(-d*.12)}H${q(d)}M${q(-d*.56)} ${q(-d*.6)}L${q(-d*.28)} ${q(-d*.12)}L0 ${q(-d*.6)}L${q(d*.28)} ${q(-d*.12)}L${q(d*.56)} ${q(-d*.6)}M${q(-d*.28)} ${q(-d*.12)}L0 ${q(d*1.05)}L${q(d*.28)} ${q(-d*.12)}`,"none",'stroke="#2b8fb8" stroke-width=".9" opacity=".7"')
+    +svgHead(m.add[0],0,q(d*.12),d*1.08,"#f2feff","#d9f6ff")+P(`M${q(-d*.5)} ${q(-d*.52)}L${q(-d*.32)} ${q(-d*.2)}L${q(-d*.66)} ${q(-d*.2)}Z`,"#fff",'opacity=".85"'),"sc-pulse");
+  s+=SPARK(cx-d-8,cy-d*.5,.9,0)+SPARK(cx+d+6,cy-4,.8,1)+SPARK(cx+d*.5,cy+d+6,.7,2);
+  // the miner: pickaxe at rest in one hand, pointing at the find with the other, hard hat with its lamp
+  s+=G(L(0,-30,0,30,"#8b5a2b",3.2)+P("M-17-26Q0-40 17-26","none",'stroke="#9aa3ad" stroke-width="4.6" stroke-linecap="round"')+R(-3,-33,6,7,"#6b7178",'rx="1"'),`transform="translate(${q(x-h*1.2)} ${q(y+h*1.3)}) rotate(-8)"`);
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.14,1.45],[1.75,.5]],len:2.4,w:.8,ac:podShade(c,-.2)})+L(x-h*.32,y+h*.62,x-h*.38,y+h*2.4,"#3a2a18",2.2)+L(x+h*.32,y+h*.62,x+h*.38,y+h*2.4,"#3a2a18",2.2);
+  s+=P(`M${q(x-w*.6)} ${q(top+h*.14)}Q${q(x-w*.62)} ${q(top-h*.44)} ${q(x)} ${q(top-h*.44)}Q${q(x+w*.62)} ${q(top-h*.44)} ${q(x+w*.6)} ${q(top+h*.14)}Z`,"#f2c230",'stroke="#b58a12" stroke-width="1"')+E(x,top+h*.13,w*.74,h*.07,"#e0ad18")+L(x,top-h*.42,x,top+h*.06,"#d9a417",2.2)+C(x,ly,h*.11,"#fffbe0",'stroke="#6b5a2a" stroke-width="1.4"');
+  s+=BUB(132,26,66,18,["DIAMOND!"],x+h*.45,y-h*.5,10,"#fff","#15203b");
+  return s}
+// one man's trash: in the alley behind the waiver wire the owner pulls the player's face out of the trash (the raccoon objects)
+function trashArt(m,i,f){const {q,R,C,E,P,L,T,G,CH,BUB,LG,RG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=64,y=72,h=33,cx=152;
+  let s=R(-10,-10,260,200,"#9c4a38");
+  for(let r=0;r<12;r++){const b=r*13-4;s+=L(-10,b,250,b,"#7a3527",1.6);for(let a=(r%2)*14-14;a<250;a+=28)s+=L(a,b,a,b+13,"#7a3527",1.4)}
+  s+=R(-10,-10,260,200,LG(["#000@0","#000@.28"]));
+  // the drainpipe, the sign, the ground and a puddle
+  s+=R(10,-10,8,152,"#6b737c")+R(8,40,12,4,"#565d65")+R(8,100,12,4,"#565d65");
+  s+=R(126,10,90,24,"#ece6d6",'rx="2" stroke="#55514a" stroke-width="1.4"')+T(171,26.5,"WAIVER WIRE",11,"#2b2b2b",'font-weight="900" letter-spacing=".4"')+[[130,14],[212,14],[130,30],[212,30]].map(([a,b])=>C(a,b,1.1,"#777")).join("");
+  s+=R(-10,140,260,50,"#55585f")+L(-10,140,250,140,"#3f4248",2)+E(44,168,24,4.6,"#7c90a8",'opacity=".55"');
+  // the can: a raccoon inside, a banana peel over the rim, the lid on the ground, a fish bone and paper
+  s+=E(cx,150,30,4.6,"rgba(0,0,0,.3)")+P(`M${cx-24} 102H${cx+24}L${cx+19} 150H${cx-19}Z`,"#8f98a2",'stroke="#5d656e" stroke-width="1.2"')+[-14,-7,0,7,14].map(d=>L(cx+d,106,cx+d*.82,146,"#a8b0b8",2)).join("");
+  s+=G(C(-7,-6,3.4,"#5f646b")+C(7,-6,3.4,"#5f646b")+E(0,0,10,7.5,"#8a9098")+P("M-9-1Q0-5 9-1L8 3Q0 0-8 3Z","#2b2b2b")+C(-4,0,1.7,"#fff")+C(4,0,1.7,"#fff")+C(-4,.2,.85,"#111")+C(4,.2,.85,"#111")+E(0,4.6,2,1.4,"#111"),`transform="translate(${cx+12} 95)"`);
+  s+=R(cx-28,96,56,8,"#b3bbc3",'rx="3" stroke="#5d656e" stroke-width="1.2"')+P(`M${cx-26} 98q-9 3-7 14q3-6 9-8z`,"#f2d03a",'stroke="#b8961a" stroke-width=".8"');
+  s+=G(E(0,0,28,6.5,"#b3bbc3",'stroke="#5d656e" stroke-width="1.2"')+R(-6,-10,12,5,"#8f98a2",'rx="2"'),`transform="translate(${cx+48} 153) rotate(-14)"`);
+  s+=G(L(-10,0,8,0,"#e8e4d8",1.4)+[-6,-2,2].map(a=>L(a,-4,a,4,"#e8e4d8",1.2)).join("")+P("M8-4l7 4-7 4z","#e8e4d8")+P("M-10 0l-5-4v8z","#e8e4d8"),`transform="translate(${cx-42} 161) rotate(8)"`)+P(`M${cx+24} 148l6-4 5 3 1 6-6 3-6-3z`,"#f4f1e6",'stroke="#c9c3b3" stroke-width=".8"');
+  // the stink and the flies
+  s+=[[-12,0],[2,1],[14,2]].map(([a,k])=>`<g class="sh-steam" style="animation-delay:-${k*1.1}s">${P(`M${cx+a} 90q-5-6 0-12t0-12t0-12`,"none",'stroke="#a5d97f" stroke-width="2" stroke-linecap="round" opacity=".75"')}</g>`).join("");
+  s+=[[cx-20,76,0],[cx+18,66,1],[cx+4,54,2]].map(([a,b,k])=>`<g transform="translate(${a} ${b})"><g class="sc-buzz" style="animation-delay:-${(k*.37).toFixed(2)}s">${E(-1.7,-1.6,1.7,1.1,"#fff",'opacity=".85"')+E(1.7,-1.6,1.7,1.1,"#fff",'opacity=".85"')+C(0,0,1.6,"#111")}</g></g>`).join("");
+  // the owner, in rubber gloves, holding up what he found
+  const fx=x+h*1.42,fy=y-h*.42,dd=22+12*f;
+  s+=E(fx,fy,dd,dd*.95,RG(["#fff6b0@.85","#fff6b0@0"]));
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.3,-.35],[1.35,-.02]],len:2.4,w:.8,glove:"#f2d03a",gs:1.1});
+  s+=BOB(fx,fy,svgHead(m.add[0],0,0,dd,"#ffe27a","#f5d77a"))+SPARK(fx-dd*.72,fy-dd*.55,.8,0)+SPARK(fx+dd*.72,fy-dd*.35,.7,1);
+  s+=BUB(cx+38,70,36,15,["HEY!"],cx+16,88,8.5,"#fff","#15203b");
+  return s}
+// the metal detector: a sunset beach, headphones on, and the player is the gold coin that just beeped out of the sand
+function detectorArt(m,i,f){const {q,R,C,E,P,L,T,G,CH,HAT,LG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=60,y=62,h=33,cx=180,cy=132,r=11+8*f;
+  let s=R(-10,-10,260,200,LG(["#ff8a5c","#ffc488","#ffe6b0"]))+C(190,88,24,"#fff1b8",'opacity=".95"');
+  s+=R(-10,88,260,16,"#3b78ad")+[0,1,2,3].map(k=>R(178-k*5,91+k*3.4,24+k*10,1.6,"#ffe2a0",'opacity=".7"')).join("")+[[18,96],[64,100],[116,94]].map(([a,b])=>P(`M${a} ${b}q4-2 8 0t8 0`,"none",'stroke="#a9d1ee" stroke-width="1.1" opacity=".8"')).join("");
+  s+=P("M58 30q5-5 10 0q5-5 10 0M206 58q4-4 8 0q4-4 8 0","none",'stroke="#5a3a2a" stroke-width="1.5" stroke-linecap="round"');
+  s+=P("M-10 102Q70 94 150 100T250 98V190H-10Z",LG(["#f5d9a2","#e4bb7c"]))+[[16,172],[28,164],[38,176],[50,168]].map(([a,b])=>E(a,b,3,1.6,"#d1a666")).join("");
+  // the detector (drawn first so his glove grips it), then the beachcomber in his flowered shirt and headphones
+  const hx=x+h*1.3,hy=y+h*1.28;
+  s+=L(hx-7,hy-9,136,156,"#4a4f57",2.6)+G(R(-5,-4,10,8,"#2b2f36",'rx="1.5"')+C(-2,0,1.2,"#ff4d4d"),`transform="translate(${q(hx+4)} ${q(hy+7)}) rotate(58)"`)+E(138,158,17,5,"#2b2b2b")+E(138,158,11.5,3.2,"#7a7f87");
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.0,1.5],[1.3,1.28]],len:2.4,w:.8})+[[-.45,1.25],[.35,1.6],[-.2,2.05],[.5,2.12],[-.6,1.8]].map(([a,b])=>C(x+a*h,y+b*h,2.3,"#fff",'opacity=".75"')+C(x+a*h,y+b*h,.9,"#f2c230")).join("")+HAT(o,"headphones",x,y,h);
+  // the beeps, and the coin with the player's face popping out of the sand
+  s+=`<g class="sc-beep">${[8,14,20].map((v,k)=>P(`M${138-v} ${q(152-v*.25)}Q138 ${q(150-v*1.25)} ${138+v} ${q(152-v*.25)}`,"none",`stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity="${(1-k*.25).toFixed(2)}"`)).join("")}</g>`;
+  s+=E(cx,cy+r+5,r+9,4.2,"#c99b5e")+[[-1,-.4],[-.7,-1],[.8,-.9],[1.1,-.2]].map(([a,b])=>C(cx+a*(r+8),cy+r+b*10,1.7,"#e8c27e")).join("");
+  s+=BOB(cx,cy,COIN(m.add[0],r))+SPARK(cx-r-9,cy-r+2,.9,0)+SPARK(cx+r+7,cy-6,.8,1)+SPARK(cx+4,cy-r-10,.7,2);
+  s+=G(T(0,0,"BEEP! BEEP!",18,"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing="1" stroke="#c0392b" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round"'),'transform="translate(146 46) rotate(-6)"');
+  return s}
+// the pearl diver: down on the sea floor in mask and snorkel, the giant clam opens on the player's face as the pearl
+function pearlArt(m,i,f){const {q,R,C,E,P,L,G,CH,BUB,LG,RG,HW,HD,STAR}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=60,y=62,h=32,cx=166,cy=134,r=10+7*f;
+  let s=R(-10,-10,260,200,LG(["#3cc0e0","#1683b3","#0b4f78"]));
+  s+=[6,62,124,184].map((a,k)=>P(`M${a} -10h${18+k%2*8}l${30+k*6} 200h-${22+k%2*6}z`,"#fff",'opacity=".07"')).join("");
+  // the sea floor: seaweed, coral, a starfish, a shell, and some fish
+  s+=P("M-10 150Q60 138 130 148T250 142V190H-10Z","#d6bd86")+STAR(26,168,7,"#ff8a3d",'transform="rotate(12 26 168)"')+P("M204 170q6-10 12 0z","#f3c1d4")+E(98,172,4,2,"#c9ab72");
+  s+=[[12,154,0],[22,158,1],[228,148,2],[218,152,1]].map(([a,b,k])=>`<g class="sc-sway" style="animation-delay:-${(k*.7).toFixed(1)}s;transform-origin:${a}px ${b}px">${P(`M${a} ${b}q-8-14 0-26t0-26t0-24`,"none",'stroke="#2f9e5a" stroke-width="4" stroke-linecap="round"')}</g>`).join("");
+  s+=P("M110 152v-14m0 6l-8-8m8 2l7-9m-7 15l9-4","none",'stroke="#ff6f91" stroke-width="3.2" stroke-linecap="round"');
+  const fish=(a,b,k,col,fl)=>G(E(0,0,8,4.6,col)+P("M-7 0l-6-4.5v9z",col)+C(4,-1,1.1,"#fff")+C(4.3,-1,.55,"#111"),`transform="translate(${a} ${b}) scale(${fl?-k:k} ${k})"`);
+  s+=`<g class="sc-swim">${fish(196,40,1.1,"#ff9f1c")+fish(214,54,.8,"#ffbf47")}</g>`+fish(30,62,.8,"#ffd23f",1);
+  // the clam: top shell thrown open, the pearl, the bottom shell in front
+  s+=P(`M${cx-40} ${cy+2}Q${cx-36} ${cy-38} ${cx} ${cy-42}Q${cx+36} ${cy-38} ${cx+40} ${cy+2}Q${cx} ${cy-8} ${cx-40} ${cy+2}Z`,"#f1dff3",'stroke="#9b72b0" stroke-width="1.4"')+[-28,-14,0,14,28].map(v=>L(cx+v*.35,cy-5,cx+v,cy-36+Math.abs(v)*.2,"#d7b9e0",1.4)).join("");
+  s+=E(cx,cy-12,38,28,RG(["#fff@.75","#fff@0"]));
+  s+=BOB(cx,cy-r*.95,C(0,0,r*1.2,RG(["#ffffff","#f3eaf6","#cdb7d9"],.38,.32))+svgHead(m.add[0],0,0,r*1.9,"#fbf6ff","#efe6f3")+E(-r*.4,-r*.55,r*.3,r*.16,"#fff",'opacity=".8"'),"sc-pulse");
+  s+=P(`M${cx-42} ${cy}Q${cx-38} ${cy+24} ${cx} ${cy+26}Q${cx+38} ${cy+24} ${cx+42} ${cy}Q${cx} ${cy+8} ${cx-42} ${cy}Z`,"#c7a3d8",'stroke="#8e64a6" stroke-width="1.4"')+[-30,-15,0,15,30].map(v=>L(cx+v,cy+5,cx+v*.4,cy+24,"#a983bf",1.4)).join("");
+  s+=SPARK(cx-30,cy-36,.8,0)+SPARK(cx+32,cy-30,.7,1);
+  // the diver: flippers, wetsuit with stripes and gloves in his colours, mask, snorkel and bubbles
+  s+=P(`M${q(x-h*.62)} ${q(y+h*2.28)}l-12 9h17z`,"#ffd23f")+P(`M${q(x+h*.3)} ${q(y+h*2.28)}l-3 9h17z`,"#ffd23f");
+  s+=CH(o,x,y,h,"#1f2b38","tee",{arms:[[-1.1,1.15],[2.5,1.6]],len:2.3,w:.8,ac:"#1f2b38",glove:c})+L(x-h*.48,y+h*.62,x-h*.5,y+h*2.28,c,2.4)+L(x+h*.48,y+h*.62,x+h*.5,y+h*2.28,c,2.4);
+  const w=HW(o,h),ey=y+h*(HD[o]?.[6]??.02);
+  s+=R(x-w*.52,ey-h*.17,w*1.04,h*.3,"rgba(190,235,255,.32)",`rx="${q(h*.1)}" stroke="#ffd23f" stroke-width="2.2"`)+L(x-w*.52,ey-h*.04,x-w*.64,ey-h*.1,"#222",2)+L(x+w*.52,ey-h*.04,x+w*.64,ey-h*.1,"#222",2)+P(`M${q(x+w*.62)} ${q(ey+h*.18)}h3.5v${q(-h*.88)}`,"none",'stroke="#ff7a1a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"');
+  s+=[0,1,2].map(k=>`<g class="sc-rise" style="animation-delay:-${(k*.8).toFixed(1)}s">${C(x+w*.62+5+k*2,ey-h*.8-k*9,2+k*.6,"none",'stroke="#e6f7ff" stroke-width="1"')}</g>`).join("");
+  s+=BUB(118,24,72,18,["BLUB BLUB!"],x+h*.45,y-h*.5,9.5,"#fff","#15203b");
+  return s}
+// found money: digging through the couch cushions, the owner holds up a hundred-dollar bill with the player's face on it
+function couchArt(m,i,f){const {q,R,C,E,P,L,T,G,CH,RG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=54,y=66,h=33,so="#d39a3c",sd="#a8752a";
+  let s=R(-10,-10,260,200,"#efe1c6");
+  for(let a=-4;a<250;a+=18)s+=R(a,-10,8,160,"#e7d4b3");
+  s+=R(-10,140,260,5,"#fbf6ea")+R(-10,145,260,45,"#8a5a32")+[158,171].map(b=>L(-10,b,250,b,"#734a28",1.2)).join("")+[[30,145,158],[96,158,171],[150,145,158],[206,158,171],[60,171,190],[178,171,190]].map(([a,b1,b2])=>L(a,b1,a,b2,"#734a28",1.2)).join("");
+  // the lamp
+  s+=E(224,60,30,24,RG(["#fff3c4@.6","#fff3c4@0"]))+L(224,54,224,146,"#3a3a3a",2.4)+E(224,147,10,2.6,"#3a3a3a")+P("M210 36h28l-5 20h-18z","#f6e3b4",'stroke="#cdb17a" stroke-width="1"');
+  // the couch, one seat cushion flipped up and the junk that was under it
+  s+=E(170,150,78,5,"rgba(0,0,0,.2)")+R(104,72,132,48,so,'rx="12"')+[148,192].map(a=>L(a,78,a,116,sd,1.5)).join("")+R(96,104,148,32,sd,'rx="8"')+R(172,98,64,22,so,'rx="7"');
+  s+=R(108,106,62,10,"#5c3e1a",'rx="3"')+E(118,110,3.6,1.6,"#f2c230")+E(162,111,3.6,1.6,"#f2c230")+C(130,109,2.1,"#fff8e1")+C(135,111.5,1.8,"#fff8e1")+C(156,108,1.9,"#fff8e1")+R(138,107,16,5,"#222",'rx="2"')+C(142,109.5,.9,"#e63946")+C(146,109.5,.9,"#9aa3ad")+C(150,109.5,.9,"#9aa3ad");
+  s+=G(R(-32,-10,64,20,so,`rx="7" stroke="${sd}" stroke-width="1.2"`),'transform="translate(140 88) rotate(-16)"');
+  s+=R(88,94,20,44,sd,'rx="9"')+R(232,94,20,44,sd,'rx="9"')+R(100,136,6,9,"#5c3e1a")+R(228,136,6,9,"#5c3e1a");
+  // the owner, one hand in the couch, the other holding up the bill
+  const bw=48+18*f,bh=bw*.46,bx=x+h*1.6+bw/2-4,by=y-h*.8-2;
+  s+=CH(o,x,y,h,c,"tee",{arms:[[1.6,1.38],[1.6,-.8]],len:2.4,w:.8});
+  s+=BOB(bx,by,G(R(-bw/2,-bh/2,bw,bh,"#d9e8c6",'rx="2" stroke="#3f6a2c" stroke-width="1.4"')+R(-bw/2+3,-bh/2+3,bw-6,bh-6,"none",'stroke="#7fa36a" stroke-width=".8"')+T(-bw/2+10,-bh/2+10.5,"100",7,"#3f6a2c",'font-weight="900"')+T(bw/2-10,bh/2-4,"100",7,"#3f6a2c",'font-weight="900"')+T(bw/2-9,-bh/2+11,"$",9,"#3f6a2c",'font-weight="900"')+T(-bw/2+9,bh/2-3.5,"$",9,"#3f6a2c",'font-weight="900"')+E(0,0,bh*.46,bh*.46,"#eef5e4",'stroke="#7fa36a" stroke-width="1"')+svgHead(m.add[0],0,0,bh*.8,"#7fa36a","#e3eed6"),'transform="rotate(-8)"'));
+  s+=SPARK(bx-bw/2-6,by-bh/2,.8,0)+SPARK(bx+bw/2+5,by+bh/2-4,.8,1);
+  return s}
+// the scratch-off: at the corner store counter the owner scratches the giant Waiver Wire Millions ticket, and the prize is the player
+function scratchArt(m,i,f){const {q,R,C,P,L,T,G,CH,BUB,LG,RG,rng}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=54,y=78,h=32;
+  let s=R(-10,-10,260,200,LG(["#fbf4e6","#efe1c8"]));
+  const rr=rng(3+i),cols=["#e63946","#f4a261","#2a9d8f","#457b9d","#e9c46a","#8338ec","#ff006e"];
+  for(const b of [34,70,106]){for(let a=-6;a<250;a+=10+rr()*5){const hh=10+rr()*12;s+=R(a,b-hh,7+rr()*3,hh,cols[Math.floor(rr()*cols.length)],'rx="1"')}s+=R(-10,b,260,4,"#8a6a4a")}
+  // the owner behind the counter, coin in hand
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.25,-.6],[1.72,.45]],len:2.3,w:.8});
+  s+=R(-10,136,260,6,"#ece7dd")+R(-10,142,260,48,"#b8432f")+L(-10,142,250,142,"#8e2f20",2)+R(-10,150,260,3,"#d0583f");
+  // the ticket: the prize window scratched open on the player's face; two dollar signs found, one still to go
+  const tw=104,th=122,R0=15+7*f,wy=-4;
+  let t=R(-tw/2,-th/2,tw,th,"#fffaf0",'rx="6" stroke="#c9a227" stroke-width="2.2"')+P(`M${-tw/2} ${-th/2+6}q0-6 6-6h${tw-12}q6 0 6 6v24h${-tw}z`,LG(["#ef476f","#c9184a"]))
+    +T(0,-th/2+15.5,"WAIVER WIRE",12.5,"#ffe066",'font-weight="900" letter-spacing=".5"')+T(0,-th/2+26,"MILLIONS",7.5,"#fff",'font-weight="800" letter-spacing="2.5"');
+  t+=C(0,wy,R0+5.5,"#c3c8cf")+[...Array(14)].map((_,k)=>{const a=k*.45+.2,r1=R0+4.5;return P(`M${q(Math.cos(a)*r1)} ${q(wy+Math.sin(a)*r1)}l2.4-1.2 1 2.6z`,"#9aa1ab")}).join("")+C(0,wy,R0+1.2,RG(["#fff6c4","#ffd166"]))+svgHead(m.add[0],0,wy,R0*1.8,"#ffd166","#fff3c4");
+  t+=[-32,0,32].map((a,k)=>R(a-13,th/2-35,26,19,k<2?"#fff3c4":"#c3c8cf",'rx="3" stroke="#c9a227" stroke-width="1"')+(k<2?T(a,th/2-20.5,"$",14,"#2a9d8f",'font-weight="900"'):P(`M${a-9} ${th/2-29}l5 4 5-4 6 5`,"none",'stroke="#9aa1ab" stroke-width="1.2"'))).join("");
+  t+=T(0,th/2-6.5,"MATCH 3 TO WIN",6.5,"#8a6a2a",'font-weight="800" letter-spacing=".6"');
+  s+=G(t,'transform="translate(166 84) rotate(4)"');
+  s+=[[116,100],[120,108],[113,114],[118,122],[124,131],[110,134],[128,139]].map(([a,b],k)=>R(a,b,2.6,1.6,"#aab1ba",`transform="rotate(${k*37} ${a} ${b})"`)).join("")+C(x+h*1.72,y+h*.45,4.4,"#f2c230",'stroke="#a67c00" stroke-width="1"');
+  s+=BUB(86,52,58,17,["JACKPOT!"],x+h*.35,y-h*.45,9,"#fff","#15203b");
+  return s}
+// a new star: out on the hill with the telescope, the brightest new star in the sky has the player's face
+function starArt(m,i,f){const {q,R,C,E,P,L,G,CH,BUB,LG,RG,STARS,STAR}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=56,y=100,h=30,rS=24+12*f,sx=170,sy=62;
+  let s=R(-10,-10,260,200,LG(["#0a0f33","#1b2660","#3b3c85"]))+STARS(48,4+i,"#fff",0,150);
+  s+=E(120,64,160,20,"#fff",'opacity=".05" transform="rotate(-22 120 64)"')+C(222,100,1.6,"#fff")+L(198,110,222,100,"#fff",1.2,'opacity=".5"');
+  s+=P("M-10 150Q50 124 120 138T250 132V190H-10Z","#141a3c")+P("M140 172Q196 150 250 160V190H140Z","#0d1230");
+  s+=C(sx,sy,rS*1.7,RG(["#fff6b0@.5","#fff6b0@0"]));
+  s+=BOB(sx,sy,STAR(0,0,rS,LG(["#fff7c2","#f7c948"]),'stroke="#e0a316" stroke-width="1.5" stroke-linejoin="round"')+svgHead(m.add[0],0,rS*.06,rS*.9,"#fff3a6","#fdf3c4"),"sc-pulse");
+  s+=SPARK(sx-rS-10,sy-rS*.6,1,0)+SPARK(sx+rS+8,sy+8,.8,1)+SPARK(sx-6,sy+rS+12,.7,2);
+  // the stargazer: beanie, hoodie, cocoa in one hand, the other on the telescope
+  const tx=x+h*1.05,ty=y-h*.2;
+  s+=CH(o,x,y,h,c,"hoodie",{arms:[[-.95,1.35],[1.15,.15]],len:2.3,w:.8,hat:"beanie",hc:"#e63946"});
+  s+=G(R(-4,-4,8,9,"#f4f1ea",'rx="1.5" stroke="#bbb" stroke-width=".8"')+P("M4-2q4 0 4 3t-4 3","none",'stroke="#bbb" stroke-width="1.2"')+P("M-1-6q-2-3 0-6M2-6q-2-3 0-6","none",'stroke="#fff" stroke-width=".9" opacity=".7"'),`transform="translate(${q(x-h*.95)} ${q(y+h*1.35-5)})"`);
+  s+=L(tx,ty+4,tx-14,ty+52,"#3a3f4a",2.2)+L(tx,ty+4,tx+14,ty+52,"#3a3f4a",2.2)+L(tx,ty+4,tx+1,ty+54,"#3a3f4a",2.2);
+  s+=G(R(-12,-5.5,52,11,"#d4d9e1",'rx="2" stroke="#6b7280" stroke-width="1"')+R(38,-7.5,9,15,"#9aa3ad",'rx="2"')+R(-18,-3.5,7,7,"#4a4f57",'rx="1"')+R(6,-6.5,5,13,"#b14a3a"),`transform="translate(${q(tx)} ${q(ty)}) rotate(-32)"`);
+  s+=BUB(104,30,74,18,["A NEW STAR!"],x+h*.35,y-h*.55,9.5,"#fff","#15203b");
+  return s}
+// the egg hunt: bunny ears on, basket on the arm, and the golden egg in the grass has the player's face
+function eggArt(m,i,f){const {q,R,C,E,P,L,G,CH,BUB,LG,RG,HW,HOFF}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=62,y=66,h=33,H=16+9*f,W=H*.8,ex=154,ey=126;
+  let s=R(-10,-10,260,200,LG(["#9fd8ff","#e3f5ff"]))+C(214,22,13,"#fff1a8",'opacity=".95"')+CLOUD(176,42,.8)+CLOUD(100,46,.55);
+  s+=P("M-10 112Q60 86 130 104T250 96V190H-10Z","#a5dc78")+P("M-10 136Q80 120 160 132T250 128V190H-10Z","#7cc456");
+  s+=[[18,154,"#ff8fab"],[44,174,"#fff"],[96,164,"#ffd23f"],[122,178,"#ff8fab"],[204,170,"#fff"],[226,152,"#c77dff"],[188,148,"#ffd23f"],[100,124,"#fff"]].map(([a,b,col])=>[0,1,2,3,4].map(k=>C(a+Math.cos(k*1.257)*2.6,b+Math.sin(k*1.257)*2.6,1.9,col)).join("")+C(a,b,1.4,"#f4a300")).join("");
+  s+=C(216,116,18,"#5aa845")+C(230,104,14,"#5aa845")+C(200,108,12,"#66b552")+E(206,122,4,5,"#a0d8ff")+E(226,112,4,5,"#ffc8dd");
+  // the golden egg, glowing in the grass
+  s+=E(ex,ey+H*.95,W*1.2,4,"rgba(0,0,0,.15)")+E(ex,ey,W*2.4,H*1.8,RG(["#fff3a0@.75","#fff3a0@0"]));
+  s+=BOB(ex,ey,P(`M0 ${q(-H)}C${q(W*.55)} ${q(-H)} ${q(W)} ${q(-H*.35)} ${q(W)} ${q(H*.15)}C${q(W)} ${q(H*.65)} ${q(W*.55)} ${q(H)} 0 ${q(H)}C${q(-W*.55)} ${q(H)} ${q(-W)} ${q(H*.65)} ${q(-W)} ${q(H*.15)}C${q(-W)} ${q(-H*.35)} ${q(-W*.55)} ${q(-H)} 0 ${q(-H)}Z`,LG(["#fff3a6","#f2c230","#c99212"]),'stroke="#a67c00" stroke-width="1.4"')+svgHead(m.add[0],0,q(H*.14),W*1.3,"#ffe27a","#f5d77a")+E(-W*.42,-H*.52,W*.18,H*.13,"#fff",'opacity=".75"'));
+  s+=[...Array(9)].map((_,k)=>{const a=ex-W-6+k*(W*2+12)/8;return P(`M${q(a-2.4)} ${q(ey+H+3)}L${q(a+(k%2?2.4:-2.4))} ${q(ey+H-7-k%3*3)}L${q(a+2.4)} ${q(ey+H+3)}Z`,"#5fae45")}).join("");
+  s+=SPARK(ex-W-10,ey-H*.6,.9,0)+SPARK(ex+W+8,ey-H*.2,.8,1)+SPARK(ex+4,ey-H-10,.7,2);
+  // the hunter: bunny ears (behind the head), a basket of eggs on one arm, pointing at the find with the other
+  const w=HW(o,h),top=y-h*.5+h*(HOFF[o]||0),bx=x-h*1.0,by=y+h*1.45+23;
+  s+=[-1,1].map(v=>G(E(0,-h*.36,h*.13,h*.38,"#fff",'stroke="#e2d7da" stroke-width="1"')+E(0,-h*.34,h*.065,h*.27,"#ffb3c7"),`transform="translate(${q(x+v*w*.24)} ${q(top+h*.08)}) rotate(${v*12})"`)).join("");
+  s+=P(`M${q(bx-13)} ${q(by-12)}Q${q(bx)} ${q(by-34)} ${q(bx+13)} ${q(by-12)}`,"none",'stroke="#9c6b30" stroke-width="2.2"')+E(bx-6,by-12,4,5,"#ffc8dd")+E(bx+1,by-13,4,5,"#a0d8ff")+E(bx+7,by-12,4,5,"#caffbf")+P(`M${q(bx-14)} ${q(by-12)}H${q(bx+14)}L${q(bx+11)} ${q(by+4)}H${q(bx-11)}Z`,"#c98f45",'stroke="#9c6b30" stroke-width="1.2"')+[-6,0,6].map(v=>L(bx+v,by-10,bx+v*.85,by+3,"#9c6b30",.9)).join("")+L(bx-13,by-4,bx+13,by-4,"#9c6b30",.9);
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.0,1.45],[1.6,.95]],len:2.4,w:.8})+P(`M${q(x-w*.5)} ${q(top+h*.2)}Q${q(x)} ${q(top-h*.12)} ${q(x+w*.5)} ${q(top+h*.2)}`,"none",'stroke="#ff8fab" stroke-width="2.4"');
+  s+=BUB(150,24,90,18,["THE GOLDEN EGG!"],x+h*.45,y-h*.55,9,"#fff","#15203b");
+  return s}
+// the ice cream: outside the shop the scoop with the player's face falls off the cone and splats, and a dog moves in
+function coneArt(m,i){const {q,R,C,E,P,L,T,G,CH,BUB,LG,HW,HD}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=66,y=64,h=34,sx=146,sy=156;
+  let s=R(-10,-10,260,200,LG(["#86d2ff","#dcf3ff"]))+CLOUD(36,64,.7);
+  // the shop: wall, window, door and a striped awning
+  s+=R(124,20,126,124,"#fff1df")+R(142,48,72,46,"#bfe6f7",'stroke="#f2a7c3" stroke-width="3"')+T(178,76,"ICE CREAM",10,"#e05780",'font-weight="900" letter-spacing=".5"')+R(222,52,16,92,"#d98fb0");
+  s+=R(118,8,132,20,"#fff")+[...Array(9)].map((_,k)=>R(118+k*16,8,8,20,"#f78fb3")).join("")+[...Array(17)].map((_,k)=>C(122+k*8,28,4,k%2?"#fff":"#f78fb3")).join("");
+  s+=R(-10,142,260,48,"#e9e2d4")+[20,70,120,170,220].map(a=>L(a,142,a-8,190,"#d6cdbb",1.2)).join("")+L(-10,142,250,142,"#cfc5b1",2);
+  // the splat, sprinkles, and the scoop landing in it
+  s+=P("M120 156q2-9 12-7q5-8 14-3q9-5 15 2q9 0 8 8q0 7-9 7q-4 6-13 3q-7 5-15 0q-10 2-12-10z","#f7b6cf",'stroke="#e58fb0" stroke-width="1"')+[[-20,4],[14,6],[20,-2],[-8,8]].map(([a,b],k)=>R(sx+a,sy+b,3.4,1.3,["#ffd23f","#4bd5ee","#7ad67a","#e63946"][k],`rx=".6" transform="rotate(${k*41} ${sx+a} ${sy+b})"`)).join("");
+  s+=`<g transform="translate(${sx} ${sy-12})"><g class="sc-plop">${C(0,0,16.5,"#f7b6cf",'stroke="#e58fb0" stroke-width="1.2"')+[[-11,-6,20],[10,-9,-30],[12,6,60],[-9,9,10],[2,-14,80]].map(([a,b,r],k)=>R(a,b,3.6,1.3,["#ffd23f","#4bd5ee","#7ad67a","#e63946","#fff"][k],`rx=".6" transform="rotate(${r} ${a} ${b})"`)).join("")+svgHead(m.p,0,0,22,"#fff","#ffe3ee")}</g></g>`;
+  // a dog moves in on it
+  s+=G(L(26,-4,34,-14,"#c68b59",3.2)+E(16,0,17,8.5,"#c68b59")+R(4,4,4,11,"#c68b59",'rx="2"')+R(24,4,4,11,"#c68b59",'rx="2"')+C(0,-8,9,"#c68b59")+E(4,-14,4,7,"#8b5a2b",'transform="rotate(20 4 -14)"')+E(-8,-5,5.4,3.8,"#d9a676")+C(-12.5,-6,1.7,"#222")+E(-10,0,2.4,3.6,"#ff7aa2")+C(-2,-11,1.3,"#222"),`transform="translate(${sx+40} ${sy-6})"`);
+  // the owner: the empty cone held up, a hand to his cheek, tears
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-.44,.2],[1.25,.3]],len:2.35,w:.8,top:1});
+  const hx=x+h*1.25,hy=y+h*.3,w=HW(o,h),ey=y+h*(HD[o]?.[6]??.02);
+  s+=G(P("M-8-12H8L0 10Z","#e3a857",'stroke="#b07a32" stroke-width="1"')+P("M-6-9L1 1M-2-12L4-3M6-9L-1 1M2-12L-4-3","none",'stroke="#b07a32" stroke-width=".7"')+P("M-8-12q4-4 8-1q4-3 8 1q-2 3-8 2q-6 1-8-2z","#f7b6cf"),`transform="translate(${q(hx)} ${q(hy-6)}) rotate(14)"`);
+  s+=P(`M${q(hx+6)} ${q(hy-20)}Q${q(hx+34)} ${q(hy-30)} ${sx-4} ${sy-30}`,"none",'stroke="#fff" stroke-width="1.6" stroke-dasharray="3 4" opacity=".9"');
+  s+=[-1,1].map(v=>P(`M${q(x+v*w*.24)} ${q(ey+h*.14)}q-2.4 4 0 5.4q2.4-1.4 0-5.4z`,"#57b8f2")+P(`M${q(x+v*w*.3)} ${q(ey+h*.34)}q-2 3.4 0 4.6q2-1.2 0-4.6z`,"#57b8f2")).join("");
+  s+=BUB(86,24,50,18,["NOOO!"],x+h*.1,y-h*.52,10,"#fff","#15203b");
+  return s}
+// the fumble: the ball pops loose with the player's face on it, and the owner who started him next dives on it
+function fumbleArt(m,i){const {q,R,C,E,P,L,T,G,CH,LG,rng}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=58,y=74,h=32,bx=134,by=80;
+  let s=R(-10,-10,260,200,"#1d2a44");
+  const rr=rng(9+i),fans=["#f4d35e","#ee964b","#f95738","#e0e0e0","#7ec4cf","#c3a6ff","#ff8fab"];
+  for(let r=0;r<5;r++)for(let a=-6+(r%2)*5;a<250;a+=10)s+=C(a+rr()*2,5+r*8.6,3.3,fans[Math.floor(rr()*fans.length)],'opacity=".85"');
+  s+=R(-10,46,260,9,"#0f1a2e")+T(120,53.2,"FLAMINGO MEN",7,"#ff8fab",'font-weight="900" letter-spacing="3" opacity=".9"');
+  s+=R(-10,55,260,140,LG(["#41a14a","#2c7a35"]));
+  for(let a=-14;a<270;a+=44)s+=L(a,55,a-26,190,"rgba(255,255,255,.5)",2);
+  s+=E(x,y+h*2.55,28,4,"rgba(0,0,0,.22)")+E(196,162,38,5,"rgba(0,0,0,.22)");
+  // the owner who fumbled it, in his jersey (number: the season), hands up
+  s+=CH(o,x,y,h,c,"jersey",{trim:"#fff",txt:String(m.y).slice(2),arms:[[-1.2,-.62],[1.3,-.72]],len:2.5,w:.82});
+  // the one who picks him up next, diving on the loose ball
+  const o2=(m.to||[]).find(t=>t!==o);
+  if(o2)s+=G(CH(o2,0,0,26,POD_COL[o2]||"#5b6178","jersey",{trim:"#fff",arms:[[-.4,-1.6],[.35,-1.65]],len:2.3,w:.8}),'transform="translate(176 118) rotate(-40)"');
+  // the ball with the player's face, popping loose
+  s+=[[-36,-8],[-40,2],[-34,11]].map(([a,b])=>L(bx+a,by+b,bx+a-12,by+b+2,"#fff",1.6,'opacity=".7"')).join("");
+  s+=BOB(bx,by,E(0,0,25,15.5,"#8a4a1f",'stroke="#4a230b" stroke-width="1.4"')+P("M-18-9q-3 9 0 18M18-9q3 9 0 18","none",'stroke="#fff" stroke-width="2"')+svgHead(m.p,0,0,24,"#fff","#f3e6d6"),"sc-tumble");
+  s+=G(T(0,0,"FUMBLE!",26,"#ffd60a",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif" letter-spacing="1.5" stroke="#c1121f" stroke-width="4" paint-order="stroke" stroke-linejoin="round"'),'transform="translate(160 36) rotate(-5)"');
+  return s}
+// the priceless vase: in the museum the owner bumps the player's face (painted on a Greek vase) off its pedestal
+function vaseArt(m,i){const {q,R,C,E,P,L,T,G,CH,BUB,LG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=58,y=64,h=33,px=140;
+  let s=R(-10,-10,260,200,LG(["#f4eee3","#e2d8c6"]));
+  s+=R(-10,-10,260,20,"#d9cbb0")+[...Array(22)].map((_,k)=>P(`M${k*12-8} 7v-8h8v5h-4v-2`,"none",'stroke="#9c845a" stroke-width="1.3"')).join("");
+  const col=a=>R(a-11,10,22,132,"#f7f3ea",'stroke="#cbbfa8" stroke-width="1"')+[-6,-2,2,6].map(v=>L(a+v,14,a+v,138,"#ddd2bd",1.2)).join("")+R(a-15,10,30,7,"#efe7d8",'stroke="#cbbfa8" stroke-width="1"')+R(a-15,138,30,6,"#efe7d8",'stroke="#cbbfa8" stroke-width="1"');
+  s+=col(10)+col(230)+R(-10,144,260,46,"#cbbca2")+[-10,20,50,80,110,140,170,200,230].map(a=>L(a,144,a-14,190,"#b8a888",1)).join("")+L(-10,162,250,162,"#b8a888",1);
+  // the empty pedestal and its plaque
+  s+=R(px-18,100,36,46,"#f7f3ea",'stroke="#cbbfa8" stroke-width="1.2"')+R(px-24,94,48,7,"#efe7d8",'stroke="#cbbfa8" stroke-width="1.2"')+R(px-24,144,48,6,"#efe7d8",'stroke="#cbbfa8" stroke-width="1.2"')+R(px-14,112,28,11,"#c9a227",'rx="1"')+T(px,120,"PRICELESS",5.6,"#3a2a00",'font-weight="900"');
+  // the vase, black-figure style, the player's face on it, tipping off on its way to the floor
+  const vase=P("M-6-26h12l-1 7q12 4 13 18q1 14-10 22l-2 5h-12l-2-5q-11-8-10-22q1-14 13-18z","#c4683b",'stroke="#7a3a1c" stroke-width="1.2"')+P("M-5-21q-14-1-13 13M5-21q14-1 13 13","none",'stroke="#7a3a1c" stroke-width="2.4"')+R(-14,-13,28,3,"#1b1410")+R(-12,15,24,3,"#1b1410")+svgHead(m.p,0,1,20,"#1b1410","#e8b58f");
+  s+=P(`M${px+8} 90Q${px+30} 76 ${px+44} 88`,"none",'stroke="#8a7a5a" stroke-width="1.4" stroke-dasharray="3 3"')+E(px+50,150,18,3.4,"rgba(0,0,0,.18)");
+  s+=BOB(px+50,108,G(vase,'transform="rotate(40)"'),"sc-rock");
+  // the owner in his suit, hands to his cheeks
+  s+=CH(o,x,y,h,"#2b2f3a","suit",{tie:c,arms:[[-.42,.22],[.42,.22]],len:2.4,w:.8,top:1});
+  s+=BUB(98,30,52,18,["AAAH!"],x+h*.35,y-h*.5,10,"#fff","#15203b");
+  return s}
+// the balloon: at the fair the owner lets go, and the balloon with the player's face floats off for good
+function balloonArt(m,i){const {q,R,C,E,P,L,G,CH,BUB,LG}=CS.kit,o=m.o,c=POD_COL[o]||"#5b6178",x=58,y=100,h=30,fx=202,fy=94,fr=46,bx=154,by=30;
+  let s=R(-10,-10,260,200,LG(["#6ec3f4","#d4f0ff"]))+CLOUD(206,18,.8)+CLOUD(36,60,.6);
+  // the ferris wheel and the big top
+  s+=L(fx,fy,fx-24,150,"#8d99ae",3)+L(fx,fy,fx+24,150,"#8d99ae",3)+C(fx,fy,fr,"none",'stroke="#8d99ae" stroke-width="2.4"')+C(fx,fy,fr*.62,"none",'stroke="#a7b3c6" stroke-width="1.2"')
+    +[...Array(8)].map((_,k)=>{const a=k*Math.PI/4+.2;return L(fx,fy,fx+Math.cos(a)*fr,fy+Math.sin(a)*fr,"#a7b3c6",1.2)}).join("")
+    +[...Array(8)].map((_,k)=>{const a=k*Math.PI/4+.2;return R(fx+Math.cos(a)*fr-4.5,fy+Math.sin(a)*fr+1,9,7,["#e63946","#f4a261","#2a9d8f","#ffd166"][k%4],'rx="1.5"')}).join("")+C(fx,fy,3,"#6b7280");
+  s+=R(-4,100,64,50,"#fff")+[0,1,2,3].map(k=>R(-4+k*16,100,8,50,"#e63946")).join("")+P("M-8 101L28 70L64 101Z","#e63946")+P("M8 101L28 70L20 101ZM36 101L28 70L48 101Z","#fff")+L(28,70,28,58,"#555",1.4)+P("M28 58l9 3-9 3z","#ffd166");
+  s+=R(-10,148,260,42,"#7cc55a")+P("M80 190Q120 160 170 148H196Q150 162 128 190Z","#e3cf9c");
+  // the owner, reaching up too late
+  s+=CH(o,x,y,h,c,"tee",{arms:[[-1.1,1.2],[1.45,-1.2]],len:2.2,w:.8});
+  // the balloon and its string, floating off
+  s+=`<g class="sc-float">${P(`M${bx} ${by+25}q-6 8-16 9t-18 8`,"none",'stroke="#555" stroke-width="1.1"')+E(bx,by,19,23,"#e63946",'stroke="#a4161a" stroke-width="1.2"')+P(`M${bx-3} ${by+22.5}h6l-3 4.5z`,"#a4161a")+svgHead(m.p,bx,by-1,27.5,"#fff","#ffd6da")+E(bx-9.5,by-12.6,3.8,3.7,"#fff",'opacity=".6"')}</g>`;
+  s+=BUB(96,24,66,18,["COME BACK!"],x+h*.15,y-h*.55,9.5,"#fff","#15203b");
+  return s}
+// each tab gives its five cards five different scenes (the RB top 3 are the overall top 3, so they get different ones there)
+const FINDS={gold:{a:goldArt,by:"Struck by",u:"pts of gold",k:"Gold found",c:"Gold"},
+  chest:{a:chestArt,by:"Dug up by",u:"pts of treasure",k:"Treasure dug up",c:"Treasure"},
+  mine:{a:mineArt,by:"Mined by",u:"pts of diamond",k:"Diamond mined",c:"Diamonds"},
+  trash:{a:trashArt,by:"Pulled from the trash by",u:"pts from the trash",k:"One man's trash",c:"Haul"},
+  detector:{a:detectorArt,by:"Detected by",u:"pts dug up",k:"Found on the beach",c:"Finds"},
+  pearl:{a:pearlArt,by:"Fished out by",u:"pts of pearl",k:"Pearl found",c:"Pearls"},
+  couch:{a:couchArt,by:"Found in the couch by",u:"pts of couch cash",k:"Found money",c:"Cash"},
+  scratch:{a:scratchArt,by:"Scratched off by",u:"pts won",k:"Jackpot",c:"Winnings"},
+  star:{a:starArt,by:"Discovered by",u:"pts of stardust",k:"Star discovered",c:"Stardust"},
+  egg:{a:eggArt,by:"Found by",u:"pts of golden egg",k:"Golden egg found",c:"Gold"}};
+const FIND_ORDER={all:["gold","chest","mine","trash","detector"],QB:["star","scratch","couch","gold","pearl"],RB:["pearl","couch","egg","gold","star"],WR:["chest","star","gold","couch","mine"],TE:["egg","detector","scratch","pearl","trash"]};
+const findOf=i=>FINDS[(FIND_ORDER[pickPos]||FIND_ORDER.all)[i]]||FINDS.gold;
+const DROP_SC=[{a:showerArt,by:"Dropped by",u:"wins given away"},{a:coneArt,by:"Spilled by",u:"wins melted away"},{a:fumbleArt,by:"Fumbled by",u:"wins fumbled away"},{a:vaseArt,by:"Smashed by",u:"wins shattered"},{a:balloonArt,by:"Let go by",u:"wins floated away"}];
 async function pickGrade(i){const m=pickList[i];if(!m)return;const nm=m.add[0],y=m.y;
   const lead=`<p class="gd-lead">${esc(m.team)} (${esc(short(m.o))}) picked up ${pn(nm)} <span class="muted">${esc(m.add[1])}</span> ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w} of ${y}. Every week he started for them before he left the roster:</p>`;
-  gradePop(nm,lead+'<p class="muted">Loading the weeks…</p>',"Gold found");
+  const S=findOf(i);gradePop(nm,lead+'<p class="muted">Loading the weeks…</p>',S.k);
   const W=await weeksOf(y);if(!W){gdBody(lead+'<p class="muted">The weeks could not be loaded.</p>');return}
   const tid=Object.keys(W.teams).find(k=>W.teams[k][0]===m.o),key=pnorm(nm),ws=Object.keys(W.weeks).map(Number).filter(w=>w>=m.w).sort((a,b)=>a-b);
   const rows=[];let seen=0;
@@ -4484,13 +4838,14 @@ async function pickGrade(i){const m=pickList[i];if(!m)return;const nm=m.add[0],y
     seen=1;const [p,tier]=on;if(p[2]!=="BE"&&p[2]!=="IR")rows.push([w,p[3]||0,tier])}
   const tot=rows.reduce((a,r)=>a+r[1],0),best=rows.reduce((a,r)=>r[1]>a[1]?r:a,[0,0]);
   gdBody(lead+`<div class="gd-key"><div><small>Starts</small><b>${rows.length}</b><small>weeks</small></div><div><small>Best week</small><b>${fmt(best[1])}</b><small>week ${best[0]}</small></div><div><small>Per start</small><b>${rows.length?fmt(tot/rows.length):"–"}</b><small>pts</small></div><div class="tot"><small>Lineup points</small><b>${fmt(m.pts)}</b><small>total</small></div></div>
-    <div class="tablebox"><table class="mtable gd-t"><thead><tr><th class="num">Wk</th><th class="num">Pts</th><th>Gold</th></tr></thead><tbody>${rows.map(([w,v,t])=>`<tr><td class="num">${w}${t?` <span class="rbadge">${t==="Consolation"?"Cons.":"Playoffs"}</span>`:""}</td><td class="num">${fmt(v)}</td><td><span class="gd-bar" style="width:${Math.max(2,Math.round(v/Math.max(1,best[1])*100))}%"></span></td></tr>`).join("")}</tbody></table></div>
+    <div class="tablebox"><table class="mtable gd-t"><thead><tr><th class="num">Wk</th><th class="num">Pts</th><th>${S.c}</th></tr></thead><tbody>${rows.map(([w,v,t])=>`<tr><td class="num">${w}${t?` <span class="rbadge">${t==="Consolation"?"Cons.":"Playoffs"}</span>`:""}</td><td class="num">${fmt(v)}</td><td><span class="gd-bar" style="width:${Math.max(2,Math.round(v/Math.max(1,best[1])*100))}%"></span></td></tr>`).join("")}</tbody></table></div>
     <p class="muted gd-n">Only weeks he was in ${esc(short(m.o))}'s starting lineup count, from the pickup until he left the roster (dropped or traded). ${m.add[1]!=="RB"&&m.add[1]!=="WR"&&pickPos==="all"?`In the overall list a ${esc(m.add[1])} counts at ${m.add[1]==="TE"?"85%":"60%"}, so his pickup score is ${fmt(m.score)}.`:""}</p>`)}
 function topPickups(){pickList=MV.moves.filter(m=>m.score&&(pickPos==="all"||m.add[1]===pickPos)).sort((p,q)=>pickPos==="all"?q.score-p.score:q.pts-p.pts).slice(0,5);
   const v=m=>pickPos==="all"?m.score:m.pts,top=Math.max(...pickList.map(v),1);
-  return `<div class="soaps golds">${pickList.map((m,i)=>`<article class="soap-card"><button type="button" class="soap-art gold-art" data-pk="${i}" aria-haspopup="dialog" aria-label="${esc(m.add[0])}: show every week he started">${CS.svg(()=>goldArt({...m,score:v(m)},i,top),"0 0 240 180").replace("xMidYMid meet","xMidYMid slice")}<span class="rank">${ROMAN[i]}</span></button><div class="soap-tx"><h4>${pn(m.add[0])} <span class="muted">${esc(m.add[1])} · ${m.y}</span></h4><small class="muted">Struck by ${esc(m.team)} (${esc(short(m.o))})</small><p>Grabbed ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup${m.st?` over ${m.st} start${m.st===1?"":"s"}`:""}.</p><button type="button" class="wbtn big" data-pk="${i}" aria-haspopup="dialog">${pickPos==="all"&&m.score!==m.pts?`Pickup score ${fmt(m.score)}`:`${fmt(m.pts)} pts of gold`}</button></div></article>`).join("")}</div>`}
+  return `<div class="soaps golds">${pickList.map((m,i)=>{const S=findOf(i),f=.5+.5*Math.pow(v(m)/top,2);
+    return `<article class="soap-card"><button type="button" class="soap-art gold-art" data-pk="${i}" aria-haspopup="dialog" aria-label="${esc(m.add[0])}: show every week he started">${CS.svg(()=>S.a(m,i,f),"0 0 240 180").replace("xMidYMid meet","xMidYMid slice")}<span class="rank">${ROMAN[i]}</span></button><div class="soap-tx"><h4>${pn(m.add[0])} <span class="muted">${esc(m.add[1])} · ${m.y}</span></h4><small class="muted">${S.by} ${esc(m.team)} (${esc(short(m.o))})</small><p>Grabbed ${m.k==="Waiver"?"off waivers":"in free agency"} before week ${m.w}${m.drop?`, dropping ${pn(m.drop[0])}`:""}. He scored <b>${fmt(m.pts)}</b> points in their lineup${m.st?` over ${m.st} start${m.st===1?"":"s"}`:""}.</p><button type="button" class="wbtn big" data-pk="${i}" aria-haspopup="dialog">${pickPos==="all"&&m.score!==m.pts?`Pickup score ${fmt(m.score)}`:`${fmt(m.pts)} ${S.u}`}</button></div></article>`}).join("")}</div>`}
 function topDrops(){const nm=l=>l.map(o=>esc(short(o))),and=l=>l.length<2?l.join(""):l.slice(0,-1).join(", ")+" and "+l[l.length-1];
-  return `<div class="soaps">${DROPS.slice(0,5).map((m,i)=>`<article class="soap-card"><div class="soap-art">${CS.svg(()=>showerArt(m,i),"0 0 240 180").replace("xMidYMid meet","xMidYMid slice")}<span class="rank">${ROMAN[i]}</span></div><div class="soap-tx"><h4>${pn(m.p)} <span class="muted">${esc(m.pos)} · ${m.y}</span></h4><small class="muted">Dropped by ${esc(m.team)} (${esc(short(m.o))})</small><p>Cut before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><button type="button" class="wbtn big" data-wg="d" data-i="${i}" aria-haspopup="dialog">${wf(m.war,false)} wins given away</button></div></article>`).join("")}</div>`}
+  return `<div class="soaps">${DROPS.slice(0,5).map((m,i)=>{const S=DROP_SC[i]||DROP_SC[0];return `<article class="soap-card"><div class="soap-art">${CS.svg(()=>S.a(m,i),"0 0 240 180").replace("xMidYMid meet","xMidYMid slice")}<span class="rank">${ROMAN[i]}</span></div><div class="soap-tx"><h4>${pn(m.p)} <span class="muted">${esc(m.pos)} · ${m.y}</span></h4><small class="muted">${S.by} ${esc(m.team)} (${esc(short(m.o))})</small><p>Cut before week ${m.w}${m.add?` to pick up ${pn(m.add)}`:""}. ${and(nm(m.to))} started him ${m.st} time${m.st===1?"":"s"} after that for <b>${fmt(m.pts)}</b> points.</p><button type="button" class="wbtn big" data-wg="d" data-i="${i}" aria-haspopup="dialog">${wf(m.war,false)} ${S.u}</button></div></article>`}).join("")}</div>`}
 function topSeasons(){topSeasonList=bestSeasons().slice(0,10);
   return `<div class="coaches">${topSeasonList.map((r,i)=>`<article class="coach-card${r.res==="Champion"?" champ":""}"><div class="coach-art">${CS.svg(()=>coachArt(r),"0 0 300 200")}<span class="rank">${ROMAN[i]}</span></div><div class="coach-tx"><div class="coach-h">${tav(r.o,r.y)}<div><h4>${esc(r.team||short(r.o))} <span class="muted">${r.y}</span></h4><small class="muted">Coach ${esc(short(r.o))} · ${r.w}-${r.l}${r.est?" (est.)":""} · ${r.res==="Champion"?"♛ ":""}${esc(SEASON_RES(r))}${SACKOS[r.y]?.o===r.o?" · Sacko":""}</small></div></div><div class="coach-btns"><button type="button" class="playbtn" data-mv="${i}">▶ Watch the season</button><button type="button" class="wbtn big" data-sg="${i}" aria-haspopup="dialog">Grade ${r.total.toFixed(1)}</button></div></div></article>`).join("")}</div>`}
 function renderTopLists(){
