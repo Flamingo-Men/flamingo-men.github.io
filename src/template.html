@@ -2335,13 +2335,13 @@ function tradeHTML(t,extra=""){if(TRI_OF[t.id])return triHTML(TRI_OF[t.id],extra
 
 /* ---------- HOME ---------- */
 // Storylines for the coming week, written by hand each week (Kyle's style). a/b are owners. Each question shows under its game on the home scoreboard.
-const STORYLINES={week:11,games:[
-  {"a": "jordan", "b": "jerry", "motw": true, "q": "Jordan has dropped three straight but is still on top of his division. Jerry just snapped a three-game skid and is back in the playoff hunt. Can Jordan stop the bleeding? Jerry leads the all-time series 2-1."},
-  {"a": "dilapi", "b": "fluff", "q": "Floof has won eight straight and is 9-1. Can Chris play spoiler and save his season at 3-7? He beat Floof in Week 11 last year."},
-  {"a": "dylan", "b": "kyle", "q": "Dylan has lost two straight and his playoff odds dropped to 35%. Can Kyle bounce back against him? Dylan is 4-1 against Kyle all-time, but Kyle won last year's meeting by 0.16."},
-  {"a": "rod", "b": "squirm", "q": "Squirm has won two straight after starting 0-8. Can he make it three against the RodFather? Rod is 3-1 against him all-time."},
-  {"a": "ghost", "b": "lucas", "q": "Sal has won four straight and leads the league in points. Can Ghost slow him down in their first-ever meeting? Ghost has dropped two straight and is down to an 8.5% shot at the playoffs."},
-  {"a": "quincy", "b": "charles", "q": "Charles has won two straight and is up to a 90% shot at the playoffs. Can Quincy play spoiler again? He beat Charles in Week 9 last year, and Charles leads the series 8-6."}
+const STORYLINES={week:12,games:[
+  {"a": "jordan", "b": "kyle", "motw": true, "q": "Jordan and Kyle are both 7-4 with 99% playoff odds, so a bye could be on the line. Kyle won the Week 6 meeting 127.84 to 86.5 and leads the regular-season series 4-3. Can Jordan get revenge after perching on Jerry by 71.7?"},
+  {"a": "dilapi", "b": "jerry", "q": "Jerry got perched on last week, 145.66 to 73.96, and his playoff odds fell to 54%. Chris is 3-8 and down to a 2% shot after a 137-point loss. Can Chris play spoiler? Jerry is 4-1 against him all-time, including Week 6."},
+  {"a": "dylan", "b": "squirm", "q": "Dylan has lost three straight, put up the week's lowest score (64.22) and is down to a 42% shot. Can Squirm, already out, play spoiler? Dylan just got Jonathan Taylor and Josh Downs from Kyle, and he beat Squirm in the 2024 final."},
+  {"a": "rod", "b": "lucas", "q": "Sal has won five straight and is a lock for the playoffs. The RodFather has won three straight but is down to a 1% shot. Rod is 4-0 against Sal all-time. Can Sal finally beat him?"},
+  {"a": "ghost", "b": "charles", "q": "Charles has won three straight and is up to a 95% shot at the playoffs. Ghost has lost three straight and is down to 9%. Ghost won their first-ever meeting in Week 6 by 0.16. Can he do it again with Kyle's Aaron Jones?"},
+  {"a": "quincy", "b": "fluff", "q": "Floof has won nine straight and is 10-1. Can Quincy, sitting in last at 2-9, be the one to stop him? Floof is 7-2 against him in the regular season, but Quincy beat him by 0.68 last year."}
 ]};
 /* ---------- DASHBOARD (home) ---------- */
 // data/dashboard.json comes from src/dashboard.py (ESPN, completed weeks only for odds, awards and storylines)
