@@ -169,7 +169,11 @@ if last:
     awards.append(dict(k='Perch Alert',o=w_['o'],o2=l_['o'],v=f"+{f(w_['p']-l_['p'])}",t=f"{nk(w_['o'])} perched on {nk(l_['o'])}, {f(w_['p'])} to {f(l_['p'])}"))
     cl=min(G,key=lambda g:abs(g[0]['p']-g[1]['p']));w_,l_=sorted(cl,key=lambda s:-s['p'])
     awards.append(dict(k='Nail-biter',o=w_['o'],o2=l_['o'],v=f(w_['p']-l_['p']),t=f"{nk(w_['o'])} edged {nk(l_['o'])}, {f(w_['p'])} to {f(l_['p'])}"))
-    mvp=max(((r,s) for s,_ in sides for r in s['r'] if r[2] not in('BE','IR')),key=lambda x:x[0][3])
+    # MVP = most points over the average starter at his position that week (Kyle 2026-11-24: Jonah Coleman's 32.9 as an RB
+    # beat Dak's 35.9 as a QB, since QBs always score more)
+    st=[(r,s) for s,_ in sides for r in s['r'] if r[2] not in('BE','IR')]
+    pavg={pos:sum(r[3] for r,_ in st if r[1]==pos)/max(1,sum(1 for r,_ in st if r[1]==pos)) for pos in {r[1] for r,_ in st}}
+    mvp=max(st,key=lambda x:x[0][3]-pavg[x[0][1]])
     awards.append(dict(k='MVP',o=mvp[1]['o'],v=f(mvp[0][3]),t=f"{mvp[0][0]} ({mvp[0][1]}) went off for {nk(mvp[1]['o'])}",pl=mvp[0][0]))
     bb=[]
     for s,op in sides:
