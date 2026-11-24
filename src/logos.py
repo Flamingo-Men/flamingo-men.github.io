@@ -7,7 +7,8 @@
 # A copy of each logo goes into ../img/logos (ESPN's vector logos as SVG, everything else cropped square to 192px WebP),
 # so the site doesn't depend on links that can die. A logo that couldn't be downloaded for some other reason keeps only its
 # link: the site loads it from there and shows the owner's face if that fails. Copies saved by an earlier run are kept.
-# 2016 and 2017 have no logos: those ESPN leagues were deleted. Kyle asked for logos by season on 2026-11-23.
+# 2016 and 2017 ESPN leagues were deleted: only the hand-added logos in HAND. Kyle sent his lost 2018-2022 imgur logos on
+# 2026-11-24; they're saved in img/logos under the old links' file names. Kyle asked for logos by season on 2026-11-23.
 import json,os,re,sys,ast,hashlib,subprocess,io,urllib.parse
 here=os.path.dirname(os.path.abspath(__file__)); root=os.path.dirname(here)
 args=[a for a in sys.argv[1:] if not a.startswith('--')]; SAVE_ONLY='--save' in sys.argv[1:]
@@ -18,6 +19,10 @@ B='https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl'
 LEAGUE={y:92604 for y in range(2018,2027)}; LEAGUE[2023]=604928347
 MEMBER={'Charles Lorenzo':'charles','Jack Duffy':'fluff','Chris DiLapi':'dilapi','Sean Woram':'squirm','Tommy Curran':'quincy','Kyle Klugewicz':'kyle',
  'Andrew Woram':'peanut','Lucas Pace':'lucas','Sean Kelly':'skelly','Jordan Cruz':'jordan','Christian Rod':'rod','Jeremy Carroll':'jerry','Dylan Olivieri':'dylan','Adam Smith':'ghost','Mateus Toppin':'mateus'}
+# logos (and names) owners sent in by hand for seasons ESPN can't give us; n2 = a second team name shown under the main one.
+# Kyle, 2026-11-24: his 2017 hawk and Fluff's 2017 red backpack (2016-2017 ESPN leagues are deleted)
+HAND={'2017':{'kyle':{'n':'NYC Klugeys','n2':'N Town Dolphins','f':'img/logos/hand-kyle-2017.webp'},
+              'fluff':{'n':'Duane Bernard Jr','f':'img/logos/hand-fluff-2017.webp'}}}
 DEAD={'i66.tinypic.com'}   # TinyPic shut down in 2019 (Lucas's 2018 Staten Island Salvatores logo was hosted there)
 # team name overrides live in build.py (RENAME); matched ignoring case and spacing, like moves.py does
 src=open(os.path.join(here,'build.py')).read()
@@ -121,12 +126,14 @@ else:
             if u.startswith('http://'): u='https://'+u[7:]   # the site is served over https
             if u and host(u) not in DEAD: e['u']=u
             out.setdefault(str(y),{})[o]=e
+for y,v in HAND.items():
+    for o,e in v.items(): out.setdefault(y,{})[o]=dict(e)
 # f = saved copy; x = the link can't be shown ('gone' or 'login'), so the site uses the owner's face (initials on the logo wall)
 saved={};cnt={'f':0,'gone':0,'login':0,'retry':0,'none':0}
 for y,v in out.items():
     for o,e in v.items():
         u=e.get('u')
-        if not u: cnt['none']+=1; continue
+        if not u: cnt['f' if e.get('f') else 'none']+=1; continue
         if u not in saved: saved[u]=save(u)
         f,why=saved[u]; e.pop('f',None); e.pop('x',None)
         if f: e['f']=f; cnt['f']+=1

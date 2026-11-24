@@ -7,6 +7,8 @@ CACHE=sys.argv[1] if len(sys.argv)>1 else os.path.join(root,'.espn-cache'); os.m
 B='https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl'
 LEAGUE={2018:92604,2019:92604,2025:92604,2020:92604,2021:92604,2022:92604,2023:604928347,2024:92604,2026:92604}   # 2023 ran in its own ESPN league
 ALL=list(range(2016,2027))
+# main team name for a rebuilt season (Kyle, 2026-11-24); the site shows Kyle's 2017 N Town Dolphins under NYC Klugeys
+MAIN_NAME={2017:{'kyle':'NYC Klugeys','fluff':'Duane Bernard Jr'}}
 KICKOFF={2016:'2016-09-08',2017:'2017-09-07',2018:'2018-09-06',2019:'2019-09-05',2020:'2020-09-10',2021:'2021-09-09',2022:'2022-09-08',2023:'2023-09-07',2024:'2024-09-05',2025:'2025-09-04',2026:'2026-09-10'}
 LASTWK=lambda y:16 if y<=2020 else 17         # fantasy championship week
 MEMBER={'Charles Lorenzo':'charles','Jack Duffy':'fluff','Chris DiLapi':'dilapi','Sean Woram':'squirm','Tommy Curran':'quincy','Kyle Klugewicz':'kyle',
@@ -341,6 +343,7 @@ def main():
         D=DR.get(str(y))
         for c,(tn,o) in enumerate(D['teams'] if D else []):
             names.setdefault(o,tn)
+        names.update(MAIN_NAME.get(y,{}))   # the season's main team name wins over a trade-time or draft-board name
         out['rosters'][y]={o:dict(team=names.get(o,''),src='rebuilt',players=list(v.values())) for o,v in R.items() if o}
     # roster snapshots for rebuilt seasons: champion/Sacko roster PDFs (template.html) and screenshots
     t=open(os.path.join(here,'template.html')).read()
