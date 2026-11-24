@@ -1175,7 +1175,6 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .tw{animation:aTw 3s ease-in-out infinite}
 .acro .a-hop{animation:aHop 4s ease-in-out infinite}
 .acro .a-boat{animation:aBoat 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}@keyframes aBoat{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-1.5px)}}
-.acro .a-wave{animation:aWave 2s ease-in-out infinite alternate}@keyframes aWave{to{transform:translateX(5px)}}
 .acro .a-steer{animation:aSteer 1.1s ease-in-out infinite alternate}@keyframes aSteer{from{transform:rotate(-28deg)}to{transform:rotate(24deg)}}
 .acro .a-smoke{animation:aSmoke 2.7s ease-out infinite}@keyframes aSmoke{0%{transform:none;opacity:0}15%{opacity:.9}100%{transform:translate(5px,-16px) scale(2.2);opacity:0}}
 .acro .a-road{animation:aRoad .5s linear infinite}@keyframes aRoad{to{transform:translateY(4px)}}
@@ -2531,8 +2530,8 @@ function renderHome(){
    out over Lucas (Kyle 2026-11-23). Speech bubbles hover centred just above the speaker's head, and Kyle sits on the loveseat
    with his feet on the floor (podFig p.sit). ACRO_LORE lines are hover titles; keep them inside the content rules. */
 const ACRO_LORE={
-  kyle:"Three titles, and tonight he perched on Floof: up on the back of the couch with a joint and the driving sim.",
-  fluff:"The league's perch king, finally perched on. Kyle got up on the back of the couch first.",
+  kyle:"Three titles, and tonight he perched on Floof from the back of the couch.",
+  fluff:"The league's perch king, finally perched on, stuck on the couch with a joint and the driving sim.",
   charles:"The busiest trader in league history, never far from Sal's Chickens (four of them this year).",
   squirm:"Old Hickory, the 2021 champion, firing footballs out of the jugs machine.",
   dylan:"Lucas's roommate, waving the Sultans of Squirm flag, as always.",
@@ -2552,7 +2551,7 @@ const ACRO_LORE={
 // where everyone's feet are: [x, step]. Each row stands between the heads of the row in front. Floof perches on Kyle's loveseat (drawn with Kyle).
 const ACRO={W:538,H:336,rows:{b:224,m:270,f:316},
   at:{duane:[54,"b"],quincy:[120,"b"],mateus:[185,"b"],lucas:[254,"b"],dylan:[332,"b"],squirm:[413,"b"],
-    jerry:[88,"m"],keeves:[152,"m"],vicente:[222,"m"],ghost:[290,"m"],skelly:[452,"m"],
+    jerry:[62,"m"],keeves:[152,"m"],vicente:[222,"m"],ghost:[290,"m"],skelly:[452,"m"],
     jordan:[120,"f"],dilapi:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
 // an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
 const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
@@ -2575,15 +2574,13 @@ const ACRO_ACT={
       +R(-6,121,120,21,"#8e3550",'rx="6" stroke="#4e1527" stroke-width="1.5"')+P("M54 123v17","none",'stroke="#5e1d33" stroke-width="1.5"')
       +R(-10,142,7,7,"#2b1a12")+R(111,142,7,7,"#2b1a12")+E(44,111,25,4.5,"rgba(0,0,0,.28)");
     const arms=R(-14,98,16,46,"#6a2338",'rx="7"')+R(106,98,16,46,"#6a2338",'rx="7"');
-    const tro=[-11,-4,3].map(x=>TROPHY(x,95,.36)).join("");
-    // Kyle perching on Floof (Kyle 2026-11-24): Floof sits on the sofa, Kyle crouches on the back of it above him,
-    // a joint in his mouth and a driving-sim wheel in his hands, the race on a monitor on the left of the sofa back
-    const sim=R(-8,48,34,24,"#15171c",'rx="2.5" stroke="#3a3f48" stroke-width="1.2"')+R(-5.5,50.5,29,19,"#6ec3ff")+R(-5.5,61,29,8.5,"#3f8a3a")+P("M5 69.5L8 61H11L16 69.5Z","#55595f")
-      +`<g class="an a-road">${[0,1].map(i=>R(9,62+i*4,1.4,2.4,"#fff")).join("")}</g>`+R(7,72,4,10,"#2b2f36");
-    const floof=`<g class="ac" data-o="fluff"><title>${esc(short("fluff")+": "+ACRO_LORE.fluff)}</title><g transform="translate(-8 4)">${podFig("fluff",{pose:"lap",sit:1,d:.4})}</g></g>`;
+    // Kyle perching on Floof (Kyle 2026-11-24): Floof sits on the sofa driving a sim wheel with a joint in his mouth,
+    // and Kyle crouches on the back of the sofa above him
     const wheel=acPiv(52,90,"a-steer",C(52,90,11,"none",'stroke="#1c1f24" stroke-width="3.6"')+L(41,90,63,90,"#1c1f24",2.6)+L(52,90,52,101,"#1c1f24",2.6)+C(52,90,3.2,"#c8102e")+R(49,78,6,2.6,"#c8102e"));
-    const me=`<g transform="translate(39 -65)">${acPiv(52,147,"a-hop",podFig("kyle",{pose:"wheel",d:1.2,headx:AC_JOINT})+wheel)}</g>`;
-    return back+sim+seat+floof+arms+me+tro},
+    const rig=L(52,98,52,146,"#2b2f36",3.2)+R(36,144,32,4,"#2b2f36",'rx="2"')+R(55,96,8,6,"#2b2f36",'rx="1.5"')+R(40,138,8,6,"#59616b",'rx="1" transform="rotate(-20 44 141)"')+R(56,138,8,6,"#59616b",'rx="1" transform="rotate(-20 60 141)"');
+    const floof=`<g class="ac" data-o="fluff"><title>${esc(short("fluff")+": "+ACRO_LORE.fluff)}</title><g transform="translate(-8 4)">${podFig("fluff",{pose:"wheel",sit:1,d:.4,headx:AC_JOINT})+rig+wheel}</g></g>`;
+    const me=`<g transform="translate(39 -65)">${acPiv(52,147,"a-hop",podFig("kyle",{pose:"chill",d:1.2}))}</g>`;
+    return back+seat+floof+arms+me},
   charles:()=>{const {CHICK,C,T}=CS.kit;
     const ch=[[-4,140,0],[100,142,1.6],[30,150,3.1]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.8),d)).join("");
     const ping=`<g class="an a-ping">${C(88,42,8,"#1f9d55",'stroke="#fff" stroke-width="1.5"')+T(88,46,"✓",11,"#fff",'font-weight="900"')}</g>`;
@@ -2638,9 +2635,8 @@ const ACRO_ACT={
   jerry:()=>{const {R,P,L,E,G}=CS.kit;
     const ak=G(R(-26,-2.6,13,6.5,"#8a5a2e",'rx="1.5" stroke="#4a2e14" stroke-width=".7"')+R(-14,-3,20,6,"#2b2f36",'rx="1"')+R(5,-2.4,12,4.8,"#8a5a2e",'rx="1.2" stroke="#4a2e14" stroke-width=".7"')
       +L(17,-.5,34,-.5,"#2b2f36",2)+L(31,-.5,31,-4,"#2b2f36",1.4)+P("M-2 3q3 7 -1 13h-5q3-6 1-13z","#2b2f36")+P("M-12 3l-2 6h3l2-6z","#4a2e14"),'transform="translate(84 50) rotate(-62)"');
-    const water=`<g class="an a-wave">${[0,1,2].map(k=>P(`M${-6+k*36} 133q9-5 18 0t18 0`,"none",'stroke="#7cc4ec" stroke-width="2" stroke-linecap="round" opacity=".8"')).join("")}</g>`;
-    const boat=R(4,106,96,5,"#6b4423",'rx="2.5"')+P("M6 110H98L88 130H16Z","#a0682f",'stroke="#5b3a1e" stroke-width="1.2" stroke-linejoin="round"')+L(12,119,92,119,"#8a5a2e",1.2);
-    return E(52,134,58,7,"rgba(70,140,200,.45)")+`<g class="an a-boat">${podFig("jerry",{fit:"hoodie",pose:"card",d:.6,headx:AC_JOINT})+ak+boat}</g>`+water},
+    const boat=R(4,106,96,5,"#6b4423",'rx="2.5"')+P("M6 110H98L90 146H14Z","#a0682f",'stroke="#5b3a1e" stroke-width="1.2" stroke-linejoin="round"')+L(12,119,92,119,"#8a5a2e",1.2);
+    return `<g class="an a-boat">${podFig("jerry",{fit:"hoodie",pose:"card",d:.6,headx:AC_JOINT})+ak+boat}</g>`},
   skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
   // tipping back a 500ml BeatBox party punch carton (tall carton, white screw cap, big BEATBOX wordmark) (Kyle 2026-11-24)
   mateus:()=>{const {R,T,P,C,G}=CS.kit;
