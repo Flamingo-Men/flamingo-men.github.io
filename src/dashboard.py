@@ -143,6 +143,15 @@ def optimal(ro):
     for k in by: by[k].sort(reverse=True)
     tot=sum(by['QB'][:1])+sum(by['RB'][:2])+sum(by['WR'][:2])+sum(by['TE'][:1])+sum(by['K'][:1])+sum(by['D/ST'][:1])
     return tot+sum(sorted(by['RB'][2:]+by['WR'][2:]+by['TE'][1:],reverse=True)[:2])
+def best_ids(ro):
+    # the rows that make up the best legal lineup (same rules as optimal)
+    by=collections.defaultdict(list)
+    for r in ro:
+        if r[2]!='IR': by[r[1]].append(r)
+    for k in by: by[k].sort(key=lambda r:-r[3])
+    pick=by['QB'][:1]+by['RB'][:2]+by['WR'][:2]+by['TE'][:1]+by['K'][:1]+by['D/ST'][:1]
+    pick+=sorted(by['RB'][2:]+by['WR'][2:]+by['TE'][1:],key=lambda r:-r[3])[:2]
+    return {id(r) for r in pick}
 awards=[]
 if last:
     G=LU[last];sides=[(s,o2) for a,b in G for s,o2 in ((a,b),(b,a))]
@@ -168,7 +177,8 @@ if last:
         bb.append((s['p']<op['p'] and optimal(s['r'])>op['p'],gap,s,op))
     cost=[x for x in bb if x[0]]
     x=max(cost,key=lambda x:x[1]) if cost else max(bb,key=lambda x:x[1])
-    bench=max((r for r in x[2]['r'] if r[2]=='BE'),key=lambda r:r[3],default=None)
+    # name the bench player who belonged in the best lineup (Kyle 2026-11-24: not just the top bench scorer, who may be a backup QB behind a starter who went off)
+    bench=max((r for r in x[2]['r'] if r[2]=='BE' and id(r) in best_ids(x[2]['r'])),key=lambda r:r[3],default=None)
     awards.append(dict(k='Bench blunder',o=x[2]['o'],v=f"{f(x[1])} left",t=(f"The best lineup would have beaten {nk(x[3]['o'])}" if x[0] else "Most points left on the bench")+(f". {bench[0]} sat with {f(bench[3])}" if bench else ""),pl=bench[0] if bench else None))
 
 # ---- season storylines ----
