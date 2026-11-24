@@ -1175,7 +1175,6 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .tw{animation:aTw 3s ease-in-out infinite}
 .acro .a-hop{animation:aHop 4s ease-in-out infinite}
 .acro .a-boat{animation:aBoat 3s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 90%}@keyframes aBoat{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-1.5px)}}
-.acro .a-wave{animation:aWave 2s ease-in-out infinite alternate}@keyframes aWave{to{transform:translateX(5px)}}
 .acro .a-steer{animation:aSteer 1.1s ease-in-out infinite alternate}@keyframes aSteer{from{transform:rotate(-28deg)}to{transform:rotate(24deg)}}
 .acro .a-smoke{animation:aSmoke 2.7s ease-out infinite}@keyframes aSmoke{0%{transform:none;opacity:0}15%{opacity:.9}100%{transform:translate(5px,-16px) scale(2.2);opacity:0}}
 .acro .a-road{animation:aRoad .5s linear infinite}@keyframes aRoad{to{transform:translateY(4px)}}
@@ -2636,9 +2635,8 @@ const ACRO_ACT={
   jerry:()=>{const {R,P,L,E,G}=CS.kit;
     const ak=G(R(-26,-2.6,13,6.5,"#8a5a2e",'rx="1.5" stroke="#4a2e14" stroke-width=".7"')+R(-14,-3,20,6,"#2b2f36",'rx="1"')+R(5,-2.4,12,4.8,"#8a5a2e",'rx="1.2" stroke="#4a2e14" stroke-width=".7"')
       +L(17,-.5,34,-.5,"#2b2f36",2)+L(31,-.5,31,-4,"#2b2f36",1.4)+P("M-2 3q3 7 -1 13h-5q3-6 1-13z","#2b2f36")+P("M-12 3l-2 6h3l2-6z","#4a2e14"),'transform="translate(84 50) rotate(-62)"');
-    const water=`<g class="an a-wave">${[0,1,2].map(k=>P(`M${-6+k*36} 146q9-5 18 0t18 0`,"none",'stroke="#7cc4ec" stroke-width="2" stroke-linecap="round" opacity=".8"')).join("")}</g>`;
     const boat=R(4,106,96,5,"#6b4423",'rx="2.5"')+P("M6 110H98L90 146H14Z","#a0682f",'stroke="#5b3a1e" stroke-width="1.2" stroke-linejoin="round"')+L(12,119,92,119,"#8a5a2e",1.2);
-    return E(52,146,58,7,"rgba(70,140,200,.45)")+`<g class="an a-boat">${podFig("jerry",{fit:"hoodie",pose:"card",d:.6,headx:AC_JOINT})+ak+boat}</g>`+water},
+    return `<g class="an a-boat">${podFig("jerry",{fit:"hoodie",pose:"card",d:.6,headx:AC_JOINT})+ak+boat}</g>`},
   skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
   // tipping back a 500ml BeatBox party punch carton (tall carton, white screw cap, big BEATBOX wordmark) (Kyle 2026-11-24)
   mateus:()=>{const {R,T,P,C,G}=CS.kit;
