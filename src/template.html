@@ -719,24 +719,24 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
 @keyframes soapFall{0%{transform:translate(-30px,-74px) rotate(-40deg)}38%{transform:translate(0,0) rotate(8deg)}46%{transform:translate(3px,-7px) rotate(-6deg)}54%,100%{transform:translate(5px,0) rotate(-12deg)}}
 .ch-pl{animation:chPl 2.8s ease-in-out infinite}@keyframes chPl{0%,100%{translate:0 0}50%{translate:0 -2.5px}}
 @media (prefers-reduced-motion:reduce){.gr-wave,.gr-nug,.sh-water line,.sh-steam,.soap-fall,.ch-pl{animation:none}.soap-fall{transform:translate(5px,0) rotate(-12deg)}}
-/* Compact top lists (Kyle 2026-11-24): art beside the words, so each card is about half as tall */
-.soaps,.coaches{gap:12px;grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
-.soap-card,.coach-card{grid-template-rows:none;grid-template-columns:minmax(0,46%) minmax(0,1fr)}
-.soap-art,.coach-art{align-self:stretch;min-height:100%}.soap-art svg{height:100%}
-.coach-art{display:flex;align-items:center;background:#3f8a3a}
-.soap-art .rank,.coach-art .rank{left:6px;top:6px;padding:2px 6px;font-size:1rem}
-.soap-tx,.coach-tx{padding:10px 12px;gap:4px;align-content:center}.soap-tx h4,.coach-tx h4{font-size:.98rem;line-height:1.2}.soap-tx small{line-height:1.25}.soap-tx p{font-size:.84rem;line-height:1.35}.soap-tx .wbtn{margin-top:2px}
-.coach-btns{margin-top:4px;gap:6px}
+/* Compact top lists (Kyle 2026-11-24): drops and gold rush show the art beside the words; top 10 seasons stay as they were */
+.soaps{gap:12px;grid-template-columns:repeat(auto-fill,minmax(440px,1fr))}
+.soap-card{grid-template-rows:none;grid-template-columns:minmax(0,46%) minmax(0,1fr)}
+.soap-art{align-self:stretch;min-height:100%}.soap-art svg{height:100%}
+.soap-art .rank{left:6px;top:6px;padding:2px 6px;font-size:1rem}
+.soap-tx{padding:10px 12px;gap:4px;align-content:center}.soap-tx h4{font-size:.98rem;line-height:1.2}.soap-tx small{line-height:1.25}.soap-tx p{font-size:.84rem;line-height:1.35}.soap-tx .wbtn{margin-top:2px}
 .ptable{gap:2px}.pt-felt{padding:10px 40px}.pt-side{gap:4px}.pt-hand{padding:2px 0 0}
-@media (max-width:640px){.soaps,.coaches{grid-template-columns:1fr;gap:10px}
-  .soap-card,.coach-card{grid-template-columns:minmax(0,44%) minmax(0,1fr)}
-  .soap-tx,.coach-tx{padding:7px 9px;gap:2px}.soap-tx h4,.coach-tx h4{font-size:.86rem}.soap-tx small,.coach-h small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}
-  .wbtn.big{font-size:.72rem;padding:3px 9px}.playbtn{font-size:.72rem;padding:4px 10px}
-  .coach-h{gap:6px;align-items:flex-start}.coach-h .tav,.coach-h .av{--s:28px;width:28px;height:28px}.coach-btns{gap:5px;margin-top:3px}
+.pc-n{white-space:normal;overflow-wrap:anywhere;text-align:center}
+@media (max-width:640px){.soaps{grid-template-columns:1fr;gap:10px}
+  .soap-card{grid-template-columns:minmax(0,44%) minmax(0,1fr)}
+  .soap-tx{padding:7px 9px;gap:2px}.soap-tx h4{font-size:.86rem}.soap-tx small{font-size:.68rem}.soap-tx p{font-size:.74rem;line-height:1.3}.soap-tx .wbtn.big{font-size:.72rem;padding:3px 9px}
   .pt-top{font-size:.7rem;gap:6px}.pt-top .rank{font-size:1.1rem}
   .pt-felt{padding:6px 6px;border-width:6px;border-radius:56px/44px}.pt-side{gap:2px}
   .pt-own{flex-direction:row;gap:4px;text-align:left}.pt-own .av{width:22px;height:22px;border-width:1.5px}.pt-own b{font-size:.74rem}.pt-own small{font-size:.56rem;max-width:96px}
-  .pt-tot{flex-direction:row;gap:0;font-size:.64rem}.tc-stamp{font-size:.6rem;padding:0 3px;margin-right:4px;border-width:1.5px}}
+  .pt-tot{flex-direction:row;gap:0;font-size:.64rem}.tc-stamp{font-size:.6rem;padding:0 3px;margin-right:4px;border-width:1.5px}
+  /* full names on phones: the cards sit side by side (two to a row) instead of overlapping in a fan */
+  .pt-side{justify-items:stretch}.pt-own,.pt-tot{justify-self:center}.pt-hand{flex-wrap:wrap;gap:3px;--cw:min(64px,calc(50% - 2px))}.pc{aspect-ratio:auto;padding:9px 2px 7px;transform:none}.pc+.pc{margin-left:0}.pc:hover,.pc:focus-visible{transform:translateY(-3px)}
+  .pc-n{font-size:.56rem;line-height:1.05}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -1186,6 +1186,7 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .a-puddle{animation:aPuddle 8s ease-in-out infinite}
 .acro .a-step{animation:aStep .7s ease-in-out infinite}
 .acro .a-juggle{animation:aJuggle 2.6s linear infinite}
+.acro .a-sip{animation:aSip 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}@keyframes aSip{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg) translateY(-1px)}}
 .acro .a-drib{animation:aDrib .34s cubic-bezier(.55,0,1,.45) infinite alternate}
 .acro .a-kernel{animation:aKernel 2.2s ease-in-out infinite}
 .acro .a-float{animation:aFloat 4s ease-in-out infinite}
@@ -2545,7 +2546,7 @@ const ACRO_LORE={
   rod:"The RodFather. Quietly good and rarely trades, but when he does it's an offer you can't refuse.",
   jerry:"The Encino Man, thawing out for 2026 after a year on ice.",
   skelly:"Team Kelly, 2019 to 2021, then off to become a doctor.",
-  mateus:"One season, six trades. Still juggling them.",
+  mateus:"One season, six trades. Still juggling them, BeatBox in hand.",
   duane:"The first champion, 2016. Collected his pot at a Chaminade basketball game.",
   keeves:"Played one season, 2017, as Patrick. Has been watching from the steps ever since.",
   ghost:"Met the league over online games, played the 2015 Wu-Tang league, and floated back for 2026.",
@@ -2613,9 +2614,11 @@ const ACRO_ACT={
     const ice=`<g class="an a-thaw">${R(16,22,72,128,"rgba(176,224,255,.6)",'rx="8" stroke="rgba(235,248,255,.9)" stroke-width="2"')+P("M22 36l10-6M24 50l18-12M72 120l10-8","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"')}</g>`;
     return acPiv(52,149,"a-puddle",E(52,149,54,5,"rgba(140,200,240,.6)"))+podFig("jerry",{fit:"hoodie",pose:"wave",d:.6})+ice},
   skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
-  mateus:()=>{const {R}=CS.kit;
+  mateus:()=>{const {R,T,P}=CS.kit;
     const cards=Array.from({length:6},(_,i)=>{const a=i/6*Math.PI*2,x=52+Math.cos(a)*20,y=4+Math.sin(a)*20;return R(x-5,y-7,10,14,"#fbf8f0",'rx="1.5" stroke="#c9c0a8" stroke-width=".8"')+R(x-5,y-2.5,10,3.5,i%2?"#ad1457":"#1d4f91")}).join("");
-    return podFig("mateus",{pose:"up",d:2.5})+acPiv(52,4,"a-juggle",cards)},
+    // sipping a BeatBox through a straw with one hand, still juggling the six trades with the other (Kyle 2026-11-24)
+    const box=`<g class="an a-sip">${R(58,66,13,17,"#ff3d8b",'rx="1.5" stroke="#8a0f45" stroke-width=".9"')+R(58,66,13,4,"#ffd23f",'rx="1"')+R(59.5,73,10,5,"#1b1b2f",'rx=".8"')+T(64.5,76.6,"BEAT",3.6,"#ffd23f",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"')+P("M61 66L59 60L51 72","none",'stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"')}</g>`;
+    return podFig("mateus",{pose:"drink",d:2.5})+box+acPiv(52,4,"a-juggle",cards)},
   duane:()=>{const {C,P,T,L}=CS.kit;
     const ball=`<g class="an a-drib">${C(82,124,10,"#e0782d",'stroke="#7a3a10" stroke-width="1.2"')+L(72,124,92,124,"#7a3a10",1)+P("M82 114q-6 10 0 20M82 114q6 10 0 20","none",'stroke="#7a3a10" stroke-width="1"')}</g>`;
     const bag=P("M16 116q-8 14 2 24h22q10-10 2-24z","#c9a86a",'stroke="#7a5a26" stroke-width="1.5"')+P("M22 116l4-6h8l4 6","none",'stroke="#7a5a26" stroke-width="2"')+T(29,135,"$",14,"#2e6b2e",'font-weight="900"');
@@ -3017,7 +3020,8 @@ const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up
   cross:s=>[[s*22,101],[-s*12,95]],phone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,97],[s*15,110]],
   card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]],
   pushL:s=>s>0?[[14,96],[-34,100]]:[[-28,92],[-40,96]],lap:s=>[[s*26,100],[s*8,110]],
-  sitPhone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,100],[s*27,113]]};
+  sitPhone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,100],[s*27,113]],
+  drink:s=>s>0?[[s*30,94],[s*13,80]]:[[s*27,62],[s*30,41]]};
 const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
 const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
 // a gold laurel around the top of a head of height h, centred on (0,0)
