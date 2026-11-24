@@ -734,9 +734,16 @@ dialog.gdlg::backdrop{background:rgba(10,14,28,.55)}
   .pt-felt{padding:6px 6px;border-width:6px;border-radius:56px/44px}.pt-side{gap:2px}
   .pt-own{flex-direction:row;gap:4px;text-align:left}.pt-own .av{width:22px;height:22px;border-width:1.5px}.pt-own b{font-size:.74rem}.pt-own small{font-size:.56rem;max-width:96px}
   .pt-tot{flex-direction:row;gap:0;font-size:.64rem}.tc-stamp{font-size:.6rem;padding:0 3px;margin-right:4px;border-width:1.5px}
-  /* full names on phones: the cards sit side by side (two to a row) instead of overlapping in a fan */
-  .pt-side{justify-items:stretch}.pt-own,.pt-tot{justify-self:center}.pt-hand{flex-wrap:wrap;gap:3px;--cw:min(64px,calc(50% - 2px))}.pc{aspect-ratio:auto;padding:9px 2px 7px;transform:none}.pc+.pc{margin-left:0}.pc:hover,.pc:focus-visible{transform:translateY(-3px)}
-  .pc-n{font-size:.56rem;line-height:1.05}}
+  /* phones: a real fanned hand, each card tucked under the next; the name runs down the visible left edge like a card index */
+  .pt-side{justify-items:stretch}.pt-own,.pt-tot{justify-self:center}
+  .pt-hand{--cw:52px;padding:4px 0 6px}
+  .pc{display:block;aspect-ratio:5/7;padding:0;border-radius:5px;transform:rotate(calc(var(--k) * 4deg)) translateY(calc(var(--k) * var(--k) * 1.2px));transform-origin:50% 130%}
+  .pc+.pc{margin-left:clamp(calc(var(--cw) * -.6),calc((100% - var(--n) * var(--cw)) / (var(--n) - 1) - 5px),calc(var(--cw) * -.42))}
+  .pc:hover,.pc:focus-visible{transform:rotate(calc(var(--k) * 4deg)) translateY(-8px)}
+  .pc-i{left:2px;top:2px}.pc-i.b{right:2px;bottom:2px}
+  .pc .pc-ph{--d:18px;position:absolute;left:10px;top:5px;border-width:1.5px}
+  .pc-n{position:absolute;left:1px;top:19px;writing-mode:vertical-rl;font-size:.5rem;line-height:1;max-height:52px;white-space:nowrap;overflow:visible;text-align:start;letter-spacing:-.01em}
+  .pc-w{position:absolute;left:9px;top:26px;font-size:.47rem;letter-spacing:-.02em}}
 .pf-head,.pf-wave,.pf-conf,.pf-spark{transform-origin:0 0}
 .pf-head{animation:podBob 2.8s ease-in-out infinite}
 .pf-wave{animation:podWave .8s ease-in-out infinite alternate}
@@ -1169,24 +1176,21 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 .acro .a-hop{animation:aHop 4s ease-in-out infinite}
 .acro .a-chick{animation:aChick 5s linear infinite}
 .acro .a-ping{animation:aPing 3s ease-out infinite}
-.acro .a-sword{animation:podWave .8s ease-in-out infinite alternate}
 .acro .a-flag{animation:aFlag .9s ease-in-out infinite alternate}
 .acro .a-gavel{animation:aGavel 2.4s infinite}
 .acro .a-order{animation:aOrder 2.4s infinite}
-.acro .a-unroll{animation:aUnroll 7s ease-in-out infinite}
-.acro .a-roller{animation:aRoller 7s ease-in-out infinite}
 .acro .a-rant{animation:aRant .5s ease-in-out infinite}
 .acro .a-say3{animation:aSay3 6s infinite}
-.acro .a-swing{animation:aSwing 1.6s ease-in-out infinite alternate}
-.acro .a-push{animation:aPush 4.5s ease-in-out infinite}
-.acro .a-rock{animation:aRock 4.5s ease-in-out infinite}
-.acro .a-spin{animation:aSpin 4.5s ease-in-out infinite}
 .acro .a-tail{animation:aTail 1.3s ease-in-out infinite alternate}
 .acro .a-thaw{animation:aThaw 8s ease-in-out infinite}
 .acro .a-puddle{animation:aPuddle 8s ease-in-out infinite}
 .acro .a-step{animation:aStep .7s ease-in-out infinite}
-.acro .a-juggle{animation:aJuggle 2.6s linear infinite}
-.acro .a-sip{animation:aSip 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}@keyframes aSip{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg) translateY(-1px)}}
+.acro .a-sip{animation:aSip 3.2s ease-in-out infinite;transform-box:fill-box;transform-origin:90% 10%}@keyframes aSip{0%,100%{transform:rotate(0)}45%,70%{transform:rotate(12deg)}}
+.acro .a-jugs{animation:aJugs 2.2s cubic-bezier(.3,.6,.6,1) infinite}@keyframes aJugs{0%{transform:scale(.6);opacity:0}6%{opacity:1}70%{transform:translate(78px,-70px) rotate(300deg) scale(.9);opacity:1}78%,100%{transform:translate(88px,-78px) rotate(340deg) scale(.9);opacity:0}}
+.acro .a-jump{animation:aJump 1.8s ease-in-out infinite}@keyframes aJump{0%,20%,72%,100%{transform:none}30%{transform:scale(1.04,.94) translateY(4px)}46%{transform:translateY(-18px)}60%{transform:translateY(-2px)}}
+.acro .a-shadow{animation:aShadow 1.8s ease-in-out infinite}@keyframes aShadow{0%,20%,72%,100%{opacity:1}46%{opacity:.45}}
+.acro .a-shake{animation:aShake .45s ease-in-out infinite alternate}@keyframes aShake{from{transform:translate(-2px,2px) rotate(-14deg)}to{transform:translate(2px,-3px) rotate(12deg)}}
+.acro .a-reel{animation:aReel 1.8s ease-in-out infinite}@keyframes aReel{0%,30%,72%,100%{transform:rotate(0)}44%,52%{transform:rotate(9deg)}}
 .acro .a-drib{animation:aDrib .34s cubic-bezier(.55,0,1,.45) infinite alternate}
 .acro .a-kernel{animation:aKernel 2.2s ease-in-out infinite}
 .acro .a-float{animation:aFloat 4s ease-in-out infinite}
@@ -1198,19 +1202,12 @@ dialog.wrpdlg::backdrop{background:rgba(10,14,28,.6)}
 @keyframes aFlag{from{transform:skewY(-7deg) scaleX(.9)}to{transform:skewY(5deg)}}
 @keyframes aGavel{0%,58%,100%{transform:rotate(-40deg)}68%{transform:rotate(22deg)}74%,90%{transform:rotate(12deg)}98%{transform:rotate(-40deg)}}
 @keyframes aOrder{0%,64%{opacity:0}69%,90%{opacity:1}96%,100%{opacity:0}}
-@keyframes aUnroll{0%,8%{transform:scaleY(.06)}55%,85%{transform:none}100%{transform:scaleY(.06)}}
-@keyframes aRoller{0%,8%{transform:translateY(-41px)}55%,85%{transform:none}100%{transform:translateY(-41px)}}
 @keyframes aRant{50%{transform:translateY(-4px)}}
 @keyframes aSay3{0%,30%{opacity:1}34%,100%{opacity:0}}
-@keyframes aSwing{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
-@keyframes aPush{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(3px)}}
-@keyframes aRock{0%,100%{transform:none}45%,58%{transform:translateX(-8px)}80%{transform:translateX(4px)}}
-@keyframes aSpin{0%,100%{transform:none}45%,58%{transform:rotate(-30deg)}80%{transform:rotate(12deg)}}
 @keyframes aTail{from{transform:rotate(-15deg)}to{transform:rotate(22deg)}}
 @keyframes aThaw{0%,15%{opacity:.9}50%,70%{opacity:.08}100%{opacity:.9}}
 @keyframes aPuddle{0%,15%{transform:scaleX(.3)}50%,70%{transform:none}100%{transform:scaleX(.3)}}
 @keyframes aStep{50%{transform:translateY(-3px)}}
-@keyframes aJuggle{to{transform:rotate(1turn)}}
 @keyframes aDrib{to{transform:translateY(17px)}}
 @keyframes aKernel{0%{transform:translate(16px,26px);opacity:0}12%{opacity:1}50%{transform:translate(8px,-44px)}86%{transform:translate(0,-2px);opacity:1}92%,100%{transform:none;opacity:0}}
 @keyframes aFloat{0%,100%{transform:none;opacity:1}50%{transform:translateY(-7px);opacity:.75}}
@@ -2536,26 +2533,26 @@ const ACRO_LORE={
   kyle:"Three titles, and always rebuilding his roster from the couch in the middle of the season.",
   fluff:"Perch alert. Floof climbs the back of the couch and perches on whoever is sitting below.",
   charles:"The busiest trader in league history, never far from Sal's Chickens (four of them this year).",
-  squirm:"Old Hickory, the 2021 champion, fighting on like the Black Knight. 'Tis but a scratch.",
+  squirm:"Old Hickory, the 2021 champion, firing footballs out of the jugs machine.",
   dylan:"Lucas's roommate, waving the Sultans of Squirm flag, as always.",
   lucas:"Commissioner again in 2026, calling the league to order. Nine is his guy.",
-  peanut:"Sitting out 2026 to heal up, but still unrolling team names. The league wants Kad back in 2027.",
+  peanut:"Sitting out 2026 to heal up, so he went fishing on the steps. The league wants Kad back in 2027.",
   quincy:"Argues for sport. Any soapbox will do.",
-  dilapi:"The league's biggest swing team: back-to-back Sackos, then 11-2, then 2-11, then first place.",
-  jordan:"Pushing the 1-12 boulder up the steps. It keeps rolling back down.",
+  dilapi:"Back-to-back Sackos, then 11-2, then 2-11, then first place. Still jumping at the bait.",
+  jordan:"Tending bar for the Flamingo Men, shaking up the drinks.",
   rod:"The RodFather. Quietly good and rarely trades, but when he does it's an offer you can't refuse.",
   jerry:"The Encino Man, thawing out for 2026 after a year on ice.",
   skelly:"Team Kelly, 2019 to 2021, then off to become a doctor.",
-  mateus:"One season, six trades. Still juggling them, BeatBox in hand.",
+  mateus:"One season, six trades, and a BeatBox.",
   duane:"The first champion, 2016. Collected his pot at a Chaminade basketball game.",
   keeves:"Played one season, 2017, as Patrick. Has been watching from the steps ever since.",
   ghost:"Met the league over online games, played the 2015 Wu-Tang league, and floated back for 2026.",
   vicente:"Just joined the NYPD, and he's keeping an eye on the Flamingo Men."};
 // where everyone's feet are: [x, step]. Each row stands between the heads of the row in front. Floof perches on Kyle's loveseat (drawn with Kyle).
 const ACRO={W:538,H:336,rows:{b:224,m:270,f:316},
-  at:{dilapi:[54,"b"],quincy:[120,"b"],mateus:[185,"b"],lucas:[254,"b"],squirm:[332,"b"],dylan:[413,"b"],
+  at:{duane:[54,"b"],quincy:[120,"b"],mateus:[185,"b"],lucas:[254,"b"],squirm:[332,"b"],dylan:[413,"b"],
     jerry:[88,"m"],keeves:[152,"m"],vicente:[222,"m"],ghost:[290,"m"],skelly:[452,"m"],
-    jordan:[120,"f"],duane:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
+    jordan:[120,"f"],dilapi:[184,"f"],peanut:[252,"f"],kyle:[336,"f"],charles:[422,"f"],rod:[482,"f"]}};
 // an animated group that pivots (rotates, scales, flips) about (x, y): class "an a-NAME", d = how far into the loop it starts
 const acPiv=(x,y,cls,inner,d)=>`<g transform="translate(${x} ${y})"><g class="an ${cls}"${d?` style="animation-delay:-${d}s"`:""}><g transform="translate(${-x} ${-y})">${inner}</g></g></g>`;
 // a speech bubble centred on x whose tail points straight down to (x, tip): its bottom sits gap units above the tip, so it hovers
@@ -2581,10 +2578,13 @@ const ACRO_ACT={
     const ch=[[-4,140,0],[100,142,1.6],[30,150,3.1]].map(([x,y,d])=>acPiv(x,y,"a-chick",CHICK(x,y,.8),d)).join("");
     const ping=`<g class="an a-ping">${C(88,42,8,"#1f9d55",'stroke="#fff" stroke-width="1.5"')+T(88,46,"✓",11,"#fff",'font-weight="900"')}</g>`;
     return podFig("charles",{pose:"phone",d:.7})+ping+ch},
-  squirm:()=>{const {P,L,R}=CS.kit;
-    const sword=acPiv(69,80,"a-sword",L(88,46,104,-4,"#d9dee6",4.2)+L(88,46,104,-4,"#fff",1.2)+L(82,52,94,40,"#8a6412",3.4)+L(85,48,91,58,"#8a6412",3.4));
-    const shield=P("M16 96h28v14q0 14-14 20q-14-6-14-20z","#2a2d33",'stroke="#9aa4ae" stroke-width="2"')+R(28,99,4,26,"#b3121f")+R(20,107,20,4,"#b3121f");
-    return podFig("squirm",{fit:"armor",pose:"wave",d:2})+sword+shield},
+  // feeding a jugs machine that fires footballs up over the steps (Kyle 2026-11-24)
+  squirm:()=>{const {R,C,L,P,G,BALL}=CS.kit;
+    const legs=L(90,46,78,108,"#6b7480",2.4)+L(90,46,102,108,"#6b7480",2.4)+L(90,46,90,110,"#59616b",2.4);
+    const wheel=x=>C(x,38,8,"#1c1f24",'stroke="#454b54" stroke-width="1.5"')+C(x,38,2.2,"#c9ced6");
+    const mach=legs+R(74,42,32,7,"#d9a400",'rx="2" stroke="#8a6a00" stroke-width="1"')+wheel(82)+wheel(98)+P("M84 28L104 10L110 16L92 32Z","#d9a400",'stroke="#8a6a00" stroke-width="1" stroke-linejoin="round"');
+    const shots=[0,1.1].map(d=>`<g transform="translate(106 14)"><g class="an a-jugs" style="animation-delay:-${d}s">${BALL(0,0,.85,-40)}</g></g>`).join("");
+    return podFig("squirm",{pose:"feed",d:2})+mach+BALL(84,50,.75,-20)+shots},
   dylan:()=>{const {L,R,TL}=CS.kit;
     const flag=acPiv(84,-2,"a-flag",R(84,-2,66,34,"#1b6b3a",'stroke="#0f3d21" stroke-width="1"')+TL(117,11,["SULTANS","OF SQUIRM"],10,"#ffe27a",1.05,'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'));
     return L(83,62,84,-4,"#6b4423",3)+flag+podFig("dylan",{fit:"hoodie",pose:"up",d:.2})},
@@ -2592,20 +2592,27 @@ const ACRO_ACT={
     const gavel=acPiv(82,41,"a-gavel",L(82,41,92,20,"#6b4423",3)+R(84,12.5,18,9,"#4a2e1a",'rx="2" transform="rotate(26 93 17)"'));
     const nine=G(R(-8,-8,16,15,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+R(-3,-24,6,17,"#e0517a",'rx="3" stroke="#a3244b" stroke-width=".8"')+T(0,4,"9",10,"#fff",'font-weight="900"'),'transform="translate(22 38) rotate(-8)"');
     return podFig("lucas",{fit:"toga",pose:"up",laurel:1,d:1.6})+gavel+nine+acSay(52,25,"ORDER!",12,"a-order")},
-  peanut:()=>{const {R,TL}=CS.kit,names=["Dr. Kakofonus","A. Dischord","Shivakamini","Somakandarkram","The Yogurtlechefts"];
-    const paper=acPiv(52,116,"a-unroll",R(22,116,60,44,"#f6eed8",'stroke="#cdbf9a" stroke-width="1"')+TL(52,125,names,5.6,"#5b4217",1.3,'font-style="italic" font-weight="700"'));
-    const roller=`<g class="an a-roller">${R(16,158,72,7,"#a0682f",'rx="3.5"')}</g>`;
-    return podFig("peanut",{fit:"hoodie",pose:"down",d:.9})+paper+roller+R(16,110,72,7,"#a0682f",'rx="3.5"')},
+  // fishing from the front step: the bait dangles just over DiLapi, and he yanks it up every time DiLapi jumps (Kyle 2026-11-24)
+  peanut:()=>{const {L,C,P}=CS.kit;
+    const rod=L(34,86,-22,4,"#5b3a1e",2.6)+L(-22,4,-27,-1,"#5b3a1e",1.4)+C(28,78,3.2,"#9aa4ae",'stroke="#5b6168" stroke-width=".8"');
+    const bait=L(-27,-1,-27,22,"rgba(255,255,255,.9)",.8)+C(-27,10,2.6,"#e0312b")+P("M-29.6 10h5.2","none",'stroke="#fff" stroke-width="1.2"')
+      +P("M-27 22v4q0 3 3 3","none",'stroke="#c9ced6" stroke-width="1"')+P("M-30 26q2-3 4 0t4 0","none",'stroke="#e87b9a" stroke-width="2.6" stroke-linecap="round"');
+    return podFig("peanut",{fit:"hoodie",pose:"fish",d:.9})+acPiv(34,86,"a-reel",rod+bait)},
   quincy:()=>{const {R}=CS.kit;
     const box=R(20,132,64,20,"#a9773f",'stroke="#5e3b17" stroke-width="1.5" rx="1"');
     const says=["ACTUALLY…","OBJECTION!","WRONG."].map((t,i)=>acSay(52,8,t,12,"a-say3",i*2)).join("");
     return box+`<g transform="translate(0 -15)">${acPiv(52,147,"a-rant",podFig("quincy",{pose:"point",d:.3}))}</g>`+says},
   // the swing hangs from the temple's architrave, just above the back row
-  dilapi:()=>{const {R,C,L}=CS.kit,top=147-(ACRO.rows.b-46);
-    return C(20,top,2.4,"#8a7a5a")+C(84,top,2.4,"#8a7a5a")+acPiv(52,top,"a-swing",L(20,top,20,148,"#d9c9a3",1.6)+L(84,top,84,148,"#d9c9a3",1.6)+podFig("dilapi",{pose:"up",d:1.1})+R(17,146,70,7,"#7a4a2a",'rx="2"'))},
-  jordan:()=>{const {C,T}=CS.kit;
-    const rock=`<g class="an a-rock">${acPiv(-16,117,"a-spin",C(-16,117,30,"#8d8577",'stroke="#5b5448" stroke-width="2"')+C(-27,104,5.5,"#a39b8c")+C(-4,131,4,"#776f62")+T(-16,123,"1-12",16,"#2c2822",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"'))}</g>`;
-    return `<g class="an a-push">${podFig("jordan",{pose:"pushL",d:.5})}</g>`+rock},
+  dilapi:()=>{const {E}=CS.kit;
+    return `<g class="an a-shadow">${E(52,148,22,3.5,"rgba(0,0,0,.25)")}</g><g class="an a-jump">${podFig("dilapi",{pose:"up",d:1.1})}</g>`},
+  // tending bar: shaking a cocktail behind a little counter, bottles and a martini glass on top (Kyle 2026-11-24)
+  jordan:()=>{const {R,P,L,C,E}=CS.kit;
+    const bottle=(x,c,h)=>R(x-3.5,108-h,7,h,c,'rx="2" stroke="rgba(0,0,0,.35)" stroke-width=".7"')+R(x-1.5,108-h-6,3,7,c,'stroke="rgba(0,0,0,.35)" stroke-width=".7"')+R(x-3.5,108-h*.6,7,5,"#f4efe4");
+    const bar=R(6,110,92,8,"#8a5a2e",'rx="2" stroke="#4a2e14" stroke-width="1"')+R(10,118,84,32,"#5b3a1e",'stroke="#3a2410" stroke-width="1"')+L(10,130,94,130,"#3a2410",1)+L(10,140,94,140,"#3a2410",1)
+      +bottle(18,"#2e7d32",20)+bottle(28,"#b3121f",16)+bottle(37,"#c99a2e",22);
+    const glass=P("M70 92L86 92L78 102Z","rgba(220,240,255,.75)",'stroke="#9fb8c8" stroke-width=".8"')+P("M72.5 94L83.5 94L78 100Z","#ff6f91")+L(78,102,78,109,"#9fb8c8",1)+E(78,109.5,4.5,1.2,"#9fb8c8")+C(82,91,1.8,"#7cc142");
+    const shaker=acPiv(19,48,"a-shake",R(14,30,10,22,"#c9ced6",'rx="2" stroke="#7a828c" stroke-width="1"')+P("M15 30L17 23H21L23 30Z","#dfe3e8",'stroke="#7a828c" stroke-width="1"')+R(14,38,10,2,"#9aa4ae"));
+    return podFig("jordan",{fit:"suit",pose:"shake",d:.5})+shaker+bar+glass},
   rod:()=>{const {E,C,P}=CS.kit;
     const tail=acPiv(70,110,"a-tail",P("M70 110q14-2 13-16q-1-7 5-9","none",'stroke="#8f96a3" stroke-width="4.5" stroke-linecap="round"'));
     const cat=tail+E(54,112,19,10,"#8f96a3")+C(36,104,8.5,"#8f96a3")+P("M29.5 99.5l2-8.5 5.5 5.5zM38 97l5.5-5.5 1 8.5z","#8f96a3")+C(33,103,1.3,"#f2d64b")+C(39,103,1.3,"#f2d64b");
@@ -2614,11 +2621,13 @@ const ACRO_ACT={
     const ice=`<g class="an a-thaw">${R(16,22,72,128,"rgba(176,224,255,.6)",'rx="8" stroke="rgba(235,248,255,.9)" stroke-width="2"')+P("M22 36l10-6M24 50l18-12M72 120l10-8","none",'stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"')}</g>`;
     return acPiv(52,149,"a-puddle",E(52,149,54,5,"rgba(140,200,240,.6)"))+podFig("jerry",{fit:"hoodie",pose:"wave",d:.6})+ice},
   skelly:()=>`<g class="an a-step">${podFig("skelly",{fit:"lab",pose:"wave",d:1.9,headx:AC_MIRROR})}</g>`,
-  mateus:()=>{const {R,T,P}=CS.kit;
-    const cards=Array.from({length:6},(_,i)=>{const a=i/6*Math.PI*2,x=52+Math.cos(a)*20,y=4+Math.sin(a)*20;return R(x-5,y-7,10,14,"#fbf8f0",'rx="1.5" stroke="#c9c0a8" stroke-width=".8"')+R(x-5,y-2.5,10,3.5,i%2?"#ad1457":"#1d4f91")}).join("");
-    // sipping a BeatBox through a straw with one hand, still juggling the six trades with the other (Kyle 2026-11-24)
-    const box=`<g class="an a-sip">${R(58,66,13,17,"#ff3d8b",'rx="1.5" stroke="#8a0f45" stroke-width=".9"')+R(58,66,13,4,"#ffd23f",'rx="1"')+R(59.5,73,10,5,"#1b1b2f",'rx=".8"')+T(64.5,76.6,"BEAT",3.6,"#ffd23f",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"')+P("M61 66L59 60L51 72","none",'stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"')}</g>`;
-    return podFig("mateus",{pose:"drink",d:2.5})+box+acPiv(52,4,"a-juggle",cards)},
+  // tipping back a 500ml BeatBox party punch carton (tall carton, white screw cap, big BEATBOX wordmark) (Kyle 2026-11-24)
+  mateus:()=>{const {R,T,P,C,G}=CS.kit;
+    const carton=G(R(-7,-2,14,26,"#1f8fe0",'rx="2" stroke="#0b4f8a" stroke-width=".9"')+P("M-7 2L-4 -5H4L7 2Z","#1f8fe0",'stroke="#0b4f8a" stroke-width=".9" stroke-linejoin="round"')
+      +R(-2.6,-9,5.2,4.6,"#f4f4f4",'rx="1" stroke="#9aa4ae" stroke-width=".6"')+R(-7,14,14,10,"#ff3d8b",'rx="1.5"')+C(-2,19,2.4,"#ffd23f")+C(3,18,1.8,"#7be0ff")
+      +R(-5.5,2,11,9,"#0b2a4a",'rx="1"')+T(0,5.8,"BEAT",3.6,"#fff",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"')+T(0,9.8,"BOX",3.6,"#ffd23f",'font-weight="900" font-family="Bebas Neue,Impact,sans-serif"')
+      +R(-6,-1,1.6,22,"rgba(255,255,255,.35)",'rx=".8"'),'transform="translate(43.6 75.4) rotate(45)"');
+    return podFig("mateus",{pose:"drink",d:2.5})+`<g class="an a-sip">${carton}</g>`},
   duane:()=>{const {C,P,T,L}=CS.kit;
     const ball=`<g class="an a-drib">${C(82,124,10,"#e0782d",'stroke="#7a3a10" stroke-width="1.2"')+L(72,124,92,124,"#7a3a10",1)+P("M82 114q-6 10 0 20M82 114q6 10 0 20","none",'stroke="#7a3a10" stroke-width="1"')}</g>`;
     const bag=P("M16 116q-8 14 2 24h22q10-10 2-24z","#c9a86a",'stroke="#7a5a26" stroke-width="1.5"')+P("M22 116l4-6h8l4 6","none",'stroke="#7a5a26" stroke-width="2"')+T(29,135,"$",14,"#2e6b2e",'font-weight="900"');
@@ -3021,7 +3030,8 @@ const POD_POSE={down:s=>[[s*22,99],[s*23,115]],hips:s=>[[s*31,97],[s*15,110]],up
   card:s=>s>0?[[s*30,68],[s*33,47]]:[[s*31,97],[s*15,110]],ball:s=>s>0?[[s*25,99],[s*19,109]]:[[s*22,99],[s*23,115]],
   pushL:s=>s>0?[[14,96],[-34,100]]:[[-28,92],[-40,96]],lap:s=>[[s*26,100],[s*8,110]],
   sitPhone:s=>s>0?[[s*28,93],[s*21,61]]:[[s*31,100],[s*27,113]],
-  drink:s=>s>0?[[s*30,94],[s*13,80]]:[[s*27,62],[s*30,41]]};
+  drink:s=>s<0?[[-30,98],[-16,84]]:[[s*22,99],[s*23,115]],
+  fish:s=>s>0?[[s*31,97],[s*15,110]]:[[-30,92],[-22,80]],shake:s=>s<0?[[-30,68],[-33,47]]:[[s*26,100],[s*8,110]],feed:s=>s>0?[[s*31,72],[s*30,52]]:[[s*31,97],[s*15,110]]};
 const podShade=(h,k)=>{const n=parseInt(h.slice(1),16);return "#"+[16,8,0].map(b=>{const v=n>>b&255;return Math.round(k<0?v*(1+k):v+(255-v)*k).toString(16).padStart(2,"0")}).join("")};
 const podLum=h=>{const n=parseInt(h.slice(1),16);return (.2126*(n>>16&255)+.7152*(n>>8&255)+.0722*(n&255))/255};
 // a gold laurel around the top of a head of height h, centred on (0,0)
